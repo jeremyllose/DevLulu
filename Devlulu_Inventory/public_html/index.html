@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <style>
+        @font-face {
+            font-family: 'YourCustomFont';
+            src: url('fonts/Lato-Black.ttf') format('truetype');
+            src: url('fonts/Lato-BlackItalic.ttf') format('truetype');
+            src: url('fonts/Lato-Bold.ttf') format('truetype');
+            src: url('fonts/Lato-BoldItalic.ttf') format('truetype');
+            src: url('fonts/Lato-Italic.ttf') format('truetype');
+            src: url('fonts/Lato-Light.ttf') format('truetype');
+            src: url('fonts/Lato-LightItalic.ttf') format('truetype');
+            src: url('fonts/Lato-Regular.ttf') format('truetype');
+            src: url('fonts/Lato-Thin.ttf') format('truetype');
+            src: url('fonts/Lato-ThinItalic.ttf') format('truetype');
+            src: url('fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+            src: url('fonts/Montserrat-VariableFont_wght') format('truetype');
+            /* Add more src declarations for different file formats if needed */
+        }
+    </style>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <h1 id="title">Next Gen Cafe Inventory</h1>
+        <form action="/login" method="post" onsubmit="return validateForm()">
+            <h1 id="signin">Sign In:</h1>
+            <h2>Sign In with username and password</h2>
+            <label for="username">Your Username:</label>
+            <input type="text" id="username" name="username" required placeholder="Enter username">
+            <label for="password">Your Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter password">
+
+            <button type="submit">Login</button>
+            <a href="/forgot-password">Forgot Password?</a>
+            <label for="rememberme">
+                <input type="checkbox" id="rememberme" name="rememberme"> Remember me
+            </label>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,120 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jan 20, 2024, 8:30:54 PM
+    Author     : jeremy
+*/
+body {
+    font-family: Montserrat-VariableFont_wght, Lato-Black;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('photos/NexGenCafe.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+
+form {
+    background-color: #bfefbb;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    height: 500px;
+    text-align: center;
+    margin-right: 500px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #2e2e2e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    left:0px;
+    top: 70px;
+    width: 700px;
+    height: 50px;
+    font-size: 24px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    margin-top: 10px;
+    display: inline-block;
+}
+#title {
+    position: relative;
+    bottom:300px;
+    left:600px;
+    color: white;
+    font-family: Lato-Black;
+    font-size: 48px;
+    white-space: nowrap;
+}
+
+#signin {
+    font-size: 48px;
+}
+h2 {
+    font-size: 24px;
+    color: #717171;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    position:relative;
+    right: 290px;
+}
+input[type="text"]{
+    width:700px;
+    height:60px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+}
+input[type="password"]{
+    width:700px;
+    height:60px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+}
+a[href="/forgot-password"] {
+    position: relative;
+    bottom: 60px;
+    left: 280px;
+}
+label[for="rememberme"] {
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: 345px; 
+    bottom: 80px;
+}
+
+input[type="checkbox"] {
+    margin-right: -340px; 
+     margin-bottom: 5px;
+}
