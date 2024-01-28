@@ -40,7 +40,7 @@
                 <!-- Add more buttons as needed -->
             </div>  
             <div class="main-content" id="mainContent">
-                <div class="dashboard-bar">
+                <div class="dashboardbar">
                     <h1 id="dashboardheader">Dashboard</h1>
                 </div>
                 <!-- Add your main content here -->

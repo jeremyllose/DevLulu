@@ -55,7 +55,7 @@ body {
 
 iframe {
     width: 100%;
-    height: calc(100vh - 40px); /* Adjust for the padding in main-content */
+    height: calc(100vh - 40px);
     border: none;
 }
 #accountlist {
@@ -72,8 +72,8 @@ iframe {
     object-fit: contain;
 }
 #homebutton{
-    width: 200px; /* Set the width of the button */
-    height: 100px; /* Set the height of the button */
+    width: 200px; 
+    height: 100px; 
     position: relative;
     bottom: 220px;
     right: 5px;
@@ -91,13 +91,13 @@ iframe {
 #dashboardheader {
     position:relative;
     top: 10px;
-    color: #fff; /* Set text color to white or the desired color */
-    margin: 0; /* Remove default margin for the h1 */
+    color: #fff; 
+    margin: 0;
     font-weight: lighter;
 }
-.dashboard-bar {
-    background-color: #474747; /* Black background color */
-    padding: 10px; /* Add padding to create space around the heading */
+.dashboardbar {
+    background-color: #474747; 
+    padding: 10px; 
     position:relative;
     top: -30px;
     right: 20px;

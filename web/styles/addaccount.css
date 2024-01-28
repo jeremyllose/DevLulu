@@ -1,0 +1,63 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jan 28, 2024, 11:30:32 PM
+    Author     : jeremy
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.form-group {
+    flex-basis: calc(50% - 10px);
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 497px;
+    height: 51px;
+    flex-shrink: 0;
+    fill: #FFF;
+    stroke-width: 1px;
+    stroke: #000;
+}
+.role {
+    position:relative;
+    bottom: -100px;
+    left: -505px;
+}
+.pass {
+    position:relative;
+    bottom: -200px;
+    left: -1010px;
+}
+.conpass {
+    position:relative;
+    bottom: -300px;
+    left: -1515px;
+}
+.account {
+    background-color: #5b5657;
+    color: white;
+    width: 250px;
+    height: 50px;
+    font-size: 28px;
+    border-radius: 10px;
+    position: relative;
+    bottom: 500px;
+    right: 0px;
+}
+#cancel {
+    background-color: #c55555;
+}
