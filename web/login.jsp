@@ -15,7 +15,7 @@
             }
         </style>
         <link rel="stylesheet" type="text/css" href="styles/login.css">
-        <script src="script.js" defer></script>
+        <script src="script\welcome.js" defer></script>
     </head>
     <body>
         <%

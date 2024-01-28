@@ -1,0 +1,105 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jan 27, 2024, 8:37:07 PM
+    Author     : jeremy
+*/
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #bfefbb;
+    padding-top: 200px;
+    color: white;
+    text-align: center;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #bfefbb;
+    border: none;
+    cursor: pointer;
+    color: black;
+    font-size: 20px;
+    position: relative;
+    right: 5px;
+}
+
+.menu-item:hover {
+    background-color: #474747;
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f1f1f1;
+}
+
+iframe {
+    width: 100%;
+    height: calc(100vh - 40px); /* Adjust for the padding in main-content */
+    border: none;
+}
+#accountlist {
+    width: 100%;
+    margin: 5px;
+    position: relative;
+    top: 100px;
+    right: 5px;
+}
+#homebutton img {
+
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+#homebutton{
+    width: 200px; /* Set the width of the button */
+    height: 100px; /* Set the height of the button */
+    position: relative;
+    bottom: 220px;
+    right: 5px;
+}
+#homebutton:hover{
+    background-color: initial;
+}
+#logout{
+    background-color: #474747;
+    color: white;
+    position: relative;
+    top: 155px;
+    right: 5px;
+}
+#dashboardheader {
+    position:relative;
+    top: 10px;
+    color: #fff; /* Set text color to white or the desired color */
+    margin: 0; /* Remove default margin for the h1 */
+    font-weight: lighter;
+}
+.dashboard-bar {
+    background-color: #474747; /* Black background color */
+    padding: 10px; /* Add padding to create space around the heading */
+    position:relative;
+    top: -30px;
+    right: 20px;
+    width:1500px;
+}
