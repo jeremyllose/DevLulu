@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Code to show the sidebar (modify as needed)
         sidebar.style.display = 'block';
     }
-
     // Add the click event handler for the "Account List" button
     if (accountListButton) {
         accountListButton.addEventListener('click', function() {
@@ -40,9 +39,24 @@ document.addEventListener("DOMContentLoaded", function() {
            window.location.href = 'welcome.jsp';
         });
     }
+    
 });
 
 function navigateTo(url) {
     const mainContent = document.getElementById('mainContent');
-    mainContent.innerHTML = `<iframe src="${url}" width="100%" height="100%" frameborder="0"></iframe>`;
+      const dashboardBar = document.querySelector('.dashboard-bar');
+
+    // Use AJAX or other means to load content dynamically
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            // Update only the main content
+            mainContent.innerHTML = data;
+
+            // Check if dashboardBar exists before modifying its style
+            if (dashboardBar) {
+                dashboardBar.style.display = 'block';
+            }
+        })
+        .catch(error => console.error('Error loading content:', error));
 }
