@@ -1,0 +1,51 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jan 30, 2024, 11:04:03 PM
+    Author     : jeremy
+*/
+.inventory {
+    background-color: #5b5657;
+    color: white;
+    width: 230px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 10px;
+}
+#searchBar {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-image: url('../photos/searchicon.png'); /* Add path to your search icon image */
+    background-repeat: no-repeat;
+    background-position: 200px center; /* Adjust the position of the icon */
+    padding-left: 40px; /* Ensure space for the icon */
+    height: 32px;
+    position: relative;
+    top: -3px;
+    left: 473px;
+}
+#salestable {
+    width: 1420px; /* Adjust the width as needed */
+    height: auto;
+}
+#dateText {
+    font-size: 24px;
+}
+#inventoryprice::placeholder{
+    color: black;
+}
+#inventoryprice{
+    position: relative;
+    left: 1250px;
+    bottom: 40px;
+}
+#costs {
+    position: relative;
+    left: 1100px;
+    bottom: 20px;
+}
