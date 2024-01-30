@@ -29,7 +29,7 @@
             <div class="sidebar">
                 <button class="menu-item" id="homebutton" onclick="navigateTo('welcome.jsp')"><img src=".\photos\NXGen.png" alt="Home"></button>
                 <button class="menu-item" onclick="navigateTo('dashboard.html')">PlaceHolder</button>
-                <button class="menu-item" onclick="navigateTo('sales.html')">Sales</button>
+                <button class="menu-item" onclick="navigateTo('sales.jsp')">Sales</button>
                 <button class="menu-item" onclick="navigateTo('product.html')">Product</button>
                 <button class="menu-item" onclick="navigateTo('variance.html')">Variance</button>
                 <button class="menu-item" onclick="navigateTo('inventory.html')">Inventory</button>
@@ -42,8 +42,10 @@
             <div class="main-content" id="mainContent">
                 <div class="dashboardbar">
                     <h1 id="dashboardheader">Dashboard</h1>
+                    
                 </div>
                 <!-- Add your main content here -->
+                <img id="charts"src=".\photos\Charts.png" alt="Charts">
             </div>
         </div>
     </body>
