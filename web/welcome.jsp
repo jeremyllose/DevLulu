@@ -8,27 +8,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/welcome.css">
+
+        <title>Dashboard Page</title>
+        <script src="script/welcome.js" defer></script>
     </head>
     <body>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            
-            if(session.getAttribute("username") == null)
-            {
+
+            if (session.getAttribute("username") == null) {
                 response.sendRedirect("login.jsp");
             }
         %>
-        
-        
-        <h1>Hello ${username}</h1>
-        
-        <a href="videos.jsp">Videos here</a>
-        
-        <form action="Logout">
-            <input type="submit" value="Logout">
-        </form>
-        
+
+
+        <div class="container">
+            <div class="sidebar">
+                <button class="menu-item" id="homebutton" onclick="navigateTo('welcome.jsp')"><img src=".\photos\NXGen.png" alt="Home"></button>
+                <button class="menu-item" onclick="navigateTo('dashboard.html')">PlaceHolder</button>
+                <button class="menu-item" onclick="navigateTo('sales.jsp')">Sales</button>
+                <button class="menu-item" onclick="navigateTo('product.html')">Product</button>
+                <button class="menu-item" onclick="navigateTo('variance.html')">Variance</button>
+                <button class="menu-item" onclick="navigateTo('inventory.html')">Inventory</button>
+                <button class="menu-item" onclick="navigateTo('supplies_received.html')">Supplies Received</button>
+                <button class="menu-item" onclick="navigateTo('waste.html')">Waste</button>
+                <button class="menu-item" id="accountlist" onclick="navigateTo('accountlist.jsp')">Account List</button>
+                <button class="menu-item" id="logout" onclick="navigateTo('login.jsp')">Logout</button>
+                <!-- Add more buttons as needed -->
+            </div>  
+            <div class="main-content" id="mainContent">
+                <div class="dashboardbar">
+                    <h1 id="dashboardheader">Dashboard</h1>
+                    
+                </div>
+                <!-- Add your main content here -->
+                <img id="charts"src=".\photos\Charts.png" alt="Charts">
+            </div>
+        </div>
     </body>
 </html>
