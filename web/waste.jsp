@@ -1,6 +1,6 @@
 <%-- 
-    Document   : waste
-    Created on : Jan 30, 2024, 9:37:03 PM
+    Document   : inventory
+    Created on : Jan 30, 2024, 9:34:46 PM
     Author     : jeremy
 --%>
 
@@ -8,10 +8,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/waste.css">
+        <title>Waste Page</title>
+        <script src="script/welcome.js" defer></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+              <div class="dashboardbar">
+                    <h1 id="dashboardheader">Waste</h1></div>
+                    <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Generate Report</button>
+                    <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Sort Options</button>
+                    <input type="text" id="searchBar" placeholder="Search..."> 
+                    <br>
+                     <img id="wastetable"src=".\photos\waste.png" alt="inventory">
+                     
+                      <div id="dateText">Date: July 15, 2024</div>
     </body>
 </html>
