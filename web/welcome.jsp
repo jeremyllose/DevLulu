@@ -28,13 +28,12 @@
         <div class="container">
             <div class="sidebar">
                 <button class="menu-item" id="homebutton" onclick="navigateTo('welcome.jsp')"><img src=".\photos\NXGen.png" alt="Home"></button>
-                <button class="menu-item" onclick="navigateTo('dashboard.html')">PlaceHolder</button>
                 <button class="menu-item" onclick="navigateTo('sales.jsp')">Sales</button>
-                <button class="menu-item" onclick="navigateTo('product.html')">Product</button>
-                <button class="menu-item" onclick="navigateTo('variance.html')">Variance</button>
-                <button class="menu-item" onclick="navigateTo('inventory.html')">Inventory</button>
-                <button class="menu-item" onclick="navigateTo('supplies_received.html')">Supplies Received</button>
-                <button class="menu-item" onclick="navigateTo('waste.html')">Waste</button>
+                <button class="menu-item" onclick="navigateTo('product.jsp')">Product</button>
+                <button class="menu-item" onclick="navigateTo('variance.jsp')">Variance</button>
+                <button class="menu-item" onclick="navigateTo('inventory.jsp')">Inventory</button>
+                <button class="menu-item" onclick="navigateTo('suppliesreceived.jsp')">Supplies Received</button>
+                <button class="menu-item" onclick="navigateTo('waste.jsp')">Waste</button>
                 <button class="menu-item" id="accountlist" onclick="navigateTo('accountlist.jsp')">Account List</button>
                 <button class="menu-item" id="logout" onclick="navigateTo('login.jsp')">Logout</button>
                 <!-- Add more buttons as needed -->
