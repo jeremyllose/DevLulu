@@ -32,7 +32,25 @@
                 
                 <tr>
                     <td>user1</td>
-                    <td>password123</td>
+                    <td>password111</td>
+                    <td>Admin</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>user2</td>
+                    <td>password222</td>
+                    <td>Admin</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>user3</td>
+                    <td>password333</td>
                     <td>Admin</td>
                     <td>
                         <button>Edit</button>

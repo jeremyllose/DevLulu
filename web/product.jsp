@@ -15,17 +15,199 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
-              <div class="dashboardbar">
-                    <h1 id="dashboardheader">Product</h1></div>
-                    <button class="inventory" id="add" onclick="navigateTo('additem.jsp')">Add Product</button>
-                    <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Edit Product</button>
-                    <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Delete Product</button>
-                    <input type="text" id="searchBar" placeholder="Search..."> 
-                    <br>
-                     <img id="producttable"src=".\photos\product.png" alt="inventory">
-                     
-                      <div id="dateText">Date: July 15, 2024</div>
-                       
-                      
-    </body>
-</html>
+        <div class="dashboardbar">
+            <h1 id="dashboardheader">Product</h1></div>
+        <button class="inventory" id="add" onclick="navigateTo('additem.jsp')">Add Product</button>
+        <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Edit Product</button>
+        <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Delete Product</button>
+        <input type="text" id="searchBar" placeholder="Search..."> 
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Selector</th>
+                    <th>Description</th>
+                    <th>Item No.</th>
+                    <th>Recipe</th>
+                    <th>Conversion</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="6"><input type="checkbox" name="selectProduct"></td>
+                    <td rowspan="6">Latte</td>
+                    <td>40</td>
+                    <td>Coffee Beans Mixed</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>G</td>
+                </tr>
+                <tr>
+
+                    <td>41</td>
+                    <td>Double Wall Cup Printed</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>PC</td>
+                </tr>
+                <tr>
+
+                    <td>42</td>
+                    <td>Coffee Lid Black</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>PC</td>
+                </tr>
+            <td>43</td>
+            <td>Wooden Stirrer</td>
+            <td>6</td>
+            <td>7</td>
+            <td>PC</td>
+        </tr>
+        <td>44</td>
+        <td>Plastic Take Out Single</td>
+        <td>8</td>
+        <td>9</td>
+        <td>PC</td>
+    </tr>
+    <td>45</td>
+    <td>Quarterfold Tissue</td>
+    <td>10</td>
+    <td>11</td>
+    <td>PC</td>
+</tr>
+<td rowspan="6"><input type="checkbox" name="selectProduct"></td>
+ <td rowspan="6">Mocha</td>
+<td>40</td>
+<td>Coffee Beans Mixed</td>
+<td>1</td>
+<td>2</td>
+<td>G</td>
+</tr>
+<tr>
+
+    <td>41</td>
+    <td>Double Wall Cup Printed</td>
+    <td>3</td>
+    <td>4</td>
+    <td>PC</td>
+</tr>
+<tr>
+
+    <td>42</td>
+    <td>Coffee Lid Black</td>
+    <td>5</td>
+    <td>6</td>
+    <td>PC</td>
+</tr>
+<td>43</td>
+<td>Wooden Stirrer</td>
+<td>6</td>
+<td>7</td>
+<td>PC</td>
+</tr>
+<td>44</td>
+<td>Plastic Take Out Single</td>
+<td>8</td>
+<td>9</td>
+<td>PC</td>
+</tr>
+<td>45</td>
+<td>Quarterfold Tissue</td>
+<td>10</td>
+<td>11</td>
+<td>PC</td>
+</tr>
+
+<td rowspan="6"><input type="checkbox" name="selectProduct"></td>
+ <td rowspan="6">Americano</td>
+<td>40</td>
+<td>Coffee Beans Mixed</td>
+<td>1</td>
+<td>2</td>
+<td>G</td>
+</tr>
+<tr>
+
+    <td>41</td>
+    <td>Double Wall Cup Printed</td>
+    <td>3</td>
+    <td>4</td>
+    <td>PC</td>
+</tr>
+<tr>
+
+    <td>42</td>
+    <td>Coffee Lid Black</td>
+    <td>5</td>
+    <td>6</td>
+    <td>PC</td>
+</tr>
+<td>43</td>
+<td>Wooden Stirrer</td>
+<td>6</td>
+<td>7</td>
+<td>PC</td>
+</tr>
+<td>44</td>
+<td>Plastic Take Out Single</td>
+<td>8</td>
+<td>9</td>
+<td>PC</td>
+</tr>
+<td>45</td>
+<td>Quarterfold Tissue</td>
+<td>10</td>
+<td>11</td>
+<td>PC</td>
+</tr>
+
+<td rowspan="6"><input type="checkbox" name="selectProduct"></td>
+ <td rowspan="6">Espresso</td>
+<td>40</td>
+<td>Coffee Beans Mixed</td>
+<td>1</td>
+<td>2</td>
+<td>G</td>
+</tr>
+<tr>
+
+    <td>41</td>
+    <td>Double Wall Cup Printed</td>
+    <td>3</td>
+    <td>4</td>
+    <td>PC</td>
+</tr>
+<tr>
+
+    <td>42</td>
+    <td>Coffee Lid Black</td>
+    <td>5</td>
+    <td>6</td>
+    <td>PC</td>
+</tr>
+<td>43</td>
+<td>Wooden Stirrer</td>
+<td>6</td>
+<td>7</td>
+<td>PC</td>
+</tr>
+<td>44</td>
+<td>Plastic Take Out Single</td>
+<td>8</td>
+<td>9</td>
+<td>PC</td>
+</tr>
+<td>45</td>
+<td>Quarterfold Tissue</td>
+<td>10</td>
+<td>11</td>
+<td>PC</td>
+</tr>
+</tbody>
+</table>
+        
+</body>
+</html> 

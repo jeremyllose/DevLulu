@@ -27,14 +27,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     height: 32px;
     position: relative;
     top: -3px;
-    left: 705px;
+    left: 725px;
 }
 #inventorytable {
    width: 1420px; /* Adjust the width as needed */
     height: auto; 
 }
 #dateText {
-    font-size: 24px;
+    font-size: 18px;
+    font-weight: 100;
 }
 #deliverycost::placeholder{
     color: black;
@@ -48,4 +49,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     position: relative;
     left: 1100px;
     bottom: 20px;
+}
+th {
+    background-color: #5b5657;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #fff; /* Optional: Add a white border for better separation */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
 }

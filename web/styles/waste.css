@@ -27,12 +27,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     height: 32px;
     position: relative;
     top: -3px;
-    left: 705px;
+    left: 724px;
 }
-#wastetable {
-    width: 1420px; /* Adjust the width as needed */
-    height: auto;
+#generate {
+    position: relative;
+    top: -1.5px;
 }
 #dateText {
-    font-size: 24px;
+    font-size: 18px;
+    font-weight: 100;
+}
+th {
+    background-color: #5b5657;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #fff; /* Optional: Add a white border for better separation */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
