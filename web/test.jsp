@@ -1,7 +1,7 @@
 <%-- 
-    Document   : accountlist
-    Created on : Jan 28, 2024, 1:22:13 PM
-    Author     : jeremy
+    Document   : test
+    Created on : Feb 2, 2024, 6:25:34 AM
+    Author     : Cesar
 --%>
 
 <%@page import="java.sql.ResultSet"%>
@@ -9,11 +9,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/accountlist.css">
-        <title>Account List</title>
-        <script src="script/welcome.js" defer></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
     </head>
     <body>
         <%
@@ -24,26 +21,19 @@
                 response.sendRedirect("welcome.jsp");
             }
         %>
-         <div class="dashboardbar">
-             <h1 id="dashboardheader">Account List</h1>
-         </div>
-         <form action="addaccount.jsp">
-             <button class="account" id="addmember">Add Account</button>
-         </form>
-        <div class="container">
-            
-        <table>
-            <thead>
-                <tr>
+        <h1>Account List</h1>
+        <form action="addUser.jsp" method="post">
+            <input type="submit" value="Add User"/>
+        </form>
+        
+        <table border="1" align="center">
+		<tr>
                     <th>Username</th>
                     <th>Password</th>
                     <th>Role</th>
                     <th>Action</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                
+		</tr>
+		
                 <%
                     ResultSet results = (ResultSet)request.getAttribute("results");
 			while (results.next()) { %>
@@ -65,9 +55,6 @@
 			</tr>	
 		<%	}
 		%>
-                
-            </tbody>
-        </table>
-    </div>
-</body>
+	</table>
+    </body>
 </html>

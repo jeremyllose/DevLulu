@@ -34,7 +34,11 @@
                 <button class="menu-item" onclick="navigateTo('inventory.jsp')">Inventory</button>
                 <button class="menu-item" onclick="navigateTo('suppliesreceived.jsp')">Supplies Received</button>
                 <button class="menu-item" onclick="navigateTo('waste.jsp')">Waste</button>
-                <button class="menu-item" id="accountlist" onclick="navigateTo('accountlist.jsp')">Account List</button>
+                
+                <form action="AccountList" method="post">
+                    <button class="menu-item" id="accountlist">Account List</button>
+                </form>
+                
                 <button class="menu-item" id="logout" onclick="navigateTo('login.jsp')">Logout</button>
                 <!-- Add more buttons as needed -->
             </div>  
@@ -47,5 +51,12 @@
                 <img id="charts"src=".\photos\Charts.png" alt="Charts">
             </div>
         </div>
+        <%
+            if (session.getAttribute("verification") != null) {
+        %>
+        <h4>${verification}</h4>
+        <%
+            }
+        %>
     </body>
 </html>

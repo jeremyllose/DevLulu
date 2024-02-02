@@ -2,33 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.login;
+package com.accountlist;
 
-import com.model.EncryptDecrypt;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Statement;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class Login extends HttpServlet {
+public class AccountList extends HttpServlet {
     
     Connection con;
-    int i = 3;
     byte[] key;
     String cypher;
     
@@ -63,50 +59,20 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String sql = "select * from login where username=?";
-        
-        String uname = request.getParameter("uname");
-        String pass = request.getParameter("pass");
-        
-        EncryptDecrypt crypto;
-        
-        HttpSession session = request.getSession();
-        
-        if (i <= 0 || (session.getAttribute("attempts") == null)) {
-            i = 3;
-        }
-        
-        try {
-            
-            PreparedStatement st = con.prepareStatement(sql);
-            
-            st.setString(1, uname);
-            
-            ResultSet rs = st.executeQuery();
-            if(rs.next() && pass.equals(EncryptDecrypt.decrypt(rs.getString("password"), key, cypher)) && !rs.getBoolean("DISABLED"))
+        try 
+        {
+            if (con != null) 
             {
-                session.setAttribute("userRole", rs.getString("role"));
-                session.setAttribute("username", uname);
-                //redirect to dashboard 
-                response.sendRedirect("welcome.jsp");
+                Statement stmt = con.createStatement();
+                ResultSet records = stmt.executeQuery("SELECT * FROM LOGIN WHERE DISABLED = FALSE ORDER BY ID");
+                request.setAttribute("results", records);
+                request.getRequestDispatcher("accountlist.jsp").forward(request,response);
             }
-            else if(rs.getBoolean("DISABLED"))
-            {
-                session.setAttribute("message", "This account has been Disabled by the Owner or Assistant Manager");
-                response.sendRedirect("login.jsp");
-            }
-            else
-            {
-                i--;
-                session.setAttribute("attempts", i);
-                session.setAttribute("message", "Attempts Left: " + i);
-                request.setAttribute("attemptsLeft", i);
-                //No username or password
-                response.sendRedirect("login.jsp");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
+        catch (SQLException sqle)
+        {
+                response.sendRedirect("error.jsp");
+        } 
     }
+
 }

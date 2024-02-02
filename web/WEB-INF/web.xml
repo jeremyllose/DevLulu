@@ -15,37 +15,45 @@
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.login.Login</servlet-class>
-        
         <init-param>
             <param-name>url</param-name>
             <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
         </init-param>
-        <init-param>
-            <param-name>username</param-name>
-            <param-value>root</param-value>
-        </init-param>
-        <init-param>
-            <param-name>password</param-name>
-            <param-value>root</param-value>
-        </init-param>
-        <init-param>
-            <param-name>driver</param-name>
-            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
-        </init-param>
-        <init-param>
-            <param-name>publicKey</param-name>
-            <param-value>NextGenCNextGenC</param-value>
-        </init-param>
-        <init-param>
-            <param-name>cypher</param-name>
-            <param-value>AES/ECB/PKCS5Padding</param-value>
-        </init-param>
-        
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>com.login.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountList</servlet-name>
+        <servlet-class>com.accountlist.AccountList</servlet-class>
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
+        </init-param>
+    </servlet>
+    
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>driver</param-name>
+        <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>publicKey</param-name>
+        <param-value>NextGenCNextGenC</param-value>
+    </context-param>
+    <context-param>
+        <param-name>cypher</param-name>
+        <param-value>AES/ECB/PKCS5Padding</param-value>
+    </context-param>
+    
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -58,7 +66,10 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>AccountList</servlet-name>
+        <url-pattern>/AccountList</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
