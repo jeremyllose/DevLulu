@@ -16,6 +16,9 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="dashboardbar">
+             <h1 id="dashboardheader">Account List</h1>
+         </div>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
@@ -24,11 +27,9 @@
                 response.sendRedirect("welcome.jsp");
             }
         %>
-         <div class="dashboardbar">
-             <h1 id="dashboardheader">Account List</h1>
-         </div>
-         <form action="addaccount.jsp">
-             <button class="account" id="addmember">Add Account</button>
+         
+         <form action="add.jsp">
+             <button type="submit" class="account" id="addmember">Add Account</button>
          </form>
         <div class="container">
             

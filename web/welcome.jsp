@@ -36,7 +36,7 @@
                 <button class="menu-item" onclick="navigateTo('waste.jsp')">Waste</button>
                 
                 <form action="AccountList" method="post">
-                    <button class="menu-item" id="accountlist">Account List</button>
+                    <button class="menu-item" id="accountlist" onclick="navigateTo('waste.jsp')">Account List</button>
                 </form>
                 
                 <button class="menu-item" id="logout" onclick="navigateTo('login.jsp')">Logout</button>

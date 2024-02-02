@@ -32,7 +32,6 @@
             <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
         </init-param>
     </servlet>
-    
     <context-param>
         <param-name>username</param-name>
         <param-value>root</param-value>
@@ -53,7 +52,14 @@
         <param-name>cypher</param-name>
         <param-value>AES/ECB/PKCS5Padding</param-value>
     </context-param>
-    
+    <servlet>
+        <servlet-name>AddAccount</servlet-name>
+        <servlet-class>com.accountlist.AddAccount</servlet-class>
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -69,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>AccountList</servlet-name>
         <url-pattern>/AccountList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAccount</servlet-name>
+        <url-pattern>/AddAccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
