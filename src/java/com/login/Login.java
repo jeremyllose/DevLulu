@@ -84,6 +84,8 @@ public class Login extends HttpServlet {
             st.setString(1, uname);
             
             ResultSet rs = st.executeQuery();
+            
+            //Only Accepts users with non disabled accounts
             if(rs.next() && pass.equals(EncryptDecrypt.decrypt(rs.getString("password"), key, cypher)) && !rs.getBoolean("DISABLED"))
             {
                 session.setAttribute("userRole", rs.getString("role"));
@@ -96,6 +98,8 @@ public class Login extends HttpServlet {
                 session.setAttribute("message", "This account has been Disabled by the Owner or Assistant Manager");
                 response.sendRedirect("login.jsp");
             }
+            
+            //Will only give users 3 attempts
             else
             {
                 i--;

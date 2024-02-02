@@ -64,7 +64,10 @@ public class AccountList extends HttpServlet {
             if (con != null) 
             {
                 Statement stmt = con.createStatement();
+                //Only gets the Accounts where DISABLED IS FALSE
                 ResultSet records = stmt.executeQuery("SELECT * FROM LOGIN WHERE DISABLED = FALSE ORDER BY ID");
+                
+                //gives all the records to the Accountlist
                 request.setAttribute("results", records);
                 request.getRequestDispatcher("accountlist.jsp").forward(request,response);
             }
