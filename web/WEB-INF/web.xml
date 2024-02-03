@@ -60,6 +60,14 @@
             <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>DisableUser</servlet-name>
+        <servlet-class>com.accountlist.DisableUser</servlet-class>
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -79,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>AddAccount</servlet-name>
         <url-pattern>/AddAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisableUser</servlet-name>
+        <url-pattern>/DisableUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
