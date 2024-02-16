@@ -33,6 +33,10 @@
         </init-param>
     </servlet>
     <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
+    </context-param>
+    <context-param>
         <param-name>username</param-name>
         <param-value>root</param-value>
     </context-param>
@@ -68,6 +72,22 @@
             <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>ItemList</servlet-name>
+        <servlet-class>com.inventorylist.ItemList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ItemAction</servlet-name>
+        <servlet-class>com.inventorylist.ItemAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddItem</servlet-name>
+        <servlet-class>com.inventorylist.AddItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddItemPageRedirect</servlet-name>
+        <servlet-class>com.inventorylist.AddItemPageRedirect</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -91,6 +111,22 @@
     <servlet-mapping>
         <servlet-name>DisableUser</servlet-name>
         <url-pattern>/DisableUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemList</servlet-name>
+        <url-pattern>/ItemList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemAction</servlet-name>
+        <url-pattern>/ItemAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddItem</servlet-name>
+        <url-pattern>/AddItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddItemPageRedirect</servlet-name>
+        <url-pattern>/AddItemPageRedirect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

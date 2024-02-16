@@ -1,10 +1,10 @@
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : Jan 27, 2024, 8:37:07 PM
-    Author     : jeremy
+    Created on : 02 12, 24, 2:26:51 AM
+    Author     : BioStaR
 */
 body {
     font-family: 'Arial', sans-serif;
@@ -102,12 +102,4 @@ iframe {
     top: -30px;
     right: 20px;
     width:1500px;
-}
-#charts {
-    object-fit: cover;
-    max-width: 100%;
-    max-height: 100%;
-    width: 1000px;
-    position: relative;
-    left: 200px; 
 }

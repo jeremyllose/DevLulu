@@ -7,7 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Author     : jeremy
 */
 .inventory {
-    background-color: #5b5657;
+    background-color: #8f654a;
     color: white;
     width: 230px;
     height: 50px;
@@ -51,7 +51,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     bottom: 20px;
 }
 th {
-    background-color: #5b5657;
+    background-color: #8f654a;
     color: #fff;
     padding: 10px;
     text-align: left;

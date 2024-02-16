@@ -98,8 +98,6 @@ public class Login extends HttpServlet {
                 session.setAttribute("message", "This account has been Disabled by the Owner or Assistant Manager");
                 response.sendRedirect("login.jsp");
             }
-            
-            //Will only give users 3 attempts
             else
             {
                 i--;

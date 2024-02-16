@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,8 +18,8 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Waste</h1></div>
-        <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Generate Report</button>
-        <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Sort Options</button>
+        <button class="inventory" id="generate" onclick="redirectTo('w-generateReport.jsp')">Generate Report</button>
+        <button class="inventory" id="sort" onclick="redirectTo('w-sort.jsp')">Sort Options</button>
         <input type="text" id="searchBar" placeholder="Search..."> 
         <table>
             <thead>

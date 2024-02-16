@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,9 +18,9 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Product</h1></div>
-        <button class="inventory" id="add" onclick="navigateTo('additem.jsp')">Add Product</button>
-        <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Edit Product</button>
-        <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Delete Product</button>
+        <button class="inventory" id="add" onclick="redirectTo('p-addProduct.jsp')">Add Product</button>
+        <button class="inventory" id="generate" onclick="redirectTo('p-editProduct.jsp')">Edit Product</button>
+        <button class="inventory" id="sort" onclick="redirectTo('p-deleteProduct.jsp')">Delete Product</button>
         <input type="text" id="searchBar" placeholder="Search..."> 
 
         <table>

@@ -6,140 +6,328 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 26, 2024, 3:21:59 PM
     Author     : jeremy
 */
-body {
-    font-family: Montserrat-VariableFont_wght, Lato-Black;
-    background-color: #f4f4f4;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url('../photos/NexGenCafe.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
-form {
-    background-color: #bfefbb;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 800px;
-    height: 500px;
-    text-align: center;
-    position: relative;
-    left: 40px;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
+* {
     box-sizing: border-box;
 }
 
-#loginbutton {
-    background-color: #2e2e2e;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    left:0px;
-    top: -25px;
-    width: 700px;
-    height: 50px;
-    font-size: 24px;
+body {
+    background: linear-gradient(to bottom right, #f4eebe 50%, #fff 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    margin: -20px 0 50px;
+    overflow: hidden;
+}
+h1 {
+    font-weight: bold;
+    margin: 0;
 }
 
-button:hover {
-    background-color: #45a049;
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
 }
 
 a {
+    color: #333;
+    font-size: 14px;
     text-decoration: none;
-    color: #007bff;
-    margin-top: 10px;
-    display: inline-block;
-}
-#title {
-    position: relative;
-    bottom: 110px;
-    right: 165px;
-    color: white;
-    font-family: Lato-Black;
-    font-size: 48px;
-    white-space: nowrap;
+    margin: 15px 0;
 }
 
+button {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    position: absolute;
+    top: 280px;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.log-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+}
+
+
+.overlay {
+    background: #FF416C;
+    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+}
+
+
+.overlay-right {
+    right: 0;
+}
+
+
+.social-container {
+    margin: 50px 0;
+}
+
+.social-container a {
+    border: 1px solid #DDDDDD;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+.title-image {
+    position: absolute;
+    top: 65px;
+    right: 625px;
+    max-width: 100%;
+}
+.title-logo {
+    max-width: 100%;
+    position: absolute;
+    top: 25px;
+    right: 420px;
+    width: 250px;
+}
+.mySlides {
+    display:none;
+}
 #signin {
-    font-size: 48px;
-    position: relative;
-    bottom: 100px;
-}
-#tosign {
     font-size: 24px;
-    color: #717171;
-    position: relative;
-    bottom: 120px;
+    margin-right: 180px;
+    margin-bottom: 50px;
 }
-label {
-    display: block;
-    margin-bottom: 8px;
-    position:relative;
-    right: 290px;
+
+.label-input-group label {
+    font-weight: bold;
+    margin-right: 180px;
 }
-input[type="text"]{
-    width:700px;
-    height:60px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ccc;
+
+.label-input-group input {
+    border-radius: 10px;
+    margin-right: 180px;
 }
-input[type="password"]{
-    width:700px;
-    height:60px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #ccc;
+
+#loginbutton {
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #00af50;
+    color: #FFFFFF;
+    animation: loginAnimation 0.5s ease-in-out;
+}
+#loginbutton:hover {
+    background-color: #542b0b;
+    color: #FFFFFF;
+    animation: loginHoverAnimation 0.5s ease-in-out;
+
+}
+@keyframes loginAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes loginHoverAnimation {
+    0% {
+        background-color: #00af50;
+    }
+    50% {
+        background-color: #542b0b;
+    }
+    100% {
+        background-color: #542b0b;
+    }
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    z-index: 1;
+    position: absolute;
+    top: 50;
 }
 a[href="/forgot-password"] {
     position: relative;
-    bottom: 180px;
-    left: 340px;
+    margin-left: 170px;
+    margin-bottom: 5px;
+    color: #00af50;
 }
 label[for="rememberme"] {
-    display: flex;
-    align-items: center;
-    position: relative;
-    right: 395px;
-    bottom: 200px;
+    margin-right: 150px;
+    margin-top: -38px;
+    font-size: 14px;
 }
 
 input[type="checkbox"] {
-    margin-right: -390px;
-    margin-bottom: 5px;
+    position: absolute;
+    bottom: 60px;
+    right: 135px;
 }
-
-.label-input-group {
+.bottom-leaves {
     position: relative;
-    bottom: 110px;
+    top: 420px;
+    left: 650px;
+    width: 40%;
+    z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
 }
-
-
-.label-input-group label {
-    display: block;
+.top-beans {
     position: relative;
-    right: 340px;
-
+    bottom: 650px;
+    right: 800px;
+    width: 25%;
+    z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
 }
+@media screen and (max-width: 576px) {
+    body {
+        background: linear-gradient(to bottom right, #f4eebe 100%, #fff 50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Montserrat', sans-serif;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+    .container {
+        width: 100%; /* Adjust width for smaller screens */
+        position: absolute;
+        top: 280px;
+        left: 50px;
+    }
 
+    .title-image {
+        position: absolute;
+        top: 120px;
+        right: 75px;
+        max-width: 100%;
+        width: 80%;
+    }
 
-.label-input-group input {
-    width: 100%;
-    padding: 8px;
+    .title-logo {
+        max-width: 100%;
+        position: absolute;
+        top: 110px;
+        right: -80px;
+        width: 30%;
+    }
+    .bottom-leaves {
+        position: relative;
+        top: 420px;
+        left: 450px;
+        width: 70%;
+        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+    }
+    .top-beans {
+        position: relative;
+        bottom: 550px;
+        right: 280px;
+        width: 40%;
+        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+    }
+    label[for="rememberme"] {
+        margin-right: 90px;
+        margin-top: -48px;
+        font-size: 14px;
+    }
 
+    input[type="checkbox"] {
+        position: absolute;
+        bottom: 45px;
+        right: 110px;
+    }
+    #passwordtext {
+        position: relative;
+        right: 28px;
+        width: 125%;
+    }
 }

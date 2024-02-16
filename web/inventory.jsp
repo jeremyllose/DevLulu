@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,13 +18,13 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Inventory</h1></div>
-        <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Generate Report</button>
+        <button class="inventory" id="generate" onclick="redirectTo('i-generateReport.jsp')">Generate Report</button>
         <div class="others">
-            <button class="inventory" id="add" onclick="navigateTo('additem.jsp')">Add Item</button>
-            <button class="inventory" id="edit" onclick="navigateTo('addaccount.jsp')">Edit Item</button>
-            <button class="inventory" id="delete" onclick="navigateTo('addaccount.jsp')">Delete Item</button>
-            <button class="inventory" id="import" onclick="navigateTo('addaccount.jsp')">Import Excel</button>
-            <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Sort Options</button
+            <button class="inventory" id="add" onclick="redirectTo('i-addItem.jsp')">Add Item</button>
+            <button class="inventory" id="edit" onclick="redirectTo('i-editItem.jsp')">Edit Item</button>
+            <button class="inventory" id="delete" onclick="redirectTo('i-deleteItem.jsp')">Delete Item</button>
+            <button class="inventory" id="import" onclick="redirectTo('i-import.jsp')">Import Excel</button>
+            <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')">Sort Options</button
         </div>
         <input type="text" id="searchBar" placeholder="Search..."> 
 

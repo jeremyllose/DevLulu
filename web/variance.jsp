@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,9 +18,9 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Variance</h1></div>
-        <button class="inventory" id="add" onclick="navigateTo('additem.jsp')">Add Item</button>
-        <button class="inventory" id="generate" onclick="navigateTo('additem.jsp')">Generate Report</button>
-        <button class="inventory" id="sort" onclick="navigateTo('addaccount.jsp')">Sort Options</button>
+        <button class="inventory" id="add" onclick="redirectTo('v-addItem.jsp')">Add Item</button>
+        <button class="inventory" id="generate" onclick="redirectTo('v-generateReport.jsp')">Generate Report</button>
+        <button class="inventory" id="sort" onclick="redirectTo('v-sort.jsp')">Sort Options</button>
         <input type="text" id="searchBar" placeholder="Search...">   
 
         <table>
