@@ -15,10 +15,6 @@
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.login.Login</servlet-class>
-        <init-param>
-            <param-name>url</param-name>
-            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
-        </init-param>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
@@ -27,10 +23,6 @@
     <servlet>
         <servlet-name>AccountList</servlet-name>
         <servlet-class>com.accountlist.AccountList</servlet-class>
-        <init-param>
-            <param-name>url</param-name>
-            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
-        </init-param>
     </servlet>
     <context-param>
         <param-name>url</param-name>
@@ -59,18 +51,10 @@
     <servlet>
         <servlet-name>AddAccount</servlet-name>
         <servlet-class>com.accountlist.AddAccount</servlet-class>
-        <init-param>
-            <param-name>url</param-name>
-            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
-        </init-param>
     </servlet>
     <servlet>
         <servlet-name>DisableUser</servlet-name>
         <servlet-class>com.accountlist.DisableUser</servlet-class>
-        <init-param>
-            <param-name>url</param-name>
-            <param-value>jdbc:derby://localhost:1527/NextGen</param-value>
-        </init-param>
     </servlet>
     <servlet>
         <servlet-name>ItemList</servlet-name>
@@ -87,6 +71,10 @@
     <servlet>
         <servlet-name>AddItemPageRedirect</servlet-name>
         <servlet-class>com.inventorylist.AddItemPageRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditItem</servlet-name>
+        <servlet-class>com.inventorylist.EditItem</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -127,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>AddItemPageRedirect</servlet-name>
         <url-pattern>/AddItemPageRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditItem</servlet-name>
+        <url-pattern>/EditItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

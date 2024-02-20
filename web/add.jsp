@@ -12,6 +12,13 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+            if (session.getAttribute("username") == null) {
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <h1>Add Account</h1>
         <form action="AddAccount" method="post">
             <table> 

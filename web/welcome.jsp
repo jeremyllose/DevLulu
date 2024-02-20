@@ -39,7 +39,10 @@
                 <form action="AccountList" method="post">
                     <button class="menu-item" id="accountlist">Account List</button>
                 </form>
-                <button class="menu-item" id="logout" onclick="redirectTo('login.jsp')">Logout</button>
+                <form action="Logout">
+                    <button type="submit" class="menu-item" onclick="return confirm('Are you sure you want to logout?')" >Logout</button>
+                </form>
+                
                 <!-- Add more buttons as needed -->
             </div>  
             <div class="main-content" id="mainContent">

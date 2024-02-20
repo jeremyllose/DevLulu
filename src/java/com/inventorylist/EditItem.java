@@ -9,9 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -20,13 +18,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class ItemAction extends HttpServlet {
+public class EditItem extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -59,64 +56,57 @@ public class ItemAction extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("button");
-        
-        if (action.equals("disable")) 
-        {
-            String[] itemIds = request.getParameterValues("items");
-            for (String itemId : itemIds) 
-            {
-                try 
-                {
-                    disableUser(itemId);
-                }
-                catch (SQLException ex) 
-                {
-                    Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        try {
+            String getItemCode = request.getParameter("itemCode");
+            String getItemDescription = request.getParameter("itemDescription");
+            float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
+            String getGC = request.getParameter("gc");
+            String getSC = request.getParameter("sc");
+            String getUOM = request.getParameter("uom");
+            String getVat = request.getParameter("vat");
+            boolean isChecked = getVat != null && getVat.equals("on");
+            
+            String query = "UPDATE ITEMS SET "
+                    + "ITEM_DESCRIPTION = ?, TRANSFER_COST = ?, "
+                    + "GEN_ID = ?, SUB_ID =?, "
+                    + "UOM = ?, "
+                    + "VAT = ?"
+                    + "WHERE ITEM_CODE = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, getItemDescription);
+            ps.setFloat(2, getTransferCost);
+            ps.setString(3, getGC);
+            ps.setString(4, getSC);
+            ps.setString(5, getUOM);
+            ps.setBoolean(6, isChecked);
+            ps.setString(7, getItemCode);
+            ps.executeUpdate();
+            
+            unitPrice(isChecked, getItemCode, getTransferCost);
+            
             response.sendRedirect("ItemList");
-        }
-        else if(action.substring(0, action.indexOf(" ")).equals("edit"))
-        {
-            try {
-                String arr[] = action.split(" ", 2);
-                String theRest = arr[1];
-                session.setAttribute("itemCode", theRest);
-                
-                Statement stmt = con.createStatement();
-                //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet record = stmt.executeQuery("SELECT * FROM ITEMS "
-                        + "INNER JOIN GEN_CLASS ON ITEMS.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEMS.SUB_ID = SUB_CLASS.SUB_ID "
-                        + "WHERE ITEM_CODE = '" + theRest + "'");
-                
-                request.setAttribute("editRecord", record);
-                
-                Statement stmt1 = con.createStatement();
-                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
-                request.setAttribute("genClassEdit", rs1);
-                
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
-                request.setAttribute("subClassEdit", rs2);
-                
-                request.getRequestDispatcher("itemlistEditPage.jsp").forward(request,response);
-            } catch (SQLException ex) {
-                Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void disableUser(String user)throws SQLException
+    public void unitPrice(boolean vat, String itemCode, float transferCost)throws SQLException
     {
-        String query = "UPDATE ITEMS SET DISABLED = TRUE WHERE ITEM_CODE = ?";
+        float percent = transferCost * (0.01f * 10.7f);
+        float unit = transferCost - percent;
+        String query = "UPDATE ITEMS SET UNIT_PRICE = ? WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, user);
+        if(vat == true)
+        {
+            ps.setFloat(1, unit);
+        }
+        else
+        {
+            ps.setObject(1, null);
+        }
+        ps.setString(2, itemCode);
         ps.executeUpdate();
     }
 

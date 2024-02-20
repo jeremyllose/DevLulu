@@ -42,7 +42,7 @@ public class DisableUser extends HttpServlet {
                     
                     String username = context.getInitParameter("username");
                     String password = context.getInitParameter("password");
-                    String url = config.getInitParameter("url");
+                    String url = context.getInitParameter("url");
                     
                     con = DriverManager.getConnection(url, username, password);
                     

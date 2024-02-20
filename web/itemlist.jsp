@@ -14,6 +14,11 @@
     </head>
     <body>
         <h1>Item List</h1>
+        
+        <form action="ItemlistReport" method="post">
+             <button type="submit">Generate Report</button>
+         </form>
+        
         <form action="AddItemPageRedirect" method="post">
              <button type="submit">Add Item</button>
          </form>
