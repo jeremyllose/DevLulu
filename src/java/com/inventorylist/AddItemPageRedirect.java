@@ -71,7 +71,14 @@ public class AddItemPageRedirect extends HttpServlet {
                 ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
                 request.setAttribute("subClass", rs2);
                 
-                request.getRequestDispatcher("addItem.jsp").forward(request,response);
+                request.getRequestDispatcher("i-addItem.jsp").forward(request,response);
+                
+                rs1.close();
+                rs2.close();
+                
+                stmt1.close();
+                stmt2.close();
+                
             }
         } 
         catch (SQLException sqle)

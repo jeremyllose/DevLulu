@@ -105,7 +105,16 @@ public class ItemAction extends HttpServlet {
                 ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
                 request.setAttribute("subClassEdit", rs2);
                 
-                request.getRequestDispatcher("itemlistEditPage.jsp").forward(request,response);
+                request.getRequestDispatcher("i-editItem.jsp").forward(request,response);
+                
+                record.close();
+                rs1.close();
+                rs2.close();
+                
+                stmt.close();
+                stmt1.close();
+                stmt2.close();
+                
             } catch (SQLException ex) {
                 Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }

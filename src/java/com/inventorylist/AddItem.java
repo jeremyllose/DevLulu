@@ -114,6 +114,9 @@ public class AddItem extends HttpServlet {
             ps.executeUpdate();
             
             unitPrice(isChecked, getItemCode, getTransferCost);
+            
+            ps.close();
+            
         } 
         catch (SQLException ex) 
         {

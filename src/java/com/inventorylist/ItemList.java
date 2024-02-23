@@ -71,7 +71,10 @@ public class ItemList extends HttpServlet {
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);
-                request.getRequestDispatcher("itemlist.jsp").forward(request,response);
+                request.getRequestDispatcher("inventory.jsp").forward(request,response);
+                
+                records.close();
+                stmt.close();
             }
         } 
         catch (SQLException sqle)
