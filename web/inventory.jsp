@@ -29,7 +29,6 @@
             <form action="AddItemPageRedirect" method="post">
              <button class="inventory" id="add" type="submit">Add Item</button>
             </form>
-            <form action="ItemAction" method="post">
              <button class="inventory" id="delete" type="submit" name="button" value="disable">Delete Item</button>
             <button class="inventory" id="import" onclick="redirectTo('i-import.jsp')">Import Excel</button>
             <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')">Sort Options</button>
