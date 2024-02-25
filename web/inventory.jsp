@@ -63,8 +63,8 @@
                                 <td><%=results.getString("item_code") %></td>
                                 <td><%=results.getString("item_num") %></td>
                                 <td><%=results.getString("item_description") %></td>
-                                <td><%=results.getString("abbriviation") %></td>
-                                <td><%=results.getString("uom") %></td>
+                                <td><%=results.getString("abbreviation") %></td>
+                                <td><%=results.getString("unit_name") %></td>
                                 <td><%=results.getString("transfer_cost") %></td>
                                 <td><%=results.getString("gen_name") %></td>
                                 <td><%=results.getString("sub_name") %></td>

@@ -37,14 +37,20 @@
                     <th>Item Description</th><th><input type="text" name="itemDescription" required/></th>
                 </tr>
                 <tr>
+                    <th>Quantity</th><th><input type="number" min="0" name="qty" value="0" required/></th>
+                    <th>Max Quantity</th><th><input type="number" min="0" name="max" value="0" required/></th>
+                    <th>Reorder Quantity</th><th><input type="number" min="0" name="rod" value="0" required/></th>
+                </tr>
+                <tr>
                     <th>Unit of Measurement</th>
                 </tr>
                 <tr>
-                    <th><label for="pc">PC</label> <input type="radio" id="pc" name="uom" value="PC" required></th>
-                        
-                    <th><label for="gal">GAL</label> <input type="radio" id="gal" name="uom" value="GAL"></th>
-                        
-                    <th><label for="pac">PAC</label> <input type="radio" id="pac" name="uom" value="PAC"></th>
+                    <%
+                        ResultSet uotClass = (ResultSet)request.getAttribute("unitClass");
+                        while (uotClass.next()) { %>
+                        <th><label><%=uotClass.getString("unit_name") %></label> <input type="radio" name="uom" value="<%=uotClass.getString("unit_id")%>" required></th>
+                    <%	}
+                    %>
                 </tr>
                 <tr>
                     <th>Transfer Cost</th><th><input type="number" min="0" step="any" name="transferCost" required/></th>
