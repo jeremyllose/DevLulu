@@ -29,7 +29,6 @@
             <form action="AddItemPageRedirect" method="post">
              <button class="inventory" id="add" type="submit">Add Item</button>
             </form>
-            <form action="ItemAction" method="post">
              <button class="inventory" id="delete" type="submit" name="button" value="disable">Delete Item</button>
             <button class="inventory" id="import" onclick="redirectTo('i-import.jsp')">Import Excel</button>
             <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')">Sort Options</button>
@@ -64,8 +63,8 @@
                                 <td><%=results.getString("item_code") %></td>
                                 <td><%=results.getString("item_num") %></td>
                                 <td><%=results.getString("item_description") %></td>
-                                <td><%=results.getString("abbriviation") %></td>
-                                <td><%=results.getString("uom") %></td>
+                                <td><%=results.getString("abbreviation") %></td>
+                                <td><%=results.getString("unit_name") %></td>
                                 <td><%=results.getString("transfer_cost") %></td>
                                 <td><%=results.getString("gen_name") %></td>
                                 <td><%=results.getString("sub_name") %></td>
