@@ -40,15 +40,75 @@
                     <button class="menu-item" id="accountlist">Account List</button>
                 </form>
                 <form action="Logout">
-                    <button type="submit" class="menu-item" onclick="return confirm('Are you sure you want to logout?')" >Logout</button>
+                    <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" >Logout</button>
                 </form>
-                
-                <!-- Add more buttons as needed -->
             </div>  
+            <style>
+                .container {
+                display: flex;
+                height: 100vh;
+                }
+                .sidebar {
+                width: 200px;
+                background-color: #bfefbb;
+                padding-top: 200px;
+                color: white;
+                text-align: center;
+                }
+                .menu-item {
+                width: 100%;
+                padding: 10px;
+                margin: 5px;
+                text-decoration: none;
+                color: white;
+                background-color: #bfefbb;
+                border: none;
+                cursor: pointer;
+                color: black;
+                font-size: 20px;
+                position: relative;
+                right: 5px;
+                }
+
+                .menu-item:hover {
+                background-color: #8f654a;
+                color: white;
+                }	
+                #homebutton img {
+
+                max-width: 200%;
+                max-height: 200%;
+                object-fit: contain;
+                }
+                #homebutton{
+                width: 200px; 
+                height: 100px; 
+                position: relative;
+                bottom: 220px;
+                right: 5px;
+                }
+                #homebutton:hover{
+                background-color: initial;
+                }
+                #accountlist {
+                width: 100%;
+                margin: 5px;
+                position: relative;
+                top: 100px;
+                right: 5px;
+                }
+                #logout{
+                background-color: #8f654a;
+                color: white;
+                position: relative;
+                top: 155px;
+                right: 5px;
+                }
+            </style>
             <div class="main-content" id="mainContent">
                 <div class="dashboardbar">
                     <h1 id="dashboardheader">Dashboard</h1>
-                    
+
                 </div>
                 <!-- Add your main content here -->
                 <img id="charts"src=".\photos\Charts.png" alt="Charts">
