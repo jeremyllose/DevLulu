@@ -10,46 +10,11 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow:hidden;
 }
-
-.container {
-    display: flex;
-    height: 100vh;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #bfefbb;
-    padding-top: 200px;
-    color: white;
-    text-align: center;
-}
-
-.menu-item {
-    width: 100%;
-    padding: 10px;
-    margin: 5px;
-    text-decoration: none;
-    color: white;
-    background-color: #bfefbb;
-    border: none;
-    cursor: pointer;
-    color: black;
-    font-size: 20px;
-    position: relative;
-    right: 5px;
-}
-
-.menu-item:hover {
-    background-color: #8f654a;
-    color: white;
-}
-
 .main-content {
     flex: 1;
     padding: 20px;
-    overflow-y: auto;
     background-color: #f1f1f1;
 }
 
@@ -57,36 +22,6 @@ iframe {
     width: 100%;
     height: calc(100vh - 40px);
     border: none;
-}
-#accountlist {
-    width: 100%;
-    margin: 5px;
-    position: relative;
-    top: 100px;
-    right: 5px;
-}
-    #homebutton img {
-
-        max-width: 200%;
-        max-height: 200%;
-        object-fit: contain;
-    }
-    #homebutton{
-        width: 200px; 
-        height: 100px; 
-        position: relative;
-        bottom: 220px;
-        right: 5px;
-    }
-    #homebutton:hover{
-        background-color: initial;
-}
-#logout{
-    background-color: #8f654a;
-    color: white;
-    position: relative;
-    top: 155px;
-    right: 5px;
 }
 #dashboardheader {
     position:relative;
@@ -96,12 +31,13 @@ iframe {
     font-weight: lighter;
 }
 .dashboardbar {
-    background-color: #8f654a; 
+  background-color: #8f654a; 
     padding: 10px; 
-    position:relative;
-    top: -30px;
-    right: 20px;
-    width:1500px;
+    position:absolute;
+    top: -10px;
+    right: -220px;
+    width: 100%;
+    z-index: 1;
 }
 #charts {
     object-fit: cover;
@@ -109,5 +45,6 @@ iframe {
     max-height: 100%;
     width: 1000px;
     position: relative;
-    left: 200px; 
+    left: 200px;
+    top: 50px
 }

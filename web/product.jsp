@@ -18,11 +18,12 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Product</h1></div>
+            <div class="others">
         <button class="inventory" id="add" onclick="redirectTo('p-addProduct.jsp')">Add Product</button>
         <button class="inventory" id="generate" onclick="redirectTo('p-editProduct.jsp')">Edit Product</button>
         <button class="inventory" id="sort" onclick="redirectTo('p-deleteProduct.jsp')">Delete Product</button>
         <input type="text" id="searchBar" placeholder="Search..."> 
-
+            </div>
         <table>
             <thead>
                 <tr>

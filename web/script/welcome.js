@@ -5,25 +5,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const accountListButton = document.getElementById('accountlist');
     const homeButton = document.getElementById('homebutton'); // Added this line
 
-    // Add the click event handler for the "Logout" button
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            // Confirm the logout action with the user
-            const confirmLogout = confirm("Are you sure you want to log out?");
-
-            if (confirmLogout) {
-                // Redirect to the login page only if the user clicked "OK"
-                window.location.href = 'login.jsp';
-            } else {
-                // Handle the case where the user clicked "Cancel" (optional)
-                console.log("Logout canceled. User remains logged in.");
-                // Navigate to welcome.jsp
-                window.location.href = 'welcome.jsp';
-            }
-        });
-    }
+//    // Add the click event handler for the "Logout" button
+//    if (logoutButton) {
+//        logoutButton.addEventListener('click', function (event) {
+//            event.preventDefault();
+//
+//            // Confirm the logout action with the user
+//            const confirmLogout = confirm("Are you sure you want to log out?");
+//
+//            if (confirmLogout) {
+//                // Redirect to the login page only if the user clicked "OK"
+//                window.location.href = 'login.jsp';
+//            } else {
+//                // Handle the case where the user clicked "Cancel" (optional)
+//                console.log("Logout canceled. User remains logged in.");
+//                // Navigate to welcome.jsp
+//                window.location.href = 'welcome.jsp';
+//            }
+//        });
+//    }
 
     // Check if the current page is not the login page, then display the sidebar
     if (sidebar && window.location.pathname !== '/login.jsp') {

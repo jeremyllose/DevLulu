@@ -14,20 +14,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     font-size: 24px;
     border-radius: 10px;
 }
+.others{
+    position: relative;
+    top: 50px;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    gap: 10px;
+}
 #searchBar {
     flex: 1;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-image: url('../photos/searchicon.png'); /* Add path to your search icon image */
+    background-image: url('../photos/searchicon.png'); 
     background-repeat: no-repeat;
-    background-position: 200px center; /* Adjust the position of the icon */
-    padding-left: 40px; /* Ensure space for the icon */
+    background-position: 200px center; 
+    padding-left: 40px; 
     height: 32px;
     position: relative;
-    top: -3px;
-    left: 725px;
+    left: 740px;
 }
 #inventorytable {
    width: 1420px; /* Adjust the width as needed */
@@ -58,6 +66,24 @@ th {
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
 table {
-    width: 100%;
+    width: 200%;
     border-collapse: collapse;
+    margin-top: 75px;
+    border: none;
+}
+#dashboardheader {
+    position:relative;
+    top: 10px;
+    color: #fff;
+    margin: 0;
+    font-weight: lighter;
+}
+.dashboardbar {
+    background-color: #8f654a;
+    padding: 10px;
+    position:absolute;
+    top: -10px;
+    right: -220px;
+    width: 100%;
+    z-index: 1;
 }

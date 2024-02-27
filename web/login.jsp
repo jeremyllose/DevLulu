@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles/login.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" type="image/png" href="photos/cafeicon.png">
         <script src="script\welcome.js" defer></script>
         <title>Login Page</title>
     </head>
@@ -98,10 +99,10 @@
                 }
                 myIndex++;
                 if (myIndex > x.length) {
-                    myIndex = 1
+                    myIndex = 1;
                 }
                 x[myIndex - 1].style.display = "block";
-                setTimeout(carousel, 2000); // Change image every 2 seconds
+                setTimeout(carousel, 5000); // Change image every 5 seconds
             }
         </script>
     </body>

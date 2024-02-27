@@ -25,9 +25,11 @@
         %>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Waste</h1></div>
+            <div class="others">
         <button class="inventory" id="generate" onclick="redirectTo('w-generateReport.jsp')">Generate Report</button>
         <button class="inventory" id="sort" onclick="redirectTo('w-sort.jsp')">Sort Options</button>
-        <input type="text" id="searchBar" placeholder="Search..."> 
+            </div>
+        <input type="text" id="searchBar" placeholder="Search...">
         <table>
             <thead>
                 <tr>
