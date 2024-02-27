@@ -68,50 +68,60 @@ public class EditItem extends HttpServlet {
             String getVat = request.getParameter("vat");
             boolean isChecked = getVat != null && getVat.equals("on");
             
-            String query = "UPDATE ITEMS SET "
-                    + "ITEM_DESCRIPTION = ?, TRANSFER_COST = ?, "
-                    + "GEN_ID = ?, SUB_ID =?, "
-                    + "UOM = ?, "
-                    + "VAT = ?"
-                    + "WHERE ITEM_CODE = ?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, getItemDescription);
-            ps.setFloat(2, getTransferCost);
-            ps.setString(3, getGC);
-            ps.setString(4, getSC);
-            ps.setString(5, getUOM);
-            ps.setBoolean(6, isChecked);
-            ps.setString(7, getItemCode);
-            ps.executeUpdate();
-            
-            unitPrice(isChecked, getItemCode, getTransferCost);
+            updateItem(getItemDescription, getGC, getSC, getItemCode);
+            updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
             
             response.sendRedirect("ItemList");
-            
-            ps.close();
-            
-            
         } catch (SQLException ex) {
             Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void unitPrice(boolean vat, String itemCode, float transferCost)throws SQLException
+    public void updateItem(String desc, String genId, String subId, String itemCode)throws SQLException
+    {
+        String query = "UPDATE ITEM SET "
+                + "ITEM_DESCRIPTION = ?, "
+                + "GEN_ID= ?, "
+                + "SUB_ID= ? "
+                + "WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, desc);
+        ps.setString(2, genId);
+        ps.setString(3, subId);
+        ps.setString(4, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId)throws SQLException
     {
         float percent = transferCost * (0.01f * 10.7f);
         float unit = transferCost - percent;
-        String query = "UPDATE ITEMS SET UNIT_PRICE = ? WHERE ITEM_CODE = ?";
+        
+        String query = "UPDATE PRICING SET  "
+                + "UNIT_PRICE = ?, "
+                + "TRANSFER_COST = ?, "
+                + "UNIT_ID = ?, "
+                + "VAT = ? "
+                + "WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
+        
         if(vat == true)
         {
             ps.setFloat(1, unit);
         }
         else
         {
-            ps.setObject(1, null);
+            ps.setFloat(1, transferCost);
         }
-        ps.setString(2, itemCode);
+        
+        ps.setFloat(2, transferCost);
+        ps.setString(3, unitId);
+        ps.setBoolean(4, vat);
+        ps.setString(5, itemCode);
         ps.executeUpdate();
+        ps.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
