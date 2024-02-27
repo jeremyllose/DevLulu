@@ -18,11 +18,12 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Variance</h1></div>
+            <div class="others">
         <button class="inventory" id="add" onclick="redirectTo('v-addItem.jsp')">Add Item</button>
         <button class="inventory" id="generate" onclick="redirectTo('v-generateReport.jsp')">Generate Report</button>
         <button class="inventory" id="sort" onclick="redirectTo('v-sort.jsp')">Sort Options</button>
         <input type="text" id="searchBar" placeholder="Search...">   
-
+            </div>
         <table>
             <thead>
                 <tr>

@@ -18,9 +18,11 @@
     <body>
               <div class="dashboardbar">
                     <h1 id="dashboardheader">Supplies Received</h1></div>
+                    <div class="others">
                     <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')">Generate Report</button>
                     <button class="inventory" id="sort" onclick="redirectTo('sr-sort.jsp')">Sort Options</button>
                     <input type="text" id="searchBar" placeholder="Search..."> 
+    </div>
                     <br>
                      
         <table>

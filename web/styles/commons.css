@@ -17,7 +17,6 @@ body {
     display: flex;
     height: 100vh;
 }
-
 .sidebar {
     width: 200px;
     background-color: #bfefbb;
@@ -25,7 +24,6 @@ body {
     color: white;
     text-align: center;
 }
-
 .menu-item {
     width: 100%;
     padding: 10px;
@@ -41,22 +39,26 @@ body {
     right: 5px;
 }
 
-.menu-item:hover {
+.menu-item:hover,
+.menu-item:focus {
     background-color: #8f654a;
     color: white;
 }
+#homebutton img {
 
-.main-content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #f1f1f1;
+    max-width: 200%;
+    max-height: 200%;
+    object-fit: contain;
 }
-
-iframe {
-    width: 100%;
-    height: calc(100vh - 40px);
-    border: none;
+#homebutton{
+    width: 200px;
+    height: 100px;
+    position: relative;
+    bottom: 220px;
+    right: 5px;
+}
+#homebutton:hover{
+    background-color: initial;
 }
 #accountlist {
     width: 100%;
@@ -65,41 +67,10 @@ iframe {
     top: 100px;
     right: 5px;
 }
-    #homebutton img {
-
-        max-width: 200%;
-        max-height: 200%;
-        object-fit: contain;
-    }
-    #homebutton{
-        width: 200px; 
-        height: 100px; 
-        position: relative;
-        bottom: 220px;
-        right: 5px;
-    }
-    #homebutton:hover{
-        background-color: initial;
-}
 #logout{
     background-color: #8f654a;
     color: white;
     position: relative;
     top: 155px;
     right: 5px;
-}
-#dashboardheader {
-    position:relative;
-    top: 10px;
-    color: #fff; 
-    margin: 0;
-    font-weight: lighter;
-}
-.dashboardbar {
-    background-color: #8f654a; 
-    padding: 10px; 
-    position:relative;
-    top: -30px;
-    right: 20px;
-    width:1500px;
 }

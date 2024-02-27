@@ -10,12 +10,11 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow:hidden;
 }
 .main-content {
     flex: 1;
     padding: 20px;
-    overflow-y: auto;
     background-color: #f1f1f1;
 }
 
@@ -32,12 +31,13 @@ iframe {
     font-weight: lighter;
 }
 .dashboardbar {
-    background-color: #8f654a; 
+  background-color: #8f654a; 
     padding: 10px; 
-    position:relative;
-    top: -30px;
-    right: 20px;
-    width:1500px;
+    position:absolute;
+    top: -10px;
+    right: -220px;
+    width: 100%;
+    z-index: 1;
 }
 #charts {
     object-fit: cover;
@@ -45,5 +45,6 @@ iframe {
     max-height: 100%;
     width: 1000px;
     position: relative;
-    left: 200px; 
+    left: 200px;
+    top: 50px
 }
