@@ -22,7 +22,9 @@
                 <button class="menu-item" id="homebutton" onclick="redirectTo('welcome.jsp')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
                 <button class="menu-item" onclick="redirectTo('sales.jsp')">Sales</button>
                 <button class="menu-item" onclick="redirectTo('product.jsp')">Product</button>
-                <button class="menu-item" onclick="redirectTo('variance.jsp')">Variance</button>
+                <form action="VariancePageRedirect" method="post">
+                    <button class="menu-item">Variance</button>
+                </form>
                 <form action="ItemList" method="post">
                     <button class="menu-item">Inventory</button>
                 </form>

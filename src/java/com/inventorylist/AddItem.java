@@ -99,13 +99,14 @@ public class AddItem extends HttpServlet {
                 session.setAttribute("existing", "Supplies Should NOT be paired with Rawmats");
                 request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
             }
-            
-            addItem(getItemCode, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
-            addPricing(getItemCode, getUOM, getTransferCost, isChecked);
-            addTransaction(getItemCode, getQty);
-            addInventory(getItemCode, getQty, getMax, getReorder);
-            addStockHistory(getItemCode, getQty);
-            
+            else
+            {
+                addItem(getItemCode, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
+                addPricing(getItemCode, getUOM, getTransferCost, isChecked);
+                addTransaction(getItemCode, getQty);
+                addInventory(getItemCode, getQty, getMax, getReorder);
+                addStockHistory(getItemCode, getQty);
+            }
         } 
         catch (SQLException ex) 
         {
@@ -149,19 +150,18 @@ public class AddItem extends HttpServlet {
     public void addTransaction(String itemCode, int quantity)throws SQLException
     {
         String query = "INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) "
-                + "VALUES (?, ?, 0, 0, 0, 0)";
+                + "VALUES (?, 0, 0, 0, 0, 0)";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, itemCode);
-        ps.setInt(2, quantity);
         ps.executeUpdate();
         ps.close();
     }
     
     public void addInventory(String itemCode, int quantity, int max, int reorder)throws SQLException
     {
-        String query = "INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY, TOTAL_ON_MAIN, TOTAL_OUTPUT) "
-                + "VALUES (?, ?, ?, ?, ?, ?, 0)";
+        String query = "INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) "
+                + "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, itemCode);
@@ -169,7 +169,6 @@ public class AddItem extends HttpServlet {
         ps.setInt(3, max);
         ps.setInt(4, max-quantity);
         ps.setInt(5, reorder);
-        ps.setInt(6, quantity);
         ps.executeUpdate();
         ps.close();
     }

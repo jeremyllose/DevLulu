@@ -76,6 +76,14 @@
         <servlet-name>EditItem</servlet-name>
         <servlet-class>com.inventorylist.EditItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VariancePageRedirect</servlet-name>
+        <servlet-class>com.variance.VariancePageRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveVariance</servlet-name>
+        <servlet-class>com.variance.SaveVariance</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -119,6 +127,14 @@
     <servlet-mapping>
         <servlet-name>EditItem</servlet-name>
         <url-pattern>/EditItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VariancePageRedirect</servlet-name>
+        <url-pattern>/VariancePageRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveVariance</servlet-name>
+        <url-pattern>/SaveVariance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

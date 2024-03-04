@@ -2,18 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.variance;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Statement;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Cesar
  */
-public class EditItem extends HttpServlet {
+public class VariancePageRedirect extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -58,80 +56,79 @@ public class EditItem extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String getItemCode = request.getParameter("itemCode");
-            String getItemDescription = request.getParameter("itemDescription");
-            float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
-            String getGC = request.getParameter("gc");
-            String getSC = request.getParameter("sc");
-            String getUOM = request.getParameter("uom");
-            String getVat = request.getParameter("vat");
-            boolean isChecked = getVat != null && getVat.equals("on");
-            
-            updateItem(getItemDescription, getGC, getSC, getItemCode);
-            updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
-            
-            response.sendRedirect("ItemList");
-        } catch (SQLException ex) {
-            Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
+        try 
+        {
+            if (con != null) 
+            {
+                request.setAttribute("inventoryCount", countItemlist());
+                request.setAttribute("inventoryValue", inventoryValue());
+                
+                Statement stmt = con.createStatement();
+                String query = "SELECT * FROM ITEM "
+                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
+                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                        + "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE "
+                        + "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE "
+                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
+                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
+                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
+                        + "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+                ResultSet rs = stmt.executeQuery(query);
+                request.setAttribute("inventory", rs);
+                
+                request.getRequestDispatcher("test.jsp").forward(request,response);
+                
+                rs.close();
+                stmt.close();
+            }
+        } 
+        catch (SQLException sqle)
+        {
+                response.sendRedirect("error.jsp");
         }
     }
     
-    public void updateItem(String desc, String genId, String subId, String itemCode)throws SQLException
+    public int countItemlist() throws SQLException
     {
-        String query = "UPDATE ITEM SET "
-                + "ITEM_DESCRIPTION = ?, "
-                + "GEN_ID= ?, "
-                + "SUB_ID= ?, "
-                + "UPDATED= ? "
-                + "WHERE ITEM_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
+        Statement stmt = con.createStatement();
+        String query = "select count(*) from ITEM where disabled = false";
+        ResultSet rs = stmt.executeQuery(query);
         
-        ps.setString(1, desc);
-        ps.setString(2, genId);
-        ps.setString(3, subId);
+        rs.next();
+        int count = rs.getInt(1);
         
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = format.format(new Date(System.currentTimeMillis()));
-        ps.setString(4, formattedDate);
+        rs.close();
+        stmt.close();
         
-        ps.setString(5, itemCode);
-        ps.executeUpdate();
-        ps.close();
+        return count;
     }
     
-    public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId)throws SQLException
+    public float inventoryValue() throws SQLException
     {
-        float percent = transferCost * (0.01f * 10.7f);
-        float unit = transferCost - percent;
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM ITEM "
+                + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
+                + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                + "WHERE ITEM.DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
         
-        String query = "UPDATE PRICING SET  "
-                + "UNIT_PRICE = ?, "
-                + "TRANSFER_COST = ?, "
-                + "UNIT_ID = ?, "
-                + "VAT = ? "
-                + "WHERE ITEM_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
+        float inventoryValue = 0;
         
-        if(vat == true)
+        while(rs.next())
         {
-            ps.setFloat(1, unit);
-        }
-        else
-        {
-            ps.setFloat(1, transferCost);
+            int quantity = rs.getInt("quantity");
+            float unitPrice = rs.getFloat("unit_price");
+            inventoryValue += quantity * unitPrice;
         }
         
-        ps.setFloat(2, transferCost);
-        ps.setString(3, unitId);
-        ps.setBoolean(4, vat);
-        ps.setString(5, itemCode);
-        ps.executeUpdate();
-        ps.close();
+        rs.close();
+        stmt.close();
+        
+        return inventoryValue;
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -2,16 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.variance;
 
+import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Cesar
  */
-public class EditItem extends HttpServlet {
+public class SaveVariance extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -48,8 +49,6 @@ public class EditItem extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
-                    
-                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -60,74 +59,56 @@ public class EditItem extends HttpServlet {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String getItemCode = request.getParameter("itemCode");
-            String getItemDescription = request.getParameter("itemDescription");
-            float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
-            String getGC = request.getParameter("gc");
-            String getSC = request.getParameter("sc");
-            String getUOM = request.getParameter("uom");
-            String getVat = request.getParameter("vat");
-            boolean isChecked = getVat != null && getVat.equals("on");
-            
-            updateItem(getItemDescription, getGC, getSC, getItemCode);
-            updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
-            
-            response.sendRedirect("ItemList");
-        } catch (SQLException ex) {
-            Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
+        try 
+        {
+            if (con != null) 
+            {
+                String[] begginingValues = request.getParameterValues("beg");
+                String[] endValues = request.getParameterValues("end");
+                int start = 0;
+                Statement stmt = con.createStatement();
+                String query = "SELECT * FROM ITEM "
+                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
+                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                        + "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE "
+                        + "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE "
+                        + "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+                ResultSet rs = stmt.executeQuery(query);
+                
+                while(rs.next())
+                {
+                    editBegItem(Integer.parseInt(begginingValues[start]), rs.getString("item_code"));
+                    editEndItem(Integer.parseInt(endValues[start]), rs.getString("item_code"));
+                    start++;
+                }
+                response.sendRedirect("VariancePageRedirect");
+                
+                rs.close();
+                stmt.close();
+            }
+        } 
+        catch (SQLException sqle)
+        {
+                response.sendRedirect("error.jsp");
         }
     }
     
-    public void updateItem(String desc, String genId, String subId, String itemCode)throws SQLException
+    public void editBegItem(int beg, String itemCode)throws SQLException
     {
-        String query = "UPDATE ITEM SET "
-                + "ITEM_DESCRIPTION = ?, "
-                + "GEN_ID= ?, "
-                + "SUB_ID= ?, "
-                + "UPDATED= ? "
-                + "WHERE ITEM_CODE = ?";
+        String query = "UPDATE STOCKHISTORY SET BEGINNING_QUANTITY = ? WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setString(1, desc);
-        ps.setString(2, genId);
-        ps.setString(3, subId);
-        
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = format.format(new Date(System.currentTimeMillis()));
-        ps.setString(4, formattedDate);
-        
-        ps.setString(5, itemCode);
+        ps.setInt(1, beg);
+        ps.setString(2, itemCode);
         ps.executeUpdate();
         ps.close();
     }
     
-    public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId)throws SQLException
+    public void editEndItem(int beg, String itemCode)throws SQLException
     {
-        float percent = transferCost * (0.01f * 10.7f);
-        float unit = transferCost - percent;
-        
-        String query = "UPDATE PRICING SET  "
-                + "UNIT_PRICE = ?, "
-                + "TRANSFER_COST = ?, "
-                + "UNIT_ID = ?, "
-                + "VAT = ? "
-                + "WHERE ITEM_CODE = ?";
+        String query = "UPDATE STOCKHISTORY SET END_QUANTITY = ? WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        
-        if(vat == true)
-        {
-            ps.setFloat(1, unit);
-        }
-        else
-        {
-            ps.setFloat(1, transferCost);
-        }
-        
-        ps.setFloat(2, transferCost);
-        ps.setString(3, unitId);
-        ps.setBoolean(4, vat);
-        ps.setString(5, itemCode);
+        ps.setInt(1, beg);
+        ps.setString(2, itemCode);
         ps.executeUpdate();
         ps.close();
     }
