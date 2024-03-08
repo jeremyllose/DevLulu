@@ -13,6 +13,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     height: 50px;
     font-size: 24px;
     border-radius: 10px;
+    border: 2px solid #000000;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+@keyframes moveUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+.inventory:hover {
+    animation: moveUp 0.5s ease;
+    border-color: red;
 }
 #searchBar {
     flex: 1;
@@ -69,4 +84,30 @@ table {
     right: -220px;
     width: 100%;
     z-index: 1;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apply these classes to the main content element */
+.fade-out {
+    animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
 }
