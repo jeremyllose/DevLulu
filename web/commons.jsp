@@ -28,7 +28,9 @@
                 <form action="ItemList" method="post">
                     <button class="menu-item">Inventory</button>
                 </form>
-                <button class="menu-item" onclick="redirectTo('suppliesreceived.jsp')">Supplies Received</button>
+                <form action="SuppliesRedirectPage" method="post">
+                    <button class="menu-item">Supplies Received</button>
+                </form>
                 <button class="menu-item" onclick="redirectTo('waste.jsp')">Waste</button>
                 <form action="AccountList" method="post">
                     <button class="menu-item" id="accountlist">Account List</button>

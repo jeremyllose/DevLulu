@@ -84,6 +84,14 @@
         <servlet-name>SaveVariance</servlet-name>
         <servlet-class>com.variance.SaveVariance</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SuppliesRedirectPage</servlet-name>
+        <servlet-class>com.supplies.SuppliesRedirectPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveDeliveries</servlet-name>
+        <servlet-class>com.supplies.SaveDeliveries</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -135,6 +143,14 @@
     <servlet-mapping>
         <servlet-name>SaveVariance</servlet-name>
         <url-pattern>/SaveVariance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuppliesRedirectPage</servlet-name>
+        <url-pattern>/SuppliesRedirectPage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveDeliveries</servlet-name>
+        <url-pattern>/SaveDeliveries</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

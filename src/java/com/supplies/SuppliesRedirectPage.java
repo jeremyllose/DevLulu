@@ -2,16 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.variance;
+package com.supplies;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Cesar
  */
-public class VariancePageRedirect extends HttpServlet {
+public class SuppliesRedirectPage extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -56,70 +57,44 @@ public class VariancePageRedirect extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try 
-        {
-            if (con != null) 
-            {
-                request.setAttribute("inventoryCount", countItemlist());
-                request.setAttribute("inventoryValue", inventoryValue());
-                
-                Statement stmt = con.createStatement();
-                String query = "SELECT * FROM ITEM "
-                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
-                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
-                        + "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE "
-                        + "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE "
-                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
-                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+            throws ServletException, IOException, SQLException {
+        request.setAttribute("addsValue", deliveryValue() + otheAddsValue());
+        
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM ITEM\n" +
+                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+                "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
+                "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID \n" +
+                "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
+                "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
                 ResultSet rs = stmt.executeQuery(query);
-                request.setAttribute("inventory", rs);
+                request.setAttribute("deliveries", rs);
                 
-                request.getRequestDispatcher("variance.jsp").forward(request,response);
+                request.getRequestDispatcher("suppliesreceived.jsp").forward(request,response);
                 
                 rs.close();
                 stmt.close();
-            }
-        } 
-        catch (SQLException sqle)
-        {
-                response.sendRedirect("error.jsp");
-        }
     }
     
-    public int countItemlist() throws SQLException
+    public float deliveryValue() throws SQLException
     {
         Statement stmt = con.createStatement();
-        String query = "select count(*) from ITEM where disabled = false";
-        ResultSet rs = stmt.executeQuery(query);
-        
-        rs.next();
-        int count = rs.getInt(1);
-        
-        rs.close();
-        stmt.close();
-        
-        return count;
-    }
-    
-    public float inventoryValue() throws SQLException
-    {
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM "
-                + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
-                + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
-                + "WHERE ITEM.DISABLED = FALSE";
+        String query = "SELECT * FROM ITEM\n" +
+                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+                "WHERE ITEM.DISABLED = FALSE";
         ResultSet rs = stmt.executeQuery(query);
         
         float inventoryValue = 0;
         
         while(rs.next())
         {
-            int quantity = rs.getInt("quantity");
+            int quantity = rs.getInt("delivery");
             float unitPrice = rs.getFloat("unit_price");
             inventoryValue += quantity * unitPrice;
         }
@@ -129,6 +104,32 @@ public class VariancePageRedirect extends HttpServlet {
         
         return inventoryValue;
     }
+    
+    public float otheAddsValue() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM ITEM\n" +
+                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+                "WHERE ITEM.DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
+        
+        float inventoryValue = 0;
+        
+        while(rs.next())
+        {
+            int quantity = rs.getInt("otheradds");
+            float unitPrice = rs.getFloat("unit_price");
+            inventoryValue += quantity * unitPrice;
+        }
+        
+        rs.close();
+        stmt.close();
+        
+        return inventoryValue;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -141,7 +142,11 @@ public class VariancePageRedirect extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuppliesRedirectPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -155,7 +160,11 @@ public class VariancePageRedirect extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuppliesRedirectPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
