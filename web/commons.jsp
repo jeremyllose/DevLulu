@@ -25,7 +25,7 @@
                 <button class="menu-item" onclick="redirectTo('product.jsp')">Product</button>
                 <button class="menu-item" onclick="redirectTo('variance.jsp')">Variance</button>
                 <form action="ItemList" method="post">
-                    <button class="menu-item" onclick="redirectToWithTransition('ItemList')">Inventory</button>
+                    <button class="menu-item">Inventory</button>
                 </form>
                 <button class="menu-item" onclick="redirectTo('suppliesreceived.jsp')">Supplies Received</button>
                 <button class="menu-item" onclick="redirectTo('waste.jsp')">Waste</button>
