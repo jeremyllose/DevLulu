@@ -37,6 +37,8 @@ body {
     font-size: 20px;
     position: relative;
     right: 5px;
+    bottom: 7rem;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .menu-item:hover,
@@ -56,6 +58,9 @@ body {
     position: relative;
     bottom: 220px;
     right: 5px;
+    border: none;
+    background-color: #bfefbb;
+    cursor: pointer;
 }
 #homebutton:hover{
     background-color: initial;
@@ -63,14 +68,12 @@ body {
 #accountlist {
     width: 100%;
     margin: 5px;
-    position: relative;
-    top: 100px;
-    right: 5px;
+
 }
 #logout{
     background-color: #8f654a;
     color: white;
-    position: relative;
-    top: 155px;
-    right: 5px;
+}
+.main-content {
+    transition: opacity 0.5s ease-in-out;
 }

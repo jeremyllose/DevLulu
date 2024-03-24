@@ -1,0 +1,125 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 03 7, 24, 2:57:42 PM
+    Author     : BioStaR
+*/
+body {
+    font-family: 'Arial', sans-serif; /* Use a clean and readable font */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Choose a background color */
+}
+
+#dashboardheader {
+    position:relative;
+    top: 10px;
+    left: 35rem;
+    color: #fff;
+    margin: 0;
+    font-weight: lighter;
+}
+.dashboardbar {
+    background-color: #8f654a;
+    padding: 10px;
+    position:absolute;
+    top: -10px;
+    right: -220px;
+    width: 100%;
+    z-index: 1;
+}
+.item-container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid black; /* Adjust color as needed */
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif; /* Consider changing font family */
+    position: relative;
+    right: -30rem;
+}
+
+.item-container h3 {
+    font-size: 18px;  /* Adjust title font size */
+    font-weight: bold; /* Make titles bolder */
+    margin-bottom: 10px; /* Add spacing after titles */
+}
+
+.item-container label {
+    display: block;  /* Make labels display on separate lines */
+    margin-bottom: 10px;  /* Add consistent spacing between labels and inputs */
+}
+
+.item-container input[type="text"],
+.item-container input[type="number"] {
+    width: 100%;  /* Make input fields full width */
+    padding: 10px;  /* Add padding for better user experience */
+    margin-bottom: 10px;  /* Add consistent spacing between input fields */
+    border: 1px solid #ccc;  /* Add a subtle border for inputs */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.item-container input[type="radio"] {
+    margin-right: 5px;  /* Add spacing between radio buttons */
+}
+
+.item-container select {
+    width: 100%;  /* Make select boxes full width */
+    padding: 10px;  /* Add padding for better user experience */
+    margin-bottom: 10px;  /* Add consistent spacing between select boxes */
+    border: 1px solid #ccc;  /* Add a subtle border for select boxes */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.item-container:hover {
+    background-color: #bfefbb;  /* Adjust hover background color */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
+}
+.item-container input[type="submit"] {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #8f654a; /* Set your desired button background color */
+    color: #fff; /* Set your desired button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    right: -8rem;
+}
+@keyframes scaleUp {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1); /* Adjust the scale factor as needed */
+    }
+}
+.item-container input[type="submit"]:hover {
+    animation: scaleUp 0.3s ease;
+    background-color: #e7a74f ; /* Adjust hover background color */
+}
+.error-message {
+    display: inline-block; /* Add this to make it a block element */
+    border: 2px solid red; /* Add a border to create a square container */
+    padding: 10px; /* Add padding for spacing */
+    margin-top: 20px; /* Adjust spacing */
+    position: relative;
+    right: -33rem;
+    animation: rotateError 0.5s ease-in-out;
+    color: red; /* Change text color */
+    font-weight: bold; /* Make text bold */
+    margin-top: 10px; /* Adjust spacing */
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(20deg); /* Adjust the rotation angle as needed */
+    }
+}

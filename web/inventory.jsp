@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="styles/inventory.css">
         <title>Inventory Page</title>
         <script src="script/welcome.js" defer></script>
+        <script src="script/transitions.js" defer></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     </head>
     <body>
