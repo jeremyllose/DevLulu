@@ -31,7 +31,9 @@
                 <form action="SuppliesRedirectPage" method="post">
                     <button class="menu-item">Supplies Received</button>
                 </form>
-                <button class="menu-item" onclick="redirectTo('waste.jsp')">Waste</button>
+                <form action="WasteRedirect" method="post">
+                    <button class="menu-item">Waste</button>
+                </form>
                 <form action="AccountList" method="post">
                     <button class="menu-item" id="accountlist">Account List</button>
                 </form>

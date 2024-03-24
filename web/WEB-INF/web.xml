@@ -92,6 +92,14 @@
         <servlet-name>SaveDeliveries</servlet-name>
         <servlet-class>com.supplies.SaveDeliveries</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WasteRedirect</servlet-name>
+        <servlet-class>com.waste.WasteRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveWastes</servlet-name>
+        <servlet-class>com.waste.SaveWastes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -151,6 +159,14 @@
     <servlet-mapping>
         <servlet-name>SaveDeliveries</servlet-name>
         <url-pattern>/SaveDeliveries</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WasteRedirect</servlet-name>
+        <url-pattern>/WasteRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveWastes</servlet-name>
+        <url-pattern>/SaveWastes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
