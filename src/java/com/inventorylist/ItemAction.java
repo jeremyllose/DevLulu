@@ -90,10 +90,12 @@ public class ItemAction extends HttpServlet {
                 
                 Statement stmt = con.createStatement();
                 //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet record = stmt.executeQuery("SELECT * FROM ITEMS "
-                        + "INNER JOIN GEN_CLASS ON ITEMS.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEMS.SUB_ID = SUB_CLASS.SUB_ID "
-                        + "WHERE ITEM_CODE = '" + theRest + "'");
+                ResultSet record = stmt.executeQuery("SELECT * FROM ITEM "
+                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
+                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
+                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
+                        + "WHERE ITEM.ITEM_CODE = '"+ theRest +"'");
                 
                 request.setAttribute("editRecord", record);
                 
@@ -105,15 +107,21 @@ public class ItemAction extends HttpServlet {
                 ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
                 request.setAttribute("subClassEdit", rs2);
                 
+                Statement stmt3 = con.createStatement();
+                ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
+                request.setAttribute("unitClassEdit", rs3);
+                
                 request.getRequestDispatcher("i-editItem.jsp").forward(request,response);
                 
                 record.close();
                 rs1.close();
                 rs2.close();
+                rs3.close();
                 
                 stmt.close();
                 stmt1.close();
                 stmt2.close();
+                stmt3.close();
                 
             } catch (SQLException ex) {
                 Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,7 +131,7 @@ public class ItemAction extends HttpServlet {
     
     public void disableUser(String user)throws SQLException
     {
-        String query = "UPDATE ITEMS SET DISABLED = TRUE WHERE ITEM_CODE = ?";
+        String query = "UPDATE ITEM SET DISABLED = TRUE WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, user);
         ps.executeUpdate();

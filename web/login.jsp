@@ -23,9 +23,33 @@
                     <h1 id="signin">Sign In:</h1>
                     <div class="label-input-group">
                         <label for="uname">Username:</label>
+                        <%
+                            if (session.getAttribute("rememberUsername") != null) {
+                        %>
+                        <input type="text" id="uname" name="uname" required placeholder="Enter username" value="${rememberUsername}"><br>
+                        <%
+                            }
+                            else
+                            {
+                        %>
                         <input type="text" id="uname" name="uname" required placeholder="Enter username"><br>
+                        <%
+                            }
+                        %>
                         <label for="password">Password:</label>
+                        <%
+                            if (session.getAttribute("rememberPassword") != null) {
+                        %>
+                        <input type="password" id="password" name="pass" required placeholder="Enter password" value="${rememberPassword}"><br>
+                        <%
+                            }
+                            else
+                            {
+                        %>
                         <input type="password" id="password" name="pass" required placeholder="Enter password"><br>
+                        <%
+                            }
+                        %>
                     </div>
                     <br>
                     <input type="submit" id="loginbutton"value="Login"><br>
