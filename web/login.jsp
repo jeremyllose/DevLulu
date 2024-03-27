@@ -30,8 +30,20 @@
                     <br>
                     <input type="submit" id="loginbutton"value="Login"><br>
                     <a id="forgot-password" href="#" onclick="openForgotPasswordForm()">Forgot Password?</a><br>
-                    <label for="rememberme">Remember me</label>
-                    <input type="checkbox" id="rememberme" name="rememberme">    
+                      <label for="rememberme">Remember me</label>
+                    <%
+                            if (session.getAttribute("rememberUsername") != null) {
+                    %>
+                    <input type="checkbox" id="rememberme" name="rememberme" value="on" checked>    
+                    <%
+                        }
+                            else
+                        {
+                    %>
+                    <input type="checkbox" id="rememberme" name="rememberme" value="on">  
+                    <%
+                        }
+                    %>
                 </form>
             </div>
             <div class="overlay-container">
