@@ -85,11 +85,14 @@
                     <tr>
                         <td colspan="2"><input type="submit" value="Add Item"></td>
                     </tr>
+                    <form action="AddItemPageRedirect" method="post">
+                        <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
+                    </form>
                 </table>
             </div>
         </form>
 
-                        <div>   
+        <div>   
             <% if (session.getAttribute("existing") != null) { %>
             <div class="error-message">
                 <span class="error-symbol">&#9888;</span> Error! ${existing}

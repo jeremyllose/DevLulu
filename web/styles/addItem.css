@@ -7,10 +7,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : BioStaR
 */
 body {
-    font-family: 'Arial', sans-serif; /* Use a clean and readable font */
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4; /* Choose a background color */
+    background-color: #f4f4f4;
 }
 
 #dashboardheader {
@@ -34,92 +34,103 @@ body {
     width: 100%;
     margin: 20px auto;
     padding: 20px;
-    border: 2px solid black; /* Adjust color as needed */
+    border: 2px solid black;
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    font-family: "Open Sans", sans-serif; /* Consider changing font family */
+    font-family: "Open Sans", sans-serif;
     position: relative;
     right: -30rem;
 }
 
 .item-container h3 {
-    font-size: 18px;  /* Adjust title font size */
-    font-weight: bold; /* Make titles bolder */
-    margin-bottom: 10px; /* Add spacing after titles */
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .item-container label {
-    display: block;  /* Make labels display on separate lines */
-    margin-bottom: 10px;  /* Add consistent spacing between labels and inputs */
+    display: block;
+    margin-bottom: 10px;
 }
 
 .item-container input[type="text"],
 .item-container input[type="number"] {
-    width: 100%;  /* Make input fields full width */
-    padding: 10px;  /* Add padding for better user experience */
-    margin-bottom: 10px;  /* Add consistent spacing between input fields */
-    border: 1px solid #ccc;  /* Add a subtle border for inputs */
-    border-radius: 5px; /* Add rounded corners */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .item-container input[type="radio"] {
-    margin-right: 5px;  /* Add spacing between radio buttons */
+    margin-right: 5px;
 }
 
 .item-container select {
-    width: 100%;  /* Make select boxes full width */
-    padding: 10px;  /* Add padding for better user experience */
-    margin-bottom: 10px;  /* Add consistent spacing between select boxes */
-    border: 1px solid #ccc;  /* Add a subtle border for select boxes */
-    border-radius: 5px; /* Add rounded corners */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#return {
+    background-color: #900603;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: relative;
+    top: 705px;
+    right: -2.5rem;
 }
 
 .item-container:hover {
-    background-color: #bfefbb;  /* Adjust hover background color */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
+    background-color: #bfefbb;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 .item-container input[type="submit"] {
     display: inline-block;
     padding: 10px 15px;
-    background-color: #8f654a; /* Set your desired button background color */
-    color: #fff; /* Set your desired button text color */
+    background-color: #8f654a;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative;
-    right: -8rem;
+    right: -15rem;
 }
 @keyframes scaleUp {
     from {
         transform: scale(1);
     }
     to {
-        transform: scale(1.1); /* Adjust the scale factor as needed */
+        transform: scale(1.1);
     }
 }
 .item-container input[type="submit"]:hover {
     animation: scaleUp 0.3s ease;
-    background-color: #e7a74f ; /* Adjust hover background color */
+    background-color: #e7a74f ;
 }
 .error-message {
-    display: inline-block; /* Add this to make it a block element */
-    border: 2px solid red; /* Add a border to create a square container */
-    padding: 10px; /* Add padding for spacing */
-    margin-top: 20px; /* Adjust spacing */
+    display: inline-block;
+    border: 2px solid red;
+    padding: 10px;
+    margin-top: 20px;
     position: relative;
     right: -33rem;
     animation: rotateError 0.5s ease-in-out;
-    color: red; /* Change text color */
-    font-weight: bold; /* Make text bold */
-    margin-top: 10px; /* Adjust spacing */
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
 }
 @keyframes rotate {
     from {
         transform: rotate(0);
     }
     to {
-        transform: rotate(20deg); /* Adjust the rotation angle as needed */
+        transform: rotate(20deg);
     }
 }
