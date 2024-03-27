@@ -32,6 +32,7 @@
             ResultSet results = (ResultSet)request.getAttribute("editRecord");
             ResultSet genResults = (ResultSet)request.getAttribute("genClassEdit");
             ResultSet subResults = (ResultSet)request.getAttribute("subClassEdit");
+            ResultSet unitResults = (ResultSet)request.getAttribute("unitClassEdit");
             while (results.next()) { %>
             <form action="EditItem" method="post">
                 <input type="hidden" name="itemCode" value="<%= results.getString("item_code") %>">
@@ -77,35 +78,18 @@
                     </tr>
                     <tr>
                         <%
-                        if(results.getString("UOM").equals("PC")) {%>
-                        <th><label>PC</label> <input type="radio" name="uom" value="PC" checked required></th>
+                        while (unitResults.next()) { 
+                        if(unitResults.getString("unit_name").equals(results.getString("unit_name"))) {%>
+                        <th><label><%=unitResults.getString("unit_name") %></label> <input type="radio" name="uom" value="<%=unitResults.getString("unit_id")%>" checked required></th>
                         <%	}
                         else{
                         %>
-                        <th><label>PC</label> <input type="radio" name="uom" value="PC" required></th>
-                        <%	}
-                        %>
-                        <%
-                        if(results.getString("UOM").equals("GAL")) {%>
-                        <th><label>GAL</label> <input type="radio" name="uom" value="GAL" checked required></th>
-                        <%	}
-                        else{
-                        %>
-                        <th><label>GAL</label> <input type="radio" name="uom" value="GAL" required></th>
-                        <%	}
-                        %>
-                        <%
-                        if(results.getString("UOM").equals("PAC")) {%>
-                        <th><label>PAC</label> <input type="radio" name="uom" value="PAC" checked required></th>
-                        <%	}
-                        else{
-                        %>
-                        <th><label>PAC</label> <input type="radio" name="uom" value="PAC" required></th>
-                        <%	}
+                        <th><label><%=unitResults.getString("unit_name") %></label> <input type="radio" name="uom" value="<%=unitResults.getString("unit_id")%>" required></th>
+                        <%	}}
                         %>
                     </tr>
                     <tr>
-                    <th>Unit of Measurement</th>
+                    <th>VAT</th>
                     </tr>
                     <tr>
                         <%

@@ -69,6 +69,9 @@ public class Login extends HttpServlet {
         String uname = request.getParameter("uname");
         String pass = request.getParameter("pass");
         
+        String getCheckbox = request.getParameter("rememberme");
+        boolean isChecked = getCheckbox != null && getCheckbox.equals("on");
+        
         EncryptDecrypt crypto;
         
         HttpSession session = request.getSession();
@@ -90,7 +93,18 @@ public class Login extends HttpServlet {
             {
                 session.setAttribute("userRole", rs.getString("role"));
                 session.setAttribute("username", uname);
-                //redirect to dashboard 
+                
+                if(isChecked == true)
+                {
+                    session.setAttribute("rememberUsername", uname);
+                    session.setAttribute("rememberPassword", pass);
+                }
+                else
+                {
+                    session.setAttribute("rememberUsername", null);
+                    session.setAttribute("rememberPassword", null);
+                }
+                
                 response.sendRedirect("welcome.jsp");
             }
             else if(rs.getBoolean("DISABLED"))
@@ -111,4 +125,5 @@ public class Login extends HttpServlet {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }

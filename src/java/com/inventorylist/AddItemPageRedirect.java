@@ -64,6 +64,7 @@ public class AddItemPageRedirect extends HttpServlet {
             {
                 Statement stmt1 = con.createStatement();
                 Statement stmt2 = con.createStatement();
+                Statement stmt3 = con.createStatement();
                 
                 ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
                 request.setAttribute("genClass", rs1);
@@ -71,14 +72,18 @@ public class AddItemPageRedirect extends HttpServlet {
                 ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
                 request.setAttribute("subClass", rs2);
                 
+                ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
+                request.setAttribute("unitClass", rs3);
+                
                 request.getRequestDispatcher("i-addItem.jsp").forward(request,response);
                 
                 rs1.close();
                 rs2.close();
+                rs3.close();
                 
                 stmt1.close();
                 stmt2.close();
-                
+                stmt3.close();
             }
         } 
         catch (SQLException sqle)
