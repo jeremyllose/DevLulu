@@ -235,7 +235,7 @@ input {
     position: absolute;
     top: 50;
 }
-a[href="/forgot-password"] {
+#forgot-password {
     position: relative;
     margin-left: 170px;
     margin-bottom: 5px;
@@ -329,5 +329,100 @@ input[type="checkbox"] {
         position: relative;
         right: 28px;
         width: 125%;
+    }
+}
+body {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#login-form { /* Optional styling for your login form */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal {
+    display: none; /* Initially hidden */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Transparent background */
+    padding-top: 50px;
+}
+#forgot-password-form {
+    margin: auto;
+    background-color: #FFFFFF;
+    width: 25%;
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+    margin-top: 16rem;
+    border-radius: 10px;
+}
+@font-face {
+    font-family: 'Karma';
+    src: url('path/to/karma-font.woff2') format('woff2'), /* Modern Browsers */
+        url('path/to/karma-font.woff') format('woff'); /* Legacy Browsers */
+    font-family: 'Lohit Bengali';
+    src: url('path/to/lohit-bengali.woff2') format('woff2'), /* Modern Browsers */
+        url('path/to/lohit-bengali.woff') format('woff'); /* Legacy Browsers */
+}
+.close-forgot-form {
+  position: absolute;
+  top: 20rem;
+  right: 610px;
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-forgot-form:hover {
+  color: #333;
+}
+#FPsubmit {
+   position: relative;
+   top: -1.5rem;
+   background-color: #00af50;
+   cursor: pointer;
+   border:none;
+   animation: FPAnimation 0.5s ease-in-out;
+}
+#FPsubmit:hover {
+    background-color: #542b0b;
+    animation: FPHoverAnimation 0.5s ease-in-out;
+}
+@keyframes FPAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes FPHoverAnimation {
+    0% {
+        background-color: #00af50;
+    }
+    50% {
+        background-color: #542b0b;
+    }
+    100% {
+        background-color: #542b0b;
     }
 }

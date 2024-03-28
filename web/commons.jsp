@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="styles/commons.css">
         <link rel="icon" type="image/png" href="photos/cafeicon.png">
         <script src="script/transitions.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <title>JSP Page</title>
     </head>
     <body>
@@ -46,11 +47,50 @@
                 <br>
                 <br>
                 <br>
-                <form action="Logout">
+                <form id="logout-form" action="Logout">
                     <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" >Logout</button>
                 </form>
             </div>
             <div class="main-content" id="mainContent">
                 <!-- no div tag closing, if added layout issues show-->
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const menuButton = document.getElementById('menu-form');
+                        const logoutButton = document.getElementById('logout-form');
+
+                        menuButton.addEventListener('click', function (event) {
+                            // Prevent default form submission
+                            event.preventDefault();
+
+                            // Trigger page transition animation
+                            document.body.style.opacity = 0;
+
+                            // After animation (adjust time based on your animation duration)
+                            setTimeout(function () {
+                                // Revert animation
+                                document.body.style.opacity = 1;
+
+                                // Submit the form after animation completes
+                                document.getElementById('menu-form').submit();
+                            }, 200); // Adjust this value based on your transition duration (in milliseconds)
+                        });
+                        
+                    logoutButton.addEventListener('click', function (event) {
+                    // Prevent default form submission
+                    event.preventDefault();
+                            // Trigger page transition animation
+                            document.body.style.opacity = 0;
+                            // After animation (adjust time based on your animation duration)
+                            setTimeout(function () {
+                            // Revert animation
+                            document.body.style.opacity = 1;
+                                    // Submit the logout form after animation completes
+                                    document.getElementById('logout-form').submit();
+                            }, 200); // Adjust this value based on your transition duration (in milliseconds)
+                    });
+                    });
+                </script>
+
                 </body>
                 </html>

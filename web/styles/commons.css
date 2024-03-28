@@ -74,6 +74,7 @@ body {
     background-color: #8f654a;
     color: white;
 }
-.main-content {
-    transition: opacity 0.5s ease-in-out;
+body {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }

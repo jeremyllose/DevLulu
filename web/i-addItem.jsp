@@ -19,7 +19,10 @@
     <body>
 
         <div class="dashboardbar">
-            <h1 id="dashboardheader">Add Item Page</h1>
+            <h1 id="dashboardheader">Add Item Page</h1> 
+            <form action="AddItemPageRedirect" method="post">
+                        <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
+                    </form>
         </div>
         <br>
         <br>
@@ -47,14 +50,29 @@
                     <tr>
                         <th>Unit of Measurement:</th>
                         <td>
-                            <label for="pc"><input type="radio" id="pc" name="uom" value="PC" required> PC</label>
-                            <label for="gal"><input type="radio" id="gal" name="uom" value="GAL"> GAL</label>
-                            <label for="pac"><input type="radio" id="pac" name="uom" value="PAC"> PAC</label>
+                            <%
+                                ResultSet unitClass = (ResultSet) request.getAttribute("unitClass");
+                                while (unitClass.next()) {%>
+                            <label><%=unitClass.getString("unit_name")%> <input type="radio" name="uom" value="<%=unitClass.getString("unit_id")%>" required></label><br>
+                                <%	}
+                                %>
                         </td>
                     </tr>
                     <tr>
                         <th>Transfer Cost:</th>
                         <td><input type="number" min="0" step="any" name="transferCost" required></td>
+                    </tr>
+                    <tr>
+                        <th>Quantity:</th>
+                        <td><input type="number" min="0" name="qty" required></td>
+                    </tr>
+                    <tr>
+                        <th>Max Quantity:</th>
+                        <td><input type="number" min="0" name="max" required></td>
+                    </tr>
+                    <tr>
+                        <th>Reorder Quantity:</th>
+                        <td><input type="number" min="0" name="rod" required></td>
                     </tr>
                     <tr>
                         <th>General Class:</th>
@@ -85,11 +103,12 @@
                     <tr>
                         <td colspan="2"><input type="submit" value="Add Item"></td>
                     </tr>
+                    
                 </table>
             </div>
         </form>
-
-                        <div>   
+                        
+        <div>   
             <% if (session.getAttribute("existing") != null) { %>
             <div class="error-message">
                 <span class="error-symbol">&#9888;</span> Error! ${existing}

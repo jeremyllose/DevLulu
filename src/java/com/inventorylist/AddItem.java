@@ -112,7 +112,6 @@ public class AddItem extends HttpServlet {
         {
             Logger.getLogger(AddItem.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         request.getRequestDispatcher("ItemList").forward(request,response);
     }
     
