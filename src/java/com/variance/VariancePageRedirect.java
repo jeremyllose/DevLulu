@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.variance;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,21 +12,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class ItemAction extends HttpServlet {
+public class VariancePageRedirect extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -62,84 +59,76 @@ public class ItemAction extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("button");
-        
-        if (action.equals("disable")) 
+        try 
         {
-            String[] itemIds = request.getParameterValues("items");
-            if(itemIds != null)
+            if (con != null) 
             {
-                for (String itemId : itemIds) 
-                {
-                    try 
-                    {
-                        disableUser(itemId);
-                    }
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            response.sendRedirect("ItemList");
-        }
-        else if(action.substring(0, action.indexOf(" ")).equals("edit"))
-        {
-            try {
-                String arr[] = action.split(" ", 2);
-                String theRest = arr[1];
-                session.setAttribute("itemCode", theRest);
+                request.setAttribute("inventoryCount", countItemlist());
+                request.setAttribute("inventoryValue", inventoryValue());
                 
                 Statement stmt = con.createStatement();
-                //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet record = stmt.executeQuery("SELECT * FROM ITEM "
+                String query = "SELECT * FROM ITEM "
+                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
                         + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                        + "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE "
+                        + "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE "
                         + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
                         + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
                         + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.ITEM_CODE = '"+ theRest +"'");
+                        + "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+                ResultSet rs = stmt.executeQuery(query);
+                request.setAttribute("inventory", rs);
                 
-                request.setAttribute("editRecord", record);
+                request.getRequestDispatcher("variance.jsp").forward(request,response);
                 
-                Statement stmt1 = con.createStatement();
-                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
-                request.setAttribute("genClassEdit", rs1);
-                
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
-                request.setAttribute("subClassEdit", rs2);
-                
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
-                request.setAttribute("unitClassEdit", rs3);
-                
-                request.getRequestDispatcher("i-editItem.jsp").forward(request,response);
-                
-                record.close();
-                rs1.close();
-                rs2.close();
-                rs3.close();
-                
+                rs.close();
                 stmt.close();
-                stmt1.close();
-                stmt2.close();
-                stmt3.close();
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } 
+        catch (SQLException sqle)
+        {
+                response.sendRedirect("error.jsp");
         }
     }
     
-    public void disableUser(String user)throws SQLException
+    public int countItemlist() throws SQLException
     {
-        String query = "UPDATE ITEM SET DISABLED = TRUE WHERE ITEM_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, user);
-        ps.executeUpdate();
+        Statement stmt = con.createStatement();
+        String query = "select count(*) from ITEM where disabled = false";
+        ResultSet rs = stmt.executeQuery(query);
+        
+        rs.next();
+        int count = rs.getInt(1);
+        
+        rs.close();
+        stmt.close();
+        
+        return count;
     }
-
+    
+    public float inventoryValue() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM ITEM "
+                + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
+                + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                + "WHERE ITEM.DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
+        
+        float inventoryValue = 0;
+        
+        while(rs.next())
+        {
+            int quantity = rs.getInt("quantity");
+            float unitPrice = rs.getFloat("unit_price");
+            inventoryValue += quantity * unitPrice;
+        }
+        
+        rs.close();
+        stmt.close();
+        
+        return inventoryValue;
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

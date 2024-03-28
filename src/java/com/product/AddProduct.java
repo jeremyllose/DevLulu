@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.product;
 
+import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -26,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class ItemAction extends HttpServlet {
+public class AddProduct extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -61,83 +60,59 @@ public class ItemAction extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
-        String action = request.getParameter("button");
         
-        if (action.equals("disable")) 
+        String getProductCode = request.getParameter("productCode");
+        String getProductDescription = request.getParameter("productDescription");
+        float getProductPrice = Float.parseFloat(request.getParameter("productPrice"));
+        
+        String[] itemIds = request.getParameterValues("items");
+        String[] itemQuantity = request.getParameterValues("itemQuantity");
+        int start = 0;
+        
+        addProduct(getProductCode, getProductDescription, getProductPrice);
+        
+        for (String itemId : itemIds) 
         {
-            String[] itemIds = request.getParameterValues("items");
-            if(itemIds != null)
+            try 
             {
-                for (String itemId : itemIds) 
-                {
-                    try 
-                    {
-                        disableUser(itemId);
-                    }
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                addBill(getProductCode, itemId, Integer.parseInt(itemQuantity[start]));
+                start++;
             }
-            response.sendRedirect("ItemList");
-        }
-        else if(action.substring(0, action.indexOf(" ")).equals("edit"))
-        {
-            try {
-                String arr[] = action.split(" ", 2);
-                String theRest = arr[1];
-                session.setAttribute("itemCode", theRest);
-                
-                Statement stmt = con.createStatement();
-                //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet record = stmt.executeQuery("SELECT * FROM ITEM "
-                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
-                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
-                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.ITEM_CODE = '"+ theRest +"'");
-                
-                request.setAttribute("editRecord", record);
-                
-                Statement stmt1 = con.createStatement();
-                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
-                request.setAttribute("genClassEdit", rs1);
-                
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
-                request.setAttribute("subClassEdit", rs2);
-                
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
-                request.setAttribute("unitClassEdit", rs3);
-                
-                request.getRequestDispatcher("i-editItem.jsp").forward(request,response);
-                
-                record.close();
-                rs1.close();
-                rs2.close();
-                rs3.close();
-                
-                stmt.close();
-                stmt1.close();
-                stmt2.close();
-                stmt3.close();
-                
-            } catch (SQLException ex) {
+            catch (SQLException ex) 
+            {
                 Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        response.sendRedirect("ProductRedirect");
     }
     
-    public void disableUser(String user)throws SQLException
+    public void addProduct(String productCode, String productDescription, float productPrice)throws SQLException
     {
-        String query = "UPDATE ITEM SET DISABLED = TRUE WHERE ITEM_CODE = ?";
+        String query = "INSERT INTO PRODUCT (PRODUCT_CODE, PRODUCT_DESCRIPTION, PRODUCT_PRICE) "
+                + "VALUES (?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, user);
+        
+        ps.setString(1, productCode);
+        ps.setString(2, productDescription);
+        ps.setFloat(3, productPrice);
         ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addBill(String productCode, String itemCode, int itemQuantity)throws SQLException
+    {
+        String query = "INSERT INTO BILLOFMATERIALS (PRODUCT_CODE, ITEM_CODE, QUANTITY) "
+                + "VALUES (?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, productCode);
+        ps.setString(2, itemCode);
+        ps.setInt(3, itemQuantity);
+        ps.executeUpdate();
+        ps.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -152,7 +127,11 @@ public class ItemAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -166,7 +145,11 @@ public class ItemAction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

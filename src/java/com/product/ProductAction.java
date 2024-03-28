@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.product;
 
+import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -26,8 +27,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class ItemAction extends HttpServlet {
-
+public class ProductAction extends HttpServlet {
+    
     Connection con;
     byte[] key;
     String cypher;
@@ -49,8 +50,6 @@ public class ItemAction extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
-                    
-                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -61,80 +60,34 @@ public class ItemAction extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         String action = request.getParameter("button");
         
         if (action.equals("disable")) 
         {
-            String[] itemIds = request.getParameterValues("items");
+            String[] itemIds = request.getParameterValues("selectProduct");
             if(itemIds != null)
             {
                 for (String itemId : itemIds) 
                 {
-                    try 
-                    {
-                        disableUser(itemId);
-                    }
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    disableUser(itemId);
                 }
             }
-            response.sendRedirect("ItemList");
+            response.sendRedirect("ProductRedirect");
         }
         else if(action.substring(0, action.indexOf(" ")).equals("edit"))
         {
-            try {
-                String arr[] = action.split(" ", 2);
-                String theRest = arr[1];
-                session.setAttribute("itemCode", theRest);
-                
-                Statement stmt = con.createStatement();
-                //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet record = stmt.executeQuery("SELECT * FROM ITEM "
-                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
-                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
-                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.ITEM_CODE = '"+ theRest +"'");
-                
-                request.setAttribute("editRecord", record);
-                
-                Statement stmt1 = con.createStatement();
-                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
-                request.setAttribute("genClassEdit", rs1);
-                
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
-                request.setAttribute("subClassEdit", rs2);
-                
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
-                request.setAttribute("unitClassEdit", rs3);
-                
-                request.getRequestDispatcher("i-editItem.jsp").forward(request,response);
-                
-                record.close();
-                rs1.close();
-                rs2.close();
-                rs3.close();
-                
-                stmt.close();
-                stmt1.close();
-                stmt2.close();
-                stmt3.close();
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            String arr[] = action.split(" ", 2);
+            String theRest = arr[1];
+            session.setAttribute("productCode", theRest);
+            response.sendRedirect("EditProductRedirect");
         }
     }
     
     public void disableUser(String user)throws SQLException
     {
-        String query = "UPDATE ITEM SET DISABLED = TRUE WHERE ITEM_CODE = ?";
+        String query = "UPDATE PRODUCT SET DISABLED = TRUE WHERE PRODUCT_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, user);
         ps.executeUpdate();
@@ -152,7 +105,11 @@ public class ItemAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -166,7 +123,11 @@ public class ItemAction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

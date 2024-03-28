@@ -23,17 +23,21 @@
             <div class="sidebar">
                 <button id="homebutton" onclick="redirectTo('welcome.jsp')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
                 <button class="menu-item" onclick="redirectTo('sales.jsp')">Sales</button>
-                <button class="menu-item" onclick="redirectTo('product.jsp')">Product</button>
-                <button class="menu-item" onclick="redirectTo('variance.jsp')">Variance</button>
-                <form id="menu-form" action="ItemList" method="post">
+                <form action="ProductRedirect" method="post">
+                    <button class="menu-item">Product</button>
+                </form>
+                <form action="VariancePageRedirect" method="post">
+                    <button class="menu-item">Variance</button>
+                </form>
+                <form action="ItemList" method="post">
                     <button class="menu-item">Inventory</button>
                 </form>
-                <button class="menu-item" onclick="redirectTo('suppliesreceived.jsp')">Supplies Received</button>
-                <button class="menu-item" onclick="redirectTo('waste.jsp')">Waste</button>
-                <br>
-                <br>
-                <br>
-                <br>
+                <form action="SuppliesRedirectPage" method="post">
+                    <button class="menu-item">Supplies Received</button>
+                </form>
+                <form action="WasteRedirect" method="post">
+                    <button class="menu-item">Waste</button>
+                </form>
                 <form action="AccountList" method="post">
                     <button class="menu-item" id="accountlist">Account List</button>
                 </form>

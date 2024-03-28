@@ -4,6 +4,7 @@
  */
 package com.inventorylist;
 
+import static com.model.UnitCost.getUnitCost;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -71,10 +72,10 @@ public class AddItem extends HttpServlet {
         String getGC = request.getParameter("gc");
         String getSC = request.getParameter("sc");
         String getVat = request.getParameter("vat");
+        int getQty = Integer.parseInt(request.getParameter("qty"));
+        int getMax = Integer.parseInt(request.getParameter("max"));
+        int getReorder = Integer.parseInt(request.getParameter("rod"));
         boolean isChecked = getVat != null && getVat.equals("on");
-        
-        String mainQuery = "INSERT INTO ITEMS (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBRIVIATION, UOM, TRANSFER_COST, GEN_ID, SUB_ID, VAT) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try
         {
@@ -98,33 +99,91 @@ public class AddItem extends HttpServlet {
                 session.setAttribute("existing", "Supplies Should NOT be paired with Rawmats");
                 request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
             }
-            
-            PreparedStatement ps = con.prepareStatement(mainQuery);
-            
-            ps.setString(1, getItemCode);
-            ps.setInt(2, countDB());
-            ps.setString(3, getItemDescription);
-            ps.setString(4, abbriviation(getItemCode));
-            ps.setString(5, getUOM);
-            ps.setFloat(6, getTransferCost);
-            ps.setString(7, getGC);
-            ps.setString(8, getSC);
-            ps.setBoolean(9, isChecked);
-            
-            ps.executeUpdate();
-            
-            unitPrice(isChecked, getItemCode, getTransferCost);
-            
-            ps.close();
-            
+            else
+            {
+                addItem(getItemCode, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
+                addPricing(getItemCode, getUOM, getTransferCost, isChecked);
+                addTransaction(getItemCode, getQty);
+                addInventory(getItemCode, getQty, getMax, getReorder);
+                addStockHistory(getItemCode, getQty);
+            }
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(AddItem.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         request.getRequestDispatcher("ItemList").forward(request,response);
-        }
+    }
+    
+    public void addItem(String itemCode, int itemNum, String itemDesc, String itemAbb, String genId, String subId)throws SQLException
+    {
+        String query = "INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID)"
+                + " VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, itemCode);
+        ps.setInt(2, itemNum);
+        ps.setString(3, itemDesc);
+        ps.setString(4, itemAbb);
+        ps.setString(5, genId);
+        ps.setString(6, subId);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addPricing(String itemCode, String unitId, float transferCost, boolean vat)throws SQLException
+    {
+        String query = "INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, itemCode);
+        ps.setString(2, unitId);
+        ps.setFloat(3, transferCost);
+        ps.setBoolean(4, vat);
+        ps.setFloat(5, getUnitCost(vat, transferCost));
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addTransaction(String itemCode, int quantity)throws SQLException
+    {
+        String query = "INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) "
+                + "VALUES (?, 0, 0, 0, 0, 0)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addInventory(String itemCode, int quantity, int max, int reorder)throws SQLException
+    {
+        String query = "INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, itemCode);
+        ps.setInt(2, quantity);
+        ps.setInt(3, max);
+        ps.setInt(4, max-quantity);
+        ps.setInt(5, reorder);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addStockHistory(String itemCode, int quantity)throws SQLException
+    {
+        String query = "INSERT INTO STOCKHISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) "
+                + "VALUES (?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, itemCode);
+        ps.setInt(2, quantity);
+        ps.setInt(3, quantity);
+        ps.executeUpdate();
+        ps.close();
+    }
     
     public String abbriviation(String pkey)
     {
@@ -135,7 +194,7 @@ public class AddItem extends HttpServlet {
     
     public boolean check(String pkey) throws SQLException
     {
-        String query = "SELECT 1 FROM ITEMS WHERE ITEM_CODE = ?";
+        String query = "SELECT 1 FROM ITEM WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, pkey);
         ResultSet resultSet = ps.executeQuery();
@@ -207,7 +266,7 @@ public class AddItem extends HttpServlet {
     public int countDB() throws SQLException
     {
         Statement stmt = con.createStatement();
-        String query = "select count(*) from ITEMS";
+        String query = "select count(*) from ITEM";
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
         int count = rs.getInt(1);

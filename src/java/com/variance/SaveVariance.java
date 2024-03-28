@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.variance;
 
+import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,13 +21,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class ItemAction extends HttpServlet {
+public class SaveVariance extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -49,8 +49,6 @@ public class ItemAction extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
-                    
-                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -59,85 +57,60 @@ public class ItemAction extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("button");
-        
-        if (action.equals("disable")) 
+        try 
         {
-            String[] itemIds = request.getParameterValues("items");
-            if(itemIds != null)
+            if (con != null) 
             {
-                for (String itemId : itemIds) 
-                {
-                    try 
-                    {
-                        disableUser(itemId);
-                    }
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            response.sendRedirect("ItemList");
-        }
-        else if(action.substring(0, action.indexOf(" ")).equals("edit"))
-        {
-            try {
-                String arr[] = action.split(" ", 2);
-                String theRest = arr[1];
-                session.setAttribute("itemCode", theRest);
-                
+                String[] begginingValues = request.getParameterValues("beg");
+                String[] endValues = request.getParameterValues("end");
+                int start = 0;
                 Statement stmt = con.createStatement();
-                //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet record = stmt.executeQuery("SELECT * FROM ITEM "
+                String query = "SELECT * FROM ITEM "
+                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
                         + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
-                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
-                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.ITEM_CODE = '"+ theRest +"'");
+                        + "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE "
+                        + "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE "
+                        + "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+                ResultSet rs = stmt.executeQuery(query);
                 
-                request.setAttribute("editRecord", record);
+                while(rs.next())
+                {
+                    editBegItem(Integer.parseInt(begginingValues[start]), rs.getString("item_code"));
+                    editEndItem(Integer.parseInt(endValues[start]), rs.getString("item_code"));
+                    start++;
+                }
+                response.sendRedirect("VariancePageRedirect");
                 
-                Statement stmt1 = con.createStatement();
-                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
-                request.setAttribute("genClassEdit", rs1);
-                
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
-                request.setAttribute("subClassEdit", rs2);
-                
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
-                request.setAttribute("unitClassEdit", rs3);
-                
-                request.getRequestDispatcher("i-editItem.jsp").forward(request,response);
-                
-                record.close();
-                rs1.close();
-                rs2.close();
-                rs3.close();
-                
+                rs.close();
                 stmt.close();
-                stmt1.close();
-                stmt2.close();
-                stmt3.close();
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } 
+        catch (SQLException sqle)
+        {
+                response.sendRedirect("error.jsp");
         }
     }
     
-    public void disableUser(String user)throws SQLException
+    public void editBegItem(int beg, String itemCode)throws SQLException
     {
-        String query = "UPDATE ITEM SET DISABLED = TRUE WHERE ITEM_CODE = ?";
+        String query = "UPDATE STOCKHISTORY SET BEGINNING_QUANTITY = ? WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, user);
+        ps.setInt(1, beg);
+        ps.setString(2, itemCode);
         ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void editEndItem(int beg, String itemCode)throws SQLException
+    {
+        String query = "UPDATE STOCKHISTORY SET END_QUANTITY = ? WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, beg);
+        ps.setString(2, itemCode);
+        ps.executeUpdate();
+        ps.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

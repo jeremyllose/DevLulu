@@ -27,9 +27,6 @@
             <form action="AddItemPageRedirect" method="post">
                 <button class="inventory" id="add" type="submit">Add Item</button>
             </form>
-            <form action="ItemAction" method="post">
-                <button class="inventory" id="disable" type="submit" name="button" value="disable">Disable Item</button>
-            </form>
                 <button class="inventory" id="import" onclick="openFileExplorer()">Import Excel</button>
             <form action="i-generateReport.jsp">
                 <button class="inventory" id="generate" type="submit">Generate Report</button>
@@ -39,14 +36,15 @@
             </form>
             <input type="text" id="searchBar" placeholder="Search..."> 
         </div>
+        <form action="ItemAction" method="post">
         <table>
             <thead>
                 <tr>
-                    <th>Selector</th>
+                    <th><button type="submit" name="button" value="disable">Disable Item</button></th>
                     <th>Item Code</th>
                     <th>Item No.</th>
                     <th>Description</th>
-                    <th>Abbriviation</th>
+                    <th>Abbreviation</th>
                     <th>Unit of Measurement</th>
                     <th>Transfer Cost</th>
                     <th>General Class</th>
@@ -65,8 +63,8 @@
                     <td><%=results.getString("item_code")%></td>
                     <td><%=results.getString("item_num")%></td>
                     <td><%=results.getString("item_description")%></td>
-                    <td><%=results.getString("abbriviation")%></td>
-                    <td><%=results.getString("uom")%></td>
+                    <td><%=results.getString("abbreviation")%></td>
+                    <td><%=results.getString("unit_name")%></td>
                     <td><%=results.getString("transfer_cost")%></td>
                     <td><%=results.getString("gen_name")%></td>
                     <td><%=results.getString("sub_name")%></td>
@@ -80,6 +78,7 @@
                 %>
             </tbody>
         </table>
+        </form>
         <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
         <div id="dateText">Date: July 15, 2024</div>
         <script>

@@ -64,9 +64,11 @@ public class ItemList extends HttpServlet {
             {
                 Statement stmt = con.createStatement();
                 //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet records = stmt.executeQuery("SELECT * FROM ITEMS "
-                        + "INNER JOIN GEN_CLASS ON ITEMS.GEN_ID = GEN_CLASS.GEN_ID "
-                        + "INNER JOIN SUB_CLASS ON ITEMS.SUB_ID = SUB_CLASS.SUB_ID "
+                ResultSet records = stmt.executeQuery("SELECT * FROM ITEM "
+                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
+                        + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
+                        + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
+                        + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
                         + "WHERE DISABLED = FALSE ORDER BY ITEM_NUM");
                 
                 //gives all the records to the Accountlist

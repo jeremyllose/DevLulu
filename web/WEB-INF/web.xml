@@ -76,6 +76,54 @@
         <servlet-name>EditItem</servlet-name>
         <servlet-class>com.inventorylist.EditItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VariancePageRedirect</servlet-name>
+        <servlet-class>com.variance.VariancePageRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveVariance</servlet-name>
+        <servlet-class>com.variance.SaveVariance</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SuppliesRedirectPage</servlet-name>
+        <servlet-class>com.supplies.SuppliesRedirectPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveDeliveries</servlet-name>
+        <servlet-class>com.supplies.SaveDeliveries</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WasteRedirect</servlet-name>
+        <servlet-class>com.waste.WasteRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveWastes</servlet-name>
+        <servlet-class>com.waste.SaveWastes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductRedirect</servlet-name>
+        <servlet-class>com.product.ProductRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductRedirect</servlet-name>
+        <servlet-class>com.product.AddProductRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProduct</servlet-name>
+        <servlet-class>com.product.AddProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductAction</servlet-name>
+        <servlet-class>com.product.ProductAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProductRedirect</servlet-name>
+        <servlet-class>com.product.EditProductRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProduct</servlet-name>
+        <servlet-class>com.product.EditProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -119,6 +167,54 @@
     <servlet-mapping>
         <servlet-name>EditItem</servlet-name>
         <url-pattern>/EditItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VariancePageRedirect</servlet-name>
+        <url-pattern>/VariancePageRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveVariance</servlet-name>
+        <url-pattern>/SaveVariance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuppliesRedirectPage</servlet-name>
+        <url-pattern>/SuppliesRedirectPage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveDeliveries</servlet-name>
+        <url-pattern>/SaveDeliveries</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WasteRedirect</servlet-name>
+        <url-pattern>/WasteRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveWastes</servlet-name>
+        <url-pattern>/SaveWastes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductRedirect</servlet-name>
+        <url-pattern>/ProductRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductRedirect</servlet-name>
+        <url-pattern>/AddProductRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProduct</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductAction</servlet-name>
+        <url-pattern>/ProductAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProductRedirect</servlet-name>
+        <url-pattern>/EditProductRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProduct</servlet-name>
+        <url-pattern>/EditProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -4,6 +4,7 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!DOCTYPE html>
@@ -16,262 +17,52 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
-              <div class="dashboardbar">
-                    <h1 id="dashboardheader">Supplies Received</h1></div>
-                    <div class="others">
-                    <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')">Generate Report</button>
-                    <button class="inventory" id="sort" onclick="redirectTo('sr-sort.jsp')">Sort Options</button>
-                    <input type="text" id="searchBar" placeholder="Search..."> 
-    </div>
-                    <br>
-                     
-        <table>
+        <div class="dashboardbar">
+            <h1 id="dashboardheader">Supplies Received</h1>
+        </div>
+        <%
+            float addCost = (Float) request.getAttribute("addsValue");
+        %>
+        <div class="others">
+            <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')">Generate Report</button>
+            <button class="inventory" id="sort" onclick="redirectTo('sr-sort.jsp')">Sort Options</button>
+            <h1>Delivery Costs: <%= addCost %></h1>
+            <input type="text" id="searchBar" placeholder="Search..."> 
+        </div>
+            <form action="SaveDeliveries" method="post">
+            
+            <table>
             <thead>
                 <tr>
-                    <th>Selector</th>
-                    <th>No.</th>
+                    <th>Item Code</th>
                     <th>Item Description</th>
-                    <th>Gen Class</th>
+                    <th>General Class</th>
                     <th>Sub Class</th>
-                    <th>Unit</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                    <th>6</th>
-                    <th>7</th>
+                    <th>UOM</th>
+                    <th>Deliveries</th>
+                    <th>Others</th>
+                    <th>End Quantity</th>
+                    <th><button type="submit" name="button" value="save">Save Changes</button></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>-</td>
-                    <td>2</td>
-                    <td>-</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>-</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>4</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">2</td>
-                    <td>Alcohol</td>
-                    <td>Supplies</td>
-                    <td>Cleaning</td>
-                    <td>GAL</td>
-                    <td>6</td>
-                    <td>4</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">2</td>
-                    <td>Alcohol</td>
-                    <td>Supplies</td>
-                    <td>Cleaning</td>
-                    <td>GAL</td>
-                    <td>6</td>
-                    <td>4</td>
-                    <td>-</td>
-                    <td>2</td>
-                    <td>-</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>-</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">2</td>
-                    <td>Alcohol</td>
-                    <td>Supplies</td>
-                    <td>Cleaning</td>
-                    <td>GAL</td>
-                    <td>6</td>
-                    <td>4</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">3</td>
-                    <td>Bleach</td>
-                    <td>Supplies</td>
-                    <td>Cleaning</td>
-                    <td>PC</td>
-                    <td>-</td>
-                    <td>6</td>
-                    <td>3</td>
-                    <td>-</td>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">4</td>
-                    <td>Baking Spray</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>CAN</td>
-                    <td>43</td>
-                    <td>21</td>
-                    <td>2</td>
-                    <td>-</td>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>-</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">1</td>
-                    <td>Butter</td>
-                    <td>Food Item</td>
-                    <td>Cake</td>
-                    <td>PC</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td>5</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">2</td>
-                    <td>Alcohol</td>
-                    <td>Supplies</td>
-                    <td>Cleaning</td>
-                    <td>GAL</td>
-                    <td>6</td>
-                    <td>4</td>
-                    <td>3</td>
-                    <td>-</td>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>6</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">3</td>
-                    <td>Bleach</td>
-                    <td>Supplies</td>
-                    <td>Cleaning</td>
-                    <td>PC</td>
-                    <td>13</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>4</td>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>8</td>
-                </tr>
+                <%
+                    ResultSet results = (ResultSet) request.getAttribute("deliveries");
+                    while (results.next()) {%>
+                    <tr>
+                        <td><%=results.getString("item_code")%></td>
+                        <td><%=results.getString("item_description")%></td>
+                        <td><%=results.getString("gen_name")%></td>
+                        <td><%=results.getString("sub_name")%></td>
+                        <td><%=results.getString("unit_name")%></td>
+                        <td><input type="number" min="0" name="delivery" value="<%=results.getString("delivery")%>" required/></td>
+                        <td><input type="number" min="0" name="others" value="<%=results.getString("otheradds")%>" required/></td>
+                        <td><%=results.getString("end_quantity")%></td>
+                    </tr>        
+                <%	}
+                %>
             </tbody>
-        </table> 
-                      <div id="dateText">Date: July 15, 2024</div>
-                      <div id="costs">Total Delivery Costs:</div>
-                      <input type="text" id="deliverycost" name="myText" placeholder="304,299">
+        </table>
+        </form>
     </body>
 </html>

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.inventorylist;
+package com.product;
 
+import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,12 +21,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class EditItem extends HttpServlet {
+public class EditProduct extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -48,8 +50,6 @@ public class EditItem extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
-                    
-                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -58,76 +58,97 @@ public class EditItem extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            String getItemCode = request.getParameter("itemCode");
-            String getItemDescription = request.getParameter("itemDescription");
-            float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
-            String getGC = request.getParameter("gc");
-            String getSC = request.getParameter("sc");
-            String getUOM = request.getParameter("uom");
-            String getVat = request.getParameter("vat");
-            boolean isChecked = getVat != null && getVat.equals("on");
-            
-            updateItem(getItemDescription, getGC, getSC, getItemCode);
-            updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
-            
-            response.sendRedirect("ItemList");
-        } catch (SQLException ex) {
-            Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
+            throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
+        String productCode = (String) session.getAttribute("productCode");
+        
+        String getProductDescription = request.getParameter("productDescription");
+        float getProductPrice = Float.parseFloat(request.getParameter("productPrice"));
+        
+        updateProduct(getProductDescription, getProductPrice, productCode);
+        
+        String[] itemCodes = request.getParameterValues("itemCode");
+        String[] itemQuantities = request.getParameterValues("updateItemQuantity");
+        int start = 0;
+        
+        for (String itemCode : itemCodes) 
+        {
+            updateBillOFMaterial(Integer.parseInt(itemQuantities[start]), productCode, itemCode);
+            start++;
         }
+        
+        String[] itemsRemoved = request.getParameterValues("itemRemove");
+        
+        if (itemsRemoved != null)
+        {
+            for (String itemRemove : itemsRemoved) 
+            {
+                RemoveBillOFMaterial(productCode, itemRemove);
+            }
+        }
+        
+        String[] itemAdds = request.getParameterValues("itemsAdd");
+        String[] addQuantity = request.getParameterValues("itemQuantity");
+        start = 0;
+        
+        if (itemAdds != null)
+        {
+            for(String addItem : itemAdds)
+            {
+                addBill(productCode, addItem, Integer.parseInt(addQuantity[start]));
+                start++;
+            }
+        }
+        
+        response.sendRedirect("EditProductRedirect");
     }
     
-    public void updateItem(String desc, String genId, String subId, String itemCode)throws SQLException
+    public void updateProduct(String desc, float price, String productCode)throws SQLException
     {
-        String query = "UPDATE ITEM SET "
-                + "ITEM_DESCRIPTION = ?, "
-                + "GEN_ID= ?, "
-                + "SUB_ID= ?, "
-                + "UPDATED= ? "
-                + "WHERE ITEM_CODE = ?";
+        String query = "UPDATE PRODUCT SET PRODUCT_DESCRIPTION = ?, PRODUCT_PRICE = ? WHERE PRODUCT_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, desc);
-        ps.setString(2, genId);
-        ps.setString(3, subId);
-        
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = format.format(new Date(System.currentTimeMillis()));
-        ps.setString(4, formattedDate);
-        
-        ps.setString(5, itemCode);
+        ps.setFloat(2, price);
+        ps.setString(3, productCode);
         ps.executeUpdate();
         ps.close();
     }
     
-    public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId)throws SQLException
+    public void updateBillOFMaterial(int quantity, String productCode, String itemCode)throws SQLException
     {
-        float percent = transferCost * (0.01f * 10.7f);
-        float unit = transferCost - percent;
-        
-        String query = "UPDATE PRICING SET  "
-                + "UNIT_PRICE = ?, "
-                + "TRANSFER_COST = ?, "
-                + "UNIT_ID = ?, "
-                + "VAT = ? "
-                + "WHERE ITEM_CODE = ?";
+        String query = "UPDATE BILLOFMATERIALS SET QUANTITY = ? WHERE PRODUCT_CODE = ? AND ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
-        if(vat == true)
-        {
-            ps.setFloat(1, unit);
-        }
-        else
-        {
-            ps.setFloat(1, transferCost);
-        }
+        ps.setInt(1, quantity);
+        ps.setString(2, productCode);
+        ps.setString(3, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void RemoveBillOFMaterial(String productCode, String itemCode)throws SQLException
+    {
+        String query = "DELETE FROM BILLOFMATERIALS WHERE PRODUCT_CODE = ? AND ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
         
-        ps.setFloat(2, transferCost);
-        ps.setString(3, unitId);
-        ps.setBoolean(4, vat);
-        ps.setString(5, itemCode);
+        ps.setString(1, productCode);
+        ps.setString(2, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addBill(String productCode, String itemCode, int quantity)throws SQLException
+    {
+        String query = "INSERT INTO BILLOFMATERIALS (PRODUCT_CODE, ITEM_CODE, QUANTITY) "
+                + "VALUES (?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, productCode);
+        ps.setString(2, itemCode);
+        ps.setInt(3, quantity);
         ps.executeUpdate();
         ps.close();
     }
@@ -144,7 +165,11 @@ public class EditItem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(EditProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -158,7 +183,11 @@ public class EditItem extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(EditProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
