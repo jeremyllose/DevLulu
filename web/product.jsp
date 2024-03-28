@@ -4,6 +4,7 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!DOCTYPE html>
@@ -17,199 +18,47 @@
     </head>
     <body>
         <div class="dashboardbar">
-            <h1 id="dashboardheader">Product</h1></div>
-            <div class="others">
-        <button class="inventory" id="add" onclick="redirectTo('p-addProduct.jsp')">Add Product</button>
+            <h1 id="dashboardheader">Product</h1>
+        </div>
+        
+        <div class="others">
+            <form action="AddProductRedirect" method="post">
+                <button type="submit" class="inventory" id="add">Add Product</button>
+            </form>
         <button class="inventory" id="generate" onclick="redirectTo('p-editProduct.jsp')">Edit Product</button>
         <button class="inventory" id="sort" onclick="redirectTo('p-deleteProduct.jsp')">Delete Product</button>
         <input type="text" id="searchBar" placeholder="Search..."> 
-            </div>
+        </div>
+        <form action="ProductAction" method="post">
         <table>
             <thead>
                 <tr>
-                    <th>Selector</th>
-                    <th>Description</th>
-                    <th>Item No.</th>
-                    <th>Recipe</th>
-                    <th>Conversion</th>
+                    <th><button type="submit" name="button" value="disable">Disable Product</button></th>
+                    <th>Product Code</th>
+                    <th>Product Description</th>
+                    <th>Product Price</th>
                     <th>Quantity</th>
-                    <th>Unit</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td rowspan="6"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="6">Latte</td>
-                    <td>40</td>
-                    <td>Coffee Beans Mixed</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>G</td>
-                </tr>
-                <tr>
-
-                    <td>41</td>
-                    <td>Double Wall Cup Printed</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>PC</td>
-                </tr>
-                <tr>
-
-                    <td>42</td>
-                    <td>Coffee Lid Black</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>PC</td>
-                </tr>
-            <td>43</td>
-            <td>Wooden Stirrer</td>
-            <td>6</td>
-            <td>7</td>
-            <td>PC</td>
-        </tr>
-        <td>44</td>
-        <td>Plastic Take Out Single</td>
-        <td>8</td>
-        <td>9</td>
-        <td>PC</td>
-    </tr>
-    <td>45</td>
-    <td>Quarterfold Tissue</td>
-    <td>10</td>
-    <td>11</td>
-    <td>PC</td>
-</tr>
-<td rowspan="6"><input type="checkbox" name="selectProduct"></td>
- <td rowspan="6">Mocha</td>
-<td>40</td>
-<td>Coffee Beans Mixed</td>
-<td>1</td>
-<td>2</td>
-<td>G</td>
-</tr>
-<tr>
-
-    <td>41</td>
-    <td>Double Wall Cup Printed</td>
-    <td>3</td>
-    <td>4</td>
-    <td>PC</td>
-</tr>
-<tr>
-
-    <td>42</td>
-    <td>Coffee Lid Black</td>
-    <td>5</td>
-    <td>6</td>
-    <td>PC</td>
-</tr>
-<td>43</td>
-<td>Wooden Stirrer</td>
-<td>6</td>
-<td>7</td>
-<td>PC</td>
-</tr>
-<td>44</td>
-<td>Plastic Take Out Single</td>
-<td>8</td>
-<td>9</td>
-<td>PC</td>
-</tr>
-<td>45</td>
-<td>Quarterfold Tissue</td>
-<td>10</td>
-<td>11</td>
-<td>PC</td>
-</tr>
-
-<td rowspan="6"><input type="checkbox" name="selectProduct"></td>
- <td rowspan="6">Americano</td>
-<td>40</td>
-<td>Coffee Beans Mixed</td>
-<td>1</td>
-<td>2</td>
-<td>G</td>
-</tr>
-<tr>
-
-    <td>41</td>
-    <td>Double Wall Cup Printed</td>
-    <td>3</td>
-    <td>4</td>
-    <td>PC</td>
-</tr>
-<tr>
-
-    <td>42</td>
-    <td>Coffee Lid Black</td>
-    <td>5</td>
-    <td>6</td>
-    <td>PC</td>
-</tr>
-<td>43</td>
-<td>Wooden Stirrer</td>
-<td>6</td>
-<td>7</td>
-<td>PC</td>
-</tr>
-<td>44</td>
-<td>Plastic Take Out Single</td>
-<td>8</td>
-<td>9</td>
-<td>PC</td>
-</tr>
-<td>45</td>
-<td>Quarterfold Tissue</td>
-<td>10</td>
-<td>11</td>
-<td>PC</td>
-</tr>
-
-<td rowspan="6"><input type="checkbox" name="selectProduct"></td>
- <td rowspan="6">Espresso</td>
-<td>40</td>
-<td>Coffee Beans Mixed</td>
-<td>1</td>
-<td>2</td>
-<td>G</td>
-</tr>
-<tr>
-
-    <td>41</td>
-    <td>Double Wall Cup Printed</td>
-    <td>3</td>
-    <td>4</td>
-    <td>PC</td>
-</tr>
-<tr>
-
-    <td>42</td>
-    <td>Coffee Lid Black</td>
-    <td>5</td>
-    <td>6</td>
-    <td>PC</td>
-</tr>
-<td>43</td>
-<td>Wooden Stirrer</td>
-<td>6</td>
-<td>7</td>
-<td>PC</td>
-</tr>
-<td>44</td>
-<td>Plastic Take Out Single</td>
-<td>8</td>
-<td>9</td>
-<td>PC</td>
-</tr>
-<td>45</td>
-<td>Quarterfold Tissue</td>
-<td>10</td>
-<td>11</td>
-<td>PC</td>
-</tr>
-</tbody>
-</table>
-        
-</body>
+                <%
+                    ResultSet results = (ResultSet) request.getAttribute("product");
+                    while (results.next()) {%>
+                    <tr>
+                        <td><input type="checkbox" name="selectProduct" value="<%= results.getString("product_code")%>"></td>
+                        <td><%=results.getString("product_code")%></td>
+                        <td><%=results.getString("product_description")%></td>
+                        <td><%=results.getString("product_price")%></td>
+                        <td><input type="number" min="0" name="qty" value="<%=results.getString("quantity")%>" required/></td>
+                        <td>
+                            <button type="submit" name="button" value="edit <%= results.getString("product_code")%>">Edit</button>
+                        </td>
+                    </tr>
+                <%	}
+                %>
+            </tbody>
+        </table>
+        </form>
+    </body>
 </html> 
