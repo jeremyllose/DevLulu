@@ -20,9 +20,6 @@
 
         <div class="dashboardbar">
             <h1 id="dashboardheader">Add Item Page</h1> 
-            <form action="AddItemPageRedirect" method="post">
-                        <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
-                    </form>
         </div>
         <br>
         <br>
@@ -49,7 +46,7 @@
                     </tr>
                     <tr>
                         <th>Unit of Measurement:</th>
-                        <td>
+                        <td class="class-options">
                             <%
                                 ResultSet unitClass = (ResultSet) request.getAttribute("unitClass");
                                 while (unitClass.next()) {%>
@@ -76,7 +73,7 @@
                     </tr>
                     <tr>
                         <th>General Class:</th>
-                        <td>
+                        <td class="class-options">
                             <%
                                 ResultSet genClass = (ResultSet) request.getAttribute("genClass");
                                 while (genClass.next()) {%>
@@ -87,7 +84,7 @@
                     </tr>
                     <tr>
                         <th>Sub Class:</th>
-                        <td>
+                        <td class="box-container">
                             <%
                                 ResultSet subClass = (ResultSet) request.getAttribute("subClass");
                                 while (subClass.next()) {%>
@@ -103,7 +100,7 @@
                     <tr>
                         <td colspan="2"><input type="submit" value="Add Item"></td>
                     </tr>
-                    
+                    <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
                 </table>
             </div>
         </form>

@@ -29,7 +29,7 @@
                 <form action="VariancePageRedirect" method="post">
                     <button class="menu-item">Variance</button>
                 </form>
-                <form action="ItemList" method="post">
+                <form id="menu-form" action="ItemList" method="post">
                     <button class="menu-item">Inventory</button>
                 </form>
                 <form action="SuppliesRedirectPage" method="post">
@@ -38,6 +38,10 @@
                 <form action="WasteRedirect" method="post">
                     <button class="menu-item">Waste</button>
                 </form>
+                <br>
+                <br>
+                <br>
+                <br>
                 <form action="AccountList" method="post">
                     <button class="menu-item" id="accountlist">Account List</button>
                 </form>
