@@ -1,5 +1,14 @@
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 03 28, 24, 11:06:05 PM
+    Author     : BioStaR
+*/
+
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
@@ -30,15 +39,24 @@ body {
     width: 100%;
     z-index: 1;
 }
-.class-options {
-    display: flex;
-    flex-wrap: wrap;
+.th-product-label {
+    text-align: left; /* Aligns the text to the right */
+    width: 10rem;
+    
 }
-
-.class-options label {
-    margin-right: 20px;
+.td-product-label {
+    text-align: left; /* Aligns the text to the right */
+    width: 10rem;
 }
-.item-container {
+.prod-position {
+    position: relative;
+    left: 15rem;
+}
+.prod-table {
+    text-align: left;
+    width: 7rem;
+}
+.product-container {
     width: 101%;
     margin: 20px auto;
     padding: 20px;
@@ -48,23 +66,22 @@ body {
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     position: relative;
-    right: -28rem;
-    top: -1.5rem;
+    right: -20rem;
 }
 
-.item-container h3 {
+.product-container h3 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.item-container label {
+.product-container label {
     display: block;
     margin-bottom: 10px;
 }
 
-.item-container input[type="text"],
-.item-container input[type="number"] {
+.product-container input[type="text"],
+.product-container input[type="number"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -72,11 +89,11 @@ body {
     border-radius: 5px;
 }
 
-.item-container input[type="radio"] {
+.product-container input[type="radio"] {
     margin-right: 5px;
 }
 
-.item-container select {
+.product-container select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -91,20 +108,15 @@ body {
     padding: 10px 15px;
     cursor: pointer;
     position: relative;
-    top: 750px;
-    right: -3.5rem;
+    top: 179px;
+    right: -15rem;
 }
-.box-container {
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-.item-container:hover {
+
+.product-container:hover {
     background-color: #bfefbb;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
-.item-container input[type="submit"] {
+.product-container input[type="submit"] {
     display: inline-block;
     padding: 10px 15px;
     background-color: #8f654a;
@@ -114,7 +126,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative;
-    right: -15rem;
+    right: -25rem;
 }
 @keyframes scaleUp {
     from {
@@ -124,7 +136,7 @@ body {
         transform: scale(1.1);
     }
 }
-.item-container input[type="submit"]:hover {
+.product-container input[type="submit"]:hover {
     animation: scaleUp 0.3s ease;
     background-color: #e7a74f ;
 }

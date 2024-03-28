@@ -30,7 +30,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     border-color: red;
 }
 #searchBar {
-    flex: 1;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -38,10 +37,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     background-image: url('../photos/searchicon.png'); /* Add path to your search icon image */
     background-repeat: no-repeat;
     background-position: 200px center; /* Adjust the position of the icon */
-    padding-left: 40px; /* Ensure space for the icon */
     height: 32px;
+    width: 14.5rem;
     position: relative;
-    left: 20px;
+    left: 16rem;
 }
 .others{
     position: relative;
@@ -64,7 +63,7 @@ th {
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
 table {
-    width: 101%;
+    width: 114%;
     border-collapse: collapse;
     margin-top: 75px;
     border: none;
