@@ -68,15 +68,18 @@ public class ItemAction extends HttpServlet {
         if (action.equals("disable")) 
         {
             String[] itemIds = request.getParameterValues("items");
-            for (String itemId : itemIds) 
+            if(itemIds != null)
             {
-                try 
+                for (String itemId : itemIds) 
                 {
-                    disableUser(itemId);
-                }
-                catch (SQLException ex) 
-                {
-                    Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
+                    try 
+                    {
+                        disableUser(itemId);
+                    }
+                    catch (SQLException ex) 
+                    {
+                        Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             response.sendRedirect("ItemList");
