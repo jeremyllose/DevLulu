@@ -25,8 +25,6 @@
             <form action="AddProductRedirect" method="post">
                 <button type="submit" class="inventory" id="add">Add Product</button>
             </form>
-        <button class="inventory" id="generate" onclick="redirectTo('p-editProduct.jsp')">Edit Product</button>
-        <button class="inventory" id="sort" onclick="redirectTo('p-deleteProduct.jsp')">Delete Product</button>
         <input type="text" id="searchBar" placeholder="Search..."> 
         </div>
         <form action="ProductAction" method="post">

@@ -33,7 +33,11 @@
                 response.sendRedirect("welcome.jsp");
             }
         %>
-        <h1>Variance Test</h1>
+          <div class="dashboardbar">
+            <h1 id="dashboardheader">Variance</h1>
+        </div>
+          <br>
+          <br>
         <%
             int itemCount = (Integer) request.getAttribute("inventoryCount");
         %>
@@ -62,6 +66,7 @@
                     <th>Expected End</th>
                     <th>Actual End</th>
                     <th>Variance</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
