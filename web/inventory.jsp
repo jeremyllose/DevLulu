@@ -27,7 +27,10 @@
             <form action="AddItemPageRedirect" method="post">
                 <button class="inventory" id="add" type="submit">Add Item</button>
             </form>
-                <button class="inventory" id="import" onclick="openFileExplorer()">Import Excel</button>
+            <form action="UploadServlet" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" value="Upload" />
+               
             <form action="i-generateReport.jsp">
                 <button class="inventory" id="generate" type="submit">Generate Report</button>
             </form>

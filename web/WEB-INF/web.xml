@@ -124,6 +124,14 @@
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>com.product.EditProduct</servlet-class>
     </servlet>
+<!--    <servlet>
+        <servlet-name>InsertDataServlet</servlet-name>
+        <url-pattern>com.imports.InsertDataServlet</url-pattern>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>com.imports.UploadServlet</url-pattern>
+    </servlet>-->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -216,6 +224,14 @@
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
     </servlet-mapping>
+<!--    <servlet-mapping>
+        <servlet-name>InsertDataServlet</servlet-name>
+        <url-pattern>/InsertDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadServlet</url-pattern>
+    </servlet-mapping>-->
     <session-config>
         <session-timeout>
             30
@@ -224,4 +240,5 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+    
 </web-app>
