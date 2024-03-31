@@ -4,6 +4,7 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!DOCTYPE html>
@@ -31,181 +32,30 @@
            <table>
             <thead>
                 <tr>
-                    <th>Selector</th>
-                    <th>Description</th>
+                    <th>Product Description</th>
+                    <th>Product Price</th>
                     <th>Quantity</th>
-                    <th>SRP</th>
-                    <th>Costp</th>
-                    <th>Costper</th>
-                    <th>Gross Profit</th>
-                    <th>Barcode</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Bacon Fried Rice</td>
-                    <td>15</td>
-                    <td>180</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>001</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Spam Garlic Fried Rice</td>
-                    <td>20</td>
-                    <td>160</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>3245.00</td>
-                    <td>002</td>
-                </tr>
-                     <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Bacon Fried Rice</td>
-                    <td>15</td>
-                    <td>180</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>001</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Spam Garlic Fried Rice</td>
-                    <td>20</td>
-                    <td>160</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>3245.00</td>
-                    <td>002</td>
-                </tr>
-                     <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Bacon Fried Rice</td>
-                    <td>15</td>
-                    <td>180</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>001</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Spam Garlic Fried Rice</td>
-                    <td>20</td>
-                    <td>160</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>3245.00</td>
-                    <td>002</td>
-                </tr>
-                     <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Bacon Fried Rice</td>
-                    <td>15</td>
-                    <td>180</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>001</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Spam Garlic Fried Rice</td>
-                    <td>20</td>
-                    <td>160</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>3245.00</td>
-                    <td>002</td>
-                </tr>
-                     <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Original Waffle</td>
-                    <td>10</td>
-                    <td>79</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>003</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">French Fries</td>
-                    <td>50</td>
-                    <td>89</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>4370.00</td>
-                    <td>004</td>
-                </tr>
-                       <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Original Waffle</td>
-                    <td>10</td>
-                    <td>79</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>003</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">French Fries</td>
-                    <td>50</td>
-                    <td>89</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>4370.00</td>
-                    <td>004</td>
-                </tr>
-                         <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Original Waffle</td>
-                    <td>10</td>
-                    <td>79</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>003</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">French Fries</td>
-                    <td>50</td>
-                    <td>89</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>4370.00</td>
-                    <td>004</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Bacon Fried Rice</td>
-                    <td>15</td>
-                    <td>180</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>2160.00</td>
-                    <td>001</td>
-                </tr>
-                 <tr>
-                    <td rowspan="1"><input type="checkbox" name="selectProduct"></td>
-                    <td rowspan="1">Spam Garlic Fried Rice</td>
-                    <td>20</td>
-                    <td>160</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>3245.00</td>
-                    <td>002</td>
-                </tr>
-</tbody>
+                <%
+                    float total = 0;
+                    ResultSet results = (ResultSet) request.getAttribute("sales");
+                    while (results.next()) {%>
+                    <tr>
+                        <td><%=results.getString("product_description")%></td>
+                        <td><%=results.getString("product_price")%></td>
+                        <td><%=results.getString("quantity")%></td>
+                        <td><%=results.getString("TOTAL_PRICE")%></td>
+                    </tr>
+                <%	
+                    total += results.getFloat("TOTAL_PRICE");
+                    }
+                %>
 </table>            
                     <div id="dateText">Date: July 15, 2024</div>
                       <div id="costs">Total:</div>
-                      <input type="text" id="inventoryprice" name="myText" placeholder="29,061">
+                      <input type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
     </body>
 </html>

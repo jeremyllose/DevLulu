@@ -124,6 +124,18 @@
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>com.product.EditProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SalesRedirect</servlet-name>
+        <servlet-class>com.sales.SalesRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>com.forgot.ForgotPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnablePassword</servlet-name>
+        <servlet-class>com.forgot.EnablePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -215,6 +227,18 @@
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SalesRedirect</servlet-name>
+        <url-pattern>/SalesRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/ForgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnablePassword</servlet-name>
+        <url-pattern>/EnablePassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

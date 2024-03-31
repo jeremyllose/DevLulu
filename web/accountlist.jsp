@@ -45,6 +45,7 @@
                     <th>Password</th>
                     <th>Role</th>
                     <th>Action</th>
+                    <th>Password Forgotten</th>
                 </tr>
             </thead>
             
@@ -68,6 +69,19 @@
                                         <button type="submit" onclick="return confirm('Are you sure you want to disable this user account?')">Disable</button>
                                     </form>
                                 </td>
+                                <%
+                                    if (results.getBoolean("forgotten") == true)
+                                    {
+                                %>
+                                <td>
+                                    <form action="EnablePassword" method="post">
+                                        <input type="hidden" name="username" value="<%= results.getString("username") %>">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to enable this users password?')">Show password</button>
+                                    </form>
+                                </td>
+                                <%
+                                    }
+                                %>
 			</tr>	
 		<%	}
 		%>

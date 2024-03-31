@@ -2,17 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.product;
+package com.forgot;
 
-import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -21,14 +18,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class ProductAction extends HttpServlet {
-    
+public class EnablePassword extends HttpServlet {
+
     Connection con;
     byte[] key;
     String cypher;
@@ -50,6 +46,8 @@ public class ProductAction extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -61,59 +59,20 @@ public class ProductAction extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("button");
+        String getUsername = request.getParameter("username");
+        enable(getUsername);
+        response.sendRedirect("AccountList");
+    }
+    
+    public void enable(String username)throws SQLException
+    {
+        int count = 0;
+        String query = "UPDATE LOGIN SET ENABLE = TRUE WHERE USERNAME = ?";
+        PreparedStatement ps = con.prepareStatement(query);
         
-        if (action.equals("disable")) 
-        {
-            String[] itemIds = request.getParameterValues("selectProduct");
-            if(itemIds != null)
-            {
-                for (String itemId : itemIds) 
-                {
-                    disableUser(itemId);
-                }
-            }
-            response.sendRedirect("ProductRedirect");
-        }
-        else if (action.equals("save")) 
-        {
-            String[] products = request.getParameterValues("products");
-            String[] quantites = request.getParameterValues("qty");
-            int start = 0;
-            
-            for (String product : products)
-            {
-                updateProduct(product , Integer.parseInt(quantites[start]));
-                start++;
-            }
-            
-            response.sendRedirect("ProductRedirect");
-        }
-        else if(action.substring(0, action.indexOf(" ")).equals("edit"))
-        {
-            String arr[] = action.split(" ", 2);
-            String theRest = arr[1];
-            session.setAttribute("productCode", theRest);
-            response.sendRedirect("EditProductRedirect");
-        }
-    }
-    
-    public void disableUser(String product)throws SQLException
-    {
-        String query = "UPDATE PRODUCT SET DISABLED = TRUE WHERE PRODUCT_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, product);
+        ps.setString(1, username);
         ps.executeUpdate();
-    }
-    
-    public void updateProduct(String product, int quantity)throws SQLException
-    {
-        String query = "UPDATE PRODUCT SET QUANTITY = ? WHERE PRODUCT_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1, quantity);
-        ps.setString(2, product);
-        ps.executeUpdate();
+        ps.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -131,7 +90,7 @@ public class ProductAction extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ProductAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnablePassword.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -149,7 +108,7 @@ public class ProductAction extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ProductAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnablePassword.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
