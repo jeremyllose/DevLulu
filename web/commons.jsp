@@ -22,22 +22,22 @@
         <div class="container">
             <div class="sidebar">
                 <button id="homebutton" onclick="redirectTo('welcome.jsp')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
-                <form action="SalesRedirect" method="post">
+                <form id="sales-form" action="SalesRedirect" method="post">
                     <button class="menu-item">Sales</button>
                 </form>
-                <form action="ProductRedirect" method="post">
+                <form id="product-form" action="ProductRedirect" method="post">
                     <button class="menu-item">Product</button>
                 </form>
-                <form action="VariancePageRedirect" method="post">
+                <form id="variance-form" action="VariancePageRedirect" method="post">
                     <button class="menu-item">Variance</button>
                 </form>
-                <form id="menu-form" action="ItemList" method="post">
+                <form id="item-form" action="ItemList" method="post">
                     <button class="menu-item">Inventory</button>
                 </form>
-                <form action="SuppliesRedirectPage" method="post">
+                <form id="supplies-form" action="SuppliesRedirectPage" method="post">
                     <button class="menu-item">Supplies Received</button>
                 </form>
-                <form action="WasteRedirect" method="post">
+                <form id="waste-form" action="WasteRedirect" method="post">
                     <button class="menu-item">Waste</button>
                 </form>
                 <br>
@@ -62,10 +62,44 @@
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
-                        const menuButton = document.getElementById('menu-form');
+                        const salesButton = document.getElementById('sales-form');
+                        const productButton = document.getElementById('product-form');
+                        const varianceButton = document.getElementById('variance-form');
+                        const itemButton = document.getElementById('item-form');
+                        const suppliesButton = document.getElementById('supplies-form');
+                        const wasteButton = document.getElementById('waste-form');
+                        const accountButton = document.getElementById('account-form');
                         const logoutButton = document.getElementById('logout-form');
 
-                        menuButton.addEventListener('click', function (event) {
+                        salesButton.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            document.body.style.opacity = 0;
+                            setTimeout(function () {
+                                document.body.style.opacity = 1;
+                                document.getElementById('sales-form').submit();
+                            }, 200);
+                        });
+
+                        // Add event listeners for other buttons following a similar pattern
+                        productButton.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            document.body.style.opacity = 0;
+                            setTimeout(function () {
+                                document.body.style.opacity = 1;
+                                document.getElementById('product-form').submit();
+                            }, 200);
+                        });
+
+                        varianceButton.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            document.body.style.opacity = 0;
+                            setTimeout(function () {
+                                document.body.style.opacity = 1;
+                                document.getElementById('variance-form').submit();
+                            }, 200);
+                        });
+
+                        itemButton.addEventListener('click', function (event) {
                             // Prevent default form submission
                             event.preventDefault();
 
@@ -78,24 +112,47 @@
                                 document.body.style.opacity = 1;
 
                                 // Submit the form after animation completes
-                                document.getElementById('menu-form').submit();
+                                document.getElementById('item-form').submit();
                             }, 200); // Adjust this value based on your transition duration (in milliseconds)
                         });
-                        
-                    logoutButton.addEventListener('click', function (event) {
-                    // Prevent default form submission
-                    event.preventDefault();
-                            // Trigger page transition animation
+
+                        suppliesButton.addEventListener('click', function (event) {
+                            event.preventDefault();
                             document.body.style.opacity = 0;
-                            // After animation (adjust time based on your animation duration)
                             setTimeout(function () {
-                            // Revert animation
-                            document.body.style.opacity = 1;
-                                    // Submit the logout form after animation completes
-                                    document.getElementById('logout-form').submit();
-                            }, 200); // Adjust this value based on your transition duration (in milliseconds)
+                                document.body.style.opacity = 1;
+                                document.getElementById('supplies-form').submit();
+                            }, 200);
+                        });
+
+                        wasteButton.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            document.body.style.opacity = 0;
+                            setTimeout(function () {
+                                document.body.style.opacity = 1;
+                                document.getElementById('waste-form').submit();
+                            }, 200);
+                        });
+
+                        accountButton.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            document.body.style.opacity = 0;
+                            setTimeout(function () {
+                                document.body.style.opacity = 1;
+                                document.getElementById('account-form').submit();
+                            }, 200);
+                        });
+
+                        logoutButton.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            document.body.style.opacity = 0;
+                            setTimeout(function () {
+                                document.body.style.opacity = 1;
+                                document.getElementById('logout-form').submit();
+                            }, 200);
+                        });
                     });
-                    });
+                </script>
                 </script>
 
                 </body>

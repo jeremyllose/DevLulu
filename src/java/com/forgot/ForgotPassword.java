@@ -27,125 +27,118 @@ import javax.servlet.http.HttpSession;
  * @author Cesar
  */
 public class ForgotPassword extends HttpServlet {
-    
+
     Connection con;
     byte[] key;
     String cypher;
-    
+
     public void init(ServletConfig config) throws ServletException {
-            super.init(config);
-            ServletContext context = getServletContext();
-            
-            String pkey = context.getInitParameter("publicKey");
-            this.key = pkey.getBytes();
-            this.cypher = context.getInitParameter("cypher");
-            
-            try {	
-                    Class.forName(context.getInitParameter("driver"));
-                    
-                    String username = context.getInitParameter("username");
-                    String password = context.getInitParameter("password");
-                    String url = context.getInitParameter("url");
-                    
-                    con = DriverManager.getConnection(url, username, password);
-                    
-                    
-                    
-            } catch (SQLException sqle){
-                    System.out.println("SQLException error occured - " 
-                            + sqle.getMessage());
-            } catch (ClassNotFoundException nfe){
-                    System.out.println("ClassNotFoundException error occured - " 
+        super.init(config);
+        ServletContext context = getServletContext();
+
+        String pkey = context.getInitParameter("publicKey");
+        this.key = pkey.getBytes();
+        this.cypher = context.getInitParameter("cypher");
+
+        try {
+            Class.forName(context.getInitParameter("driver"));
+
+            String username = context.getInitParameter("username");
+            String password = context.getInitParameter("password");
+            String url = context.getInitParameter("url");
+
+            con = DriverManager.getConnection(url, username, password);
+
+        } catch (SQLException sqle) {
+            System.out.println("SQLException error occured - "
+                    + sqle.getMessage());
+        } catch (ClassNotFoundException nfe) {
+            System.out.println("ClassNotFoundException error occured - "
                     + nfe.getMessage());
-            }
+        }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         String getUsername = request.getParameter("forgot-email");
+
+
+        if (getUsername == null || getUsername.isEmpty()) {
+ 
+            response.sendRedirect("login.jsp");
+            return; 
+        }
         
-        if(usernameExist(getUsername) == 0)
-        {
+        if (usernameExist(getUsername) == 0) {
             session.setAttribute("message", "User DOES NOT Exist");
             response.sendRedirect("login.jsp");
         }
-        if(userEnabled(getUsername) == 1)
-        {
+        if (userEnabled(getUsername) == 1) {
             session.setAttribute("message", "Password: " + getUserPassword(getUsername));
             passwordReceived(getUsername);
             response.sendRedirect("login.jsp");
-        }
-        else
-        {
+        } else {
             forgotten(getUsername);
             session.setAttribute("message", "Please wait for a few minutes before getting confirmation from a higher up");
             response.sendRedirect("login.jsp");
         }
     }
-    
-    public String getUserPassword(String username)throws SQLException
-    {
+
+    public String getUserPassword(String username) throws SQLException {
         String password = "";
         String query = "SELECT * FROM LOGIN WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ps.setString(1, username);
         ResultSet result = ps.executeQuery();
-        if (result.next()) 
-        {
+        if (result.next()) {
             password = decrypt(result.getString("password"), key, cypher);
         }
         return password;
     }
-    
-    public int usernameExist(String username)throws SQLException
-    {
+
+    public int usernameExist(String username) throws SQLException {
         int count = 0;
         String query = "SELECT COUNT(*) AS username_exists FROM LOGIN WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ps.setString(1, username);
         ResultSet result = ps.executeQuery();
-        if (result.next()) 
-        {
+        if (result.next()) {
             count = result.getInt("username_exists");
         }
         return count;
     }
-    
-    public int userEnabled(String username)throws SQLException
-    {
+
+    public int userEnabled(String username) throws SQLException {
         int count = 0;
         String query = "SELECT COUNT(*) AS username_exists FROM LOGIN WHERE USERNAME = ? AND ENABLE = TRUE";
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ps.setString(1, username);
         ResultSet result = ps.executeQuery();
-        if (result.next()) 
-        {
+        if (result.next()) {
             count = result.getInt("username_exists");
         }
         return count;
     }
-    
-    public void forgotten(String username)throws SQLException
-    {
+
+    public void forgotten(String username) throws SQLException {
         int count = 0;
         String query = "UPDATE LOGIN SET FORGOTTEN = TRUE WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ps.setString(1, username);
         ps.executeUpdate();
         ps.close();
     }
-    
-    public void passwordReceived(String username)throws SQLException
-    {
+
+    public void passwordReceived(String username) throws SQLException {
         int count = 0;
         String query = "UPDATE LOGIN SET FORGOTTEN = FALSE, ENABLE = FALSE WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ps.setString(1, username);
         ps.executeUpdate();
         ps.close();

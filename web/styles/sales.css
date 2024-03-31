@@ -13,6 +13,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     height: 50px;
     font-size: 24px;
     border-radius: 10px;
+    cursor: pointer;
+}
+@keyframes moveUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+.inventory:hover {
+    animation: moveUp 0.5s ease;
+    border-color: red;
 }
 .others{
     position: relative;
@@ -24,18 +37,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     gap: 10px;
 }
 #searchBar {
-    flex: 1;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-image: url('../photos/searchicon.png'); /* Add path to your search icon image */
+    background-image: url('../photos/searchicon.png');
     background-repeat: no-repeat;
-    background-position: 200px center; /* Adjust the position of the icon */
-    padding-left: 40px; /* Ensure space for the icon */
+    background-position: 200px center;
     height: 32px;
+    width: 14.5rem;
     position: relative;
-    left: 500px;
+    left: 480px;
 }
 #salestable {
     width: 1420px; /* Adjust the width as needed */
