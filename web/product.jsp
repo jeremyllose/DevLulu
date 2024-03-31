@@ -52,11 +52,13 @@
                         <td>
                             <button type="submit" name="button" value="edit <%= results.getString("product_code")%>">Edit</button>
                         </td>
+                        <td><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>
                     </tr>
                 <%	}
                 %>
             </tbody>
         </table>
+            <button type="submit" name="button" value="save">Save Changes</button>
         </form>
     </body>
 </html> 

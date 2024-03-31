@@ -77,5 +77,27 @@ public class AccountList extends HttpServlet {
                 response.sendRedirect("error.jsp");
         } 
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try 
+        {
+            if (con != null) 
+            {
+                Statement stmt = con.createStatement();
+                //Only gets the Accounts where DISABLED IS FALSE
+                ResultSet records = stmt.executeQuery("SELECT * FROM LOGIN WHERE DISABLED = FALSE ORDER BY ID");
+                
+                //gives all the records to the Accountlist
+                request.setAttribute("results", records);
+                request.getRequestDispatcher("accountlist.jsp").forward(request,response);
+            }
+        } 
+        catch (SQLException sqle)
+        {
+                response.sendRedirect("error.jsp");
+        } 
+    }
 
 }
