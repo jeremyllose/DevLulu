@@ -56,6 +56,7 @@
             </thead>
             <tbody>
                 <%
+                    
                             ResultSet results = (ResultSet) request.getAttribute("itemRecords");
                             while (results.next()) {%>
                 <tr>

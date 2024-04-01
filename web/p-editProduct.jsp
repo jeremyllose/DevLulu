@@ -35,6 +35,7 @@
         <%
             ResultSet results = (ResultSet)request.getAttribute("editProduct");
             while (results.next()) { %>
+            <div class="item-container">
             <table>
                 <tr>
                     <th>Product Description</th><th><input type="text" name="productDescription" value="<%= results.getString("product_description") %>" required/></th>
@@ -97,6 +98,7 @@
             </tbody>
         </table>
             <input type="submit" value="Save Changes"/>
+            </div>
         </form>
     </body>
 </html>

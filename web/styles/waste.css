@@ -37,19 +37,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     gap: 10px;
 }
 #searchBar {
-    flex: 1;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-image: url('../photos/searchicon.png'); 
+    background-image: url('../photos/searchicon.png'); /* Add path to your search icon image */
     background-repeat: no-repeat;
-    background-position: 200px center; 
-    padding-left: 40px; 
+    background-position: 200px center; /* Adjust the position of the icon */
     height: 32px;
+    width: 14.5rem;
     position: relative;
-    left: 1215px;
-    top: -10px;
+    left: 75.7rem;
+    top: -0.5rem;
 }
 #generate {
     position: relative;
