@@ -119,7 +119,7 @@
                         </td>
                     </tr>
                 </table>
-                <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
+                <button class="inventory" id="return" type="button" onclick="redirectTo('ItemList')">Return</button>
                 <input type="submit" value="Save"/>
                 <%
                     }
