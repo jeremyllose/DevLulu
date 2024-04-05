@@ -24,7 +24,10 @@
                     <button class="inventory" id="add" onclick="redirectTo('s-addProduct.jsp')">Add Product</button>
                     <button class="inventory" id="generate" onclick="redirectTo('s-editProduct.jsp')">Edit Product</button>
                     <button class="inventory" id="sort" onclick="redirectTo('s-deleteProduct.jsp')">Delete Product</button>
-                    <input type="text" id="searchBar" placeholder="Search..."> 
+                    <form action="SalesSearch" method="post">
+                        <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+                        <button class="inventory" id="sort" type="submit">Search</button>
+                    </form> 
                     </div>
                      
                       

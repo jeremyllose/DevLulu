@@ -34,7 +34,10 @@
             <form action="ItemAction" method="post">
                 <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')">Sort Options</button>
             </form>
-            <input type="text" id="searchBar" placeholder="Search..."> 
+            <form action="ItemSearch" method="post">
+                <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+                <button class="inventory" id="sort" type="submit">Search</button>
+            </form>
         </div>
         <form action="ItemAction" method="post">
         <table>

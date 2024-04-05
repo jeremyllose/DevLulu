@@ -25,7 +25,10 @@
             <form action="AddProductRedirect" method="post">
                 <button type="submit" class="inventory" id="add">Add Product</button>
             </form>
-        <input type="text" id="searchBar" placeholder="Search..."> 
+        <form action="ProductSearch" method="post">
+            <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+            <button class="inventory" id="sort" type="submit">Search</button>
+        </form> 
         </div>
         <form action="ProductAction" method="post">
         <table>

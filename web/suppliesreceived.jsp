@@ -27,7 +27,10 @@
             <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')">Generate Report</button>
             <button class="inventory" id="sort" onclick="redirectTo('sr-sort.jsp')">Sort Options</button>
             <h1>Delivery Costs: <%= addCost %></h1>
-            <input type="text" id="searchBar" placeholder="Search..."> 
+            <form action="SuppliesSearch" method="post">
+                <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+                <button class="inventory" id="sort" type="submit">Search</button>
+            </form>
         </div>
             <form action="SaveDeliveries" method="post">
             
@@ -58,6 +61,7 @@
                         <td><input type="number" min="0" name="delivery" value="<%=results.getString("delivery")%>" required/></td>
                         <td><input type="number" min="0" name="others" value="<%=results.getString("otheradds")%>" required/></td>
                         <td><%=results.getString("end_quantity")%></td>
+                        <td><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                     </tr>        
                 <%	}
                 %>

@@ -29,8 +29,11 @@
             <div class="others">
         <button class="inventory" id="generate" onclick="redirectTo('w-generateReport.jsp')">Generate Report</button>
         <button class="inventory" id="sort" onclick="redirectTo('w-sort.jsp')">Sort Options</button>
+        <form action="WasteSearch" method="post">
+            <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form> 
             </div>
-        <input type="text" id="searchBar" placeholder="Search...">
         <form action="SaveWastes" method="post">
         <table>
             <thead>
@@ -61,6 +64,7 @@
                         <td><input type="number" min="0" name="waste" value="<%=results.getString("waste")%>" required/></td>
                         <td><input type="number" min="0" name="othersubs" value="<%=results.getString("othersubs")%>" required/></td>
                         <td><%=results.getString("end_quantity")%></td>
+                        <td><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                     </tr>        
                 <%	}
                 %>
