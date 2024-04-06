@@ -34,7 +34,8 @@
         <br> 
         <br>
         <form action="add.jsp">
-             <button type="submit" class="account" id="addmember">Add Account</button>
+             <button type="submit" class="account" id="addmember">
+                 <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Account</span></button>
          </form>
         <div class="container">
             

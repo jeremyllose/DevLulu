@@ -63,7 +63,7 @@ th {
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
 table {
-    width: 114%;
+    width: 109%;
     border-collapse: collapse;
     margin-top: 75px;
     border: none;
@@ -109,4 +109,16 @@ table {
 
 .fade-in {
     animation: fadeIn 0.5s ease-in-out forwards;
+}
+#button-css {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    cursor: pointer;
+}
+#edit-picture {
+    margin-right: 5px; 
+    height: 15px; 
 }

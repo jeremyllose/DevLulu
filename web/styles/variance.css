@@ -13,6 +13,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     height: 50px;
     font-size: 24px;
     border-radius: 10px;
+    border: 2px solid #000000;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+@keyframes moveUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+.inventory:hover {
+    animation: moveUp 0.5s ease;
+    border-color: red;
 }
 .others{
     position: relative;
@@ -29,10 +44,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-image: url('../photos/searchicon.png'); 
+    background-image: url('../photos/searchicon.png');
     background-repeat: no-repeat;
-    background-position: 200px center; 
-    padding-left: 40px; 
+    background-position: 200px center;
+    padding-left: 40px;
     height: 32px;
     position: relative;
     left: 500px;
@@ -86,5 +101,17 @@ table {
     right: -220px;
     width: 100%;
     z-index: 1;
+}
+#button-css {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#edit-picture {
+    margin-right: 5px;
+    height: 15px;
 }
 

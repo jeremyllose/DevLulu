@@ -20,29 +20,32 @@
         <div class="dashboardbar">
             <h1 id="dashboardheader">Product</h1>
         </div>
-        
+
         <div class="others">
             <form action="AddProductRedirect" method="post">
-                <button type="submit" class="inventory" id="add">Add Product</button>
+                <button type="submit" class="inventory" id="add">
+                    <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
             </form>
-        <input type="text" id="searchBar" placeholder="Search..."> 
+            <input type="text" id="searchBar" placeholder="Search..."> 
         </div>
         <form action="ProductAction" method="post">
-        <table>
-            <thead>
-                <tr>
-                    <th><button type="submit" name="button" value="disable">Disable Product</button></th>
-                    <th>Product Code</th>
-                    <th>Product Description</th>
-                    <th>Product Price</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                    ResultSet results = (ResultSet) request.getAttribute("product");
-                    while (results.next()) {%>
+            <table>
+                <thead>
+                    <tr>
+                        <th><button id="button-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
+                                <image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Disable Product</b></button>
+                        </th>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                        <th>Product Price</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        ResultSet results = (ResultSet) request.getAttribute("product");
+                        while (results.next()) {%>
                     <tr>
                         <td><input type="checkbox" name="selectProduct" value="<%= results.getString("product_code")%>"></td>
                         <td><%=results.getString("product_code")%></td>
@@ -50,15 +53,18 @@
                         <td><%=results.getString("product_price")%></td>
                         <td><input type="number" min="0" name="qty" value="<%=results.getString("quantity")%>" required/></td>
                         <td>
-                            <button type="submit" name="button" value="edit <%= results.getString("product_code")%>">Edit</button>
+                            <button id="button-css" type="submit" name="button" value="edit <%= results.getString("product_code")%>">
+                                <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                            </button>
                         </td>
                         <td><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>
                     </tr>
-                <%	}
-                %>
-            </tbody>
-        </table>
-            <button type="submit" name="button" value="save">Save Changes</button>
+                    <%	}
+                    %>
+                </tbody>
+            </table>
+            <th><button type="submit" class="inventory" style="position: relative; left: 15.8rem; top: -15.5rem;">
+                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>
         </form>
     </body>
 </html> 

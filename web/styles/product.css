@@ -60,7 +60,7 @@ th {
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
 table {
-    width: 183.5%;
+    width: 175%;
     border-collapse: collapse;
     margin-top: 75px;
     border: none;
@@ -81,3 +81,16 @@ table {
     width: 100%;
     z-index: 1;
 }
+#button-css {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#edit-picture {
+    margin-right: 5px;
+    height: 15px;
+}
+

@@ -51,11 +51,7 @@ th {
     background-color: #f2f2f2;
 }
 
-button {
-    padding: 8px 12px;
-    margin-right: 5px;
-    cursor: pointer;
-}
+
 #dashboardheader {
     position:relative;
     top: 10px;

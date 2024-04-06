@@ -55,6 +55,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <hr color="black" size="1" width="100%" align="center">
                             <th>Item</th>
                             <th style="padding-left: 35px;">SubClass</th>
                             <th style="padding-left: 35px;">Quantity</th>
