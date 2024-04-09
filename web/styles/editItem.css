@@ -38,7 +38,8 @@ body {
 }
 
 .item-container {
-  width: 101%;
+  width: 25%;
+  height: 71%;
   margin: 20px auto;
   padding: 20px;
   border: 2px solid black;
@@ -48,7 +49,7 @@ body {
   font-family: "Open Sans", sans-serif;
   position: relative;
   /* Adjust these values to position the container as desired */
-  right: -29rem;  /* Remove horizontal offset */
+  right: -2rem;  /* Remove horizontal offset */
   top: 5rem; /* Move down 50px from the top */
 }
 

@@ -17,6 +17,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
@@ -34,5 +35,6 @@
                 <img id="charts"src=".\photos\Charts.png" alt="Charts">
             </div>
         </div>
+    </div>
     </body>
 </html>

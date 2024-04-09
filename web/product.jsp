@@ -17,6 +17,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <div class="dashboardbar">
             <h1 id="dashboardheader">Product</h1>
         </div>
@@ -32,7 +33,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th><button id="button-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
+                        <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
                                 <image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Disable Product</b></button>
                         </th>
                         <th>Product Code</th>
@@ -57,14 +58,15 @@
                                 <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
                             </button>
                         </td>
-                        <td><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>
+                        <td class="hide-column"><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>
                     </tr>
                     <%	}
                     %>
                 </tbody>
             </table>
-            <th><button type="submit" class="inventory" style="position: relative; left: 15.8rem; top: -15.5rem;">
+            <th><button type="submit" class="inventory" style="position: relative; left: 15.8rem; top: -20.25rem;">
                     <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>
         </form>
+        </div>
     </body>
 </html> 

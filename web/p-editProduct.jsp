@@ -19,10 +19,6 @@
     <body>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Edit Product Page</h1></div>
-        <button class="inventory" id="add" onclick="redirectTo('addProduct.jsp')">Add Product</button>
-        <button class="inventory" id="generate" onclick="redirectTo('editProduct.jsp')">Edit Product</button>
-        <button class="inventory" id="sort" onclick="redirectTo('addaccount.jsp')">Delete Product</button>
-        <input type="text" id="searchBar" placeholder="Search...">
         <%
             if (session.getAttribute("productCode") != null) {
         %>

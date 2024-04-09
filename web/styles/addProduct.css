@@ -66,7 +66,8 @@ body {
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     position: relative;
-    right: -20rem;
+    right: -30rem;
+    top: 6rem;
 }
 
 .product-container h3 {
@@ -126,7 +127,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative;
-    right: -25rem;
+    right: -26rem;
 }
 @keyframes scaleUp {
     from {

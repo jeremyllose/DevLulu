@@ -18,6 +18,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <%
         // Get current date
         LocalDate today = LocalDate.now();
@@ -132,5 +133,6 @@
             </tbody>
         </table>
         </form>
+        </div>
     </body>
 </html>

@@ -6,6 +6,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 30, 2024, 11:04:03 PM
     Author     : jeremy
 */
+.content-wrapper { 
+    padding-left: 200px; 
+}
 .inventory {
     background-color: #8f654a;
     color: white;
@@ -74,7 +77,7 @@ th {
     background-color: #8f654a;
     color: #fff;
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
 table {
@@ -83,6 +86,32 @@ table {
     margin-top: 75px;
     border: none;
 }
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Style table header */
+th {
+    background-color: #8f654a;
+    color: #fff;
+    padding: 15px; /* Increase padding for better visual appearance */
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+/* Style table cells */
+td {
+    padding: 15px; /* Increase padding for better visual appearance */
+    border: 1px solid #ddd; /* Add border to separate cells */
+    text-align: center;
+}
+
+/* Style alternating rows for better readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Change color for alternating rows */
+}
+
+
 @media only screen and (max-width: 600px) {
     .inventory {
         width: 100%;

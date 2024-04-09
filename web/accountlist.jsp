@@ -18,6 +18,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <div class="dashboardbar">
              <h1 id="dashboardheader">Account List</h1>
          </div>
@@ -63,11 +64,12 @@
                                     <form action="EditUser" method="post">
                                         <input type="hidden" name="password" value="<%= results.getString("password") %>">
                                         <input type="hidden" name="role" value="<%= results.getString("role") %>">
-                                        <button type="submit">Edit</button>
+                                        <button id="button-css" type="submit" name="button"><img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                            </button>
                                     </form>
                                     <form action="DisableUser" method="post">
                                         <input type="hidden" name="id" value="<%= results.getString("id") %>">
-                                        <button type="submit" onclick="return confirm('Are you sure you want to disable this user account?')">Disable</button>
+                                        <button id="button-css" type="submit" onclick="return confirm('Are you sure you want to disable this user account?')"><image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;">  Disable</button>
                                     </form>
                                 </td>
                                 <%
@@ -90,5 +92,6 @@
             </tbody>
         </table>
     </div>
+        </div>
 </body>
 </html>

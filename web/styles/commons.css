@@ -23,6 +23,10 @@ body {
     padding-top: 200px;
     color: white;
     text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
 }
 .menu-item {
     width: 100%;
@@ -75,6 +79,86 @@ body {
     color: white;
 }
 body {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #8f654a; /* Adjust background color as needed */
+    padding: 1px;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+.footer nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Add flex display */
+    justify-content: center; /* Center-align the items */
+}
+
+.footer nav ul li {
+    display: inline;
+    margin-right: 5px; /* Adjust spacing between menu items */
+    position: relative;
+    left: 5px;
+}
+.footer nav ul li a {
+    color: white; /* Set link color to white */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer nav ul li a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.footer nav ul li:not(:last-child)::after {
+    content: "\00B7"; /* Unicode character for middle dot (·) */
+    margin-left: 5px; /* Adjust spacing between text and dot */
+}
+.footer nav ul li:last-child {
+    margin-right: 0;
+
+}
+.footer p {
+    position: relative;
+    right: 5px; /* Move the paragraph to the left */
+}
+@media screen and (max-width: 1280px) {
+    .sidebar {
+        width: 200px;
+        background-color: #bfefbb;
+        padding-top: 200px;
+        color: white;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 200vh;
+    }
+    .menu-item {
+        width: 100%;
+        padding: 5px;
+        margin: 5px;
+        text-decoration: none;
+        color: white;
+        background-color: #bfefbb;
+        border: none;
+        cursor: pointer;
+        color: black;
+        font-size: 20px;
+        position: relative;
+        right: 5px;
+        bottom: 14rem;
+        transition: background-color 0.3s, color 0.3s;
+    }
+}
+

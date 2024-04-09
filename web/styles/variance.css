@@ -1,11 +1,10 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
-*/
-/* 
-    Created on : Jan 30, 2024, 11:04:03 PM
-    Author     : jeremy
-*/
+/* General styling */
+.content-wrapper {
+    padding-left: 200px;
+    overflow-y: auto;
+}
+
+/* Inventory button */
 .inventory {
     background-color: #8f654a;
     color: white;
@@ -17,6 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     transition: border-color 0.3s ease;
     cursor: pointer;
 }
+
 @keyframes moveUp {
     from {
         transform: translateY(0);
@@ -25,19 +25,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
         transform: translateY(-10px);
     }
 }
+
 .inventory:hover {
     animation: moveUp 0.5s ease;
     border-color: red;
 }
-.others{
-    position: relative;
-    top: 50px;
-    display: inline-block;
-    margin: 5px;
-    padding: 5px;
-    display: flex;
-    gap: 10px;
-}
+
+/* Search bar */
 #searchBar {
     flex: 1;
     padding: 8px;
@@ -49,43 +43,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     background-position: 200px center;
     padding-left: 40px;
     height: 32px;
-    position: relative;
-    left: 500px;
 }
-#wastetable {
-    width: 1420px; /* Adjust the width as needed */
-    height: auto;
-}
-#dateText {
-    font-size: 18px;
-    font-weight: 100;
-}
-#inventoryprice::placeholder{
-    color: black;
-}
-#inventoryprice{
-    position: relative;
-    left: 1250px;
-    bottom: 40px;
-}
-#costs {
-    position: relative;
-    left: 1100px;
-    bottom: 20px;
-}
-th {
-    background-color: #8f654a;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #fff; /* Optional: Add a white border for better separation */
-}
+
+/* Table styling */
 table {
-    width: 100%;
+    width:100%;
     border-collapse: collapse;
     margin-top: 75px;
     border: none;
 }
+
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Table header */
+th {
+    background-color: #8f654a;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+/* Table cells */
+td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Alternating rows */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -93,15 +86,19 @@ table {
     margin: 0;
     font-weight: lighter;
 }
+
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
-    position:absolute;
+    position:fixed;
     top: -10px;
     right: -220px;
     width: 100%;
     z-index: 1;
 }
+
+/* Button */
 #button-css {
     display: flex;
     align-items: center;
@@ -110,8 +107,8 @@ table {
     border-radius: 5px;
     cursor: pointer;
 }
+
 #edit-picture {
     margin-right: 5px;
     height: 15px;
 }
-

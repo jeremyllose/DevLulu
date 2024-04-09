@@ -17,6 +17,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <div class="dashboardbar">
             <h1 id="dashboardheader">Supplies Received</h1>
         </div>
@@ -65,5 +66,6 @@
                 </tbody>
             </table>
         </form>
+        </div>
     </body>
 </html>
