@@ -64,35 +64,36 @@ public class SaveWastes extends HttpServlet {
         String[] solds = request.getParameterValues("sold");
         String[] wastes = request.getParameterValues("waste");
         String[] othersubs = request.getParameterValues("othersubs");
+        String[] items = request.getParameterValues("items");
         int start = 0;
         
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM\n" +
-                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
-                "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
-        ResultSet rs = stmt.executeQuery(query);
-        while(rs.next())
+//        Statement stmt = con.createStatement();
+//        String query = "SELECT * FROM ITEM\n" +
+//                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+//                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+//                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+//                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+//                "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+//        ResultSet rs = stmt.executeQuery(query);
+        for(String item : items)
         {
-            int sold = Integer.parseInt(solds[start]) - previousSold(rs.getString("item_code"));
-            int waste = Integer.parseInt(wastes[start]) - previousWaste(rs.getString("item_code"));
-            int subs = Integer.parseInt(othersubs[start]) - previousSubs(rs.getString("item_code"));
+            int sold = Integer.parseInt(solds[start]) - previousSold(item);
+            int waste = Integer.parseInt(wastes[start]) - previousWaste(item);
+            int subs = Integer.parseInt(othersubs[start]) - previousSubs(item);
             
-            int endQuantity = endQuantity(rs.getString("item_code")) - (sold + waste + subs);
+            int endQuantity = endQuantity(item) - (sold + waste + subs);
             
-            updateEndItem(endQuantity, rs.getString("item_code"));
-            updateQuantity(endQuantity, rs.getString("item_code"));
-            updateWastes(Integer.parseInt(solds[start]), Integer.parseInt(wastes[start]), Integer.parseInt(othersubs[start]), rs.getString("item_code"));
+            updateEndItem(endQuantity, item);
+            updateQuantity(endQuantity, item);
+            updateWastes(Integer.parseInt(solds[start]), Integer.parseInt(wastes[start]), Integer.parseInt(othersubs[start]), item);
             
             start++;
         }
         
         response.sendRedirect("WasteRedirect");
         
-        rs.close();
-        stmt.close();
+//        rs.close();
+//        stmt.close();
     }
     
     public int previousSold(String itemCode) throws SQLException

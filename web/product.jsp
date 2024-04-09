@@ -27,7 +27,10 @@
                 <button type="submit" class="inventory" id="add">
                     <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
             </form>
-            <input type="text" id="searchBar" placeholder="Search..."> 
+        <form action="ProductSearch" method="post">
+            <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+            <button class="inventory" id="sort" type="submit">Search</button>
+        </form> 
         </div>
         <form action="ProductAction" method="post">
             <table>

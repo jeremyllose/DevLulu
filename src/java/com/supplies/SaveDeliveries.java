@@ -62,35 +62,36 @@ public class SaveDeliveries extends HttpServlet {
             throws ServletException, IOException, SQLException {
         String[] deliveries = request.getParameterValues("delivery");
         String[] otheradds = request.getParameterValues("others");
+        String[] items = request.getParameterValues("items");
         int start = 0;
         
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM\n" +
-                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
-                "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
-        ResultSet rs = stmt.executeQuery(query);
+//        Statement stmt = con.createStatement();
+//        String query = "SELECT * FROM ITEM\n" +
+//                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+//                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+//                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+//                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+//                "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+//        ResultSet rs = stmt.executeQuery(query);
         
-        while(rs.next())
+        for(String item : items)
         {
-            int delivery = Integer.parseInt(deliveries[start]) - previousDelivery(rs.getString("item_code"));
-            int adds = Integer.parseInt(otheradds[start]) - previousOthers(rs.getString("item_code"));
+            int delivery = Integer.parseInt(deliveries[start]) - previousDelivery(item);
+            int adds = Integer.parseInt(otheradds[start]) - previousOthers(item);
             
-            int endQuantity = endQuantity(rs.getString("item_code")) + delivery + adds;
+            int endQuantity = endQuantity(item) + delivery + adds;
             
-            updateEndItem(endQuantity, rs.getString("item_code"));
-            updateQuantity(endQuantity, rs.getString("item_code"));
-            updateDelivery(Integer.parseInt(deliveries[start]), Integer.parseInt(otheradds[start]), rs.getString("item_code"));
+            updateEndItem(endQuantity, item);
+            updateQuantity(endQuantity, item);
+            updateDelivery(Integer.parseInt(deliveries[start]), Integer.parseInt(otheradds[start]), item);
             
             start++;
         }
         
         response.sendRedirect("SuppliesRedirectPage");
         
-        rs.close();
-        stmt.close();
+//        rs.close();
+//        stmt.close();
     }
     
     public int previousDelivery(String itemCode) throws SQLException
