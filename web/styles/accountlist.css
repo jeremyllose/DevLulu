@@ -6,9 +6,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 28, 2024, 10:18:03 PM
     Author     : jeremy
 */
+/* Content Wrapper */
+
 .content-wrapper {
-    padding-left: 200px;
-}
+    padding-left: 200px; /* Add padding to the left */
+} 
 #addmember {
     background-color: #8f654a;
     color: white;
@@ -21,6 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     margin-top: 5px;
     cursor: pointer;
 }
+/* Keyframes for Inventory Animation */
 @keyframes moveUp {
     from {
         transform: translateY(0);
@@ -33,12 +36,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     animation: moveUp 0.5s ease;
     border-color: red;
 }
+/* Body */
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
 }
+/* Table Styles */
 table {
     width: 95rem;
     border-collapse: collapse;
@@ -76,6 +81,7 @@ td {
 tr:nth-child(even) {
     background-color: #f9f9f9; /* Change color for alternating rows */
 }
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -83,6 +89,7 @@ tr:nth-child(even) {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;

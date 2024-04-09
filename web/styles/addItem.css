@@ -6,13 +6,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 03 7, 24, 2:57:42 PM
     Author     : BioStaR
 */
+/* Body Styles */
+/* Body */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
 }
-
+/* Dashboard header */
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -21,6 +24,8 @@ body {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard bar */
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -30,6 +35,7 @@ body {
     width: 100%;
     z-index: 1;
 }
+/* Class options */
 .class-options {
     display: flex;
     flex-wrap: wrap;
@@ -38,6 +44,7 @@ body {
 .class-options label {
     margin-right: 20px;
 }
+/* Item container */
 .item-container {
     width: 101%;
     margin: 20px auto;
@@ -83,6 +90,8 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+/* Return button */
+/* Return button */
 #return {
     background-color: #900603;
     color: white;
@@ -94,16 +103,19 @@ body {
     top: 750px;
     right: -3.5rem;
 }
+/* Box container */
 .box-container {
     border: 1px solid black;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
 }
+/* Hover effect for item container */
 .item-container:hover {
     background-color: #bfefbb;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
+/* Submit button */
 .item-container input[type="submit"] {
     display: inline-block;
     padding: 10px 15px;
@@ -116,6 +128,7 @@ body {
     position: relative;
     right: -15rem;
 }
+/* Animation for scaling up */
 @keyframes scaleUp {
     from {
         transform: scale(1);
@@ -124,10 +137,12 @@ body {
         transform: scale(1.1);
     }
 }
+/* Hover effect for submit button */
 .item-container input[type="submit"]:hover {
     animation: scaleUp 0.3s ease;
     background-color: #e7a74f ;
 }
+/* Error message */
 .error-message {
     display: inline-block;
     border: 2px solid red;

@@ -2,10 +2,13 @@
     Created on : Jan 30, 2024, 11:04:03 PM
     Author     : jeremy
 */
-.content-wrapper {
-    padding-left: 200px;
-}
 
+/* Content Wrapper */
+
+.content-wrapper {
+    padding-left: 200px; /* Add padding to the left */
+}
+/* Inventory Styles */
 .inventory {
     background-color: #8f654a;
     color: white;
@@ -15,7 +18,8 @@
     border-radius: 10px;
     cursor: pointer;
 }
-
+/* Keyframes for Inventory Animation */
+/* Keyframes for Inventory Animation */
 @keyframes moveUp {
     from {
         transform: translateY(0);
@@ -24,12 +28,12 @@
         transform: translateY(-10px);
     }
 }
-
+/* Hover Styles for Inventory */
 .inventory:hover {
     animation: moveUp 0.5s ease;
     border-color: red;
 }
-
+/* Other Elements Styles */
 .others {
     position: relative;
     top: 50px;
@@ -39,7 +43,7 @@
     display: flex;
     gap: 10px;
 }
-
+/* Search Bar Styles */
 #searchBar {
     padding: 8px;
     font-size: 16px;
@@ -53,11 +57,11 @@
     position: relative;
     left: 60rem;
 }
-
+/* Date Text Styles */
 #dateText {
     font-size: 24px;
 }
-
+/* Table Styles */
 th {
     background-color: #8f654a;
     color: #fff;
@@ -101,7 +105,8 @@ tr:nth-child(even) {
 td.hide-column {
     display: none;
 }
-
+/* Dashboard Header Styles */
+/* Dashboard header */
 #dashboardheader {
     position: relative; /* Adjusted positioning */
     top: 10px;
@@ -109,7 +114,8 @@ td.hide-column {
     margin: 0;
     font-weight: lighter;
 }
-
+/* Dashboard Bar Styles */
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -119,7 +125,7 @@ td.hide-column {
     width: 100%;
     z-index: 1;
 }
-
+/* Button CSS Styles */
 #button-css {
     display: flex;
     align-items: center;
@@ -130,6 +136,7 @@ td.hide-column {
     position: relative;
     right: -25px;
 }
+/* Disable CSS Styles */
 #disable-css {
     display: flex;
     align-items: center;
@@ -140,6 +147,7 @@ td.hide-column {
     position: relative;
     right: -4rem;
 }
+/* Edit Picture Styles */
 #edit-picture {
     margin-right: 5px;
     height: 15px;

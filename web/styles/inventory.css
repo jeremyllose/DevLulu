@@ -6,10 +6,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 30, 2024, 11:04:03 PM
     Author     : jeremy
 */
-.content-wrapper { 
-    padding-left: 200px; 
-    overflow-y: auto;
-}
+/* Content Wrapper */
+
+.content-wrapper {
+    padding-left: 200px; /* Add padding to the left */
+} 
 
 .inventory {
     background-color: #8f654a;
@@ -22,6 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     transition: border-color 0.3s ease;
     cursor: pointer;
 }
+/* Keyframes for Inventory Animation */
 @keyframes moveUp {
     from {
         transform: translateY(0);
@@ -74,6 +76,7 @@ table {
     border: none;
     table-layout: fixed;
 }
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -81,6 +84,7 @@ table {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -181,7 +185,8 @@ tr:nth-child(even) {
         border: none;
         table-layout: fixed;
     }
-    #dashboardheader {
+    /* Dashboard header */
+#dashboardheader {
         position:relative;
         top: 10px;
         right: -22.5rem;
@@ -190,7 +195,8 @@ tr:nth-child(even) {
         font-weight: lighter;
         z-index: 1;
     }
-    .dashboardbar {
+    /* Dashboard bar */
+.dashboardbar {
         width: 200vh;
         height: 5.8vh;
         background-color: #8f654a;

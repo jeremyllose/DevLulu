@@ -6,9 +6,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 30, 2024, 11:04:03 PM
     Author     : jeremy
 */
-.content-wrapper { 
-    padding-left: 200px; 
-}
+
+/* Content Wrapper */
+
+.content-wrapper {
+    padding-left: 200px; /* Add padding to the left */
+} 
+
+/* Inventory Styles */
 .inventory {
     background-color: #8f654a;
     color: white;
@@ -18,6 +23,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     border-radius: 10px;
     cursor: pointer;
 }
+/* Keyframes for Inventory Animation */
+/* Keyframes for Inventory Animation */
 @keyframes moveUp {
     from {
         transform: translateY(0);
@@ -26,10 +33,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
         transform: translateY(-10px);
     }
 }
+/* Hover Styles for Inventory */
 .inventory:hover {
     animation: moveUp 0.5s ease;
     border-color: red;
 }
+/* Other Elements Styles */
 .others{
     position: relative;
     top: 50px;
@@ -39,6 +48,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     display: flex;
     gap: 10px;
 }
+/* Search Bar Styles */
 #searchBar {
     padding: 8px;
     font-size: 16px;
@@ -53,14 +63,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     left: 75.7rem;
     top: -0.5rem;
 }
-#generate {
+/* Styles for Generate Button */e {
     position: relative;
     top: -1.5px;
 }
+/* Date Text Styles */
 #dateText {
     font-size: 18px;
     font-weight: 100;
 }
+/* Table Header Styles */
 th {
     background-color: #8f654a;
     color: #fff;
@@ -68,6 +80,7 @@ th {
     text-align: left;
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
+/* Table Styles */
 table {
     width: 101%;
     border-collapse: collapse;
@@ -94,7 +107,8 @@ td {
 tr:nth-child(even) {
     background-color: #f9f9f9; /* Change color for alternating rows */
 }
-
+/* Dashboard Header Styles */
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -102,6 +116,8 @@ tr:nth-child(even) {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard Bar Styles */
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -111,6 +127,7 @@ tr:nth-child(even) {
     width: 100%;
     z-index: 1;
 }
+/* Button Styles */
 #button-css {
     display: flex;
     align-items: center;
@@ -119,6 +136,7 @@ tr:nth-child(even) {
     border-radius: 5px;
     cursor: pointer;
 }
+/* Edit Picture Styles */
 #edit-picture {
     margin-right: 5px; 
     height: 15px; 

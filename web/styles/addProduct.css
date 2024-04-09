@@ -15,6 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 03 7, 24, 2:57:42 PM
     Author     : BioStaR
 */
+/* Body */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -22,6 +23,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -30,6 +32,7 @@ body {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -56,6 +59,7 @@ body {
     text-align: left;
     width: 7rem;
 }
+/* Product container */
 .product-container {
     width: 101%;
     margin: 20px auto;
@@ -101,6 +105,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+/* Return button */
 #return {
     background-color: #900603;
     color: white;
@@ -117,6 +122,7 @@ body {
     background-color: #bfefbb;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
+/* Submit button */
 .product-container input[type="submit"] {
     display: inline-block;
     padding: 10px 15px;

@@ -6,10 +6,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 26, 2024, 3:21:59 PM
     Author     : jeremy
 */
+/* Global Styles */
 * {
     box-sizing: border-box;
 }
 
+/* Body Styles */
+/* Body */
 body {
     background: linear-gradient(to bottom right, #f4eebe 50%, #fff 50%);
     display: flex;
@@ -21,11 +24,12 @@ body {
     margin: -20px 0 50px;
     overflow: hidden;
 }
+/* Header Styles */
 h1 {
     font-weight: bold;
     margin: 0;
 }
-
+/* Paragraph Styles */
 p {
     font-size: 14px;
     font-weight: 100;
@@ -33,18 +37,19 @@ p {
     letter-spacing: 0.5px;
     margin: 20px 0 30px;
 }
-
+/* Span Styles */
 span {
     font-size: 12px;
 }
 
+/* Anchor Styles */
 a {
     color: #333;
     font-size: 14px;
     text-decoration: none;
     margin: 15px 0;
 }
-
+/* Button Styles */
 button {
     border-radius: 20px;
     border: 1px solid #FF4B2B;
@@ -57,7 +62,7 @@ button {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
-
+/* Form Styles */
 form {
     background-color: #FFFFFF;
     display: flex;
@@ -68,7 +73,7 @@ form {
     height: 100%;
     text-align: center;
 }
-
+/* Input Styles */
 input {
     background-color: #eee;
     border: none;
@@ -77,6 +82,7 @@ input {
     width: 100%;
 }
 
+/* Container Styles */
 .container {
     background-color: #fff;
     border-radius: 10px;
@@ -89,19 +95,21 @@ input {
     min-height: 480px;
 }
 
+/* Form Container Styles */
 .form-container {
     position: absolute;
     top: 0;
     height: 100%;
 }
 
+/* Log In Container Styles */
 .log-in-container {
     left: 0;
     width: 50%;
     z-index: 2;
 }
 
-
+/* Overlay Container Styles */
 .overlay-container {
     position: absolute;
     top: 0;
@@ -110,7 +118,7 @@ input {
     height: 100%;
 }
 
-
+/* Overlay Styles */
 .overlay {
     background: #FF416C;
     background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
@@ -124,7 +132,7 @@ input {
     height: 100%;
     width: 200%;
 }
-
+/* Overlay Panel Styles */
 .overlay-panel {
     position: absolute;
     display: flex;
@@ -138,12 +146,12 @@ input {
     width: 50%;
 }
 
-
+/* Right Overlay Styles */
 .overlay-right {
     right: 0;
 }
 
-
+/* Social Container Styles */
 .social-container {
     margin: 50px 0;
 }
@@ -158,12 +166,14 @@ input {
     height: 40px;
     width: 40px;
 }
+/* Title Image Styles */
 .title-image {
     position: absolute;
     top: 65px;
     right: 625px;
     max-width: 100%;
 }
+/* Title Logo Styles */
 .title-logo {
     max-width: 100%;
     position: absolute;
@@ -171,9 +181,11 @@ input {
     right: 420px;
     width: 250px;
 }
+/* Slides Styles */
 .mySlides {
     display:none;
 }
+/* Sign In Styles */
 #signin {
     font-size: 24px;
     margin-right: 180px;
@@ -189,7 +201,7 @@ input {
     border-radius: 10px;
     margin-right: 180px;
 }
-
+/* Login Button Styles */
 #loginbutton {
     border-radius: 10px;
     font-weight: bold;
@@ -202,8 +214,8 @@ input {
     background-color: #542b0b;
     color: #FFFFFF;
     animation: loginHoverAnimation 0.5s ease-in-out;
-
 }
+/* Keyframes for Login Animation */
 @keyframes loginAnimation {
     0% {
         transform: scale(1);
@@ -215,7 +227,7 @@ input {
         transform: scale(1);
     }
 }
-
+/* Keyframes for Login Hover Animation */
 @keyframes loginHoverAnimation {
     0% {
         background-color: #00af50;
@@ -235,23 +247,26 @@ input {
     position: absolute;
     top: 50;
 }
+/* Forgot Password Link Styles */
 #forgot-password {
     position: relative;
     margin-left: 170px;
     margin-bottom: 5px;
     color: #00af50;
 }
+/* Remember Me Label Styles */
 label[for="rememberme"] {
     margin-right: 150px;
     margin-top: -38px;
     font-size: 14px;
 }
-
+/* Checkbox Styles */
 input[type="checkbox"] {
     position: absolute;
     bottom: 60px;
     right: 135px;
 }
+/* Bottom Leaves Styles */
 .bottom-leaves {
     position: relative;
     top: 420px;
@@ -259,6 +274,7 @@ input[type="checkbox"] {
     width: 40%;
     z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
 }
+/* Top Beans Styles */
 .top-beans {
     position: relative;
     bottom: 650px;
@@ -292,6 +308,8 @@ input[type="checkbox"] {
     max-width: 80%;
 }
 }
+/* Additional Body Styles */
+/* Body */
 body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
@@ -302,6 +320,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
+/* Modal Styles */
 .modal {
     display: none; /* Initially hidden */
     position: fixed; /* Stay in place */
@@ -314,6 +333,7 @@ body {
     background-color: rgba(0,0,0,0.4); /* Transparent background */
     padding-top: 50px;
 }
+/* Forgot Password Form Styles */
 #forgot-password-form {
     margin: auto;
     background-color: #FFFFFF;
@@ -336,6 +356,7 @@ body {
     src: url('path/to/lohit-bengali.woff2') format('woff2'), /* Modern Browsers */
         url('path/to/lohit-bengali.woff') format('woff'); /* Legacy Browsers */
 }
+/* Close Forgot Password Form Button Styles */
 .close-forgot-form {
   position: absolute;
   top: 20rem;
@@ -348,10 +369,11 @@ body {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-
+/* Hover State for Close Forgot Password Form Button */
 .close-forgot-form:hover {
   color: #333;
 }
+/* Forgot Password Submit Button Styles */
 #FPsubmit {
    position: relative;
    top: -1.5rem;
@@ -360,10 +382,12 @@ body {
    border:none;
    animation: FPAnimation 0.5s ease-in-out;
 }
+/* Hover State for Forgot Password Submit Button */
 #FPsubmit:hover {
     background-color: #542b0b;
     animation: FPHoverAnimation 0.5s ease-in-out;
 }
+/* Keyframes for Forgot Password Animation */
 @keyframes FPAnimation {
     0% {
         transform: scale(1);
@@ -375,7 +399,7 @@ body {
         transform: scale(1);
     }
 }
-
+/* Keyframes for Forgot Password Hover Animation */
 @keyframes FPHoverAnimation {
     0% {
         background-color: #00af50;

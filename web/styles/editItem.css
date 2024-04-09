@@ -2,6 +2,7 @@
   Created on : 03 7, 24, 2:57:42 PM
   Author   : BioStaR
 */
+/* Body */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -9,6 +10,7 @@ body {
   background-color: #f4f4f4;
 }
 
+/* Dashboard header */
 #dashboardheader {
   position: relative;
   top: 10px;
@@ -18,6 +20,7 @@ body {
   font-weight: lighter;
 }
 
+/* Dashboard bar */
 .dashboardbar {
   background-color: #8f654a;
   padding: 10px;
@@ -85,6 +88,7 @@ body {
   border-radius: 5px;
 }
 
+/* Return button */
 #return {
   background-color: #900603;
   color: white;

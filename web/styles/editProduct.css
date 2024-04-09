@@ -6,6 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : 04 1, 24, 6:47:19 PM
     Author     : BioStaR
 */
+/* Body */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -13,6 +14,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -21,6 +23,7 @@ body {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -83,6 +86,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+/* Return button */
 #return {
     background-color: #900603;
     color: white;

@@ -1,9 +1,9 @@
 /* General styling */
-.content-wrapper {
-    padding-left: 200px;
-    overflow-y: auto;
-}
+/* Content Wrapper */
 
+.content-wrapper {
+    padding-left: 200px; /* Add padding to the left */
+} 
 /* Inventory button */
 .inventory {
     background-color: #8f654a;
@@ -16,7 +16,8 @@
     transition: border-color 0.3s ease;
     cursor: pointer;
 }
-
+/* Keyframes for Inventory Animation */
+/* Keyframes for Inventory Animation */
 @keyframes moveUp {
     from {
         transform: translateY(0);
@@ -26,6 +27,7 @@
     }
 }
 
+/* Hover Styles for Inventory */
 .inventory:hover {
     animation: moveUp 0.5s ease;
     border-color: red;
@@ -79,6 +81,7 @@ tr:nth-child(even) {
 }
 
 /* Dashboard header */
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -87,6 +90,7 @@ tr:nth-child(even) {
     font-weight: lighter;
 }
 
+/* Dashboard bar */
 /* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
@@ -98,7 +102,7 @@ tr:nth-child(even) {
     z-index: 1;
 }
 
-/* Button */
+/* Button Styles */
 #button-css {
     display: flex;
     align-items: center;
@@ -107,7 +111,7 @@ tr:nth-child(even) {
     border-radius: 5px;
     cursor: pointer;
 }
-
+/* Edit Picture Styles */
 #edit-picture {
     margin-right: 5px;
     height: 15px;

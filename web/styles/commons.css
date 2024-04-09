@@ -6,6 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 02 12, 24, 2:26:51 AM
     Author     : BioStaR
 */
+/* Body */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -78,6 +79,7 @@ body {
     background-color: #8f654a;
     color: white;
 }
+/* Body */
 body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;

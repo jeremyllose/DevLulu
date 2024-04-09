@@ -6,26 +6,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 27, 2024, 8:37:07 PM
     Author     : jeremy
 */
-.content-wrapper { /* New container element */
-    padding-left: 0px;  /* Adjust padding as needed (sidebar width) */
-}
+
+/* Content Wrapper */
+
+.content-wrapper {
+    padding-left: 200px; /* Add padding to the left */
+} 
+
+/* Body Styles */
+/* Body */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     overflow:hidden;
 }
+/* Main Content Styles */
 .main-content {
     flex: 1;
     padding: 20px;
     background-color: #f1f1f1;
 }
 
+/* Iframe Styles */
 iframe {
     width: 100%;
     height: calc(100vh - 40px);
     border: none;
 }
+/* Dashboard Header Styles */
+/* Dashboard header */
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -33,6 +43,8 @@ iframe {
     margin: 0;
     font-weight: lighter;
 }
+/* Dashboard Bar Styles */
+/* Dashboard bar */
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
@@ -42,6 +54,7 @@ iframe {
     width: 100%;
     z-index: 1; 
 }
+/* Chart Styles */
 #charts {
     object-fit: cover;
     max-width: 150%;
