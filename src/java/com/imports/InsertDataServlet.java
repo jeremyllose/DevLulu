@@ -2,33 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.product;
+package com.imports;
 
-import com.inventorylist.ItemAction;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Cesar
+ * @author Vince
  */
-public class ProductAction extends HttpServlet {
-    
+@WebServlet(name = "InsertDataServlet", urlPatterns = {"/InsertDataServlet"})
+public class InsertDataServlet extends HttpServlet {
+
     Connection con;
     byte[] key;
     String cypher;
@@ -50,6 +45,8 @@ public class ProductAction extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -58,62 +55,45 @@ public class ProductAction extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("button");
+            throws ServletException, IOException {
         
-        if (action.equals("disable")) 
-        {
-            String[] itemIds = request.getParameterValues("selectProduct");
-            if(itemIds != null)
-            {
-                for (String itemId : itemIds) 
-                {
-                    disableUser(itemId);
-                }
-            }
-            response.sendRedirect("ProductRedirect");
-        }
-        else if (action.equals("save")) 
-        {
-            String[] products = request.getParameterValues("products");
-            String[] quantites = request.getParameterValues("qty");
-            int start = 0;
+         try {
+        PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID, DISABLED, UPDATED) VALUES (?,?,?,?,?,?,?,?)");
+            // Set values for parameters
+            pstmt.setString(1, "value1");
+            pstmt.setString(2, "value2");
+            pstmt.setString(3, "value3");
+            pstmt.setString(4, "value4");
+            pstmt.setString(5, "value5");
+            pstmt.setString(6, "value6");
+            pstmt.setString(7, "value7");
+            pstmt.setString(8, "value8");
             
-            for (String product : products)
-            {
-                updateProduct(product , Integer.parseInt(quantites[start]));
-                start++;
-            }
+            // Set more parameters if needed
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            // Commit the transaction
+            con.commit();
+            con.close();
             
-            response.sendRedirect("ProductRedirect");
+                 response.sendRedirect("success.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Redirect to an error page
+            response.sendRedirect("error.jsp");
         }
-        else if(action.substring(0, action.indexOf(" ")).equals("edit"))
-        {
-            String arr[] = action.split(" ", 2);
-            String theRest = arr[1];
-            session.setAttribute("productCode", theRest);
-            response.sendRedirect("EditProductRedirect");
-        }
-    }
-    
-    public void disableUser(String product)throws SQLException
-    {
-        String query = "UPDATE PRODUCT SET DISABLED = TRUE WHERE PRODUCT_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, product);
-        ps.executeUpdate();
-    }
-    
-    public void updateProduct(String product, int quantity)throws SQLException
-    {
-        String query = "UPDATE PRODUCT SET QUANTITY = ? WHERE PRODUCT_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1, quantity);
-        ps.setString(2, product);
-        ps.executeUpdate();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -128,11 +108,7 @@ public class ProductAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -146,11 +122,7 @@ public class ProductAction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -18,6 +18,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <div class="dashboardbar">
              <h1 id="dashboardheader">Account List</h1>
          </div>
@@ -34,7 +35,8 @@
         <br> 
         <br>
         <form action="add.jsp">
-             <button type="submit" class="account" id="addmember">Add Account</button>
+             <button type="submit" class="account" id="addmember">
+                 <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Account</span></button>
          </form>
         <div class="container">
             
@@ -45,6 +47,7 @@
                     <th>Password</th>
                     <th>Role</th>
                     <th>Action</th>
+                    <th>Password Forgotten</th>
                 </tr>
             </thead>
             
@@ -61,13 +64,27 @@
                                     <form action="EditUser" method="post">
                                         <input type="hidden" name="password" value="<%= results.getString("password") %>">
                                         <input type="hidden" name="role" value="<%= results.getString("role") %>">
-                                        <button type="submit">Edit</button>
+                                        <button id="button-css" type="submit" name="button"><img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                            </button>
                                     </form>
                                     <form action="DisableUser" method="post">
                                         <input type="hidden" name="id" value="<%= results.getString("id") %>">
-                                        <button type="submit" onclick="return confirm('Are you sure you want to disable this user account?')">Disable</button>
+                                        <button id="button-css" type="submit" onclick="return confirm('Are you sure you want to disable this user account?')"><image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;">  Disable</button>
                                     </form>
                                 </td>
+                                <%
+                                    if (results.getBoolean("forgotten") == true)
+                                    {
+                                %>
+                                <td>
+                                    <form action="EnablePassword" method="post">
+                                        <input type="hidden" name="username" value="<%= results.getString("username") %>">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to enable this users password?')">Show password</button>
+                                    </form>
+                                </td>
+                                <%
+                                    }
+                                %>
 			</tr>	
 		<%	}
 		%>
@@ -75,5 +92,6 @@
             </tbody>
         </table>
     </div>
+        </div>
 </body>
 </html>

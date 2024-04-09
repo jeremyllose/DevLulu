@@ -18,6 +18,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <div class="content-wrapper">
         <%
         // Get current date
         LocalDate today = LocalDate.now();
@@ -47,7 +48,8 @@
         %>
         <h1>Inventory Value: <%= inventoryCost %></h1>
         <form action="SaveVariance" method="post">
-            <button type="submit" name="button" value="save">Save Changes</button>
+            <button type="submit" class="inventory" name="button" value="save" style="position: relative; right: -0.5rem;">
+            <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button>
         <table>
             <thead>
                 <tr>
@@ -120,7 +122,10 @@
                     %>
                     <td><%=variance%></td>
                     <td>
-                        <button type="submit" name="button" value="edit <%= results.getString("item_code")%>">Edit</button>
+                        <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
+                            <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                            </button>
+                        
                     </td>
                 </tr>	
                 <%	}
@@ -128,5 +133,6 @@
             </tbody>
         </table>
         </form>
+        </div>
     </body>
 </html>

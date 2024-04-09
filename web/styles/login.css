@@ -266,70 +266,31 @@ input[type="checkbox"] {
     width: 25%;
     z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
 }
-@media screen and (max-width: 576px) {
-    body {
-        background: linear-gradient(to bottom right, #f4eebe 100%, #fff 50%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        font-family: 'Montserrat', sans-serif;
-        height: 100vh;
-        margin: 0;
-        overflow: hidden;
-    }
+@media screen and (max-width: 1280px) {
     .container {
-        width: 100%; /* Adjust width for smaller screens */
-        position: absolute;
-        top: 280px;
-        left: 50px;
-    }
-
-    .title-image {
-        position: absolute;
-        top: 120px;
-        right: 75px;
-        max-width: 100%;
-        width: 80%;
-    }
-
-    .title-logo {
-        max-width: 100%;
-        position: absolute;
-        top: 110px;
-        right: -80px;
-        width: 30%;
-    }
-    .bottom-leaves {
-        position: relative;
-        top: 420px;
-        left: 450px;
-        width: 70%;
-        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
-    }
-    .top-beans {
-        position: relative;
-        bottom: 550px;
-        right: 280px;
-        width: 40%;
-        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
-    }
-    label[for="rememberme"] {
-        margin-right: 90px;
-        margin-top: -48px;
-        font-size: 14px;
-    }
-
-    input[type="checkbox"] {
-        position: absolute;
-        bottom: 45px;
-        right: 110px;
-    }
-    #passwordtext {
-        position: relative;
-        right: 28px;
-        width: 125%;
-    }
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    position: absolute;
+    top: 120px;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 400px;
+}
+.title-image {
+    position: relative;
+    top: 65px;
+    right: 70px;
+    max-width: 100%;
+}
+.title-logo {
+    position: relative;
+    top: 1px;
+    right: -300px;
+    max-width: 80%;
+    max-width: 80%;
+}
 }
 body {
     opacity: 1;

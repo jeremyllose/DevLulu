@@ -6,6 +6,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 30, 2024, 11:04:03 PM
     Author     : jeremy
 */
+.content-wrapper { 
+    padding-left: 200px; 
+}
 .inventory {
     background-color: #8f654a;
     color: white;
@@ -37,19 +40,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     gap: 10px;
 }
 #searchBar {
-    flex: 1;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-image: url('../photos/searchicon.png'); 
+    background-image: url('../photos/searchicon.png'); /* Add path to your search icon image */
     background-repeat: no-repeat;
-    background-position: 200px center; 
-    padding-left: 40px; 
+    background-position: 200px center; /* Adjust the position of the icon */
     height: 32px;
+    width: 14.5rem;
     position: relative;
-    left: 1215px;
-    top: -10px;
+    left: 75.7rem;
+    top: -0.5rem;
 }
 #generate {
     position: relative;
@@ -67,11 +69,32 @@ th {
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
 table {
-    width: 110%;
+    width: 101%;
     border-collapse: collapse;
     margin-top: 75px;
     border: none;
 }
+/* Style table header */
+th {
+    background-color: #8f654a;
+    color: #fff;
+    padding: 15px; /* Increase padding for better visual appearance */
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+/* Style table cells */
+td {
+    padding: 15px; /* Increase padding for better visual appearance */
+    border: 1px solid #ddd; /* Add border to separate cells */
+    text-align: center;
+}
+
+/* Style alternating rows for better readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Change color for alternating rows */
+}
+
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -88,4 +111,15 @@ table {
     width: 100%;
     z-index: 1;
 }
-
+#button-css {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    cursor: pointer;
+}
+#edit-picture {
+    margin-right: 5px; 
+    height: 15px; 
+}
