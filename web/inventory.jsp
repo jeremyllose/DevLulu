@@ -30,8 +30,10 @@
                     <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Add Item</span>
                 </button>
             </form>
-            <button class="inventory" id="import" onclick="openFileExplorer()">
-                <img src="photos/import.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Import Excel</span></button>
+            <form action="UploadServlet" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" value="Upload" />
+               
             <form action="i-generateReport.jsp">
                 <button class="inventory" id="generate" type="submit">
                     <img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
