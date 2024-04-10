@@ -75,6 +75,7 @@
                     const accountButton = document.getElementById('account-form');
                     const logoutButton = document.getElementById('logout-form');
 
+
                     salesButton.addEventListener('click', function (event) {
                         event.preventDefault();
                         document.body.style.opacity = 0;
