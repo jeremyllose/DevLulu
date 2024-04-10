@@ -34,10 +34,11 @@
                     <img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
                 <form action="WasteSearch" method="post">
                     <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
-                    <button type="submit">Search</button>
+                    <button id="search" type="submit">
+                        <img src="photos/searchicon.png" alt="Search Icon">
+                    </button>
                 </form> 
             </div>
-            <input type="text" id="searchBar" placeholder="Search...">
             <form action="SaveWastes" method="post">
                 <table>
                     <thead>

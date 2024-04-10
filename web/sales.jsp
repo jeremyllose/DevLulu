@@ -29,7 +29,9 @@
                 <button class="inventory" id="sort" onclick="redirectTo('s-deleteProduct.jsp')">Delete Product</button>
                 <form action="SalesSearch" method="post">
                     <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
-                    <button class="inventory" id="sort" type="submit">Search</button>
+                    <button id="search" type="submit">
+                        <img src="photos/searchicon.png" alt="Search Icon">
+                    </button>
                 </form> 
 
             </div>

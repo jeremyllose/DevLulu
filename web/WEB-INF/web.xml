@@ -124,6 +124,10 @@
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>com.product.EditProduct</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>SalesRedirect</servlet-name>
+        <servlet-class>com.sales.SalesRedirect</servlet-class>
+    </servlet>
     <!--    <servlet>
         <servlet-name>InsertDataServlet</servlet-name>
         <url-pattern>com.imports.InsertDataServlet</url-pattern>
@@ -223,6 +227,10 @@
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>SalesRedirect</servlet-name>
+        <url-pattern>/SalesRedirect</url-pattern>
     </servlet-mapping>
     <!--    <servlet-mapping>
         <servlet-name>InsertDataServlet</servlet-name>
