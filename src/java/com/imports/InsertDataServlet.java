@@ -95,7 +95,7 @@ public class InsertDataServlet extends HttpServlet {
             con.commit();
             con.close();
             
-                 response.sendRedirect("success.jsp");
+                 response.sendRedirect("ItemList.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             // Redirect to an error page
