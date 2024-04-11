@@ -4,6 +4,8 @@
 */
 .content-wrapper {
     padding-left: 200px;
+    overflow-y: auto;
+    background-color: #e8e8e8;
 }
 
 .inventory {
@@ -29,35 +31,73 @@
     animation: moveUp 0.5s ease;
     border-color: red;
 }
-
-.others {
+.others{
     position: relative;
     top: 50px;
+    right: -30px;
     display: inline-block;
     margin: 5px;
     padding: 5px;
     display: flex;
     gap: 10px;
 }
-
+.searchContainer {
+    display: inline-block; /* Ensure the container only occupies necessary space */
+    position: relative;
+    right: -745px;
+}
 #searchBar {
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-image: url('../photos/searchicon.png');
-    background-repeat: no-repeat;
-    background-position: 200px center;
     height: 32px;
-    width: 14.5rem;
+    width: 12.5rem;
     position: relative;
-    left: 60rem;
+    left: 11rem;
+    outline: #dddddd;
+}
+#search {
+    border: none;
+    background: #dddddd;
+    background-size: contain;
+    padding: 0;
+    cursor: pointer;
+    width: 20%;
+    height: 50%;
+    position: relative;
+    left: 22.9rem;
+    top: -3.1rem;
+}
+#search:hover{
+    background: grey;
+
 }
 
 #dateText {
     font-size: 24px;
 }
+.table-container {
+    max-height: 500px; /* Set maximum height */
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
+    /* Add more styling as needed */
+    max-width: 95%;
+    display: flex;
+    flex-direction: column; /* Stack table rows vertically */
+    position: relative;
+    right: -40px;
+}
 
+.table-container table {
+    width: 100%; /* Ensure the table takes up the full width of its container */
+    border-collapse: collapse; /* Collapse table borders */
+}
+
+.table-container th,
+.table-container td {
+    border: 1px solid black; /* Add border to table cells */
+    padding: 8px; /* Add padding to table cells for spacing */
+}
 th {
     background-color: #8f654a;
     color: #fff;
@@ -65,14 +105,13 @@ th {
     text-align: center;
     border: 1px solid #fff; /* Optional: Add a white border for better separation */
 }
-
 table {
-    width: 165%;
+    max-width: 100%;
     border-collapse: collapse;
     margin-top: 75px;
     border: none;
+    table-layout: fixed;
 }
-
 tr:hover {
     background-color: #f2f2f2;
 }
@@ -81,45 +120,54 @@ tr:hover {
 th {
     background-color: #8f654a;
     color: #fff;
-    padding: 10px; /* Adjusted padding for better visual appearance */
+    padding: 15px; /* Increase padding for better visual appearance */
     text-align: center;
     border: 1px solid #fff;
 }
 
 /* Style table cells */
 td {
-    padding: 10px; /* Adjusted padding for better visual appearance */
+    padding: 15px; /* Increase padding for better visual appearance */
     border: 1px solid #ddd; /* Add border to separate cells */
     text-align: center;
 }
 
 /* Style alternating rows for better readability */
 tr:nth-child(even) {
-    background-color: #f9f9f9; /* Change color for alternating rows */
+    background-color: #fff; /* Change color for alternating rows */
+}
+label:not(.inventory) {
+    display: inline-block; /* Display label inline-block */
+    padding: 10px 20px; /* Adjust padding for desired button size */
+    margin-right: 5px; /* Add margin for spacing */
+    cursor: pointer; /* Set cursor to pointer on hover */
+    border: 1px solid #ccc; /* Add border for button look */
+    border-radius: 5px; /* Add rounded corners for button style */
+    background-color: #f2f2f2; /* Set background color */
 }
 
-td.hide-column {
-    display: none;
+label:hover:not(.inventory:hover) {
+    background-color: #e0e0e0; /* Change background on hover */
 }
-
 #dashboardheader {
-    position: relative; /* Adjusted positioning */
+    position:relative;
     top: 10px;
+    right: -35rem;
     color: #fff;
     margin: 0;
     font-weight: lighter;
 }
-
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
-    position: absolute;
+    position:fixed;
     top: -10px;
     right: -220px;
     width: 100%;
     z-index: 1;
+    justify-content: center;
+    align-items: center;
 }
-
 #button-css {
     display: flex;
     align-items: center;
@@ -128,7 +176,7 @@ td.hide-column {
     border-radius: 5px;
     cursor: pointer;
     position: relative;
-    right: -25px;
+    right: -72px;
 }
 #disable-css {
     display: flex;
@@ -143,4 +191,10 @@ td.hide-column {
 #edit-picture {
     margin-right: 5px;
     height: 15px;
+}
+input[type="number"] {
+    padding-block: 1px;
+    padding-inline: 1px;
+    width: 100%;
+    text-align: center;
 }

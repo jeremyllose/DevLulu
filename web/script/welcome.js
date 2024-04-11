@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const logoutButton = document.getElementById('logout');
     const sidebar = document.getElementById('sidebar');
-    const accountListButton = document.getElementById('accountlist');
     const homeButton = document.getElementById('homebutton'); // Added this line
 
 //    // Add the click event handler for the "Logout" button
@@ -29,13 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (sidebar && window.location.pathname !== '/login.jsp') {
         // Code to show the sidebar (modify as needed)
         sidebar.style.display = 'block';
-    }
-    // Add the click event handler for the "Account List" button
-    if (accountListButton) {
-        accountListButton.addEventListener('click', function () {
-            // Use the navigateTo function for accountlist.jsp
-            navigateTo('accountlist.jsp');
-        });
     }
 
 });

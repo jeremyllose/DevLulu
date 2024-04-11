@@ -124,9 +124,37 @@
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>com.product.EditProduct</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>SalesRedirect</servlet-name>
         <servlet-class>com.sales.SalesRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>com.forgot.ForgotPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnablePassword</servlet-name>
+        <servlet-class>com.forgot.EnablePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ItemSearch</servlet-name>
+        <servlet-class>com.inventorylist.ItemSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductSearch</servlet-name>
+        <servlet-class>com.product.ProductSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SalesSearch</servlet-name>
+        <servlet-class>com.sales.SalesSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SuppliesSearch</servlet-name>
+        <servlet-class>com.supplies.SuppliesSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WasteSearch</servlet-name>
+        <servlet-class>com.waste.WasteSearch</servlet-class>
     </servlet>
     <!--    <servlet>
         <servlet-name>InsertDataServlet</servlet-name>
@@ -228,9 +256,37 @@
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SalesRedirect</servlet-name>
         <url-pattern>/SalesRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/ForgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnablePassword</servlet-name>
+        <url-pattern>/EnablePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemSearch</servlet-name>
+        <url-pattern>/ItemSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductSearch</servlet-name>
+        <url-pattern>/ProductSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SalesSearch</servlet-name>
+        <url-pattern>/SalesSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuppliesSearch</servlet-name>
+        <url-pattern>/SuppliesSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WasteSearch</servlet-name>
+        <url-pattern>/WasteSearch</url-pattern>
     </servlet-mapping>
     <!--    <servlet-mapping>
         <servlet-name>InsertDataServlet</servlet-name>

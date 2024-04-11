@@ -54,18 +54,21 @@
                     </script>
                 </form>
                 <form action="ItemSearch" method="post">
-                    <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
-                    <button id="search" type="submit">
-                        <img src="photos/searchicon.png" alt="Search Icon">
-                    </button>
+                    <div id="searchContainer">
+                        <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+                        <button id="search" type="submit">
+                            <img src="photos/searchicon.png" alt="Search Icon">
+                        </button>
+                    </div>
                 </form>
             </div>
             <form action="ItemAction" method="post">
+                <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
-                                    <image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;"> <b id="disable-item-text">Disable Item</b></button></th>
+                                    <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px; padding-left: 30px;"></button></th>
                             <th>Item Code</th>
                             <th>Item No.</th>
                             <th>Description</th>
@@ -107,9 +110,10 @@
                         %>
                     </tbody>
                 </table>
+                    </div>
             </form>
             <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
-            <div id="dateText">Date: July 15, 2024</div>
+<!--            <div id="dateText">Date: July 15, 2024</div>-->
             <script>
                 $("#button1").click(function () {
                     $("#myForm").submit(); // Submit the form
@@ -140,8 +144,7 @@
                         // Ensure you remove the event listener after handling the file
                         fileInput.removeEventListener('change', handleFileSelection);
                     }
-                }
-                </div>
+                }   
             </script>
 
     </body>

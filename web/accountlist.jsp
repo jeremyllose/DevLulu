@@ -38,8 +38,7 @@
              <button type="submit" class="account" id="addmember">
                  <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Account</span></button>
          </form>
-        <div class="container">
-            
+            <div class="table-container">
         <table>
             <thead>
                 <tr>
@@ -64,12 +63,12 @@
                                     <form action="EditUser" method="post">
                                         <input type="hidden" name="password" value="<%= results.getString("password") %>">
                                         <input type="hidden" name="role" value="<%= results.getString("role") %>">
-                                        <button id="button-css" type="submit" name="button"><img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                                        <button id="button-css" type="submit" name="button"><img class="edit-picture" src="photos/edit-button.png" alt="Edit Button"> Edit
                             </button>
                                     </form>
                                     <form action="DisableUser" method="post">
                                         <input type="hidden" name="id" value="<%= results.getString("id") %>">
-                                        <button id="button-css" type="submit" onclick="return confirm('Are you sure you want to disable this user account?')"><image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;">  Disable</button>
+                                        <button id="button-css" type="submit" onclick="return confirm('Are you sure you want to disable this user account?')"><img class="edit-picture" src="photos/DisableFR.png" alt="Disable Button">  Disable</button>
                                     </form>
                                 </td>
                                 <%
@@ -79,7 +78,7 @@
                                 <td>
                                     <form action="EnablePassword" method="post">
                                         <input type="hidden" name="username" value="<%= results.getString("username") %>">
-                                        <button type="submit" onclick="return confirm('Are you sure you want to enable this users password?')">Show password</button>
+                                        <button style="width: 20% position: relative; right:-60px;" id="button-css" type="submit" onclick="return confirm('Are you sure you want to enable this users password?')"><img class="edit-picture" src="photos/Show.png" alt="Disable Button">Show password</button>
                                     </form>
                                 </td>
                                 <%
@@ -92,6 +91,5 @@
             </tbody>
         </table>
     </div>
-        </div>
 </body>
 </html>

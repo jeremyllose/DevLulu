@@ -23,32 +23,33 @@
             <div class="sidebar">
                 <button id="homebutton" onclick="redirectTo('welcome.jsp')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
                 <form id="sales-form" action="SalesRedirect" method="post">
-                    <button class="menu-item">Sales</button>
+                    <button class="menu-item">
+                        <img src="photos/Sales.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Sales</button>
                 </form>
                 <form id="product-form" action="ProductRedirect" method="post">
-                    <button class="menu-item">Product</button>
+                    <button class="menu-item"><img src="photos/Product.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Product</button>
                 </form>
                 <form id="variance-form" action="VariancePageRedirect" method="post">
-                    <button class="menu-item">Variance</button>
+                    <button class="menu-item"><img src="photos/Variance.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Variance</button>
                 </form>
                 <form id="item-form" action="ItemList" method="post">
-                    <button class="menu-item">Inventory</button>
+                    <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Inventory</button>
                 </form>
                 <form id="supplies-form" action="SuppliesRedirectPage" method="post">
-                    <button class="menu-item">Supplies Received</button>
+                    <button class="menu-item"><img src="photos/SuppliesReceived.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Supplies Received</button>
                 </form>
                 <form id="waste-form" action="WasteRedirect" method="post">
-                    <button class="menu-item">Waste</button>
+                    <button class="menu-item"><img src="photos/Waste.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Waste</button>
                 </form>
                 <br>
                 <br>
-                <form action="AccountList" method="post">
-                    <button class="menu-item" id="accountlist">Account List</button>
+                <form id="account-form" action="AccountList" method="post">
+                    <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Account List</button>
                 </form>
                 <br>
                 <br>
                 <form id="logout-form" action="Logout">
-                    <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" >Logout</button>
+                    <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" ><img src="photos/Logout.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Logout</button>
                 </form>
             </div>
             <div class="main-content" id="mainContent">
