@@ -19,120 +19,126 @@
     </head>
     <body>
         <div class="content-wrapper">
-        <%
-        // Get current date
-        LocalDate today = LocalDate.now();
-        
-        // Check if today is within the first 5 days of the month
-        boolean withinFirstFiveDays = today.getDayOfMonth() <= 5;
-    %>
-        <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            <%
+                // Get current date
+                LocalDate today = LocalDate.now();
 
-            if (session.getAttribute("userRole").equals("Manager") ) {
-                session.setAttribute("verification", "You have no Permission to Open the Account List");
-                response.sendRedirect("welcome.jsp");
-            }
-        %>
-          <div class="dashboardbar">
-            <h1 id="dashboardheader">Variance</h1>
-        </div>
-          <br>
-          <br>
-        <%
-            int itemCount = (Integer) request.getAttribute("inventoryCount");
-        %>
-        <h1>Inventory Count: <%= itemCount %></h1>
-        <%
-            float inventoryCost = (Float) request.getAttribute("inventoryValue");
-        %>
-        <h1>Inventory Value: <%= inventoryCost %></h1>
-        <form action="SaveVariance" method="post">
-            <button type="submit" class="inventory" name="button" value="save" style="position: relative; right: -0.5rem;">
-            <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item Description</th>
-                    <th>General Class</th>
-                    <th>Sub Class</th>
-                    <th>UOM</th>
-                    <th>BEG</th>
-                    <th>Deliveries</th>
-                    <th>Others</th>
-                    <th>Total On Main</th>
-                    <th>Sold</th>
-                    <th>Waste</th>
-                    <th>Others</th>
-                    <th>Total</th>
-                    <th>Expected End</th>
-                    <th>Actual End</th>
-                    <th>Variance</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                            ResultSet results = (ResultSet) request.getAttribute("inventory");
-                            while (results.next()) {%>
-                <tr>
-                    <td><%=results.getString("item_description")%></td>
-                    <td><%=results.getString("gen_name")%></td>
-                    <td><%=results.getString("sub_name")%></td>
-                    <td><%=results.getString("unit_name")%></td>
-                    <% 
-                        if (withinFirstFiveDays) { 
-                    %>
-                    <td><input type="number" min="0" name="beg" value="<%=results.getString("beginning_quantity")%>" required/></td>
-                    <% } 
-                        else 
-                        { 
-                    %>
-                    <td><input type="number" min="0" name="beg" value="<%=results.getString("beginning_quantity")%>" required readonly/></td>
-            <% }
+                // Check if today is within the first 5 days of the month
+                boolean withinFirstFiveDays = today.getDayOfMonth() <= 5;
             %>
-                    
-                    <td><%=results.getString("delivery")%></td>
-                    <td><%=results.getString("otheradds")%></td>
-                    <%
-                        int totalOnMain = results.getInt("beginning_quantity") + results.getInt("delivery") + results.getInt("otheradds");
-                    %>
-                    <td><%=totalOnMain%></td>
-                    <td><%=results.getString("sold")%></td>
-                    <td><%=results.getString("waste")%></td>
-                    <td><%=results.getString("othersubs")%></td>
-                    <%
-                        int totalOutput = totalOnMain - results.getInt("sold") - results.getInt("waste") - results.getInt("othersubs");
-                    %>
-                    <td><%=totalOutput%></td>
-                    <td><%=totalOutput%></td>
-                    <% 
-                        if (withinFirstFiveDays) { 
-                    %>
-            <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required/></td>
-                    <% } 
-                        else 
-                        { 
-                    %>
-            <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required readonly/></td>
-            <% }
+            <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("userRole").equals("Manager")) {
+                    session.setAttribute("verification", "You have no Permission to Open the Account List");
+                    response.sendRedirect("welcome.jsp");
+                }
             %>
+            <div class="dashboardbar">
+                <h1 id="dashboardheader">Variance</h1>
+            </div>
+            <br>
+            <br>
+            <%
+                int itemCount = (Integer) request.getAttribute("inventoryCount");
+            %>
+            <div class="Delivery-Container" id="DC"><h1><image src="photos/Count.png" alt="Save Button" style="width: 35px; height: 35px; position: relative; right: 3px; top: 10px;">Inventory Count: <%= itemCount%></h1></div>
                     <%
-                        int variance = results.getInt("end_quantity") -  totalOutput;
+                        float inventoryCost = (Float) request.getAttribute("inventoryValue");
                     %>
-                    <td><%=variance%></td>
-                    <td>
-                        <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
-                            <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
-                            </button>
-                        
-                    </td>
-                </tr>	
-                <%	}
-                %>
-            </tbody>
-        </table>
-        </form>
+                <div class="Delivery-Container"><h1><image src="photos/Value.png" alt="Save Button" style="width: 35px; height: 35px; position: relative; right: 3px; top: 4px;">Inventory Value: <%= inventoryCost%></h1></div>
+            <form action="SaveVariance" method="post">
+                <button id="others" type="submit" class="inventory" name="button" value="save">
+                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px; position: relative; right: -5px; top: 4px;"> <span style=" padding-left: 5px;">Save Changes</span></button>
+                <form action="VarianceSearch" method="post">
+                    <div id="searchContainer">
+                        <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+                        <button id="search" type="submit">
+                            <img src="photos/searchicon.png" alt="Search Icon">
+                        </button>
+                    </div>
+                </form>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item Description</th>
+                                <th>General Class</th>
+                                <th>Sub Class</th>
+                                <th>UOM</th>
+                                <th>BEG</th>
+                                <th>Deliveries</th>
+                                <th>Others</th>
+                                <th>Total On Main</th>
+                                <th>Sold</th>
+                                <th>Waste</th>
+                                <th>Others</th>
+                                <th>Total</th>
+                                <th>Expected End</th>
+                                <th>Actual End</th>
+                                <th>Variance</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                    ResultSet results = (ResultSet) request.getAttribute("inventory");
+                    while (results.next()) {%>
+                            <tr>
+                                <td><%=results.getString("item_description")%></td>
+                                <td><%=results.getString("gen_name")%></td>
+                                <td><%=results.getString("sub_name")%></td>
+                                <td><%=results.getString("unit_name")%></td>
+                                <%
+                                    if (withinFirstFiveDays) {
+                                %>
+                                <td><input type="number" min="0" name="beg" value="<%=results.getString("beginning_quantity")%>" required/></td>
+                                    <% } else {
+                                    %>
+                                <td><input type="number" min="0" name="beg" value="<%=results.getString("beginning_quantity")%>" required readonly/></td>
+                                    <% }
+                                    %>
+
+                                <td><%=results.getString("delivery")%></td>
+                                <td><%=results.getString("otheradds")%></td>
+                                <%
+                                    int totalOnMain = results.getInt("beginning_quantity") + results.getInt("delivery") + results.getInt("otheradds");
+                                %>
+                                <td><%=totalOnMain%></td>
+                                <td><%=results.getString("sold")%></td>
+                                <td><%=results.getString("waste")%></td>
+                                <td><%=results.getString("othersubs")%></td>
+                                <%
+                                    int totalOutput = totalOnMain - results.getInt("sold") - results.getInt("waste") - results.getInt("othersubs");
+                                %>
+                                <td><%=totalOutput%></td>
+                                <td><%=totalOutput%></td>
+                                <%
+                                    if (withinFirstFiveDays) {
+                                %>
+                                <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required/></td>
+                                    <% } else {
+                                    %>
+                                <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required readonly/></td>
+                                    <% }
+                                    %>
+                                    <%
+                                        int variance = results.getInt("end_quantity") - totalOutput;
+                                    %>
+                                <td><%=variance%></td>
+                                <td>
+                                    <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
+                                        <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                                    </button>
+
+                                </td>
+                            </tr>	
+                            <%	}
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
     </body>
 </html>

@@ -54,6 +54,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     background: linear-gradient(to right, #006f3d, #bfefbb);
     padding: 10px;
     padding-right: 90px;
+    border-radius: 10px;
 }
 #searchBar {
     padding: 8px;

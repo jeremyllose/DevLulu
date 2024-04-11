@@ -27,50 +27,56 @@
                     <button type="submit" class="inventory" id="add">
                         <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
                 </form>
+                
                 <form action="ProductSearch" method="post">
+                    <div class="searchContainer">
                     <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                     <button id="search" type="submit">
                         <img src="photos/searchicon.png" alt="Search Icon">
-                    </button>
+                    </button></div>
                 </form> 
+                <button style="position: relative; right: 280px;" class="inventory" id="sort" type="submit" name="button" value="save">
+                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span class="inventory">Save Changes</span></button>  
             </div>
             <form action="ProductAction" method="post">
-                <table>
-                    <thead>
-                        <tr>
-                            <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
-                                    <image src="photos/disable.png" alt="Disable Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Disable Product</b></button>
-                            </th>
-                            <th>Product Code</th>
-                            <th>Product Description</th>
-                            <th>Product Price</th>
-                            <th>Quantity</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            ResultSet results = (ResultSet) request.getAttribute("product");
-                            while (results.next()) {%>
-                        <tr>
-                            <td><input type="checkbox" name="selectProduct" value="<%= results.getString("product_code")%>"></td>
-                            <td><%=results.getString("product_code")%></td>
-                            <td><%=results.getString("product_description")%></td>
-                            <td><%=results.getString("product_price")%></td>
-                            <td><input type="number" min="0" name="qty" value="<%=results.getString("quantity")%>" required/></td>
-                            <td>
-                                <button id="button-css" type="submit" name="button" value="edit <%= results.getString("product_code")%>">
-                                    <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
-                                </button>
-                            </td>
-                            <td class="hide-column"><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>
-                        </tr>
-                        <%	}
-                        %>
-                    </tbody>
-                </table>
-                <th><button type="submit" class="inventory" style="position: relative; left: 15.8rem; top: -23.50rem;">
-                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
+                                        <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px; position: relative; right: -25px;"></button>
+                                </th>
+                                <th>Product Code</th>
+                                <th>Product Description</th>
+                                <th>Product Price</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                ResultSet results = (ResultSet) request.getAttribute("product");
+                                while (results.next()) {%>
+                            <tr>
+                                <td><input type="checkbox" name="selectProduct" value="<%= results.getString("product_code")%>"></td>
+                                <td><%=results.getString("product_code")%></td>
+                                <td><%=results.getString("product_description")%></td>
+                                <td><%=results.getString("product_price")%></td>
+                                <td><input type="number" min="0" name="qty" value="<%=results.getString("quantity")%>" required/></td>
+                                <td>
+                                    <button id="button-css" type="submit" name="button" value="edit <%= results.getString("product_code")%>">
+                                        <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                                    </button>
+                                </td>
+    <!--                            <td class="hide-column"><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>-->
+                            </tr>
+                            <%	}
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+<!--                <th><button type="submit" class="inventory">
+                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>-->
             </form>
         </div>
     </body>

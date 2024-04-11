@@ -38,8 +38,7 @@
              <button type="submit" class="account" id="addmember">
                  <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Account</span></button>
          </form>
-        <div class="container">
-            
+            <div class="table-container">
         <table>
             <thead>
                 <tr>
@@ -79,7 +78,7 @@
                                 <td>
                                     <form action="EnablePassword" method="post">
                                         <input type="hidden" name="username" value="<%= results.getString("username") %>">
-                                        <button style="width: 20% position: relative; right: -80px;" id="button-css" type="submit" onclick="return confirm('Are you sure you want to enable this users password?')"><img class="edit-picture" src="photos/Show.png" alt="Disable Button">Show password</button>
+                                        <button style="width: 20% position: relative; right:-60px;" id="button-css" type="submit" onclick="return confirm('Are you sure you want to enable this users password?')"><img class="edit-picture" src="photos/Show.png" alt="Disable Button">Show password</button>
                                     </form>
                                 </td>
                                 <%
@@ -92,6 +91,5 @@
             </tbody>
         </table>
     </div>
-        </div>
 </body>
 </html>

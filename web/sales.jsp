@@ -22,22 +22,19 @@
                 <h1 id="dashboardheader">Sales</h1></div>
 
             <div class="others">
-                <button class="inventory" id="add" onclick="redirectTo('s-addProduct.jsp')">
-                    <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
-
-                <button class="inventory" id="generate" onclick="redirectTo('s-editProduct.jsp')">Edit Product</button>
-                <button class="inventory" id="sort" onclick="redirectTo('s-deleteProduct.jsp')">Delete Product</button>
                 <form action="SalesSearch" method="post">
+                    <div class="searchContainer">
                     <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                     <button id="search" type="submit">
                         <img src="photos/searchicon.png" alt="Search Icon">
                     </button>
+                    </div>
                 </form> 
 
             </div>
 
 
-
+<div class="table-container">
             <table>
                 <thead>
                     <tr>
@@ -62,10 +59,12 @@
                             total += results.getFloat("TOTAL_PRICE");
                         }
                     %>
-            </table>            
-            <div id="dateText">Date: July 15, 2024</div>
+            </table>        
+</div>
+            <br>
+            <br>
             <div id="costs">Total:</div>
-            <input type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
+            <input style="font-size 16px;" type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
         </div>
     </body>
 </html>
