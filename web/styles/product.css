@@ -4,6 +4,8 @@
 */
 .content-wrapper {
     padding-left: 200px;
+    overflow-y: auto;
+    background-color: #e8e8e8;
 }
 
 .inventory {

@@ -32,14 +32,20 @@
                 <button class="inventory" id="generate" onclick="redirectTo('w-generateReport.jsp')"><img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Generate Report</span></button>
                 <button class="inventory" id="sort" onclick="redirectTo('w-sort.jsp')">
                     <img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
+                <button class="inventory" id="sort" type="submit" name="button" value="save">
+                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span class="inventory">Save Changes</span></button>  
+
                 <form action="WasteSearch" method="post">
-                    <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
-                    <button id="search" type="submit">
-                        <img src="photos/searchicon.png" alt="Search Icon">
-                    </button>
+                    <div id="searchContainer">
+                        <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
+                        <button id="search" type="submit">
+                            <img src="photos/searchicon.png" alt="Search Icon">
+                        </button>
+                    </div>
                 </form> 
             </div>
             <form action="SaveWastes" method="post">
+                <div class="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -52,8 +58,6 @@
                             <th>Waste</th>
                             <th>Other Subtractions</th>
                             <th>End Quantity</th>
-                            <th><button id="button-css" type="submit" name="button" value="save" style="background-color: #8f654a; color: white; border:none;">
-                                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Save Changes</b></button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,14 +74,16 @@
                             <td><input type="number" min="0" name="waste" value="<%=results.getString("waste")%>" required/></td>
                             <td><input type="number" min="0" name="othersubs" value="<%=results.getString("othersubs")%>" required/></td>
                             <td><%=results.getString("end_quantity")%></td>
-                            <td><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
+                            <!--                            REMI NOTE: NILIPAT KO SA TAAS SAVE CHANGES CUZ IT JUST LOOKED BETTER IM SORRY PERO BAKA NEED ADJUST LINE 77-->
+                            <!--                <td><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>-->
                         </tr>        
                         <%	}
                         %>
                     </tbody>
                 </table>
+                    </div>
             </form>
-            <div id="dateText">Date: July 15, 2024</div>
+<!--            <div id="dateText">Date: July 15, 2024</div>-->
         </div>
     </body>
 </html>

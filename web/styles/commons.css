@@ -27,10 +27,12 @@ body {
     top: 0;
     left: 0;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .menu-item {
     width: 100%;
-    padding: 10px;
+    padding: 7px;
     margin: 5px;
     text-decoration: none;
     color: white;
@@ -38,11 +40,19 @@ body {
     border: none;
     cursor: pointer;
     color: black;
-    font-size: 20px;
+    font-size: 18px;
     position: relative;
     right: 5px;
-    bottom: 7rem;
+    bottom: 5rem;
     transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center;
+}
+
+.menu-item img {
+    margin-bottom: 5px; /* Add some space between image and text */
 }
 
 .menu-item:hover,
@@ -143,6 +153,8 @@ body {
         top: 0;
         left: 0;
         height: 200vh;
+        display: flex;
+        flex-direction: column;
     }
     .menu-item {
         width: 100%;
@@ -159,6 +171,18 @@ body {
         right: 5px;
         bottom: 14rem;
         transition: background-color 0.3s, color 0.3s;
+        display: flex;
+        align-items: center; /* Center items vertically */
+    }
+    .menu-item img {
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Optional: Add some spacing between menu items */
+    .menu-item + .menu-item {
+        margin-top: 10px;
     }
 }
 

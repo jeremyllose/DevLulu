@@ -9,8 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 .content-wrapper {
     padding-left: 200px;
     overflow-y: auto;
+    background-color: #e8e8e8;
 }
-
 .inventory {
     background-color: #8f654a;
     color: white;
@@ -34,28 +34,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     animation: moveUp 0.5s ease;
     border-color: red;
 }
+#searchContainer {
+    display: inline-block; /* Ensure the container only occupies necessary space */
+    position: relative;
+    right: 48px;
+}
 #searchBar {
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
     height: 32px;
-    width: 14.5rem;
+    width: 12.5rem;
     position: relative;
     left: 11rem;
+    outline: #dddddd;
 }
 #search {
     border: none;
-    background: #bfefbb;
+    background: #dddddd;
     background-size: contain;
     padding: 0;
     cursor: pointer;
     width: 20%;
     height: 50%;
     position: relative;
-    left: 22.8rem;
+    left: 22.9rem;
     top: -3.1rem;
-
 }
 #search:hover{
     background: grey;
@@ -64,6 +69,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 .others{
     position: relative;
     top: 50px;
+    right: -30px;
     display: inline-block;
     margin: 5px;
     padding: 5px;
@@ -73,6 +79,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 #dateText {
     font-size: 18px;
     font-weight: 100;
+}
+.table-container {
+    max-height: 500px; /* Set maximum height */
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
+    /* Add more styling as needed */
+    max-width: 95%;
+    display: flex;
+    flex-direction: column; /* Stack table rows vertically */   
+    position: relative;
+    right: -40px;
+}
+
+.table-container table {
+    width: 100%; /* Ensure the table takes up the full width of its container */
+    border-collapse: collapse; /* Collapse table borders */
+}
+
+.table-container th,
+.table-container td {
+    border: 1px solid black; /* Add border to table cells */
+    padding: 8px; /* Add padding to table cells for spacing */
 }
 th {
     background-color: #8f654a;
@@ -88,9 +115,47 @@ table {
     border: none;
     table-layout: fixed;
 }
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Style table header */
+th {
+    background-color: #8f654a;
+    color: #fff;
+    padding: 15px; /* Increase padding for better visual appearance */
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+/* Style table cells */
+td {
+    padding: 15px; /* Increase padding for better visual appearance */
+    border: 1px solid #ddd; /* Add border to separate cells */
+    text-align: center;
+}
+
+/* Style alternating rows for better readability */
+tr:nth-child(even) {
+    background-color: #fff; /* Change color for alternating rows */
+}
+label:not(.inventory) {
+    display: inline-block; /* Display label inline-block */
+    padding: 10px 20px; /* Adjust padding for desired button size */
+    margin-right: 5px; /* Add margin for spacing */
+    cursor: pointer; /* Set cursor to pointer on hover */
+    border: 1px solid #ccc; /* Add border for button look */
+    border-radius: 5px; /* Add rounded corners for button style */
+    background-color: #f2f2f2; /* Set background color */
+}
+
+label:hover:not(.inventory:hover) {
+    background-color: #e0e0e0; /* Change background on hover */
+}
 #dashboardheader {
     position:relative;
     top: 10px;
+    right: -35rem;
     color: #fff;
     margin: 0;
     font-weight: lighter;
@@ -103,6 +168,8 @@ table {
     right: -220px;
     width: 100%;
     z-index: 1;
+    justify-content: center;
+    align-items: center;
 }
 @keyframes fadeOut {
     from {
@@ -155,43 +222,7 @@ table {
     font-size: 16px;
     padding-left: 5px;
 }
-tr:hover {
-    background-color: #f2f2f2;
-}
 
-/* Style table header */
-th {
-    background-color: #8f654a;
-    color: #fff;
-    padding: 15px; /* Increase padding for better visual appearance */
-    text-align: center;
-    border: 1px solid #fff;
-}
-
-/* Style table cells */
-td {
-    padding: 15px; /* Increase padding for better visual appearance */
-    border: 1px solid #ddd; /* Add border to separate cells */
-    text-align: center;
-}
-
-/* Style alternating rows for better readability */
-tr:nth-child(even) {
-    background-color: #f9f9f9; /* Change color for alternating rows */
-}
-label:not(.inventory) {
-    display: inline-block; /* Display label inline-block */
-    padding: 10px 20px; /* Adjust padding for desired button size */
-    margin-right: 5px; /* Add margin for spacing */
-    cursor: pointer; /* Set cursor to pointer on hover */
-    border: 1px solid #ccc; /* Add border for button look */
-    border-radius: 5px; /* Add rounded corners for button style */
-    background-color: #f2f2f2; /* Set background color */
-}
-
-label:hover:not(.inventory:hover) {
-    background-color: #e0e0e0; /* Change background on hover */
-}
 #import {
     appearance: auto;
     text-rendering: auto;
@@ -209,7 +240,7 @@ label:hover:not(.inventory:hover) {
     padding-inline: 6px;
 }
 #upload {
-    background-color: #bfefbb;
+    background-color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;

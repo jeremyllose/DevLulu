@@ -8,6 +8,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 */
 .content-wrapper {
     padding-left: 200px;
+    overflow-y: auto;
+    background-color: #e8e8e8;
 }
 .inventory {
     background-color: #8f654a;
