@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.product;
+package com.inventorylist;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +17,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class ProductRedirect extends HttpServlet {
+public class ItemSort extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -46,6 +45,8 @@ public class ProductRedirect extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -54,56 +55,35 @@ public class ProductRedirect extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try 
         {
             if (con != null) 
             {
-                HttpSession session = request.getSession();
-                String action = request.getParameter("button");
+                Statement stmt1 = con.createStatement();
+                Statement stmt2 = con.createStatement();
                 
-                if (action == null || action.isEmpty()) 
-                {
-                    if (session.getAttribute("productPgNum") == null) 
-                    {
-                        session.setAttribute("productPgNum", 1);
-                    }
-                } 
-                else 
-                {
-                    int pageNumber = Integer.parseInt(action);
-                    session.setAttribute("productPgNum", pageNumber);
-                }
+                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
+                request.setAttribute("genClass", rs1);
                 
-                Statement stmt = con.createStatement();
+                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
+                request.setAttribute("subClass", rs2);
                 
-                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT WHERE DISABLED = FALSE ORDER BY PRODUCT_CODE "
-                        + "OFFSET "+ (((int) session.getAttribute("productPgNum") - 1) * 20) +" ROWS FETCH NEXT 20 ROWS ONLY");
+                request.getRequestDispatcher("i-sort.jsp").forward(request,response);
                 
-                request.setAttribute("product", records);
-                session.setAttribute("productPages", countPages());
-                request.getRequestDispatcher("product.jsp").forward(request,response);
+                rs1.close();
+                rs2.close();
                 
-                records.close();
-                stmt.close();
+                stmt1.close();
+                stmt2.close();
             }
         } 
         catch (SQLException sqle)
         {
                 response.sendRedirect("error.jsp");
-        } 
-    }
-    
-    public int countPages() throws SQLException
-    {
-        Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 20) AS total_pages "
-                + "FROM PRODUCT";
-        ResultSet rs = stmt.executeQuery(query);
-        rs.next();
-        int count = rs.getInt(1);
-        return count;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

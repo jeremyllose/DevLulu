@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.product;
+package com.supplies;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +11,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class ProductRedirect extends HttpServlet {
+public class SortingSupplies extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -46,6 +49,8 @@ public class ProductRedirect extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -54,56 +59,86 @@ public class ProductRedirect extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try 
+            throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
+        String[] genClasses = request.getParameterValues("gc");
+        String[] subClasses = request.getParameterValues("sc");
+        
+        String genClassClause = "";
+        if (genClasses != null && genClasses.length > 0) 
         {
-            if (con != null) 
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : genClasses) 
             {
-                HttpSession session = request.getSession();
-                String action = request.getParameter("button");
-                
-                if (action == null || action.isEmpty()) 
-                {
-                    if (session.getAttribute("productPgNum") == null) 
-                    {
-                        session.setAttribute("productPgNum", 1);
-                    }
-                } 
-                else 
-                {
-                    int pageNumber = Integer.parseInt(action);
-                    session.setAttribute("productPgNum", pageNumber);
-                }
-                
-                Statement stmt = con.createStatement();
-                
-                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT WHERE DISABLED = FALSE ORDER BY PRODUCT_CODE "
-                        + "OFFSET "+ (((int) session.getAttribute("productPgNum") - 1) * 20) +" ROWS FETCH NEXT 20 ROWS ONLY");
-                
-                request.setAttribute("product", records);
-                session.setAttribute("productPages", countPages());
-                request.getRequestDispatcher("product.jsp").forward(request,response);
-                
-                records.close();
-                stmt.close();
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
             }
-        } 
-        catch (SQLException sqle)
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        else
         {
-                response.sendRedirect("error.jsp");
-        } 
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : retrieveAllGenIdsAsArray())
+            {
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
+            }
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        session.setAttribute("genSortS", genClassClause);
+        
+        String subClassClause = "";
+        if (subClasses != null && subClasses.length > 0) 
+        {
+            StringBuilder sb = new StringBuilder();
+            for (String subClass : subClasses) 
+            {
+                sb.append("'").append(subClass).append("'");
+                sb.append(",");
+            }
+            subClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        else
+        {
+            StringBuilder sb = new StringBuilder();
+            for (String subClass : retrieveAllSubIdsAsArray())
+            {
+                sb.append("'").append(subClass).append("'");
+                sb.append(",");
+            }
+            subClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        session.setAttribute("subSortS", subClassClause);
+        
+        response.sendRedirect("SuppliesRedirectPage");
     }
     
-    public int countPages() throws SQLException
+    public String[] retrieveAllGenIdsAsArray() throws SQLException 
     {
+        ArrayList<String> genIds = new ArrayList<String>();
         Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 20) AS total_pages "
-                + "FROM PRODUCT";
+        String query = "SELECT GEN_ID FROM GEN_CLASS";
         ResultSet rs = stmt.executeQuery(query);
-        rs.next();
-        int count = rs.getInt(1);
-        return count;
+        while(rs.next())
+        {
+            genIds.add(rs.getString("GEN_ID"));
+        }
+        return genIds.toArray(new String[genIds.size()]);
+    }
+    
+    public String[] retrieveAllSubIdsAsArray() throws SQLException 
+    {
+        ArrayList<String> genIds = new ArrayList<String>();
+        Statement stmt = con.createStatement();
+        String query = "SELECT SUB_ID FROM SUB_CLASS";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next())
+        {
+            genIds.add(rs.getString("SUB_ID"));
+        }
+        return genIds.toArray(new String[genIds.size()]);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -118,7 +153,11 @@ public class ProductRedirect extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SortingSupplies.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -132,7 +171,11 @@ public class ProductRedirect extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SortingSupplies.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

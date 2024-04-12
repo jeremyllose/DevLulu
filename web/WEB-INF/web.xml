@@ -156,6 +156,38 @@
         <servlet-name>WasteSearch</servlet-name>
         <servlet-class>com.waste.WasteSearch</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ItemSort</servlet-name>
+        <servlet-class>com.inventorylist.ItemSort</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingItems</servlet-name>
+        <servlet-class>com.inventorylist.SortingItems</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortWasteRedirect</servlet-name>
+        <servlet-class>com.waste.SortWasteRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortRedirectVariance</servlet-name>
+        <servlet-class>com.variance.SortRedirectVariance</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortRedirectSupplies</servlet-name>
+        <servlet-class>com.supplies.SortRedirectSupplies</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingVariance</servlet-name>
+        <servlet-class>com.variance.SortingVariance</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingWaste</servlet-name>
+        <servlet-class>com.waste.SortingWaste</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingSupplies</servlet-name>
+        <servlet-class>com.supplies.SortingSupplies</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -279,6 +311,38 @@
     <servlet-mapping>
         <servlet-name>WasteSearch</servlet-name>
         <url-pattern>/WasteSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemSort</servlet-name>
+        <url-pattern>/ItemSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingItems</servlet-name>
+        <url-pattern>/SortingItems</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortWasteRedirect</servlet-name>
+        <url-pattern>/SortWasteRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortRedirectVariance</servlet-name>
+        <url-pattern>/SortRedirectVariance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortRedirectSupplies</servlet-name>
+        <url-pattern>/SortRedirectSupplies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingVariance</servlet-name>
+        <url-pattern>/SortingVariance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingWaste</servlet-name>
+        <url-pattern>/SortingWaste</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingSupplies</servlet-name>
+        <url-pattern>/SortingSupplies</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

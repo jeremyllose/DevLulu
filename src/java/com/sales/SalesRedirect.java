@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -62,13 +63,31 @@ public class SalesRedirect extends HttpServlet {
         {
             if (con != null) 
             {
+                HttpSession session = request.getSession();
+                String action = request.getParameter("button");
+                
+                if (action == null || action.isEmpty()) 
+                {
+                    if (session.getAttribute("salesPgNum") == null) 
+                    {
+                        session.setAttribute("salesPgNum", 1);
+                    }
+                } 
+                else 
+                {
+                    int pageNumber = Integer.parseInt(action);
+                    session.setAttribute("salesPgNum", pageNumber);
+                }
+                
                 Statement stmt = con.createStatement();
                 
                 ResultSet records = stmt.executeQuery("SELECT PRODUCT_CODE, PRODUCT_DESCRIPTION, PRODUCT_PRICE, QUANTITY, "
                         + "PRODUCT_PRICE * QUANTITY AS TOTAL_PRICE "
-                        + "FROM PRODUCT ORDER BY TOTAL_PRICE DESC");
+                        + "FROM PRODUCT ORDER BY TOTAL_PRICE DESC "
+                        + "OFFSET "+ (((int) session.getAttribute("salesPgNum") - 1) * 20) +" ROWS FETCH NEXT 20 ROWS ONLY");
                 
                 request.setAttribute("sales", records);
+                session.setAttribute("salesPages", countPages());
                 request.getRequestDispatcher("sales.jsp").forward(request,response);
                 
                 records.close();
@@ -79,6 +98,17 @@ public class SalesRedirect extends HttpServlet {
         {
                 response.sendRedirect("error.jsp");
         } 
+    }
+    
+    public int countPages() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT CEIL(COUNT(*) / 20) AS total_pages "
+                + "FROM PRODUCT WHERE DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int count = rs.getInt(1);
+        return count;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

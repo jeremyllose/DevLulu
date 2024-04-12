@@ -8,15 +8,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -62,6 +66,48 @@ public class ItemList extends HttpServlet {
         {
             if (con != null) 
             {
+                HttpSession session = request.getSession();
+                session.setAttribute("suppliesPgNum", null);
+                
+                String action = request.getParameter("button");
+                
+                if (action == null || action.isEmpty()) 
+                {
+                    if (session.getAttribute("itemPgNum") == null) 
+                    {
+                        session.setAttribute("itemPgNum", 1);
+                    }
+                } 
+                else 
+                {
+                    int pageNumber = Integer.parseInt(action);
+                    session.setAttribute("itemPgNum", pageNumber);
+                }
+                
+                String genClassClause = (String) session.getAttribute("genSort");
+                if (genClassClause == null) 
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (String genClass : retrieveAllGenIdsAsArray())
+                    {
+                        sb.append("'").append(genClass).append("'");
+                        sb.append(",");
+                    }
+                    genClassClause = sb.toString().substring(0, sb.length() - 1);
+                }
+                
+                String subClassClause = (String) session.getAttribute("subSort");
+                if (subClassClause == null) 
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (String subClass : retrieveAllSubIdsAsArray())
+                    {
+                        sb.append("'").append(subClass).append("'");
+                        sb.append(",");
+                    }
+                    subClassClause = sb.toString().substring(0, sb.length() - 1);
+                }
+                
                 Statement stmt = con.createStatement();
                 //Only gets the Accounts where DISABLED IS FALSE
                 ResultSet records = stmt.executeQuery("SELECT * FROM ITEM "
@@ -69,10 +115,15 @@ public class ItemList extends HttpServlet {
                         + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
                         + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
                         + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE DISABLED = FALSE ORDER BY ITEM_NUM");
+                        + "WHERE (DISABLED = FALSE) AND "
+                        + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
+                                + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
+                                + "ORDER BY ITEM_NUM "
+                        + "OFFSET "+ ((int) session.getAttribute("itemPgNum") - 1) +" ROWS FETCH NEXT 1 ROWS ONLY");
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);
+                session.setAttribute("itemPages", countPages());
                 request.getRequestDispatcher("inventory.jsp").forward(request,response);
                 
                 records.close();
@@ -84,7 +135,44 @@ public class ItemList extends HttpServlet {
                 response.sendRedirect("error.jsp");
         } 
     }
-
+    
+    public int countPages() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT CEIL(COUNT(*) / 1) AS total_pages "
+                + "FROM ITEM";
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int count = rs.getInt(1);
+        return count;
+    }
+    
+    public String[] retrieveAllGenIdsAsArray() throws SQLException 
+    {
+        ArrayList<String> genIds = new ArrayList<String>();
+        Statement stmt = con.createStatement();
+        String query = "SELECT GEN_ID FROM GEN_CLASS";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next())
+        {
+            genIds.add(rs.getString("GEN_ID"));
+        }
+        return genIds.toArray(new String[genIds.size()]);
+    }
+    
+    public String[] retrieveAllSubIdsAsArray() throws SQLException 
+    {
+        ArrayList<String> genIds = new ArrayList<String>();
+        Statement stmt = con.createStatement();
+        String query = "SELECT SUB_ID FROM SUB_CLASS";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next())
+        {
+            genIds.add(rs.getString("SUB_ID"));
+        }
+        return genIds.toArray(new String[genIds.size()]);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

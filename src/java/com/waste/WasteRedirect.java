@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -19,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -60,6 +62,46 @@ public class WasteRedirect extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
+        String action = request.getParameter("button");
+                
+                if (action == null || action.isEmpty()) 
+                {
+                    if (session.getAttribute("wastePgNum") == null) 
+                    {
+                        session.setAttribute("wastePgNum", 1);
+                    }
+                } 
+                else 
+                {
+                    int pageNumber = Integer.parseInt(action);
+                    session.setAttribute("wastePgNum", pageNumber);
+                }
+                
+                String genClassClause = (String) session.getAttribute("genSortW");
+                if (genClassClause == null) 
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (String genClass : retrieveAllGenIdsAsArray())
+                    {
+                        sb.append("'").append(genClass).append("'");
+                        sb.append(",");
+                    }
+                    genClassClause = sb.toString().substring(0, sb.length() - 1);
+                }
+                
+                String subClassClause = (String) session.getAttribute("subSortW");
+                if (subClassClause == null) 
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (String subClass : retrieveAllSubIdsAsArray())
+                    {
+                        sb.append("'").append(subClass).append("'");
+                        sb.append(",");
+                    }
+                    subClassClause = sb.toString().substring(0, sb.length() - 1);
+                }
+                
         Statement stmt = con.createStatement();
         String query = "SELECT * FROM ITEM\n" +
                 "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
@@ -69,16 +111,57 @@ public class WasteRedirect extends HttpServlet {
                 "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
                 "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID \n" +
                 "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
-                "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
+                "WHERE ITEM.DISABLED = FALSE AND"
+                + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
+                                + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
+                + "ORDER BY ITEM_NUM "
+                + "OFFSET "+ (((int) session.getAttribute("wastePgNum") - 1) * 20) +" ROWS FETCH NEXT 20 ROWS ONLY";
                 ResultSet rs = stmt.executeQuery(query);
                 request.setAttribute("waste", rs);
                 
+                session.setAttribute("wastePages", countPages());
                 request.getRequestDispatcher("waste.jsp").forward(request,response);
                 
                 rs.close();
                 stmt.close();
     }
-
+    
+    public int countPages() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT CEIL(COUNT(*) / 20) AS total_pages "
+                + "FROM ITEM WHERE ITEM.DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int count = rs.getInt(1);
+        return count;
+    }
+    
+    public String[] retrieveAllGenIdsAsArray() throws SQLException 
+    {
+        ArrayList<String> genIds = new ArrayList<String>();
+        Statement stmt = con.createStatement();
+        String query = "SELECT GEN_ID FROM GEN_CLASS";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next())
+        {
+            genIds.add(rs.getString("GEN_ID"));
+        }
+        return genIds.toArray(new String[genIds.size()]);
+    }
+    
+    public String[] retrieveAllSubIdsAsArray() throws SQLException 
+    {
+        ArrayList<String> genIds = new ArrayList<String>();
+        Statement stmt = con.createStatement();
+        String query = "SELECT SUB_ID FROM SUB_CLASS";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next())
+        {
+            genIds.add(rs.getString("SUB_ID"));
+        }
+        return genIds.toArray(new String[genIds.size()]);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

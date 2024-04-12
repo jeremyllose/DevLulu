@@ -31,8 +31,8 @@
             <form action="i-generateReport.jsp">
                 <button class="inventory" id="generate" type="submit">Generate Report</button>
             </form>
-            <form action="ItemAction" method="post">
-                <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')">Sort Options</button>
+            <form action="ItemSort" method="post">
+                <button class="inventory" id="sort">Sort Options</button>
             </form>
             <form action="ItemSearch" method="post">
                 <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
@@ -80,6 +80,51 @@
                 <%	}
                 %>
             </tbody>
+        </table>
+        </form>
+            <%
+                Integer itemPgNum = (Integer) session.getAttribute("itemPgNum");
+                Integer totalPages = (Integer) session.getAttribute("itemPages");
+                
+                
+                int currentPage = itemPgNum != null ? itemPgNum : 1;
+                int totalPg = totalPages != null ? totalPages : 1;
+            %>
+        <form action="ItemList" method="post">
+            <table>
+            <tr>
+                <%
+                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage -1) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
+                <%
+                    }
+                %>
+                
+                <td><%= currentPage%></td>
+                
+                 <%
+                    if ((currentPage + 1) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage + 2) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                <%
+                    }
+                %>
+            </tr>
         </table>
         </form>
         <input type="hidden" name="selectedOptions" id="selectedOptions" value="">

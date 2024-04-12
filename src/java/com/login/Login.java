@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -98,6 +99,9 @@ public class Login extends HttpServlet {
                 {
                     session.setAttribute("rememberUsername", uname);
                     session.setAttribute("rememberPassword", pass);
+                    session.setAttribute("itemPages", countPages());
+                    session.setAttribute("genSort", null);
+                    session.setAttribute("subSort", null);
                 }
                 else
                 {
@@ -124,6 +128,17 @@ public class Login extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public int countPages() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT CEIL(COUNT(*) / 1) AS total_pages "
+                + "FROM ITEM";
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int count = rs.getInt(1);
+        return count;
     }
 
 }

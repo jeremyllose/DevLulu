@@ -60,5 +60,50 @@
                     <div id="dateText">Date: July 15, 2024</div>
                       <div id="costs">Total:</div>
                       <input type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
+            <form action="ProductRedirect" method="post">
+            <table>
+                <%
+                Integer itemPgNum = (Integer) session.getAttribute("salesPgNum");
+                Integer totalPages = (Integer) session.getAttribute("salesPages");
+                
+                
+                int currentPage = itemPgNum != null ? itemPgNum : 1;
+                int totalPg = totalPages != null ? totalPages : 1;
+            %>
+            <tr>
+                <%
+                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage -1) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
+                <%
+                    }
+                %>
+                
+                <td><%= currentPage%></td>
+                
+                 <%
+                    if ((currentPage + 1) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage + 2) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                <%
+                    }
+                %>
+            </tr>
+        </table>
+        </form>
     </body>
 </html>

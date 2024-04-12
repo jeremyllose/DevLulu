@@ -46,6 +46,9 @@
             float inventoryCost = (Float) request.getAttribute("inventoryValue");
         %>
         <h1>Inventory Value: <%= inventoryCost %></h1>
+        <form action="SortRedirectVariance" method="post">
+            <button class="inventory" id="sort">Sort Options</button>
+        </form>
         <form action="SaveVariance" method="post">
             <button type="submit" name="button" value="save">Save Changes</button>
         <table>
@@ -126,6 +129,51 @@
                 <%	}
                 %>
             </tbody>
+        </table>
+        </form>
+            <form action="VariancePageRedirect" method="post">
+            <table>
+                <%
+                Integer itemPgNum = (Integer) session.getAttribute("variancePgNum");
+                Integer totalPages = (Integer) session.getAttribute("variancePages");
+                
+                
+                int currentPage = itemPgNum != null ? itemPgNum : 1;
+                int totalPg = totalPages != null ? totalPages : 1;
+            %>
+            <tr>
+                <%
+                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage -1) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
+                <%
+                    }
+                %>
+                
+                <td><%= currentPage%></td>
+                
+                 <%
+                    if ((currentPage + 1) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage + 2) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                <%
+                    }
+                %>
+            </tr>
         </table>
         </form>
     </body>
