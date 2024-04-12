@@ -1,0 +1,42 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 04 12, 24, 8:24:36 PM
+    Author     : BioStaR
+*/
+
+95% of storage used … If you run out, you can't create, edit, and upload files. Get 100 GB of storage for ₱89.00 ₱0 for 1 month.
+@charset "utf-8";
+/* CSS Document */
+
+.graphBox
+{
+	position: relative;
+	width: 90%;
+	padding: 20px;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-gap: 50px;
+	min-height: 200px;
+}
+
+.graphBox .box
+{
+	position: relative;
+	background: #fff;
+	padding: 20px;
+	width: 100%;
+	box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+	border-radius: 20px;
+}
+
+.info
+{
+	font-family: 'Arial', sans-serif;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-gap: 50px;
+	min-height: 200px;
+}
