@@ -67,6 +67,7 @@
                                     <button id="button-css" type="submit" name="button" value="edit <%= results.getString("product_code")%>">
                                         <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
                                     </button>
+                                        <input type="hidden" name="products" value="<%= results.getString("product_code")%>">
                                 </td>
     <!--                            <td class="hide-column"><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>-->
                             </tr>
@@ -77,6 +78,8 @@
                 </div>
 <!--                <th><button type="submit" class="inventory">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>-->
+<button type="submit" class="inventory">
+                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span>
             </form>
         </div>
     </body>

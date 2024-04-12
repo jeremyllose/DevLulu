@@ -35,8 +35,8 @@
                     <button class="inventory" id="generate" type="submit">
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
-                <form action="ItemAction" method="post">
-                    <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Sort Options</span></button>
+                <form action="ItemSort" method="post">
+                    <button class="inventory" id="sort" ><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Sort Options</span></button>
                 </form>
                 <form action="UploadServlet" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="fileInput" style="display: none;"/>
@@ -110,6 +110,52 @@
                         %>
                     </tbody>
                 </table>
+                    </form>
+            <%
+                Integer itemPgNum = (Integer) session.getAttribute("itemPgNum");
+                Integer totalPages = (Integer) session.getAttribute("itemPages");
+                
+                
+                int currentPage = itemPgNum != null ? itemPgNum : 1;
+                int totalPg = totalPages != null ? totalPages : 1;
+            %>
+        <form action="ItemList" method="post">
+            <table>
+            <tr>
+                <%
+                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage -1) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
+                <%
+                    }
+                %>
+                
+                <td><%= currentPage%></td>
+                
+                 <%
+                    if ((currentPage + 1) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage + 2) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                <%
+                    }
+                %>
+            </tr>
+        </table>
+        </form>
                     </div>
             </form>
             <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
