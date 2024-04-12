@@ -44,9 +44,15 @@
                 <br>
                 <br>
                 <br>
+                <%
+                    if (!session.getAttribute("userRole").equals("Manager") ) {
+                %>
                 <form action="AccountList" method="post">
                     <button class="menu-item" id="accountlist">Account List</button>
                 </form>
+                <% 
+                    }
+                %>
                 <br>
                 <br>
                 <br>

@@ -60,6 +60,7 @@
                                 <td><%=results.getString("role") %></td>
                                 <td>
                                     <form action="EditUser" method="post">
+                                        <input type="hidden" name="username" value="<%= results.getString("username") %>">
                                         <input type="hidden" name="password" value="<%= results.getString("password") %>">
                                         <input type="hidden" name="role" value="<%= results.getString("role") %>">
                                         <button type="submit">Edit</button>

@@ -188,6 +188,14 @@
         <servlet-name>SortingSupplies</servlet-name>
         <servlet-class>com.supplies.SortingSupplies</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>com.accountlist.EditUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserEdited</servlet-name>
+        <servlet-class>com.accountlist.UserEdited</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -343,6 +351,14 @@
     <servlet-mapping>
         <servlet-name>SortingSupplies</servlet-name>
         <url-pattern>/SortingSupplies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserEdited</servlet-name>
+        <url-pattern>/UserEdited</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
