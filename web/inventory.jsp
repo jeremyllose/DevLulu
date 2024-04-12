@@ -30,8 +30,8 @@
             <form action="UploadServlet" method="post" enctype="multipart/form-data">
             <input type="file" name="file" />
             <input type="submit" value="Upload" />
-               
-            <form action="i-generateReport.jsp">
+                  </form>
+            <form action="ExcelServlet" method="post">
                 <button class="inventory" id="generate" type="submit">Generate Report</button>
             </form>
             <form action="ItemAction" method="post">
