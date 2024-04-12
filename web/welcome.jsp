@@ -33,74 +33,85 @@
 
                 </div>
                 <!-- Add your main content here -->
-                <%-- 
-    Document   : dashboardfinal
-    Created on : 04 12, 24, 8:23:07 PM
-    Author     : BioStaR
-                --%>
 
                     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-                    <script src="my_chart.js"></script>
                     <body>
+                        <div class="box">
+                            <canvas id="sales"></canvas>
+                            <script>
+                                const sales = document.getElementById('sales');
+                                const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+                                const data = {
+                                    labels: labels,
+                                    datasets: [
+                                        {
+                                            label: 'Sales',
+                                            data: [65, 59, 80, 81, 56, 55, 40],
+                                            fill: false,
+                                            borderColor: 'rgb(75, 192, 192)',
+                                            tension: 0.1
+                                        },
+                                        {
+                                            label: 'Pie',
+                                            data: [70, 32, 100, 91, 26, 55, 70],
+                                            fill: false,
+                                            borderColor: 'rgb(75, 255, 255)',
+                                            tension: 0.1
+                                        }
+                                    ]
+                                };
+
+                                new Chart(sales, {
+                                    type: 'line',
+                                    data: data,
+                                    options: {
+                                        plugins: {
+                                            legend: {
+                                                display: true,
+                                                labels: {
+                                                    color: 'rgb(255, 99, 132)'
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
                         <div class="graphBox">
                             <div class="box">
                                 <canvas id="myChart"></canvas>
+                                <script>
+                                    const ctx = document.getElementById('myChart');
+
+                                    new Chart(ctx, {
+                                        type: 'pie',
+                                        data: {
+                                            labels: ['Red', 'Blue', 'Yellow'],
+                                            datasets: [{
+                                                label: 'Best Sellers',
+                                                data: [300, 50, 100],
+                                                backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+                                                hoverOffset: 4
+                                            }]
+                                        }
+                                    });
+                                </script>
+
                             </div>
-                            <div class="box">
-                                <canvas id="sales"></canvas>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <div class="chart-info">
-                                <h2>Best Sellers</h2>
-                                <ol>
-                                    <li>Sausage Fried Rice <span style="background-color: red"></span></li>
-                                    <li>Ham Fried Rice <span style="background-color: yellow"></span></li>
-                                    <li>Spam Fried Rice <span style="background-color: green"></span></li>
-                                    <li>Sausage Waffle <span style="background-color: blue"></span></li>
-                                    <li>Spam Waffle <span style="background-color: purple"></span></li>
-                                </ol>
-                            </div>
-                            <div id="inventory">
-                                <h2>Inventory</h2>
-                                <p><b>Inventory Price:</b> </p>
-                                <p><b>Inventory Count:</b> </p>
+                            <div class="info">
+                                <div class="chart-info">
+                                    <h2>Best Sellers</h2>
+                                    <ol>
+                                        <li>Sausage Fried Rice <span style="background-color: red"></span></li>
+                                        <li>Ham Fried Rice <span style="background-color: yellow"></span></li>
+                                        <li>Spam Fried Rice <span style="background-color: green"></span></li>
+                                        <li>Sausage Waffle <span style="background-color: blue"></span></li>
+                                        <li>Spam Waffle <span style="background-color: purple"></span></li>
+                                    </ol>
+                                </div>
                             </div>
                         </div>
                     </body>
-                    <script>
-                        95 % of storage used … If you run out, you can't create, edit, and upload files. Get 100 GB of storage for ₱89.00 ₱0 for 1 month.
-                                const ctx = document.getElementById('myChart');
-                        const sales = document.getElementById('sales');
-                        new Chart(ctx, {
-                        type: 'pie',
-                                data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                        datasets: [{
-                                        label: '# of Votes',
-                                                data: [12, 19, 3, 5, 2, 3],
-                                                borderWidth: 1
-                                        }]
-                                },
-                                options: {
-                                responsive: true;
-                                }
-                        });
-                        new Chart(sales, {
-                        type: 'line',
-                                data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                        datasets: [{
-                                        label: '# of Votes',
-                                                data: [12, 19, 3, 5, 2, 3],
-                                                borderWidth: 1
-                                        }]
-                                },
-                                options: {
-                                responsive: true;
-                                }
-                        });
-                    </script>
             </div>
         </div>
     </div>

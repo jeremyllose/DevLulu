@@ -26,13 +26,7 @@
         <br>
         <br>
         <br>
-        <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
-            if (session.getAttribute("username") == null) {
-                response.sendRedirect("login.jsp");
-            }
-        %>
+        
         <form action="AddItem" method="post">
             <div class="item-container">
                 <table>
