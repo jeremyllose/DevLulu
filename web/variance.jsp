@@ -47,7 +47,7 @@
                         float inventoryCost = (Float) request.getAttribute("inventoryValue");
                     %>
             <div class="Delivery-Container"><h1><image src="photos/Value.png" alt="Save Button" style="width: 35px; height: 35px; position: relative; right: 3px; top: 4px;">Inventory Value: <%= inventoryCost%></h1></div>
-            <form action="SaveVariance" method="post">
+            
                 <form action="VarianceSearch" method="post">
                     <div id="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
@@ -56,6 +56,7 @@
                         </button>
                     </div>
                 </form>
+            <form action="SaveVariance" method="post">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -83,7 +84,7 @@
                                 ResultSet results = (ResultSet) request.getAttribute("inventory");
                                 while (results.next()) {%>
                             <tr>
-                                <td><%=results.getString("item_description")%></td>
+                                <td><%=results.getString("item_description")%><input type="hidden" name="code" value="<%=results.getString("item_code")%>"/></td>
                                 <td><%=results.getString("gen_name")%></td>
                                 <td><%=results.getString("sub_name")%></td>
                                 <td><%=results.getString("unit_name")%></td>
@@ -111,15 +112,8 @@
                                 %>
                                 <td><%=totalOutput%></td>
                                 <td><%=totalOutput%></td>
-                                <%
-                                    if (withinFirstFiveDays) {
-                                %>
                                 <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required/></td>
-                                    <% } else {
-                                    %>
-                                <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required readonly/></td>
-                                    <% }
-                                    %>
+                                    
                                     <%
                                         int variance = results.getInt("end_quantity") - totalOutput;
                                     %>
@@ -136,6 +130,7 @@
                         </tbody>
                     </table>
                 </div>
+                        <input type="submit" value="Save Changes">
             </form>
             <form action="VariancePageRedirect" method="post">
                 <table>

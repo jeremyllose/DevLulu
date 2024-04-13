@@ -112,6 +112,8 @@ public class SortingWaste extends HttpServlet {
         }
         session.setAttribute("subSortW", subClassClause);
         
+        session.setAttribute("wastePgNum", 1);
+        
         response.sendRedirect("WasteRedirect");
     }
     

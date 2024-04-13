@@ -112,6 +112,8 @@ public class SortingSupplies extends HttpServlet {
         }
         session.setAttribute("subSortS", subClassClause);
         
+        session.setAttribute("suppliesPgNum", 1);
+        
         response.sendRedirect("SuppliesRedirectPage");
     }
     
