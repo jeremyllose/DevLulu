@@ -16,6 +16,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 /**
  *
@@ -68,26 +71,31 @@ public class InsertDataServlet extends HttpServlet {
             throws ServletException, IOException {
         
          try {
-        PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID, DISABLED, UPDATED) VALUES (?,?,?,?,?,?,?,?)");
-            // Set values for parameters
-            pstmt.setString(1, "value1");
-            pstmt.setString(2, "value2");
-            pstmt.setString(3, "value3");
-            pstmt.setString(4, "value4");
-            pstmt.setString(5, "value5");
-            pstmt.setString(6, "value6");
-            pstmt.setString(7, "value7");
-            pstmt.setString(8, "value8");
-            
-            // Set more parameters if needed
-            pstmt.executeUpdate();
+             Sheet sheet = (Sheet) request.getAttribute("sheet");
+             PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
+                        
+             for (Row row : sheet) {
+                 if(row.getRowNum() != 0){                       
+                        // Set values for parameters
+                        pstmt.setString(1, row.getCell(0).toString());
+                        pstmt.setInt(2, (int) Float.parseFloat(row.getCell(1).toString()));
+                        pstmt.setString(3, row.getCell(2).toString());
+                        pstmt.setString(4, row.getCell(3).toString());
+                        pstmt.setString(5, row.getCell(4).toString());
+                        pstmt.setString(6, row.getCell(5).toString());
+                        // Set more parameters if needed
+                        pstmt.executeUpdate();
+                    System.out.println();
+                }
+             }
+             
             pstmt.close();
 
             // Commit the transaction
             con.commit();
             con.close();
             
-                 response.sendRedirect("success.jsp");
+                 response.sendRedirect("ItemList");
         } catch (SQLException e) {
             e.printStackTrace();
             // Redirect to an error page
