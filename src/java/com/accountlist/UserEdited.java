@@ -2,15 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.supplies;
+package com.accountlist;
 
+import com.model.EncryptDecrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -24,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Cesar
  */
-public class SuppliesSearch extends HttpServlet {
-
+public class UserEdited extends HttpServlet {
+    
     Connection con;
     byte[] key;
     String cypher;
@@ -57,78 +59,29 @@ public class SuppliesSearch extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String searchBar = request.getParameter("searchBar");
-        request.setAttribute("addsValue", deliveryValue() + otheAddsValue());
+        String originalUsername = request.getParameter("originalUsername");
+        String getUsername = request.getParameter("username");
+        String getPassword = request.getParameter("password");
+        String getRole = request.getParameter("role");
+        updateUser(getUsername, EncryptDecrypt.encrypt(getPassword, key, cypher), getRole, originalUsername);
         
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM\n" +
-                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
-                "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
-                "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID \n" +
-                "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
-                "WHERE ITEM.DISABLED = FALSE AND ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY ITEM_NUM";
-                ResultSet rs = stmt.executeQuery(query);
-                request.setAttribute("deliveries", rs);
-                
-                request.getRequestDispatcher("suppliesreceived.jsp").forward(request,response);
-                
-                rs.close();
-                stmt.close();
+        response.sendRedirect("AccountList");
     }
     
-    public float deliveryValue() throws SQLException
+    public void updateUser(String getUsername, String getPassword, String getRole, String originalUsername)throws SQLException
     {
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM\n" +
-                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-                "WHERE ITEM.DISABLED = FALSE";
-        ResultSet rs = stmt.executeQuery(query);
+        String query = "UPDATE LOGIN SET USERNAME = ?, PASSWORD = ?, ROLE = ? WHERE USERNAME = ?";
+        PreparedStatement ps = con.prepareStatement(query);
         
-        float inventoryValue = 0;
-        
-        while(rs.next())
-        {
-            int quantity = rs.getInt("delivery");
-            float unitPrice = rs.getFloat("unit_price");
-            inventoryValue += quantity * unitPrice;
-        }
-        
-        rs.close();
-        stmt.close();
-        
-        return inventoryValue;
-    }
-    
-    public float otheAddsValue() throws SQLException
-    {
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM\n" +
-                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-                "WHERE ITEM.DISABLED = FALSE";
-        ResultSet rs = stmt.executeQuery(query);
-        
-        float inventoryValue = 0;
-        
-        while(rs.next())
-        {
-            int quantity = rs.getInt("otheradds");
-            float unitPrice = rs.getFloat("unit_price");
-            inventoryValue += quantity * unitPrice;
-        }
-        
-        rs.close();
-        stmt.close();
-        
-        return inventoryValue;
+        ps.setString(1, getUsername);
+        ps.setString(2, getPassword);
+        ps.setString(3, getRole);
+        ps.setString(4, originalUsername);
+        ps.executeUpdate();
+        ps.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -146,7 +99,7 @@ public class SuppliesSearch extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(SuppliesSearch.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEdited.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -164,7 +117,7 @@ public class SuppliesSearch extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(SuppliesSearch.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEdited.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

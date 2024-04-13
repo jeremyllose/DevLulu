@@ -164,6 +164,46 @@
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>com.imports.UploadServlet</url-pattern>
     </servlet>-->
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>com.accountlist.EditUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserEdited</servlet-name>
+        <servlet-class>com.accountlist.UserEdited</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ItemSort</servlet-name>
+        <servlet-class>com.inventorylist.ItemSort</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingItems</servlet-name>
+        <servlet-class>com.inventorylist.SortingItems</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortRedirectSupplies</servlet-name>
+        <servlet-class>com.supplies.SortRedirectSupplies</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingSupplies</servlet-name>
+        <servlet-class>com.supplies.SortingSupplies</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortRedirectVariance</servlet-name>
+        <servlet-class>SortRedirectVariance</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingVariance</servlet-name>
+        <servlet-class>com.variance.SortingVariance</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortWasteRedirect</servlet-name>
+        <servlet-class>com.waste.SortWasteRedirect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingWaste</servlet-name>
+        <servlet-class>com.waste.SortingWaste</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -296,6 +336,46 @@
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserEdited</servlet-name>
+        <url-pattern>/UserEdited</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemSort</servlet-name>
+        <url-pattern>/ItemSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingItems</servlet-name>
+        <url-pattern>/SortingItems</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortRedirectSupplies</servlet-name>
+        <url-pattern>/SortRedirectSupplies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingSupplies</servlet-name>
+        <url-pattern>/SortingSupplies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortRedirectVariance</servlet-name>
+        <url-pattern>/SortRedirectVariance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingVariance</servlet-name>
+        <url-pattern>/SortingVariance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortWasteRedirect</servlet-name>
+        <url-pattern>/SortWasteRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingWaste</servlet-name>
+        <url-pattern>/SortingWaste</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -304,5 +384,4 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-    
 </web-app>

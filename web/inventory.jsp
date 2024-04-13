@@ -35,8 +35,8 @@
                     <button class="inventory" id="generate" type="submit">
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
-                <form action="ItemAction" method="post">
-                    <button class="inventory" id="sort" onclick="redirectTo('i-sort.jsp')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Sort Options</span></button>
+                <form action="ItemSort" method="post">
+                    <button class="inventory" id="sort" ><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Sort Options</span></button>
                 </form>
                 <form action="UploadServlet" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="fileInput" style="display: none;"/>
@@ -88,29 +88,75 @@
                                 ResultSet results = (ResultSet) request.getAttribute("itemRecords");
                                 while (results.next()) {%>
 
-                            <tr>
-                                <td><input type="checkbox" name="items" value="<%= results.getString("item_code")%>"></td>
-                                <td><%=results.getString("item_code")%></td>
-                                <td><%=results.getString("item_num")%></td>
-                                <td><%=results.getString("item_description")%></td>
-                                <td><%=results.getString("abbreviation")%></td>
-                                <td><%=results.getString("unit_name")%></td>
-                                <td><%=results.getString("transfer_cost")%></td>
-                                <td><%=results.getString("gen_name")%></td>
-                                <td><%=results.getString("sub_name")%></td>
-                                <td><%=results.getString("vat")%></td>
-                                <td><%=results.getString("unit_price")%></td>
-                                <td>
-                                    <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
-                                        <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
-                                    </button>
-                                </td>
-                            </tr>	
-                            <%	}
-                            %>
-                        </tbody>
-                    </table>
-                </div>
+                        <tr>
+                            <td><input type="checkbox" name="items" value="<%= results.getString("item_code")%>"></td>
+                            <td><%=results.getString("item_code")%></td>
+                            <td><%=results.getString("item_num")%></td>
+                            <td><%=results.getString("item_description")%></td>
+                            <td><%=results.getString("abbreviation")%></td>
+                            <td><%=results.getString("unit_name")%></td>
+                            <td><%=results.getString("transfer_cost")%></td>
+                            <td><%=results.getString("gen_name")%></td>
+                            <td><%=results.getString("sub_name")%></td>
+                            <td><%=results.getString("vat")%></td>
+                            <td><%=results.getString("unit_price")%></td>
+                            <td>
+                                <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
+                                    <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                                </button>
+                            </td>
+                        </tr>	
+                        <%	}
+                        %>
+                    </tbody>
+                </table>
+                    </form>
+            <%
+                Integer itemPgNum = (Integer) session.getAttribute("itemPgNum");
+                Integer totalPages = (Integer) session.getAttribute("itemPages");
+                
+                
+                int currentPage = itemPgNum != null ? itemPgNum : 1;
+                int totalPg = totalPages != null ? totalPages : 1;
+            %>
+        <form action="ItemList" method="post">
+            <table>
+            <tr>
+                <%
+                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage -1) != 0) {
+                %>
+                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
+                <%
+                    }
+                %>
+                
+                <td><%= currentPage%></td>
+                
+                 <%
+                    if ((currentPage + 1) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                <%
+                    }
+                %>
+                <%
+                    if ((currentPage + 2) <= totalPg) {
+                %>
+                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                <%
+                    }
+                %>
+            </tr>
+        </table>
+        </form>
+                    </div>
             </form>
             <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
             <!--            <div id="dateText">Date: July 15, 2024</div>-->

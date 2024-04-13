@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.waste;
+package com.inventorylist;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,8 +27,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class WasteRedirect extends HttpServlet {
-
+public class SortingItems extends HttpServlet {
     Connection con;
     byte[] key;
     String cypher;
@@ -63,78 +63,56 @@ public class WasteRedirect extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
-        String action = request.getParameter("button");
-                
-                if (action == null || action.isEmpty()) 
-                {
-                    if (session.getAttribute("wastePgNum") == null) 
-                    {
-                        session.setAttribute("wastePgNum", 1);
-                    }
-                } 
-                else 
-                {
-                    int pageNumber = Integer.parseInt(action);
-                    session.setAttribute("wastePgNum", pageNumber);
-                }
-                
-                String genClassClause = (String) session.getAttribute("genSortW");
-                if (genClassClause == null) 
-                {
-                    StringBuilder sb = new StringBuilder();
-                    for (String genClass : retrieveAllGenIdsAsArray())
-                    {
-                        sb.append("'").append(genClass).append("'");
-                        sb.append(",");
-                    }
-                    genClassClause = sb.toString().substring(0, sb.length() - 1);
-                }
-                
-                String subClassClause = (String) session.getAttribute("subSortW");
-                if (subClassClause == null) 
-                {
-                    StringBuilder sb = new StringBuilder();
-                    for (String subClass : retrieveAllSubIdsAsArray())
-                    {
-                        sb.append("'").append(subClass).append("'");
-                        sb.append(",");
-                    }
-                    subClassClause = sb.toString().substring(0, sb.length() - 1);
-                }
-                
-        Statement stmt = con.createStatement();
-        String query = "SELECT * FROM ITEM\n" +
-                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-                "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
-                "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
-                "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID \n" +
-                "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
-                "WHERE ITEM.DISABLED = FALSE AND"
-                + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
-                                + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
-                + "ORDER BY ITEM_NUM "
-                + "OFFSET "+ (((int) session.getAttribute("wastePgNum") - 1) * 20) +" ROWS FETCH NEXT 20 ROWS ONLY";
-                ResultSet rs = stmt.executeQuery(query);
-                request.setAttribute("waste", rs);
-                
-                session.setAttribute("wastePages", countPages());
-                request.getRequestDispatcher("waste.jsp").forward(request,response);
-                
-                rs.close();
-                stmt.close();
-    }
-    
-    public int countPages() throws SQLException
-    {
-        Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 20) AS total_pages "
-                + "FROM ITEM WHERE ITEM.DISABLED = FALSE";
-        ResultSet rs = stmt.executeQuery(query);
-        rs.next();
-        int count = rs.getInt(1);
-        return count;
+        String[] genClasses = request.getParameterValues("gc");
+        String[] subClasses = request.getParameterValues("sc");
+        
+        String genClassClause = "";
+        if (genClasses != null && genClasses.length > 0) 
+        {
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : genClasses) 
+            {
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
+            }
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        else
+        {
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : retrieveAllGenIdsAsArray())
+            {
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
+            }
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        session.setAttribute("genSort", genClassClause);
+        
+        String subClassClause = "";
+        if (subClasses != null && subClasses.length > 0) 
+        {
+            StringBuilder sb = new StringBuilder();
+            for (String subClass : subClasses) 
+            {
+                sb.append("'").append(subClass).append("'");
+                sb.append(",");
+            }
+            subClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        else
+        {
+            StringBuilder sb = new StringBuilder();
+            for (String subClass : retrieveAllSubIdsAsArray())
+            {
+                sb.append("'").append(subClass).append("'");
+                sb.append(",");
+            }
+            subClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        session.setAttribute("subSort", subClassClause);
+        
+        response.sendRedirect("ItemList");
     }
     
     public String[] retrieveAllGenIdsAsArray() throws SQLException 
@@ -162,6 +140,7 @@ public class WasteRedirect extends HttpServlet {
         }
         return genIds.toArray(new String[genIds.size()]);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -177,7 +156,7 @@ public class WasteRedirect extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(WasteRedirect.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SortingItems.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -195,7 +174,7 @@ public class WasteRedirect extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(WasteRedirect.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SortingItems.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
