@@ -9,13 +9,14 @@
 }
 
 .inventory {
-    background-color: #8f654a;
+    background-color: #2E8B57;
     color: white;
     width: 230px;
     height: 50px;
     font-size: 24px;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
 }
 
 @keyframes moveUp {
@@ -98,13 +99,6 @@
     border: 1px solid black; /* Add border to table cells */
     padding: 8px; /* Add padding to table cells for spacing */
 }
-th {
-    background-color: #8f654a;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #fff; /* Optional: Add a white border for better separation */
-}
 table {
     max-width: 100%;
     border-collapse: collapse;
@@ -118,7 +112,7 @@ tr:hover {
 
 /* Style table header */
 th {
-    background-color: #8f654a;
+    background-color: #ba8461;
     color: #fff;
     padding: 15px; /* Increase padding for better visual appearance */
     text-align: center;
@@ -181,12 +175,16 @@ label:hover:not(.inventory:hover) {
 #disable-css {
     display: flex;
     align-items: center;
-    padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
+    overflow: hidden;
+    background-color: #ba8461;
+    border:none;
+    padding-left: 0px;
+    padding-right: 50px;
     position: relative;
-    right: -4rem;
+    left: 75px;
 }
 #edit-picture {
     margin-right: 5px;

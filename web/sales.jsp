@@ -64,7 +64,7 @@
             <br>
             <br>
             <div id="costs">Total:</div>
-            <input style="font-size: 16px;" type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
+            <input style="font-size: 16px; width: 190px;" type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
         </div>
     </body>
 </html>

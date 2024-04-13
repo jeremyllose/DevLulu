@@ -6,6 +6,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jan 27, 2024, 8:37:07 PM
     Author     : jeremy
 */
+
+.container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+    right: 400px;
+    top: 100px;
+}
 .content-wrapper { /* New container element */
     padding-left: 200px;
     overflow-y: auto;
@@ -16,11 +24,11 @@ body {
     margin: 0;
     padding: 0;
     overflow:hidden;
+    background-color: #e8e8e8;
 }
 .main-content {
     flex: 1;
-    padding: 20px;
-    background-color: #f1f1f1;
+    background-color: #e8e8e8;
 }
 
 iframe {

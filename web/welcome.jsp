@@ -12,7 +12,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/welcome.css">
-        <link rel="stylesheet" href="styles/dashboardfinal.css">
 
         <title>Dashboard Page</title>
         <script src="script/welcome.js" defer></script>
@@ -99,6 +98,7 @@
 
                             </div>
                             <div class="info">
+                                <div class="box">
                                 <div class="chart-info">
                                     <h2>Best Sellers</h2>
                                     <ol>
@@ -114,6 +114,7 @@
                     </body>
             </div>
         </div>
+    </div>
     </div>
 </body>
 </html>

@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 #searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
     position: relative;
-    right: 48px;
+    right: 42px;
     z-index: 1;
 }
 #searchBar {
@@ -215,6 +215,12 @@ label:hover:not(.inventory:hover) {
         border-radius: 5px;
         cursor: pointer;
         overflow: hidden;
+        background-color: #ba8461;
+        border:none;
+        padding-left: 20px;
+        padding-right: 20px;
+        position: relative;
+        left: 20px;
     }
 #edit-picture {
     margin-right: 5px;
@@ -253,6 +259,7 @@ label:hover:not(.inventory:hover) {
     position: relative;  
 
 }
+
 @media screen and (max-width: 1280px) {
     th {
         font-size: 12px;

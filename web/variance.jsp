@@ -46,10 +46,8 @@
                     <%
                         float inventoryCost = (Float) request.getAttribute("inventoryValue");
                     %>
-                <div class="Delivery-Container"><h1><image src="photos/Value.png" alt="Save Button" style="width: 35px; height: 35px; position: relative; right: 3px; top: 4px;">Inventory Value: <%= inventoryCost%></h1></div>
+            <div class="Delivery-Container"><h1><image src="photos/Value.png" alt="Save Button" style="width: 35px; height: 35px; position: relative; right: 3px; top: 4px;">Inventory Value: <%= inventoryCost%></h1></div>
             <form action="SaveVariance" method="post">
-                <button id="others" type="submit" class="inventory" name="button" value="save">
-                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px; position: relative; right: -5px; top: 4px;"> <span style=" padding-left: 5px;">Save Changes</span></button>
                 <form action="VarianceSearch" method="post">
                     <div id="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
@@ -82,8 +80,8 @@
                         </thead>
                         <tbody>
                             <%
-                    ResultSet results = (ResultSet) request.getAttribute("inventory");
-                    while (results.next()) {%>
+                                ResultSet results = (ResultSet) request.getAttribute("inventory");
+                                while (results.next()) {%>
                             <tr>
                                 <td><%=results.getString("item_description")%></td>
                                 <td><%=results.getString("gen_name")%></td>
@@ -140,50 +138,51 @@
                 </div>
             </form>
             <form action="VariancePageRedirect" method="post">
-            <table>
-                <%
-                Integer itemPgNum = (Integer) session.getAttribute("variancePgNum");
-                Integer totalPages = (Integer) session.getAttribute("variancePages");
-                
-                
-                int currentPage = itemPgNum != null ? itemPgNum : 1;
-                int totalPg = totalPages != null ? totalPages : 1;
-            %>
-            <tr>
-                <%
-                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
-                %>
-                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
-                <%
-                    }
-                %>
-                <%
-                    if ((currentPage -1) != 0) {
-                %>
-                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
-                <%
-                    }
-                %>
-                
-                <td><%= currentPage%></td>
-                
-                 <%
-                    if ((currentPage + 1) <= totalPg) {
-                %>
-                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
-                <%
-                    }
-                %>
-                <%
-                    if ((currentPage + 2) <= totalPg) {
-                %>
-                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
-                <%
-                    }
-                %>
-            </tr>
-        </table>
-        </form>
+                <table>
+                    <%
+                        Integer itemPgNum = (Integer) session.getAttribute("variancePgNum");
+                        Integer totalPages = (Integer) session.getAttribute("variancePages");
+
+                        int currentPage = itemPgNum != null ? itemPgNum : 1;
+                        int totalPg = totalPages != null ? totalPages : 1;
+                    %>
+                    <tr>
+                        <%
+                            if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
+                        %>
+                        <td><input type="submit" name="button" value="<%=currentPage - 2%>"></td>
+                            <%
+                                }
+                            %>
+                            <%
+                                if ((currentPage - 1) != 0) {
+                            %>
+                        <td><input type="submit" name="button" value="<%=currentPage - 1%>"></td>
+                            <%
+                                }
+                            %>
+
+                        <td><%= currentPage%></td>
+
+                        <%
+                            if ((currentPage + 1) <= totalPg) {
+                        %>
+                        <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                            <%
+                                }
+                            %>
+                            <%
+                                if ((currentPage + 2) <= totalPg) {
+                            %>
+                        <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                            <%
+                                }
+                            %>
+                    </tr>
+                </table>
+                <div class="others"><button style="position: relative; right: -44px; top: -442px;" type="submit" class="inventory">
+                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
+            </form>
         </div>
     </body>
 </html>

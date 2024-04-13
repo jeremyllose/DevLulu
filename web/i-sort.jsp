@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/editProduct.css">
         <title>Sales Page</title>
@@ -18,39 +18,36 @@
         <title>edit Product Page</title>
     </head>
     <body>
-        <div class="dashboardbar">
-                    <h1 id="dashboardheader">Sort Options</h1></div>
-                    <button class="inventory" id="add" onclick="redirectTo('addProduct.jsp')">Add Product</button>
-                    <button class="inventory" id="generate" onclick="redirectTo('editProduct.jsp')">Edit Product</button>
-                    <button class="inventory" id="sort" onclick="redirectTo('addaccount.jsp')">Delete Product</button>
-                    <input type="text" id="searchBar" placeholder="Search...">
-        <h1>Hello World!</h1>
-        <form action="SortingItems" method="post">
-        <table>
-            <tr>
-                <th>General Class:</th>
-                <td class="class-options">
-                    <%
-                        ResultSet genClass = (ResultSet) request.getAttribute("genClass");
-                        while (genClass.next()) {%>
-                        <label><%=genClass.getString("gen_name")%> <input type="checkbox" name="gc" value="<%=genClass.getString("gen_id")%>" ></label><br>
-                        <%	}
-                        %>
-                </td>
-            </tr>
-            <tr>
-                <th>Sub Class:</th>
-                <td class="box-container">
-                    <%
-                        ResultSet subClass = (ResultSet) request.getAttribute("subClass");
-                        while (subClass.next()) {%>
-                        <label><%=subClass.getString("sub_name")%> <input type="checkbox" name="sc" value="<%=subClass.getString("sub_id")%>" ></label><br>
-                        <%	}
-                        %>
-                </td>
-            </tr>
-        </table>
+            <div class="dashboardbar">
+                <h1 id="dashboardheader">Sort Options</h1></div>
+            <form action="SortingItems" method="post">
+                <table>
+                    <tr>
+                        <th>General Class:</th>
+                        <td class="class-options">
+                            <%
+                                ResultSet genClass = (ResultSet) request.getAttribute("genClass");
+                                while (genClass.next()) {%>
+                            <label><%=genClass.getString("gen_name")%> <input type="checkbox" name="gc" value="<%=genClass.getString("gen_id")%>" ></label><br>
+                                <%	}
+                                %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Sub Class:</th>
+                        <td class="box-container">
+                            <%
+                                ResultSet subClass = (ResultSet) request.getAttribute("subClass");
+                                while (subClass.next()) {%>
+                            <label><%=subClass.getString("sub_name")%> <input type="checkbox" name="sc" value="<%=subClass.getString("sub_id")%>" ></label><br>
+                                <%	}
+                                %>
+                        </td>
+                    </tr>
+                </table>
+
                 <button type="submit">Submit</button>
-        </form>
-    </body>
+        </div>
+    </form>
+</body>
 </html>
