@@ -27,6 +27,7 @@ public class UploadServlet extends HttpServlet {
         // Process the workbook (read data from Excel file)
         // Example:
         Sheet sheet = workbook.getSheetAt(0);
+        request.setAttribute("sheet", sheet);
         for (Row row : sheet) {
             for (Cell cell : row) {
                 // Process cell contents
