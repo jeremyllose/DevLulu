@@ -12,13 +12,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     background-color: #e8e8e8;
 }
 .inventory {
-    background-color: #8f654a;
+    background-color: #2E8B57;
     color: white;
     width: 230px;
     height: 50px;
     font-size: 24px;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
 }
 @keyframes moveUp {
     from {
@@ -45,7 +46,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 #searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
     position: relative;
-    right: -265px;
+    right: -508px;
 }
 #searchBar {
     padding: 8px;
@@ -104,13 +105,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     border: 1px solid black; /* Add border to table cells */
     padding: 8px; /* Add padding to table cells for spacing */
 }
-th {
-    background-color: #8f654a;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #fff; /* Optional: Add a white border for better separation */
-}
 table {
     max-width: 100%;
     border-collapse: collapse;
@@ -124,7 +118,7 @@ tr:hover {
 
 /* Style table header */
 th {
-    background-color: #8f654a;
+    background-color: #ba8461;
     color: #fff;
     padding: 15px; /* Increase padding for better visual appearance */
     text-align: center;

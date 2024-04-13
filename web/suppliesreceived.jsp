@@ -27,8 +27,6 @@
             <div class="others">
                 <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')"><img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Generate Report</span></button>
                 <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
-                <button class="inventory" id="sort" type="submit" name="button" value="save">
-                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span class="inventory">Save Changes</span></button>  
                 <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery Costs: <%= addCost%></h1></div>
                 <form action="SuppliesSearch" method="post">
                     <div id="searchContainer">
@@ -77,54 +75,53 @@
                         </tbody>
                     </table>
                 </div>
-                        <button id="button-css" type="submit" name="button" value="save" style="background-color: #8f654a; color: white; border:none;">
-                                                                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Save Changes</b></button>
+                <div class="others"><button style="position: relative; right: -480px; top: -270px;" type="submit" class="inventory">
+                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
             <form action="SuppliesRedirectPage" method="post">
-            <table>
-                <%
-                Integer itemPgNum = (Integer) session.getAttribute("suppliesPgNum");
-                Integer totalPages = (Integer) session.getAttribute("suppliesPages");
-                
-                
-                int currentPage = itemPgNum != null ? itemPgNum : 1;
-                int totalPg = totalPages != null ? totalPages : 1;
-            %>
-            <tr>
-                <%
-                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
-                %>
-                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
-                <%
-                    }
-                %>
-                <%
-                    if ((currentPage -1) != 0) {
-                %>
-                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
-                <%
-                    }
-                %>
-                
-                <td><%= currentPage%></td>
-                
-                 <%
-                    if ((currentPage + 1) <= totalPg) {
-                %>
-                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
-                <%
-                    }
-                %>
-                <%
-                    if ((currentPage + 2) <= totalPg) {
-                %>
-                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
-                <%
-                    }
-                %>
-            </tr>
-        </table>
-        </form>
+                <table>
+                    <%
+                        Integer itemPgNum = (Integer) session.getAttribute("suppliesPgNum");
+                        Integer totalPages = (Integer) session.getAttribute("suppliesPages");
+
+                        int currentPage = itemPgNum != null ? itemPgNum : 1;
+                        int totalPg = totalPages != null ? totalPages : 1;
+                    %>
+                    <tr>
+                        <%
+                            if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
+                        %>
+                        <td><input type="submit" name="button" value="<%=currentPage - 2%>"></td>
+                            <%
+                                }
+                            %>
+                            <%
+                                if ((currentPage - 1) != 0) {
+                            %>
+                        <td><input type="submit" name="button" value="<%=currentPage - 1%>"></td>
+                            <%
+                                }
+                            %>
+
+                        <td><%= currentPage%></td>
+
+                        <%
+                            if ((currentPage + 1) <= totalPg) {
+                        %>
+                        <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                            <%
+                                }
+                            %>
+                            <%
+                                if ((currentPage + 2) <= totalPg) {
+                            %>
+                        <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
+                            <%
+                                }
+                            %>
+                    </tr>
+                </table>
+            </form>
         </div>
     </body>
 </html>

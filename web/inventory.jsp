@@ -31,7 +31,7 @@
                     </button>
                 </form>
 
-                <form action="i-generateReport.jsp">
+                <form action="ExcelServlet" method="post">
                     <button class="inventory" id="generate" type="submit">
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
@@ -64,29 +64,29 @@
             </div>
             <form action="ItemAction" method="post">
                 <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
-                                    <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px; padding-left: 30px;"></button></th>
-                            <th>Item Code</th>
-                            <th>Item No.</th>
-                            <th>Description</th>
-                            <th>Abbreviation</th>
-                            <th>Unit of Measurement</th>
-                            <th>Transfer Cost</th>
-                            <th>General Class</th>
-                            <th>Sub Class</th>
-                            <th>VAT</th>
-                            <th>Unit Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><button id="disable-css" type="submit" name="button" value="disable" >
+                                        <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px;"></button></th>
+                                <th>Item Code</th>
+                                <th>Item No.</th>
+                                <th>Description</th>
+                                <th>Abbreviation</th>
+                                <th>Unit of Measurement</th>
+                                <th>Transfer Cost</th>
+                                <th>General Class</th>
+                                <th>Sub Class</th>
+                                <th>VAT</th>
+                                <th>Unit Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        <%
-                            ResultSet results = (ResultSet) request.getAttribute("itemRecords");
-                            while (results.next()) {%>
+                            <%
+                                ResultSet results = (ResultSet) request.getAttribute("itemRecords");
+                                while (results.next()) {%>
 
                         <tr>
                             <td><input type="checkbox" name="items" value="<%= results.getString("item_code")%>"></td>
@@ -159,7 +159,7 @@
                     </div>
             </form>
             <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
-<!--            <div id="dateText">Date: July 15, 2024</div>-->
+            <!--            <div id="dateText">Date: July 15, 2024</div>-->
             <script>
                 $("#button1").click(function () {
                     $("#myForm").submit(); // Submit the form
@@ -190,7 +190,7 @@
                         // Ensure you remove the event listener after handling the file
                         fileInput.removeEventListener('change', handleFileSelection);
                     }
-                }   
+                }
             </script>
 
     </body>

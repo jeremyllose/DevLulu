@@ -1,22 +1,20 @@
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : 04 1, 24, 6:47:19 PM
+    Created on : 03 7, 24, 2:57:42 PM
     Author     : BioStaR
 */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    padding: 200px;
 }
-
 #dashboardheader {
     position:relative;
     top: 10px;
-    left: 35rem;
+    right: -35rem;
     color: #fff;
     margin: 0;
     font-weight: lighter;
@@ -24,144 +22,47 @@ body {
 .dashboardbar {
     background-color: #8f654a;
     padding: 10px;
-    position:absolute;
+    position:fixed;
     top: -10px;
     right: -220px;
     width: 100%;
     z-index: 1;
+    justify-content: center;
+    align-items: center;
 }
-.class-options {
+h1 {
+    margin: 0;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    text-align: left;
+}
+
+.class-options, .box-container {
     display: flex;
     flex-wrap: wrap;
 }
 
-.class-options label {
+.label-container {
+    display: flex;
+    align-items: center;
     margin-right: 20px;
 }
-.item-container {
-    width: 120%;
-    margin: 20px auto;
-    padding: 20px;
-    border: 2px solid black;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-sizing: border-box;
-    font-family: "Open Sans", sans-serif;
-    position: relative;
-    right: -27rem;
-    top: 7.5rem;
-}
 
-.item-container h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.item-container label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.item-container input[type="text"],
-.item-container input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.item-container input[type="radio"] {
+input[type="checkbox"] {
     margin-right: 5px;
-}
-
-.item-container select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-#return {
-    background-color: #900603;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    position: relative;
-    top: 16.4rem;
-    right: -12rem;
-}
-.box-container {
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-.item-container:hover {
-    background-color: #bfefbb;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-.item-container input[type="submit"] {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #8f654a;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    position: relative;
-    right: -25rem;
-}
-@keyframes scaleUp {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.1);
-    }
-}
-.th-product-label {
-    text-align: left;
-    width: 5rem;
-    position: relative;
-    right: -13rem;
-    white-space: nowrap; /* Prevents text from wrapping */
-    
-}
-.item-container input[type="submit"]:hover {
-    animation: scaleUp 0.3s ease;
-    background-color: #e7a74f ;
-}
-.error-message {
-    display: inline-block;
-    border: 2px solid red;
-    padding: 10px;
-    margin-top: 20px;
-    position: relative;
-    right: -60rem;
-    top: -35rem;
-    animation: rotateError 0.5s ease-in-out;
-    color: red;
-    font-weight: bold;
-    margin-top: 10px;
-    animation: shake 0.5s ease-in-out;
-}
-@keyframes shake {
-  0% { transform: translateX(0px); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(10px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0px); }
-}
-@keyframes rotate {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(20deg);
-    }
 }
