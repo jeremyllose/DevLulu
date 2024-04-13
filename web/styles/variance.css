@@ -7,7 +7,7 @@
 
 /* Inventory button */
 .inventory {
-    background-color: #8f654a;
+    background-color: #2E8B57;
     color: white;
     width: 230px;
     height: 50px;
@@ -16,6 +16,7 @@
     border: 2px solid #000000;
     transition: border-color 0.3s ease;
     cursor: pointer;
+    border: none;
 }
 #others{
     position: relative;
@@ -44,7 +45,7 @@
     display: inline-block; /* Ensure the container only occupies necessary space */
     position: relative;
     right: -1027px;
-    top: -98px;
+    top: -35px;
 }
 #searchBar {
     padding: 8px;
@@ -78,14 +79,14 @@
     position: relative;
     right: -300px;
     bottom: -25px;
-    background: linear-gradient(to left, #006f3d, #bfefbb);
+    background: linear-gradient(to bottom, #006f3d, #bfefbb);
     padding: 10px;
     padding-right: 90px;
     border-radius: 10px;
     font-size: 14px;
 }
 #DC {
-    background: linear-gradient(to right, #006f3d, #bfefbb);
+    background: linear-gradient(to bottom, #006f3d, #bfefbb);
 }
 .Delivery-Container h1 {
     display: inline-block;
@@ -104,7 +105,7 @@
     flex-direction: column; /* Stack table rows vertically */
     position: relative;
     right: -40px;
-    top: -140px;
+    top: -72px;
 }
 
 .table-container table {
@@ -138,7 +139,7 @@ tr:hover {
 
 /* Style table header */
 th {
-    background-color: #8f654a;
+    background-color: #ba8461;
     color: #fff;
     padding: 15px; /* Increase padding for better visual appearance */
     text-align: center;

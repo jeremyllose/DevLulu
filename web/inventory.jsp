@@ -67,7 +67,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; border:none;">
+                                <th><button id="disable-css" type="submit" name="button" value="disable" >
                                         <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px;"></button></th>
                                 <th>Item Code</th>
                                 <th>Item No.</th>

@@ -34,16 +34,14 @@
                     <button id="search" type="submit">
                         <img src="photos/searchicon.png" alt="Search Icon">
                     </button></div>
-                </form> 
-                <button style="position: relative; right: 280px;" class="inventory" id="sort" type="submit" name="button" value="save">
-                    <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span class="inventory">Save Changes</span></button>  
+                </form>
             </div>
             <form action="ProductAction" method="post">
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th><button id="disable-css" type="submit" name="button" value="disable" style="background-color: #8f654a; color: white; border:none;">
+                                <th><button id="disable-css" type="submit" name="button" value="disable">
                                         <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px; position: relative; right: -25px;"></button>
                                 </th>
                                 <th>Product Code</th>
@@ -78,8 +76,8 @@
                 </div>
 <!--                <th><button type="submit" class="inventory">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>-->
-<button type="submit" class="inventory">
-                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span>
+<div class="others"><button style="position: relative; right: -250px; top: -413px;" type="submit" class="inventory">
+        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
         </div>
     </body>
