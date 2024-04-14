@@ -79,7 +79,6 @@
                                 <th>Sold</th>
                                 <th>Waste</th>
                                 <th>Others</th>
-                                <th>Total</th>
                                 <th>Expected End</th>
                                 <th>Actual End</th>
                                 <th>Variance</th>
@@ -117,7 +116,6 @@
                                 <%
                                     int totalOutput = totalOnMain - results.getInt("sold") - results.getInt("waste") - results.getInt("othersubs");
                                 %>
-                                <td><%=totalOutput%></td>
                                 <td><%=totalOutput%></td>
                                 <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required/></td>
                                     

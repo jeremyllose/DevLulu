@@ -86,6 +86,16 @@ public class ItemAction extends HttpServlet {
         }
         else if(action.substring(0, action.indexOf(" ")).equals("enable"))
         {
+            String arr[] = action.split(" ", 2);
+            String theRest = arr[1];
+            try 
+            {
+                enableUser(theRest);
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
+            }
             response.sendRedirect("ItemList");
         }
         else if(action.substring(0, action.indexOf(" ")).equals("edit"))
@@ -139,6 +149,14 @@ public class ItemAction extends HttpServlet {
     public void disableUser(String user)throws SQLException
     {
         String query = "UPDATE ITEM SET DISABLED = TRUE WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, user);
+        ps.executeUpdate();
+    }
+    
+    public void enableUser(String user)throws SQLException
+    {
+        String query = "UPDATE ITEM SET DISABLED = FALSE WHERE ITEM_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, user);
         ps.executeUpdate();

@@ -68,6 +68,8 @@ public class ItemList extends HttpServlet {
             {
                 HttpSession session = request.getSession();
                 session.setAttribute("suppliesPgNum", null);
+                session.setAttribute("variancePgNum", 1);
+                session.setAttribute("wastePgNum", 1);
                 
                 String action = request.getParameter("button");
                 

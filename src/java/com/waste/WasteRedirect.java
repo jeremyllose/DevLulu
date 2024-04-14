@@ -64,6 +64,9 @@ public class WasteRedirect extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         String action = request.getParameter("button");
+        session.setAttribute("itemPgNum", 1);
+        session.setAttribute("variancePgNum", 1);
+        session.setAttribute("suppliesPgNum", 1);
                 
                 if (action == null || action.isEmpty()) 
                 {

@@ -63,6 +63,8 @@ public class SuppliesRedirectPage extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         session.setAttribute("itemPgNum", null);
+        session.setAttribute("variancePgNum", 1);
+        session.setAttribute("wastePgNum", 1);
         request.setAttribute("addsValue", deliveryValue() + otheAddsValue());
         
         String action = request.getParameter("button");

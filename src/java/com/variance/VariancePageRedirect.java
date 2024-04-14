@@ -67,6 +67,8 @@ public class VariancePageRedirect extends HttpServlet {
             {
                 HttpSession session = request.getSession();
                 session.setAttribute("itemPgNum", null);
+                session.setAttribute("wastePgNum", 1);
+                session.setAttribute("suppliesPgNum", 1);
                 
                 String action = request.getParameter("button");
                 
