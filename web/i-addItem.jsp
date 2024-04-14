@@ -17,7 +17,13 @@
         <title>Add Item</title>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Add Item Page</h1> 
         </div>
