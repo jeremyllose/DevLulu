@@ -21,25 +21,25 @@
 
         <div class="container">
             <div class="sidebar">
-                <button id="homebutton" onclick="redirectTo('WelcomePageRedirect')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
+                <button style="position: relative; top: -13rem; right: -0rem;" id="homebutton" onclick="redirectTo('WelcomePageRedirect')"><img src=".\photos\homeicon.png" alt="Home"></button>
                 <form id="sales-form" action="SalesRedirect" method="post">
                     <button class="menu-item">
                         <img src="photos/Sales.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Sales</button>
                 </form>
                 <form id="product-form" action="ProductRedirect" method="post">
-                    <button class="menu-item"><img src="photos/Product.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Product</button>
+                    <button class="menu-item"><img src="photos/Product.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Recipe</button>
                 </form>
                 <form id="variance-form" action="VariancePageRedirect" method="post">
                     <button class="menu-item"><img src="photos/Variance.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Variance</button>
                 </form>
                 <form id="item-form" action="ItemList" method="post">
-                    <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Inventory</button>
+                    <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Item</button>
                 </form>
                 <form id="supplies-form" action="SuppliesRedirectPage" method="post">
-                    <button class="menu-item"><img src="photos/SuppliesReceived.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Supplies Received</button>
+                    <button class="menu-item"><img src="photos/SuppliesReceived.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Deliveries</button>
                 </form>
                 <form id="waste-form" action="WasteRedirect" method="post">
-                    <button class="menu-item"><img src="photos/Waste.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Waste</button>
+                    <button class="menu-item"><img src="photos/Waste.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Usage</button>
                 </form>
                 <br>
                 <br>
@@ -53,7 +53,7 @@
                 </form>
             </div>
             <div class="main-content" id="mainContent">
-                <!-- no div tag closing, if added layout issues show-->
+                <img id="leafBG" src="photos/leavebro.png" alt="add item Button" style="width: 500px; height: 500px; margin-right: 5px;">
             </div>
             <footer class="footer">
                 <nav>
