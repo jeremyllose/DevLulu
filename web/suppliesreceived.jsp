@@ -34,12 +34,12 @@
             <div class="others">
                 <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')"><img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Generate Report</span></button>
                 <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
-                <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery Costs: <%= addCost%></h1></div>
+                <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery: ₱<%= addCost%></h1></div>
                 <form action="SuppliesSearch" method="post">
                     <div id="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
-                            <img src="photos/searchicon.png" alt="Search Icon">
+                            <img src="photos/search.png" style="width: 46.5px; height: 46.5px;" alt="Search Icon">
                         </button>
                     </div>
                 </form>
@@ -82,7 +82,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="others"><button style="position: relative; right: -480px; top: -270px;" type="submit" class="inventory">
+                <div class="others"><button style="position: relative; right: -480px; top: -422px;" type="submit" class="inventory">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
             <form action="SuppliesRedirectPage" method="post">
