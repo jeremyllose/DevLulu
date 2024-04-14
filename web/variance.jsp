@@ -52,7 +52,7 @@
                     <div id="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
-                            <img src="photos/searchicon.png" alt="Search Icon">
+                            <img src="photos/search.png" style="width: 46.5px; height: 46.5px;" alt="Search Icon">
                         </button>
                     </div>
                 </form>
@@ -130,7 +130,8 @@
                         </tbody>
                     </table>
                 </div>
-                        <input type="submit" value="Save Changes">
+                             <div class="others"><button style="position: relative; right: -44px; top: -503px;" type="submit" value="Save Changes" class="inventory">
+                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
             <form action="VariancePageRedirect" method="post">
                 <table>
@@ -175,8 +176,6 @@
                             %>
                     </tr>
                 </table>
-                <div class="others"><button style="position: relative; right: -44px; top: -442px;" type="submit" class="inventory">
-                        <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
         </div>
     </body>

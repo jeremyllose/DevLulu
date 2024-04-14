@@ -46,7 +46,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 #searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
     position: relative;
-    right: -65px;
+    right: -115px;
 }
 .Delivery-Container {
     display: inline-block;
@@ -54,7 +54,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     right: -242px;
     background: linear-gradient(to bottom, #006f3d, #bfefbb);
     padding: 10px;
-    padding-right: 90px;
+    padding-right: 10px;
     border-radius: 10px;
 }
 #searchBar {
