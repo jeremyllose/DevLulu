@@ -64,21 +64,21 @@ iframe {
 
 .graphBox
 {
-	position: relative;
-	width: 90%;
-	padding-top: 50px;
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	grid-gap: 50px;
-	min-height: 300px;
+    position: relative;
+    width: 90%;
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 50px;
+    min-height: 300px;
 }
 
 .graphBox .box, .box
 {
-	position: relative;
-	background: #fff;
-	padding: 20px;
-	width: 100%;
-	box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-	border-radius: 20px;
+    position: relative;
+    background: #fff;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
 }
