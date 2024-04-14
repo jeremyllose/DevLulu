@@ -76,7 +76,6 @@
                                 <th>Expected End</th>
                                 <th>Actual End</th>
                                 <th>Variance</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,19 +117,13 @@
                                         int variance = results.getInt("end_quantity") - totalOutput;
                                     %>
                                 <td><%=variance%></td>
-                                <td>
-                                    <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
-                                        <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
-                                    </button>
-
-                                </td>
                             </tr>	
                             <%	}
                             %>
                         </tbody>
                     </table>
                 </div>
-                             <div class="others"><button style="position: relative; right: -44px; top: -503px;" type="submit" value="Save Changes" class="inventory">
+                             <div class="others"><button style="position: relative; right: -44px; top: -498px;" type="submit" value="Save Changes" class="inventory">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
             <form action="VariancePageRedirect" method="post">

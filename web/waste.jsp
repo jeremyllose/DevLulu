@@ -26,10 +26,13 @@
                 }
             %>
             <div class="dashboardbar">
-                <h1 id="dashboardheader">Waste</h1></div>
+                <h1 id="dashboardheader">Usage</h1></div>
 
             <div class="others">
-                <button class="inventory" id="generate" onclick="redirectTo('w-generateReport.jsp')"><img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Generate Report</span></button>
+                 <form action="ExcelServlet" method="post">
+                    <button class="inventory" id="generate" type="submit">
+                        <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
+                </form>
                 <button class="inventory" id="sort" onclick="redirectTo('SortWasteRedirect')">
                     <img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
 
@@ -73,15 +76,13 @@
                                 <td><input type="number" min="0" name="waste" value="<%=results.getString("waste")%>" required/></td>
                                 <td><input type="number" min="0" name="othersubs" value="<%=results.getString("othersubs")%>" required/></td>
                                 <td><%=results.getString("end_quantity")%> <input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
-                                <!--                            REMI NOTE: NILIPAT KO SA TAAS SAVE CHANGES CUZ IT JUST LOOKED BETTER IM SORRY PERO BAKA NEED ADJUST LINE 77-->
-                                <!--                <td><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>-->
                             </tr>        
                             <%	}
                             %>
                         </tbody>
                     </table>
                 </div>
-                        <div class="others"><button style="position: relative; right: -481  px; top: -440px;" type="submit" class="inventory" value="Save Changes">
+                        <div class="others"><button style="position: relative; right: -481px; top: -440px;" type="submit" class="inventory" value="Save Changes">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
             <form action="WasteRedirect" method="post">

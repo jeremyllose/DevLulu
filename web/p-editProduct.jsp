@@ -18,7 +18,7 @@
     </head>
     <body>
         <div class="dashboardbar">
-            <h1 id="dashboardheader">Edit Product Page</h1></div>
+            <h1 id="dashboardheader">Edit Product </h1></div>
         <%
             if (session.getAttribute("productCode") != null) {
         %>
