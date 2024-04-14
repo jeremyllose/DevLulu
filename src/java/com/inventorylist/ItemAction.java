@@ -84,6 +84,10 @@ public class ItemAction extends HttpServlet {
             }
             response.sendRedirect("ItemList");
         }
+        else if(action.substring(0, action.indexOf(" ")).equals("enable"))
+        {
+            response.sendRedirect("ItemList");
+        }
         else if(action.substring(0, action.indexOf(" ")).equals("edit"))
         {
             try {

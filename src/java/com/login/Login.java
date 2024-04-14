@@ -83,14 +83,19 @@ public class Login extends HttpServlet {
         
         try {
             
+            
             PreparedStatement st = con.prepareStatement(sql);
             
             st.setString(1, uname);
             
             ResultSet rs = st.executeQuery();
             
-            //Only Accepts users with non disabled accounts
-            if(rs.next() && pass.equals(EncryptDecrypt.decrypt(rs.getString("password"), key, cypher)) && !rs.getBoolean("DISABLED"))
+            if(!check(uname))
+            {
+                session.setAttribute("message", "Account is NON Existent");
+                response.sendRedirect("login.jsp");
+            }
+            else if(rs.next() && pass.equals(EncryptDecrypt.decrypt(rs.getString("password"), key, cypher)) && !rs.getBoolean("DISABLED"))
             {
                 session.setAttribute("userRole", rs.getString("role"));
                 session.setAttribute("username", uname);
@@ -133,12 +138,22 @@ public class Login extends HttpServlet {
     public int countPages() throws SQLException
     {
         Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 1) AS total_pages "
+        String query = "SELECT CEIL(COUNT(*) / 10) AS total_pages "
                 + "FROM ITEM";
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
         int count = rs.getInt(1);
         return count;
+    }
+    
+    public boolean check(String pkey) throws SQLException
+    {
+        String query = "SELECT 1 FROM LOGIN WHERE username = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
     }
 
 }
