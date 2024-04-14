@@ -65,26 +65,17 @@ public class SaveVariance extends HttpServlet {
             {
                 String[] begginingValues = request.getParameterValues("beg");
                 String[] endValues = request.getParameterValues("end");
+                String[] itemCodes = request.getParameterValues("code");
                 int start = 0;
-                Statement stmt = con.createStatement();
-                String query = "SELECT * FROM ITEM "
-                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE "
-                        + "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE "
-                        + "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE "
-                        + "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE "
-                        + "WHERE ITEM.DISABLED = FALSE ORDER BY ITEM_NUM";
-                ResultSet rs = stmt.executeQuery(query);
                 
-                while(rs.next())
+                for(String itemCode : itemCodes)
                 {
-                    editBegItem(Integer.parseInt(begginingValues[start]), rs.getString("item_code"));
-                    editEndItem(Integer.parseInt(endValues[start]), rs.getString("item_code"));
+                    editBegItem(Integer.parseInt(begginingValues[start]), itemCode);
+                    editEndItem(Integer.parseInt(endValues[start]), itemCode);
                     start++;
                 }
                 response.sendRedirect("VariancePageRedirect");
                 
-                rs.close();
-                stmt.close();
             }
         } 
         catch (SQLException sqle)

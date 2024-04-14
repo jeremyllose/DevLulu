@@ -119,11 +119,11 @@ public class ItemList extends HttpServlet {
                         + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
                                 + "ORDER BY ITEM_NUM "
-                        + "OFFSET "+ ((int) session.getAttribute("itemPgNum") - 1) +" ROWS FETCH NEXT 1 ROWS ONLY");
+                        + "OFFSET "+ (((int) session.getAttribute("itemPgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY");
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);
-                session.setAttribute("itemPages", countPages());
+                session.setAttribute("itemPages", countPages(genClassClause, subClassClause));
                 request.getRequestDispatcher("inventory.jsp").forward(request,response);
                 
                 records.close();
@@ -136,11 +136,13 @@ public class ItemList extends HttpServlet {
         } 
     }
     
-    public int countPages() throws SQLException
+    public int countPages(String genClassClause, String subClassClause) throws SQLException
     {
         Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 1) AS total_pages "
-                + "FROM ITEM";
+        String query = "SELECT CEIL(COUNT(*) / 10) AS total_pages "
+                + "FROM ITEM WHERE ITEM.DISABLED = FALSE AND"
+                + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
+                                + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) ";
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
         int count = rs.getInt(1);

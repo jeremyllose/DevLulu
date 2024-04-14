@@ -74,7 +74,7 @@ public class ForgotPassword extends HttpServlet {
             session.setAttribute("message", "User DOES NOT Exist");
             response.sendRedirect("login.jsp");
         }
-        if (userEnabled(getUsername) == 1) {
+        else if (userEnabled(getUsername) == 1) {
             session.setAttribute("message", "Password: " + getUserPassword(getUsername));
             passwordReceived(getUsername);
             response.sendRedirect("login.jsp");

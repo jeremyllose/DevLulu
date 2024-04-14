@@ -109,7 +109,7 @@ public class Login extends HttpServlet {
                     session.setAttribute("rememberPassword", null);
                 }
                 
-                response.sendRedirect("welcome.jsp");
+                response.sendRedirect("WelcomePageRedirect");
             }
             else if(rs.getBoolean("DISABLED"))
             {

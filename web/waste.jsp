@@ -30,7 +30,7 @@
 
             <div class="others">
                 <button class="inventory" id="generate" onclick="redirectTo('w-generateReport.jsp')"><img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Generate Report</span></button>
-                <button class="inventory" id="sort" onclick="redirectTo('w-sort.jsp')">
+                <button class="inventory" id="sort" onclick="redirectTo('SortWasteRedirect')">
                     <img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
 
                 <form action="WasteSearch" method="post">
@@ -43,6 +43,7 @@
                 </form> 
             </div>
             <form action="SaveWastes" method="post">
+                
                 <div class="table-container">
                     <table>
                         <thead>
@@ -80,6 +81,7 @@
                         </tbody>
                     </table>
                 </div>
+                        <input type="submit" value="Save Changes">
             </form>
             <form action="WasteRedirect" method="post">
                 <table>

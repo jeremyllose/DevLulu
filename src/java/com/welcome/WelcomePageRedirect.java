@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.waste;
+package com.welcome;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -26,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class SortingWaste extends HttpServlet {
+public class WelcomePageRedirect extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -49,8 +48,6 @@ public class SortingWaste extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
-                    
-                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -63,84 +60,44 @@ public class SortingWaste extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
-        String[] genClasses = request.getParameterValues("gc");
-        String[] subClasses = request.getParameterValues("sc");
         
-        String genClassClause = "";
-        if (genClasses != null && genClasses.length > 0) 
-        {
-            StringBuilder sb = new StringBuilder();
-            for (String genClass : genClasses) 
-            {
-                sb.append("'").append(genClass).append("'");
-                sb.append(",");
-            }
-            genClassClause = sb.toString().substring(0, sb.length() - 1);
-        }
-        else
-        {
-            StringBuilder sb = new StringBuilder();
-            for (String genClass : retrieveAllGenIdsAsArray())
-            {
-                sb.append("'").append(genClass).append("'");
-                sb.append(",");
-            }
-            genClassClause = sb.toString().substring(0, sb.length() - 1);
-        }
-        session.setAttribute("genSortW", genClassClause);
+        String sql = "SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, SUM(p.QUANTITY * p.PRODUCT_PRICE) AS TOTAL_VALUE " +
+                     "FROM PRODUCT p " +
+                     "GROUP BY p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION " +
+                     "ORDER BY TOTAL_VALUE DESC " +
+                     "FETCH NEXT 5 ROWS ONLY";
         
-        String subClassClause = "";
-        if (subClasses != null && subClasses.length > 0) 
-        {
-            StringBuilder sb = new StringBuilder();
-            for (String subClass : subClasses) 
-            {
-                sb.append("'").append(subClass).append("'");
-                sb.append(",");
-            }
-            subClassClause = sb.toString().substring(0, sb.length() - 1);
-        }
-        else
-        {
-            StringBuilder sb = new StringBuilder();
-            for (String subClass : retrieveAllSubIdsAsArray())
-            {
-                sb.append("'").append(subClass).append("'");
-                sb.append(",");
-            }
-            subClassClause = sb.toString().substring(0, sb.length() - 1);
-        }
-        session.setAttribute("subSortW", subClassClause);
+        Statement statement = con.createStatement();
+
         
-        session.setAttribute("wastePgNum", 1);
+        ResultSet resultSet = statement.executeQuery(sql);
         
-        response.sendRedirect("WasteRedirect");
-    }
-    
-    public String[] retrieveAllGenIdsAsArray() throws SQLException 
-    {
-        ArrayList<String> genIds = new ArrayList<String>();
-        Statement stmt = con.createStatement();
-        String query = "SELECT GEN_ID FROM GEN_CLASS";
-        ResultSet rs = stmt.executeQuery(query);
-        while(rs.next())
-        {
-            genIds.add(rs.getString("GEN_ID"));
+        String[] productDescriptions = new String[5];
+        double[] totalValues = new double[5];
+
+        // Initialize counters
+        int index = 0;
+
+        // Loop through the results set
+        while (resultSet.next() && index < 5) {
+            productDescriptions[index] = resultSet.getString(2);
+            totalValues[index] = resultSet.getDouble(3);
+            index++;
         }
-        return genIds.toArray(new String[genIds.size()]);
-    }
-    
-    public String[] retrieveAllSubIdsAsArray() throws SQLException 
-    {
-        ArrayList<String> genIds = new ArrayList<String>();
-        Statement stmt = con.createStatement();
-        String query = "SELECT SUB_ID FROM SUB_CLASS";
-        ResultSet rs = stmt.executeQuery(query);
-        while(rs.next())
-        {
-            genIds.add(rs.getString("SUB_ID"));
+
+        // Close the connection and statement
+        resultSet.close();
+        statement.close();
+
+        // Fill remaining slots with "NONE" and 0 if less than 5 results
+        for (int i = index; i < 5; i++) {
+            productDescriptions[i] = "NONE";
+            totalValues[i] = 0.0;
         }
-        return genIds.toArray(new String[genIds.size()]);
+        
+        request.setAttribute("topFiveTotal", totalValues);
+        request.setAttribute("topFiveDescriptions", productDescriptions);
+        request.getRequestDispatcher("welcome.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -158,7 +115,7 @@ public class SortingWaste extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(SortingWaste.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WelcomePageRedirect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -176,7 +133,7 @@ public class SortingWaste extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(SortingWaste.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WelcomePageRedirect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

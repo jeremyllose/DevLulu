@@ -112,6 +112,8 @@ public class SortingItems extends HttpServlet {
         }
         session.setAttribute("subSort", subClassClause);
         
+        session.setAttribute("itemPgNum", 1);
+        
         response.sendRedirect("ItemList");
     }
     

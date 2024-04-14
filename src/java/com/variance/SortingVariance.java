@@ -112,6 +112,8 @@ public class SortingVariance extends HttpServlet {
         }
         session.setAttribute("subSortV", subClassClause);
         
+        session.setAttribute("variancePgNum", 1);
+        
         response.sendRedirect("VariancePageRedirect");
     }
     
