@@ -61,11 +61,11 @@ public class WelcomePageRedirect extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         
-        String sql = "SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, SUM(p.QUANTITY * p.PRODUCT_PRICE) AS TOTAL_VALUE " +
-                     "FROM PRODUCT p " +
-                     "GROUP BY p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION " +
-                     "ORDER BY TOTAL_VALUE DESC " +
-                     "FETCH NEXT 5 ROWS ONLY";
+        String sql = "SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION,  SUM(p.QUANTITY * p.PRODUCT_PRICE) AS TOTAL_VALUE, p.QUANTITY\n" +
+"FROM PRODUCT p\n" +
+"GROUP BY p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, p.QUANTITY\n" +
+"ORDER BY TOTAL_VALUE DESC\n" +
+"FETCH NEXT 5 ROWS ONLY";
         
         Statement statement = con.createStatement();
 
@@ -74,6 +74,7 @@ public class WelcomePageRedirect extends HttpServlet {
         
         String[] productDescriptions = new String[5];
         double[] totalValues = new double[5];
+        int[] quantites = new int[5];
 
         // Initialize counters
         int index = 0;
@@ -82,6 +83,7 @@ public class WelcomePageRedirect extends HttpServlet {
         while (resultSet.next() && index < 5) {
             productDescriptions[index] = resultSet.getString(2);
             totalValues[index] = resultSet.getDouble(3);
+            quantites[index] = resultSet.getInt(4);
             index++;
         }
 
@@ -93,10 +95,12 @@ public class WelcomePageRedirect extends HttpServlet {
         for (int i = index; i < 5; i++) {
             productDescriptions[i] = "NONE";
             totalValues[i] = 0.0;
+            quantites[i] = 0;
         }
         
         request.setAttribute("topFiveTotal", totalValues);
         request.setAttribute("topFiveDescriptions", productDescriptions);
+        request.setAttribute("quantites", quantites);
         request.getRequestDispatcher("welcome.jsp").forward(request,response);
     }
 
