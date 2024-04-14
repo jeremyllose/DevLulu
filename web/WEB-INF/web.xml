@@ -204,6 +204,10 @@
         <servlet-name>SortingWaste</servlet-name>
         <servlet-class>com.waste.SortingWaste</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WelcomePageRedirect</servlet-name>
+        <servlet-class>com.welcome.WelcomePageRedirect</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -375,6 +379,10 @@
     <servlet-mapping>
         <servlet-name>SortingWaste</servlet-name>
         <url-pattern>/SortingWaste</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WelcomePageRedirect</servlet-name>
+        <url-pattern>/WelcomePageRedirect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

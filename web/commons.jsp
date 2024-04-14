@@ -21,7 +21,7 @@
 
         <div class="container">
             <div class="sidebar">
-                <button id="homebutton" onclick="redirectTo('welcome.jsp')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
+                <button id="homebutton" onclick="redirectTo('WelcomePageRedirect')"><img src=".\photos\dashboardlogo.png" alt="Home"></button>
                 <form id="sales-form" action="SalesRedirect" method="post">
                     <button class="menu-item">
                         <img src="photos/Sales.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Sales</button>

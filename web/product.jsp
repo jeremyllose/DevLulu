@@ -76,7 +76,7 @@
                 </div>
 <!--                <th><button type="submit" class="inventory">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></button></th>-->
-<div class="others"><button style="position: relative; right: -250px; top: -413px;" type="submit" class="inventory">
+<div class="others"><button style="position: relative; right: -250px; top: -413px;" type="submit" class="inventory" name="button" value="save">
         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
         </div>
