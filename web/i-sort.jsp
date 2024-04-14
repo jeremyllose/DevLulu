@@ -21,6 +21,7 @@
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Sort Options</h1></div>
             <form action="SortingItems" method="post">
+                <div class="content-container">
                 <table>
                     <tr>
                         <th>General Class:</th>
@@ -45,9 +46,10 @@
                         </td>
                     </tr>
                 </table>
-
+                
                 <button type="submit">Submit</button>
         </div>
+                        </div>
     </form>
 </body>
 </html>
