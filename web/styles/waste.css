@@ -46,7 +46,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 #searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
     position: relative;
-    right: -508px;
+    right: -507px;
 }
 #searchBar {
     padding: 8px;
