@@ -24,7 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Vince
  */
-@WebServlet(name = "ExcelServlet", urlPatterns = {"/ExcelServlet"})
+@WebServlet(name = "ItemExcelServlet", urlPatterns = {"/ItemExcelServlet"})
 public class ItemExcelServlet extends HttpServlet {
 
 Connection con;

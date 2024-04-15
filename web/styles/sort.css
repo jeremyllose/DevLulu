@@ -7,49 +7,94 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Author     : BioStaR
 */
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow: hidden;
 }
 .content-container {
+    width: 101%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
     position: relative;
-    right: -50rem;
-    top: 30rem;
+    right: -43rem;
+    top: 15rem;
 }
-
+.content-container:hover {
+    background-color: #bfefbb;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
 #dashboardheader {
-  position: relative;
-  top: 10px;
-  left: 35rem;
-  color: #fff;
-  margin: 0;
-  font-weight: lighter;
+    position: relative;
+    top: 10px;
+    left: 35rem;
+    color: #fff;
+    margin: 0;
+    font-weight: lighter;
 }
 
 .dashboardbar {
-  background-color: #8f654a;
-  padding: 10px;
-  position: absolute;
-  top: -10px;
-  right: -220px;
-  width: 100%;
-  z-index: 1;
+    background-color: #8f654a;
+    padding: 10px;
+    position: absolute;
+    top: -10px;
+    right: -220px;
+    width: 100%;
+    z-index: 1;
 }
 
 .class-options {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .class-options label {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 .box-container {
-  border: 1px solid black;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
-
+#return {
+    background-color: #900603;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+    right: -4rem;
+}
+#sorted {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #8f654a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    right: -9rem;
+}
+@keyframes scaleUp {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+#sorted:hover {
+    animation: scaleUp 0.3s ease;
+    background-color: #e7a74f ;
+}

@@ -46,8 +46,8 @@
                         </td>
                     </tr>
                 </table>
-                
-                <button type="submit">Submit</button>
+                <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
+                <button id="sorted" type="submit">Sort</button>
         </div>
                         </div>
     </form>
