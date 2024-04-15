@@ -18,6 +18,13 @@
         <title>edit Product Page</title>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Sort Options</h1></div>
             <form action="SortingItems" method="post">

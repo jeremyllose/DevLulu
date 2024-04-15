@@ -18,6 +18,13 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
         <h1>Hello World!</h1>
         <%
             String username = (String) request.getAttribute("username");
