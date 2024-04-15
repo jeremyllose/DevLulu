@@ -119,7 +119,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     font-size: 14px;
 }
 .table-container {
-    max-height: 500px; /* Set maximum height */
+    max-height: 1000px; /* Set maximum height */
     overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
@@ -182,4 +182,35 @@ label:not(.inventory) {
 
 label:hover:not(.inventory:hover) {
     background-color: #e0e0e0; /* Change background on hover */
+}
+@media screen and (max-width: 1440px) {
+    .inventory {
+        font-size: 20px;
+        width: 174px;
+    }
+    #upload {
+        position: relative;
+        right: 0rem;
+        top: 0rem;
+        font-size: 14px;
+    }
+    #disable-css {
+        position: relative;
+        left: 55px;
+    }
+    .Delivery-Container {
+        position: relative;
+        right: -230px;
+        bottom: -25px;
+        width: 345px;
+    }
+    .searchContainer {
+        position: relative;
+        right: -755px;
+    }
+    #savechanges {
+        position: relative;
+        right: -185px;
+        top: -412px;
+    }
 }

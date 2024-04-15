@@ -18,12 +18,12 @@
     </head>
     <body>
         <%
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-                if (session.getAttribute("username") == null) {
-                    response.sendRedirect("login.jsp");
-                }
-            %>
+            if (session.getAttribute("username") == null) {
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Add Item</h1> 
         </div>
@@ -32,7 +32,7 @@
         <br>
         <br>
         <br>
-        
+
         <form action="AddItem" method="post">
             <div class="item-container">
                 <table>
@@ -104,7 +104,18 @@
                 </table>
             </div>
         </form>
-                        
+                        <script>
+        function redirectToItemList() {
+        // Hide the success message element (optional)
+        // document.querySelector('.message').style.display = 'none';
+
+        // Clear the success attribute
+        sessionStorage.removeItem("addItemMessage"); // Use sessionStorage for temporary data
+
+        // Redirect to the ItemList page
+        window.location.href = 'ItemList';
+        }      
+        </script>
         <div>   
             <% if (session.getAttribute("existing") != null) { %>
             <div class="error-message">

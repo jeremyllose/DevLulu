@@ -266,32 +266,6 @@ input[type="checkbox"] {
     width: 25%;
     z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
 }
-@media screen and (max-width: 1280px) {
-    .container {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        position: absolute;
-        top: 120px;
-        overflow: hidden;
-        width: 768px;
-        max-width: 100%;
-        min-height: 400px;
-    }
-    .title-image {
-        position: relative;
-        top: 65px;
-        right: 70px;
-        max-width: 100%;
-    }
-    .title-logo {
-        position: relative;
-        top: 1px;
-        right: -300px;
-        max-width: 80%;
-        max-width: 80%;
-    }
-}
 body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
@@ -337,28 +311,28 @@ body {
         url('path/to/lohit-bengali.woff') format('woff'); /* Legacy Browsers */
 }
 .close-forgot-form {
-  position: absolute;
-  top: 20rem;
-  right: 610px;
-  background-color: transparent;
-  border: none;
-  color: #ccc;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s ease;
+    position: absolute;
+    top: 20rem;
+    right: 610px;
+    background-color: transparent;
+    border: none;
+    color: #ccc;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .close-forgot-form:hover {
-  color: #333;
+    color: #333;
 }
 #FPsubmit {
-   position: relative;
-   top: -1.5rem;
-   background-color: #00af50;
-   cursor: pointer;
-   border:none;
-   animation: FPAnimation 0.5s ease-in-out;
+    position: relative;
+    top: -1.5rem;
+    background-color: #00af50;
+    cursor: pointer;
+    border:none;
+    animation: FPAnimation 0.5s ease-in-out;
 }
 #FPsubmit:hover {
     background-color: #542b0b;
@@ -386,4 +360,54 @@ body {
     100% {
         background-color: #542b0b;
     }
+}
+@media screen and (max-width: 1440px) {
+    .container {
+        position: absolute;
+        right: 24rem;
+    }
+    .title-image {
+        position: absolute;
+        top: 65px;
+        right: 525px;
+        max-width: 100%;
+    }
+    .title-logo {
+        max-width: 100%;
+        position: absolute;
+        top: 25px;
+        right: 320px;
+        width: 250px;
+    }
+    .bottom-leaves {
+        position: relative;
+        top: 380px;
+        left: 470px;
+        width: 60%;
+        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+    }
+    .top-beans {
+        position: relative;
+        bottom: 850px;
+        right: 700px;
+        width: 30%;
+        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+    }
+    #forgot-password-form {
+        position: relative;
+        right: 100px;
+    }
+    .close-forgot-form {
+        position: absolute;
+        top: 0.5rem;
+        right: -18px;
+        background-color: transparent;
+        border: none;
+        color: #ccc;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
 }

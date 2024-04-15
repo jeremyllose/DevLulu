@@ -27,69 +27,65 @@ public class AddItemPageRedirect extends HttpServlet {
     Connection con;
     byte[] key;
     String cypher;
-    
+
     public void init(ServletConfig config) throws ServletException {
-            super.init(config);
-            ServletContext context = getServletContext();
-            
-            String pkey = context.getInitParameter("publicKey");
-            this.key = pkey.getBytes();
-            this.cypher = context.getInitParameter("cypher");
-            
-            try {	
-                    Class.forName(context.getInitParameter("driver"));
-                    
-                    String username = context.getInitParameter("username");
-                    String password = context.getInitParameter("password");
-                    String url = context.getInitParameter("url");
-                    
-                    con = DriverManager.getConnection(url, username, password);
-                    
-                    
-                    
-            } catch (SQLException sqle){
-                    System.out.println("SQLException error occured - " 
-                            + sqle.getMessage());
-            } catch (ClassNotFoundException nfe){
-                    System.out.println("ClassNotFoundException error occured - " 
+        super.init(config);
+        ServletContext context = getServletContext();
+
+        String pkey = context.getInitParameter("publicKey");
+        this.key = pkey.getBytes();
+        this.cypher = context.getInitParameter("cypher");
+
+        try {
+            Class.forName(context.getInitParameter("driver"));
+
+            String username = context.getInitParameter("username");
+            String password = context.getInitParameter("password");
+            String url = context.getInitParameter("url");
+
+            con = DriverManager.getConnection(url, username, password);
+
+        } catch (SQLException sqle) {
+            System.out.println("SQLException error occured - "
+                    + sqle.getMessage());
+        } catch (ClassNotFoundException nfe) {
+            System.out.println("ClassNotFoundException error occured - "
                     + nfe.getMessage());
-            }
+        }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try 
-        {
-            if (con != null) 
-            {
+        try {
+            if (con != null) {
                 Statement stmt1 = con.createStatement();
                 Statement stmt2 = con.createStatement();
                 Statement stmt3 = con.createStatement();
-                
+
                 ResultSet rs1 = stmt1.executeQuery("SELECT * FROM GEN_CLASS");
                 request.setAttribute("genClass", rs1);
-                
+
                 ResultSet rs2 = stmt2.executeQuery("SELECT * FROM SUB_CLASS");
                 request.setAttribute("subClass", rs2);
-                
+
                 ResultSet rs3 = stmt3.executeQuery("SELECT * FROM UNIT_CLASS");
                 request.setAttribute("unitClass", rs3);
-                
-                request.getRequestDispatcher("i-addItem.jsp").forward(request,response);
-                
+
+                request.getRequestDispatcher("i-addItem.jsp").forward(request, response);
+
                 rs1.close();
                 rs2.close();
                 rs3.close();
-                
+
                 stmt1.close();
                 stmt2.close();
                 stmt3.close();
+                // Set session attribute for success message
+                request.getSession().setAttribute("addItemMessage", "Item Successfully Added");
             }
-        } 
-        catch (SQLException sqle)
-        {
-                response.sendRedirect("error.jsp");
-        } 
+        } catch (SQLException sqle) {
+            response.sendRedirect("error.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

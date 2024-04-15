@@ -20,12 +20,12 @@
     </head>
     <body>
         <%
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-                if (session.getAttribute("username") == null) {
-                    response.sendRedirect("login.jsp");
-                }
-            %>
+            if (session.getAttribute("username") == null) {
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <div class="content-wrapper">
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Inventory</h1>
@@ -64,7 +64,7 @@
                     <div id="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
-                            <img src="photos/search.png" style="width: 47px; height: 47px;" alt="Search Icon">
+                            <img src="photos/greensearch.png" style="width: 47px; height: 47px;" alt="Search Icon">
                         </button>
                     </div>
                 </form>
@@ -95,134 +95,142 @@
                                 ResultSet results = (ResultSet) request.getAttribute("itemRecords");
                                 while (results.next()) {%>
 
-                        <tr>
-                            <%
-                                if(results.getBoolean("disabled") == false) {
-                            %>
-                            <td><input type="checkbox" name="items" value="<%= results.getString("item_code")%>"></td>
-                            <%	
-                                }
-                                else
-                                {
-                            %>
-                            <td><button id="button-css" type="submit" name="button" value="enable <%= results.getString("item_code")%>">Enable</button></td>
-                            <%	
-                                }
-                            %>
-                            <td><%=results.getString("item_code")%></td>
-                            <td><%=results.getString("item_num")%></td>
-                            <td><%=results.getString("item_description")%></td>
-                            <td><%=results.getString("abbreviation")%></td>
-                            <td><%=results.getString("unit_name")%></td>
-                            <td><%=results.getString("transfer_cost")%></td>
-                            <td><%=results.getString("gen_name")%></td>
-                            <td><%=results.getString("sub_name")%></td>
-                            <td><%=results.getString("vat")%></td>
-                            <td><%=results.getString("unit_price")%></td>
-                            <td>
+                            <tr>
                                 <%
-                                if(results.getBoolean("disabled") == false) {
+                                    if (results.getBoolean("disabled") == false) {
+                                %>
+                                <td><input type="checkbox" name="items" value="<%= results.getString("item_code")%>"></td>
+                                    <%
+                                    } else {
+                                    %>
+                                <td><button id="button-css" type="submit" name="button" value="enable <%= results.getString("item_code")%>">Enable</button></td>
+                                <%
+                                    }
+                                %>
+                                <td><%=results.getString("item_code")%></td>
+                                <td><%=results.getString("item_num")%></td>
+                                <td><%=results.getString("item_description")%></td>
+                                <td><%=results.getString("abbreviation")%></td>
+                                <td><%=results.getString("unit_name")%></td>
+                                <td><%=results.getString("transfer_cost")%></td>
+                                <td><%=results.getString("gen_name")%></td>
+                                <td><%=results.getString("sub_name")%></td>
+                                <td><%=results.getString("vat")%></td>
+                                <td><%=results.getString("unit_price")%></td>
+                                <td>
+                                    <%
+                                        if (results.getBoolean("disabled") == false) {
+                                    %>
+                                    <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
+                                        <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
+                                    </button>
+                                    <%
+                                    } else {
+                                    %>
+                                    ITEM DISABLED
+                                    <%
+                                        }
+                                    %>
+                                </td>
+                            </tr>	
+                            <%	}
                             %>
-                                <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
-                                    <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
-                                </button>
-                                    <%	
-                                }
-                                else
-                                {
-                            %>
-                            ITEM DISABLED
-                            <%	
-                                }
-                            %>
-                            </td>
-                        </tr>	
-                        <%	}
-                        %>
-                    </tbody>
-                </table>
-                    </form>
+                        </tbody>
+                    </table>
+            </form> 
+            <%
+                // Check if the session attribute for addItemMessage exists and display it
+                String addItemMessage = (String) session.getAttribute("addItemMessage");
+                if (addItemMessage != null) {
+            %>
+            <div class="message">
+                <%= addItemMessage%>
+            </div>
+            <%
+                    // Remove the session attribute after displaying the message
+                    session.removeAttribute("addItemMessage");
+                }
+            %>
             <%
                 Integer itemPgNum = (Integer) session.getAttribute("itemPgNum");
                 Integer totalPages = (Integer) session.getAttribute("itemPages");
-                
-                
+
                 int currentPage = itemPgNum != null ? itemPgNum : 1;
                 int totalPg = totalPages != null ? totalPages : 1;
             %>
-        <form action="ItemList" method="post">
-            <table>
-            <tr>
-                <%
-                    if ((currentPage -2) >= 0 && (currentPage -2) != 0) {
-                %>
-                <td><input type="submit" name="button" value="<%=currentPage -2%>"></td>
-                <%
-                    }
-                %>
-                <%
-                    if ((currentPage -1) != 0) {
-                %>
-                <td><input type="submit" name="button" value="<%=currentPage -1%>"></td>
-                <%
-                    }
-                %>
-                
-                <td><%= currentPage%></td>
-                
-                 <%
-                    if ((currentPage + 1) <= totalPg) {
-                %>
-                <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
-                <%
-                    }
-                %>
-                <%
-                    if ((currentPage + 2) <= totalPg) {
-                %>
-                <td><input type="submit" name="button" value="<%= currentPage + 2%>"></td>
-                <%
-                    }
-                %>
-            </tr>
-        </table>
-        </form>
-                    </div>
+            <form action="ItemList" method="post">
+                <table>
+                    <tr>
+                        <%
+                            if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
+                        %>
+                        <td><input type="submit" class="pagination-button" name="button" value="<%=currentPage - 2%>"></td>
+                            <%
+                                }
+                            %>
+                            <%
+                                if ((currentPage - 1) != 0) {
+                            %>
+                        <td><input type="submit" class="pagination-button" name="button" value="<%=currentPage - 1%>"></td>
+                            <%
+                                }
+                            %>
+
+                        <td><%= currentPage%></td>
+
+                        <%
+                            if ((currentPage + 1) <= totalPg) {
+                        %>
+                        <td><input type="submit" class="pagination-button" name="button" value="<%= currentPage + 1%>"></td>
+                            <%
+                                }
+                            %>
+                            <%
+                                if ((currentPage + 2) <= totalPg) {
+                            %>
+                        <td><input type="submit" class="pagination-button" name="button" value="<%= currentPage + 2%>"></td>
+                            <%
+                                }
+                            %>
+                    </tr>
+                </table>
             </form>
-            <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
-            <!--            <div id="dateText">Date: July 15, 2024</div>-->
-            <script>
-                $("#button1").click(function () {
-                    $("#myForm").submit(); // Submit the form
-                });
-            </script>
-            <script>
-                function openFileExplorer() {
-                    // Creating an input element of type file
-                    const fileInput = document.createElement('input');
-                    fileInput.type = 'file';
+        </div>
+    </form>
+    <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
+    <!--            <div id="dateText">Date: July 15, 2024</div>-->
+    <script>
+        $("#button1").click(function () {
+            $("#myForm").submit(); // Submit the form
+        });
+    </script>
+    <script>
+        function openFileExplorer() {
+            // Creating an input element of type file
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
 
-                    // Setting accept attribute to allow only Excel files
-                    fileInput.accept = '.xls, .xlsx';
+            // Setting accept attribute to allow only Excel files
+            fileInput.accept = '.xls, .xlsx';
 
-                    // Adding an event listener for when a file is selected
-                    fileInput.addEventListener('change', handleFileSelection);
+            // Adding an event listener for when a file is selected
+            fileInput.addEventListener('change', handleFileSelection);
 
-                    // Triggering a click on the file input to open the file explorer
-                    fileInput.click();
+            // Triggering a click on the file input to open the file explorer
+            fileInput.click();
 
-                    function handleFileSelection(event) {
-                        // Accessing the selected file
-                        const selectedFile = event.target.files[0];
+            function handleFileSelection(event) {
+                // Accessing the selected file
+                const selectedFile = event.target.files[0];
 
-                        // You can now perform operations with the selected Excel file
-                        // For example, you can read the file using FileReader
+                // You can now perform operations with the selected Excel file
+                // For example, you can read the file using FileReader
 
-                        // Ensure you remove the event listener after handling the file
-                        fileInput.removeEventListener('change', handleFileSelection);
-                    }
-                }
-            </script>
+                // Ensure you remove the event listener after handling the file
+                fileInput.removeEventListener('change', handleFileSelection);
+            }
+        }
+    </script>
 
-    </body>
+</body>
 </html>
