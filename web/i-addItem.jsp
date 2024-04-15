@@ -19,7 +19,7 @@
     <body>
 
         <div class="dashboardbar">
-            <h1 id="dashboardheader">Add Item Page</h1> 
+            <h1 id="dashboardheader">Add Item</h1> 
         </div>
         <br>
         <br>
