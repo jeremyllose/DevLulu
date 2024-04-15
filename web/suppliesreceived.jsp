@@ -26,13 +26,16 @@
             %>
         <div class="content-wrapper">
             <div class="dashboardbar">
-                <h1 id="dashboardheader">Supplies Received</h1>
+                <h1 id="dashboardheader">Delivery</h1>
             </div>
             <%
                 float addCost = (Float) request.getAttribute("addsValue");
             %>
             <div class="others">
-                <button class="inventory" id="generate" onclick="redirectTo('sr-generateReport.jsp')"><img src="photos/export.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Generate Report</span></button>
+                <form action="ExcelServlet" method="post">
+                    <button class="inventory" id="generate" type="submit">
+                        <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
+                </form>
                 <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px; font-size:23px;">Sort Options</span></button>
                 <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery: ₱<%= addCost%></h1></div>
                 <form action="SuppliesSearch" method="post">

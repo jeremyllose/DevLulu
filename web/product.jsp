@@ -26,7 +26,7 @@
             %>
         <div class="content-wrapper">
             <div class="dashboardbar">
-                <h1 id="dashboardheader">Product</h1>
+                <h1 id="dashboardheader">Recipe</h1>
             </div>
 
             <div class="others">

@@ -5,6 +5,7 @@
 package com.export;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,16 +19,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 /**
  *
  * @author Vince
  */
-@WebServlet(name = "ExcelServlet", urlPatterns = {"/ExcelServlet"})
-public class ExcelServlet extends HttpServlet {
+@WebServlet(name = "SuppliesExcelServlet", urlPatterns = {"/SuppliesExcelServlet"})
+public class SuppliesExcelServlet extends HttpServlet {
 
-Connection con;
+ Connection con;
     byte[] key;
     String cypher;
     
@@ -80,7 +84,7 @@ Connection con;
          try {
             // Use the database connection to retrieve data
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ITEM");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
 
             // Create Excel workbook
             Workbook workbook = new XSSFWorkbook();
@@ -100,18 +104,17 @@ Connection con;
             int rowNum = 1;
             while (rs.next()) {
                 Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(rs.getString("ITEM_CODE"));
-                row.createCell(1).setCellValue(rs.getString("ITEM_NUM"));
-                row.createCell(2).setCellValue(rs.getString("ITEM_DESCRIPTION"));
-                row.createCell(3).setCellValue(rs.getString("ABBREVIATION"));
-                row.createCell(4).setCellValue(rs.getString("GEN_ID"));
-                row.createCell(5).setCellValue(rs.getString("SUB_ID"));
+                row.createCell(0).setCellValue(rs.getString("PRODUCT_CODE"));
+                row.createCell(1).setCellValue(rs.getString("PRODUCT_DESCRIPTION"));
+                row.createCell(2).setCellValue(rs.getString("PRODUCT_PRICE"));
+                row.createCell(3).setCellValue(rs.getString("QUANTITY"));
+               
                 // Add more columns as needed
             }
 
             // Set response headers
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setHeader("Content-Disposition", "attachment; filename=data.xlsx");
+            response.setHeader("Content-Disposition", "attachment; filename=Inventory Report.xlsx");
 
             // Write workbook to response output stream
             workbook.write(response.getOutputStream());

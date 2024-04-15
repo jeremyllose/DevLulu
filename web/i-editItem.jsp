@@ -23,7 +23,7 @@
             }
         %>
         <div class="dashboardbar">
-            <h1 id="dashboardheader">Edit Item Page</h1>
+            <h1 id="dashboardheader">Edit Item</h1>
         </div>
         <div class="item-container">
             <form action="EditItem" method="post">
