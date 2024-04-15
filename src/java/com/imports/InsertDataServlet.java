@@ -70,39 +70,69 @@ public class InsertDataServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        PreparedStatement pstmt = null;
          try {
-             Sheet sheet = (Sheet) request.getAttribute("sheet");
-             PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
-                        
-             for (Row row : sheet) {
-                 if(row.getRowNum() != 0){                       
-                        // Set values for parameters
-                        pstmt.setString(1, row.getCell(0).toString());
-                        pstmt.setInt(2, (int) Float.parseFloat(row.getCell(1).toString()));
-                        pstmt.setString(3, row.getCell(2).toString());
-                        pstmt.setString(4, row.getCell(3).toString());
-                        pstmt.setString(5, row.getCell(4).toString());
-                        pstmt.setString(6, row.getCell(5).toString());
-                        // Set more parameters if needed
-                        pstmt.executeUpdate();
-                    System.out.println();
-                }
-             }
-             
-            pstmt.close();
-
-            // Commit the transaction
-            con.commit();
-            con.close();
-            
-                 response.sendRedirect("ItemList");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Redirect to an error page
-            response.sendRedirect("error.jsp");
-        }
         
+
+        // Import Item sheet
+        Sheet itemSheet = (Sheet) request.getAttribute("Item");
+        pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
+        importSheetData(pstmt, itemSheet);
+
+        // Import Pricing sheet
+        Sheet pricingSheet = (Sheet) request.getAttribute("pricing");
+        pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) VALUES (?,?,?,?,?)");
+        importSheetData(pstmt, pricingSheet);
+
+        // Import Transaction sheet
+        Sheet transactionSheet = (Sheet) request.getAttribute("transactions");
+        pstmt = con.prepareStatement("INSERT INTO TRANSACTION_TABLE (ITEM_CODE, DELIVERY, OTHERSADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,...)");
+        importSheetData(pstmt, transactionSheet);
+
+        // Import Inventory sheet
+        Sheet inventorySheet = (Sheet) request.getAttribute("inventory");
+        pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) VALUES (?,?,?,?,...)");
+        importSheetData(pstmt, inventorySheet);
+
+        // Import Stock History sheet
+        Sheet stockHistorySheet = (Sheet) request.getAttribute("stock_history");
+        pstmt = con.prepareStatement("INSERT INTO STOCK_HISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
+        importSheetData(pstmt, stockHistorySheet);
+
+        // Commit the transaction
+        con.commit();
+        response.sendRedirect("ItemList");
+    } catch (SQLException e) {
+        // Redirect to an error page
+        response.sendRedirect("error.jsp");
+    } finally {
+        // Close resources in the finally block
+        try {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
+}
+private void importSheetData(PreparedStatement pstmt, Sheet sheet) throws SQLException {
+    for (Row row : sheet) {
+        if (row.getRowNum() != 0) {
+            // Set values for parameters
+            pstmt.setString(1, row.getCell(0).toString());
+            pstmt.setInt(2, (int) Float.parseFloat(row.getCell(1).toString()));
+            pstmt.setString(3, row.getCell(2).toString());
+            pstmt.setString(4, row.getCell(3).toString());
+            pstmt.setString(5, row.getCell(4).toString());
+            // Set more parameters if needed
+            pstmt.executeUpdate();
+        }
+    }
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

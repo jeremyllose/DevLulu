@@ -114,7 +114,7 @@ public class SuppliesExcelServlet extends HttpServlet {
 
             // Set response headers
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setHeader("Content-Disposition", "attachment; filename=Inventory Report.xlsx");
+            response.setHeader("Content-Disposition", "attachment; filename=Delivery Report.xlsx");
 
             // Write workbook to response output stream
             workbook.write(response.getOutputStream());
