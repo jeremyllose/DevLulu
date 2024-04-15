@@ -16,6 +16,13 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
           <div class="dashboardbar">
                     <h1 id="dashboardheader">Add Account</h1></div>
          <div class="container">

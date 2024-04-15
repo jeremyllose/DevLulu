@@ -19,6 +19,13 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
         <div class="content-wrapper">
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Inventory</h1>
@@ -89,7 +96,19 @@
                                 while (results.next()) {%>
 
                         <tr>
+                            <%
+                                if(results.getBoolean("disabled") == false) {
+                            %>
                             <td><input type="checkbox" name="items" value="<%= results.getString("item_code")%>"></td>
+                            <%	
+                                }
+                                else
+                                {
+                            %>
+                            <td><button id="button-css" type="submit" name="button" value="enable <%= results.getString("item_code")%>">Enable</button></td>
+                            <%	
+                                }
+                            %>
                             <td><%=results.getString("item_code")%></td>
                             <td><%=results.getString("item_num")%></td>
                             <td><%=results.getString("item_description")%></td>
@@ -101,9 +120,21 @@
                             <td><%=results.getString("vat")%></td>
                             <td><%=results.getString("unit_price")%></td>
                             <td>
+                                <%
+                                if(results.getBoolean("disabled") == false) {
+                            %>
                                 <button id="button-css" type="submit" name="button" value="edit <%= results.getString("item_code")%>">
                                     <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
                                 </button>
+                                    <%	
+                                }
+                                else
+                                {
+                            %>
+                            ITEM DISABLED
+                            <%	
+                                }
+                            %>
                             </td>
                         </tr>	
                         <%	}

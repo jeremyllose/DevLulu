@@ -68,6 +68,8 @@ public class ItemList extends HttpServlet {
             {
                 HttpSession session = request.getSession();
                 session.setAttribute("suppliesPgNum", null);
+                session.setAttribute("variancePgNum", 1);
+                session.setAttribute("wastePgNum", 1);
                 
                 String action = request.getParameter("button");
                 
@@ -115,8 +117,7 @@ public class ItemList extends HttpServlet {
                         + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
                         + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
                         + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE (DISABLED = FALSE) AND "
-                        + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
+                        + "WHERE (ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
                                 + "ORDER BY ITEM_NUM "
                         + "OFFSET "+ (((int) session.getAttribute("itemPgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY");

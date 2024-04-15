@@ -18,6 +18,13 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
         <div class="content-wrapper">
         <div class="dashboardbar">
              <h1 id="dashboardheader">Account List</h1>
@@ -43,7 +50,7 @@
             <thead>
                 <tr>
                     <th>Username</th>
-                    <th>Password</th>
+                 <%--   <th>Password</th> --%>
                     <th>Role</th>
                     <th>Action</th>
                     <th>Password Forgotten</th>
@@ -57,20 +64,27 @@
 			while (results.next()) { %>
 			<tr>
                                 <td><%=results.getString("username") %></td>
-                                <td><%=results.getString("password") %></td>
+                             <%--    <td><%=results.getString("password") %></td> --%>
                                 <td><%=results.getString("role") %></td>
                                 <td>
-                                    <form action="EditUser" method="post">
+                               <%--     <form action="EditUser" method="post">
                                         <input type="hidden" name="username" value="<%= results.getString("username") %>">
                                         <input type="hidden" name="password" value="<%= results.getString("password") %>">
                                         <input type="hidden" name="role" value="<%= results.getString("role") %>">
                                         <button id="button-css" type="submit" name="button"><img class="edit-picture" src="photos/edit-button.png" alt="Edit Button"> Edit
                             </button>
-                                    </form>
+                                    </form> --%>
+                                    <%
+                                        if (!results.getString("role").equals("Owner"))
+                                        {
+                                    %>
                                     <form action="DisableUser" method="post">
                                         <input type="hidden" name="id" value="<%= results.getString("id") %>">
                                         <button id="button-css" type="submit" onclick="return confirm('Are you sure you want to disable this user account?')"><img class="edit-picture" src="photos/DisableFR.png" alt="Disable Button">  Disable</button>
                                     </form>
+                                    <%
+                                        }
+                                    %>
                                 </td>
                                 <%
                                     if (results.getBoolean("forgotten") == true)

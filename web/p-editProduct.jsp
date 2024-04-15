@@ -17,6 +17,13 @@
         <title>edit Product Page</title>
     </head>
     <body>
+        <%
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+                if (session.getAttribute("username") == null) {
+                    response.sendRedirect("login.jsp");
+                }
+            %>
         <div class="dashboardbar">
             <h1 id="dashboardheader">Edit Product </h1></div>
         <%
