@@ -44,7 +44,7 @@
 #searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
     position: relative;
-    right: -1027px;
+    right: -1010px;
     top: -35px;
 }
 #searchBar {

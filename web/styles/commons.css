@@ -159,7 +159,6 @@ body {
     position: fixed;
     right: -7rem;
     top: 30rem;
-    z-index: 1;
 }
 @media screen and (max-width: 1440px) {
     #leafBG {
