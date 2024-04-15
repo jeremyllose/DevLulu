@@ -12,8 +12,10 @@
         <title>Login Page</title>
     </head>
     <body>
+        <div class="logo">
         <img src="photos/nextgentitle.png" alt="Image" class="title-image">
         <img src="photos/nextgenlogo.png" alt="Image" class="title-logo">
+        </div>
         <img src="photos/greenleaves.png" alt="Image" class="bottom-leaves">   
         <img src="photos/coffeebeans.png" alt="Image" class="top-beans"> 
 

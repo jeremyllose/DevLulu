@@ -97,7 +97,7 @@
     margin-right: 30px; /* Add some space between the two h1 elements */
 }
 .table-container {
-    max-height: 500px; /* Set maximum height */
+    max-height: 1000px; /* Set maximum height */
     overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
@@ -209,4 +209,43 @@ input[type="number"] {
     padding-inline: 1px;
     width: 100%;
     text-align: center;
+}
+#savechanges {
+    position: relative;
+    right: -44px;
+    top: -732px;
+}
+@media screen and (max-width: 1440px) {
+    .inventory {
+        font-size: 20px;
+        width: 174px;
+    }
+    table {
+        font-size: 14px;
+    }
+    #upload {
+        position: relative;
+        right: 0rem;
+        top: 0rem;
+        font-size: 14px;
+    }
+    #disable-css {
+        position: relative;
+        left: 12px;
+    }
+    .Delivery-Container {
+        position: relative;
+        right: -230px;
+        bottom: -25px;
+        width: 345px;
+    }
+    #searchContainer {
+        position: relative;
+        right: -798px;
+        top: -35px;
+    }
+    th {
+        font-size: 13px;
+    }
+    
 }

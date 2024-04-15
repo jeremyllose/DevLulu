@@ -85,7 +85,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     font-weight: 100;
 }
 .table-container {
-    max-height: 500px; /* Set maximum height */
+    max-height: 1000px; /* Set maximum height */
     overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
@@ -185,4 +185,34 @@ input[type="number"] {
     padding-inline: 1px;
     width: 100%;
     text-align: center;
+}
+#savechanges {
+    position: relative;
+    right: -481px;
+    top: -645px;
+}
+@media screen and (max-width: 1440px) {
+    .inventory {
+        font-size: 20px;
+        width: 174px;
+    }
+    table {
+        font-size: 14px;
+    }
+    #upload {
+        position: relative;
+        right: 0rem;
+        top: 0rem;
+        font-size: 14px;
+    }
+    #savechanges {
+        position: relative;
+        right: -370px;
+        top: -637px;
+    }
+    #searchContainer {
+        display: inline-block; /* Ensure the container only occupies necessary space */
+        position: relative;
+        right: -390px;
+    }
 }

@@ -33,7 +33,7 @@
                     <div class="searchContainer">
                     <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                     <button id="search" type="submit">
-                        <img src="photos/search.png" style="width: 47px; height: 47px;" alt="Search Icon">
+                        <img src="photos/greensearch.png" style="width: 47px; height: 47px;" alt="Search Icon">
                     </button>
                     </div>
                 </form> 

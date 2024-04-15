@@ -7,34 +7,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Author     : jeremy
 */
 
-.container {
-    display: flex;
-    height: 100vh;
-    position: relative;
-    right: 400px;
-    top: 100px;
-}
-.content-wrapper { /* New container element */
-    padding-left: 200px;
-    overflow-y: auto;
-    background-color: #e8e8e8;
-}
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    overflow:hidden;
-    background-color: #e8e8e8;
-}
-.main-content {
-    flex: 1;
+    overflow: hidden;
     background-color: #e8e8e8;
 }
 
-iframe {
-    width: 100%;
-    height: calc(100vh - 40px);
-    border: none;
+.container {
+    display: flex;
+    align-items: start; /* Align items from the top */
+    justify-content: center; /* Center items horizontally */
+    height: 100vh;
+    padding-top: 100px; /* Use padding instead of top for positioning */
+    position: relative;
+    right: 21rem;
+    top: -7rem;
 }
 #dashboardheader {
     position:relative;
@@ -55,33 +44,62 @@ iframe {
     justify-content: center;
     align-items: center;
 }
-#charts {
-    object-fit: cover;
-    max-width: 150%;
-    max-height: 150%;
-    width: 1000px;
-    position: relative;
-    right: 15rem;
-    top: 40px
+.main-content, .content-wrapper {
+    flex: 1;
+    background-color: #e8e8e8;
+    padding: 20px;
+    overflow-y: hidden; /* Makes content scrollable */
 }
 
-.graphBox
-{
-    position: relative;
-    width: 90%;
-    padding-top: 50px;
+iframe {
+    width: 100%;
+    height: calc(100vh - 40px); /* Adjust height based on your header */
+    border: none;
+}
+.graphBox {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-gap: 50px;
-    min-height: 300px;
-}
-
-.graphBox .box, .box
-{
-    position: relative;
-    background: #fff;
+    grid-gap: 20px;
     padding: 20px;
-    width: 100%;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    width: 85%;
+}
+.box {
+    width: 93%;
+}
+.graphBox .box {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
+    overflow: hidden;
+}
+#OSC {
+    font-size: 18px;
+    color: #333; /* Dark text color for readability */
+    text-align: center; /* Center-align headers */
+    margin-top: 20px; /* Space above headers */
+    margin-bottom: 20px; /* Space below headers */
+}
+@media screen and (max-width: 1440px) {
+    .graphBox {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 20px;
+        padding: 20px;
+    }
+    .graphBox .box {
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        width: 250px;
+        
+    }
+    .container {
+        position: relative;
+        right: 15rem;
+        top: -5rem;
+        z-index: 50;
+    }
 }

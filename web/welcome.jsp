@@ -17,6 +17,7 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+
         <div class="content-wrapper">
             <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -25,7 +26,6 @@
                     response.sendRedirect("login.jsp");
                 }
             %>
-
             <div class="main-content" id="mainContent">
                 <div class="dashboardbar">
                     <h1 id="dashboardheader">Dashboard</h1>
@@ -33,72 +33,73 @@
                 </div>
                 <!-- Add your main content here -->
 
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-                    <body>
-                        <div class="box">
-                            <canvas id="sales"></canvas>
-                            <%
-                                    String[] top5 = (String[]) request.getAttribute("topFiveDescriptions");
-                                    double[] top5Prices = (double[]) request.getAttribute("topFiveTotal");
-                                    int[] quantites = (int[]) request.getAttribute("quantites");
-                                %>
-                            <script>
-                                const sales = document.getElementById('sales');
-                                const labels = ['<%=top5[0]%>', '<%=top5[1]%>', '<%=top5[2]%>', '<%=top5[3]%>', '<%=top5[4]%>'];
-                                const data = {
-                                    labels: labels,
-                                    datasets: [
-                                        {
-                                            label: 'Sold',
-                                            data: [<%=top5Prices[0]%>, <%=top5Prices[1]%>, <%=top5Prices[2]%>, <%=top5Prices[3]%>, <%=top5Prices[4]%>],
-                                            fill: false,
-                                            borderColor: 'rgb(75, 255, 255)',
-                                            tension: 0.1
-                                        }
-                                    ]
-                                };
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+                <body>
+                    <h1 id="OSC">Overall Sales Line Chart</h1>              
 
-                                new Chart(sales, {
-                                    type: 'line',
-                                    data: data,
-                                    options: {
-                                        plugins: {
-                                            legend: {
-                                                display: true,
-                                                labels: {
-                                                    color: 'rgb(255, 99, 132)'
-                                                }
+                    <div class="box">
+                        <canvas id="sales"></canvas>
+                            <%
+                                String[] top5 = (String[]) request.getAttribute("topFiveDescriptions");
+                                double[] top5Prices = (double[]) request.getAttribute("topFiveTotal");
+                                int[] quantites = (int[]) request.getAttribute("quantites");
+                            %>
+                        <script>
+                            const sales = document.getElementById('sales');
+                            const labels = ['<%=top5[0]%>', '<%=top5[1]%>', '<%=top5[2]%>', '<%=top5[3]%>', '<%=top5[4]%>'];
+                            const data = {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Sold',
+                                        data: [<%=top5Prices[0]%>, <%=top5Prices[1]%>, <%=top5Prices[2]%>, <%=top5Prices[3]%>, <%=top5Prices[4]%>],
+                                        fill: false,
+                                        borderColor: 'rgb(75, 255, 255)',
+                                        tension: 0.1
+                                    }
+                                ]
+                            };
+
+                            new Chart(sales, {
+                                type: 'line',
+                                data: data,
+                                options: {
+                                    plugins: {
+                                        legend: {
+                                            display: true,
+                                            labels: {
+                                                color: 'rgb(255, 99, 132)'
                                             }
                                         }
                                     }
-                                });
-                            </script>
-                        </div>
-                        <div class="graphBox">
-                            <div class="box">
-                                <canvas id="myChart"></canvas>
-                                
-                                <script>
-                                    const ctx = document.getElementById('myChart');
+                                }
+                            });
+                        </script>
+                    </div>
+                    <div class="graphBox">
+                        <div class="box">
+                            <canvas id="myChart"></canvas>     
+                            <script>
+                                const ctx = document.getElementById('myChart');
 
-                                    new Chart(ctx, {
-                                        type: 'pie',
-                                        data: {
-                                            labels: ['<%=top5[0]%>', '<%=top5[1]%>', '<%=top5[2]%>', '<%=top5[3]%>', '<%=top5[4]%>'],
-                                            datasets: [{
+                                new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['<%=top5[0]%>', '<%=top5[1]%>', '<%=top5[2]%>', '<%=top5[3]%>', '<%=top5[4]%>'],
+                                        datasets: [{
                                                 label: 'Best Sellers',
                                                 data: [<%=quantites[0]%>, <%=quantites[1]%>, <%=quantites[2]%>, <%=quantites[3]%>, <%=quantites[4]%>],
                                                 backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(0, 128, 0)', 'rgb(128, 0, 128)'],
                                                 hoverOffset: 4
                                             }]
-                                        }
-                                    });
-                                </script>
+                                    }
+                                });
+                            </script>
 
-                            </div>
+                        </div>
+                        <div class="chart-info">
                             <div class="info">
-                                <div class="box">
-                                <div class="chart-info">
+                                <div class="box">          
                                     <h2>Best Sellers</h2>
                                     <ol>
                                         <li><%=top5[0]%><span style="background-color: red"></span></li>
@@ -110,10 +111,10 @@
                                 </div>
                             </div>
                         </div>
-                    </body>
+                </body>
             </div>
         </div>
     </div>
-    </div>
+</div>
 </body>
 </html>
