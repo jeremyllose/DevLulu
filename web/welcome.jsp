@@ -17,7 +17,12 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
-
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <div class="content-wrapper">
             <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

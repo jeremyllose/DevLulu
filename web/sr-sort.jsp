@@ -18,6 +18,12 @@
         <title>edit Product Page</title>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Sort Options</h1></div>
             <form action="SortingItems" method="post">

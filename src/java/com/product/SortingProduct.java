@@ -4,15 +4,14 @@
  */
 package com.product;
 
-import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -27,8 +26,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class EditProduct extends HttpServlet {
-
+public class SortingProduct extends HttpServlet {
+    
     Connection con;
     byte[] key;
     String cypher;
@@ -50,6 +49,8 @@ public class EditProduct extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -58,102 +59,48 @@ public class EditProduct extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
-        String productCode = (String) session.getAttribute("productCode");
+        String[] genClasses = request.getParameterValues("gc");
         
-        String getProductDescription = request.getParameter("productDescription");
-        float getProductPrice = Float.parseFloat(request.getParameter("productPrice"));
-        
-        updateProduct(getProductDescription, getProductPrice, productCode);
-        
-        String[] itemCodes = request.getParameterValues("itemCode");
-        String[] itemQuantities = request.getParameterValues("updateItemQuantity");
-        int start = 0;
-        
-        if (itemCodes != null && itemQuantities != null)
+        String genClassClause = "";
+        if (genClasses != null && genClasses.length > 0) 
         {
-            for (String itemCode : itemCodes) 
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : genClasses) 
             {
-                updateBillOFMaterial(Integer.parseInt(itemQuantities[start]), productCode, itemCode);
-                start++;
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
             }
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
         }
-        
-        String[] itemsRemoved = request.getParameterValues("itemRemove");
-        
-        if (itemsRemoved != null)
+        else
         {
-            for (String itemRemove : itemsRemoved) 
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : retrieveAllGenIdsAsArray())
             {
-                RemoveBillOFMaterial(productCode, itemRemove);
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
             }
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
         }
+        session.setAttribute("productItemSort", genClassClause);
         
-        String[] itemAdds = request.getParameterValues("itemsAdd");
-        String[] addQuantity = request.getParameterValues("itemQuantity");
-        start = 0;
-        
-        if (itemAdds != null)
+        response.sendRedirect("ProductRedirect");
+    }
+    
+    public String[] retrieveAllGenIdsAsArray() throws SQLException 
+    {
+        ArrayList<String> genIds = new ArrayList<String>();
+        Statement stmt = con.createStatement();
+        String query = "SELECT ITEM_CODE FROM ITEM";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next())
         {
-            for(String addItem : itemAdds)
-            {
-                addBill(productCode, addItem, Integer.parseInt(addQuantity[start]));
-                start++;
-            }
+            genIds.add(rs.getString("ITEM_CODE"));
         }
-        
-        response.sendRedirect("EditProductRedirect");
-    }
-    
-    public void updateProduct(String desc, float price, String productCode)throws SQLException
-    {
-        String query = "UPDATE PRODUCT SET PRODUCT_DESCRIPTION = ?, PRODUCT_PRICE = ? WHERE PRODUCT_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setString(1, desc);
-        ps.setFloat(2, price);
-        ps.setString(3, productCode);
-        ps.executeUpdate();
-        ps.close();
-    }
-    
-    public void updateBillOFMaterial(int quantity, String productCode, String itemCode)throws SQLException
-    {
-        String query = "UPDATE BILLOFMATERIALS SET QUANTITY = ? WHERE PRODUCT_CODE = ? AND ITEM_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setInt(1, quantity);
-        ps.setString(2, productCode);
-        ps.setString(3, itemCode);
-        ps.executeUpdate();
-        ps.close();
-    }
-    
-    public void RemoveBillOFMaterial(String productCode, String itemCode)throws SQLException
-    {
-        String query = "DELETE FROM BILLOFMATERIALS WHERE PRODUCT_CODE = ? AND ITEM_CODE = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setString(1, productCode);
-        ps.setString(2, itemCode);
-        ps.executeUpdate();
-        ps.close();
-    }
-    
-    public void addBill(String productCode, String itemCode, int quantity)throws SQLException
-    {
-        String query = "INSERT INTO BILLOFMATERIALS (PRODUCT_CODE, ITEM_CODE, QUANTITY) "
-                + "VALUES (?, ?, ?)";
-        PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setString(1, productCode);
-        ps.setString(2, itemCode);
-        ps.setInt(3, quantity);
-        ps.executeUpdate();
-        ps.close();
+        return genIds.toArray(new String[genIds.size()]);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -171,7 +118,7 @@ public class EditProduct extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(EditProduct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SortingProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -189,7 +136,7 @@ public class EditProduct extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(EditProduct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SortingProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

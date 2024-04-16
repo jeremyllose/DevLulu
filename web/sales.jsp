@@ -17,6 +17,12 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
@@ -73,5 +79,8 @@
             <div id="costs">Total:</div>
             <input style="font-size: 16px; width: 190px;" type="text" id="inventoryprice" name="myText" placeholder="<%=total%>">
         </div>
+        <button onclick="redirectTo('SByPrice')">Sort By Price</button>
+            <button onclick="redirectTo('SByQuantity')">Sort By Quantity</button>
+            <button onclick="redirectTo('SByTotal')">Sort By Total</button>
     </body>
 </html>

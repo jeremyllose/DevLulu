@@ -17,6 +17,12 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
@@ -33,6 +39,10 @@
                 <form action="AddProductRedirect" method="post">
                     <button type="submit" class="inventory" id="add">
                         <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
+                </form>
+                
+                <form action="ProductSortPage" method="post">
+                    <button type="submit" class="inventory" id="add">Sort</button>
                 </form>
                 
                 <form action="ProductSearch" method="post">
@@ -63,16 +73,58 @@
                                 ResultSet results = (ResultSet) request.getAttribute("product");
                                 while (results.next()) {%>
                             <tr>
+                                <%
+                                    if (results.getBoolean("disabled") == false) {
+                                %>
                                 <td><input type="checkbox" name="selectProduct" value="<%= results.getString("product_code")%>"></td>
+                                <%
+                                    }
+                                    else
+                                    {
+                                %>
+                                <td>
+                                    <input type="submit" name="button" value="Enable">
+                                    <input type="hidden" name="enable" value="<%= results.getString("product_code")%>">
+                                </td>
+                                <%
+                                    }
+                                %>
                                 <td><%=results.getString("product_code")%></td>
                                 <td><%=results.getString("product_description")%></td>
                                 <td><%=results.getString("product_price")%></td>
+                                <%
+                                    if (results.getBoolean("disabled") == false) {
+                                %>
                                 <td><input type="number" min="0" name="qty" value="<%=results.getString("quantity")%>" required/></td>
+                                <%
+                                    }
+                                    else
+                                    {
+                                %>
                                 <td>
+                                    PRODUCT DISABLED
+                                </td>
+                                <%
+                                    }
+                                %>
+                                <td>
+                                    <%
+                                        if (results.getBoolean("disabled") == false) 
+                                        {
+                                    %>
                                     <button id="button-css" type="submit" name="button" value="edit <%= results.getString("product_code")%>">
                                         <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
                                     </button>
                                         <input type="hidden" name="products" value="<%= results.getString("product_code")%>">
+                                    <%
+                                        }
+                                        else
+                                        {
+                                    %>
+                                    PRODUCT DISABLED
+                                    <%
+                                        }
+                                    %>
                                 </td>
     <!--                            <td class="hide-column"><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>-->
                             </tr>
@@ -87,5 +139,7 @@
         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
         </div>
+                        <button onclick="redirectTo('PByPrice')">Sort By Price</button>
+            <button onclick="redirectTo('PByQuantity')">Sort By Quantity</button>
     </body>
 </html> 

@@ -71,7 +71,11 @@ public class SuppliesSearch extends HttpServlet {
                 "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
                 "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID \n" +
                 "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
-                "WHERE ITEM.DISABLED = FALSE AND ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY ITEM_NUM";
+                "WHERE ITEM.DISABLED = FALSE AND "
+                + "ITEM_DESCRIPTION LIKE '"+ searchBar +"%' OR "
+                                + "ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR "
+                                + "ITEM.ABBREVIATION LIKE '"+ searchBar +"%' "
+                + "ORDER BY ITEM_NUM";
                 ResultSet rs = stmt.executeQuery(query);
                 request.setAttribute("deliveries", rs);
                 

@@ -73,6 +73,13 @@ public class ItemList extends HttpServlet {
                 
                 String action = request.getParameter("button");
                 
+                String sort = (String) session.getAttribute("itemNum");
+                if(sort == null)
+                {
+                    sort = "ASC";
+                    session.setAttribute("itemNum", sort);
+                }
+                
                 if (action == null || action.isEmpty()) 
                 {
                     if (session.getAttribute("itemPgNum") == null) 
@@ -119,8 +126,8 @@ public class ItemList extends HttpServlet {
                         + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
                         + "WHERE (ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
-                                + "ORDER BY ITEM_NUM "
-                        + "OFFSET "+ (((int) session.getAttribute("itemPgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY");
+                                + "ORDER BY ITEM_NUM " + sort
+                        + " OFFSET "+ (((int) session.getAttribute("itemPgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY");
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);
@@ -141,7 +148,7 @@ public class ItemList extends HttpServlet {
     {
         Statement stmt = con.createStatement();
         String query = "SELECT CEIL(COUNT(*) / 10) AS total_pages "
-                + "FROM ITEM WHERE ITEM.DISABLED = FALSE AND"
+                + "FROM ITEM WHERE "
                 + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) ";
         ResultSet rs = stmt.executeQuery(query);

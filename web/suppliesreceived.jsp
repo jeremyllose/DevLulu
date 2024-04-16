@@ -17,6 +17,12 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
@@ -133,5 +139,8 @@
                 </table>
             </form>
         </div>
+                    <button onclick="redirectTo('VByItem')">Sort By Item Number</button>
+            <button onclick="redirectTo('VByDelivery')">Sort By Delivery</button>
+            <button onclick="redirectTo('VByAdds')">Sort By Adds</button>
     </body>
 </html>

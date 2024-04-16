@@ -76,6 +76,14 @@ public class ProductAction extends HttpServlet {
             }
             response.sendRedirect("ProductRedirect");
         }
+        else if (action.equals("Enable")) 
+        {
+            String product = request.getParameter("enable");
+            
+            enableUser(product);
+            
+            response.sendRedirect("ProductRedirect");
+        }
         else if (action.equals("save")) 
         {
             String[] products = request.getParameterValues("products");
@@ -113,6 +121,14 @@ public class ProductAction extends HttpServlet {
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, quantity);
         ps.setString(2, product);
+        ps.executeUpdate();
+    }
+    
+    public void enableUser(String user)throws SQLException
+    {
+        String query = "UPDATE PRODUCT SET DISABLED = FALSE WHERE PRODUCT_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, user);
         ps.executeUpdate();
     }
 

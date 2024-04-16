@@ -13,6 +13,12 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
@@ -37,7 +43,22 @@
                 <tr>
                     <th>Selector</th>
                     <th>Item Code</th>
-                    <th>Item No.</th>
+                    <th>Item No.
+                        <%
+                            if(session.getAttribute("itemNum").equals("ASC"))
+                            { 
+                        %>
+                         <button type="submit" name="sorting" value="DESC" onclick="redirectTo('ItemList')">Sort</button>
+                        <%
+                            }
+                            else 
+                            { 
+                        %>
+                         <button type="submit" name="sorting" value="ASC" onclick="redirectTo('ItemList')">Sort</button>
+                        <%
+                            }
+                        %>
+                    </th>
                     <th>Description</th>
                     <th>Abbriviation</th>
                     <th>Unit of Measurement</th>

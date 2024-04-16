@@ -25,6 +25,12 @@
                 response.sendRedirect("login.jsp");
             }
         %>
+        <%
+            if (session.getAttribute("userRole").equals("Manager") ) {
+                session.setAttribute("verification", "You have no Permission to Open the Account List");
+                response.sendRedirect("403 Forbidden Page.jsp");
+            }
+        %>
         <div class="content-container">
             <form action="AddAccount" method="post">
                 <table> 
@@ -41,8 +47,14 @@
                         <th>Role:</th>
                     </tr>
                     <tr>
+                        <%
+                            if (session.getAttribute("userRole").equals("Owner") ) 
+                            {
+                        %>
                         <th><label for="owner">Owner</label> <input type="radio" id="owner" name="role" value="Owner"></th>
-
+                        <%
+                            }
+                        %>
                         <th><label for="assistantManager">Assistant Manager</label> <input type="radio" id="assistantManager" name="role" value="Assistant Manager"></th>
 
                         <th><label for="manager">Manager</label> <input type="radio" id="manager" name="role" value="Manager"></th>
@@ -52,7 +64,16 @@
                     <th><input id="addacc" type="submit" value="Add Account"/></th>
                     </tr>
                 </table>
+                        <%
+            if (session.getAttribute("message") != null) {
+        %>
+        <h4>${message}</h4>
+        <%
+            }
+        %>
+        </form>
+        
         </div>
-    </form>
+    
 </body>
 </html>

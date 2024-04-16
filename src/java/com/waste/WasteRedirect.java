@@ -67,6 +67,13 @@ public class WasteRedirect extends HttpServlet {
         session.setAttribute("itemPgNum", 1);
         session.setAttribute("variancePgNum", 1);
         session.setAttribute("suppliesPgNum", 1);
+        
+        String sort = (String) session.getAttribute("wSort");
+                if(sort == null)
+                {
+                    sort = "ORDER BY ITEM_NUM ASC";
+                    session.setAttribute("wSort", sort);
+                }
                 
                 if (action == null || action.isEmpty()) 
                 {
@@ -117,7 +124,7 @@ public class WasteRedirect extends HttpServlet {
                 "WHERE ITEM.DISABLED = FALSE AND"
                 + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
-                + "ORDER BY ITEM_NUM "
+                + sort + " "
                 + "OFFSET "+ (((int) session.getAttribute("wastePgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY";
                 ResultSet rs = stmt.executeQuery(query);
                 request.setAttribute("waste", rs);
