@@ -61,7 +61,7 @@ public class ProductRedirect extends HttpServlet {
             {
                 Statement stmt = con.createStatement();
                 
-                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT WHERE DISABLED = FALSE ORDER BY PRODUCT_CODE ");
+                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT ORDER BY PRODUCT_CODE ");
                 
                 request.setAttribute("product", records);
                 request.getRequestDispatcher("product.jsp").forward(request,response);

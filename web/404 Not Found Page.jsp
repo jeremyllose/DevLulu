@@ -22,7 +22,7 @@
 else
 {
             %>
-            <a href="WelcomePageRedirect">Return to Welcome Page</a>
+            <a href="WelcomePageRedirect">Return to Dashboard</a>
             <%
                 }
             %>

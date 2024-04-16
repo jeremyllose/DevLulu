@@ -73,10 +73,13 @@ public class EditProduct extends HttpServlet {
         String[] itemQuantities = request.getParameterValues("updateItemQuantity");
         int start = 0;
         
-        for (String itemCode : itemCodes) 
+        if (itemCodes != null && itemQuantities != null)
         {
-            updateBillOFMaterial(Integer.parseInt(itemQuantities[start]), productCode, itemCode);
-            start++;
+            for (String itemCode : itemCodes) 
+            {
+                updateBillOFMaterial(Integer.parseInt(itemQuantities[start]), productCode, itemCode);
+                start++;
+            }
         }
         
         String[] itemsRemoved = request.getParameterValues("itemRemove");

@@ -69,16 +69,58 @@
                                 ResultSet results = (ResultSet) request.getAttribute("product");
                                 while (results.next()) {%>
                             <tr>
+                                <%
+                                    if (results.getBoolean("disabled") == false) {
+                                %>
                                 <td><input type="checkbox" name="selectProduct" value="<%= results.getString("product_code")%>"></td>
+                                <%
+                                    }
+                                    else
+                                    {
+                                %>
+                                <td>
+                                    <input type="submit" name="button" value="Enable">
+                                    <input type="hidden" name="enable" value="<%= results.getString("product_code")%>">
+                                </td>
+                                <%
+                                    }
+                                %>
                                 <td><%=results.getString("product_code")%></td>
                                 <td><%=results.getString("product_description")%></td>
                                 <td><%=results.getString("product_price")%></td>
+                                <%
+                                    if (results.getBoolean("disabled") == false) {
+                                %>
                                 <td><input type="number" min="0" name="qty" value="<%=results.getString("quantity")%>" required/></td>
+                                <%
+                                    }
+                                    else
+                                    {
+                                %>
                                 <td>
+                                    PRODUCT DISABLED
+                                </td>
+                                <%
+                                    }
+                                %>
+                                <td>
+                                    <%
+                                        if (results.getBoolean("disabled") == false) 
+                                        {
+                                    %>
                                     <button id="button-css" type="submit" name="button" value="edit <%= results.getString("product_code")%>">
                                         <img id="edit-picture" src="photos/edit-button.png" alt="Edit Button">  Edit
                                     </button>
                                         <input type="hidden" name="products" value="<%= results.getString("product_code")%>">
+                                    <%
+                                        }
+                                        else
+                                        {
+                                    %>
+                                    PRODUCT DISABLED
+                                    <%
+                                        }
+                                    %>
                                 </td>
     <!--                            <td class="hide-column"><input type="hidden" name="products" value="<%= results.getString("product_code")%>"></td>-->
                             </tr>
