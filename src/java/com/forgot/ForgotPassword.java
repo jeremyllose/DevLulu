@@ -75,13 +75,12 @@ public class ForgotPassword extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
         else if (userEnabled(getUsername) == 1) {
-            session.setAttribute("message", "Password: " + getUserPassword(getUsername));
+            session.setAttribute("message", "Password has been Successfully Changed");
             passwordReceived(getUsername);
             response.sendRedirect("login.jsp");
         } else {
-            forgotten(getUsername);
-            session.setAttribute("message", "Please wait for a few minutes before getting confirmation from a higher up");
-            response.sendRedirect("login.jsp");
+            session.setAttribute("usernameForgot", getUsername);
+            response.sendRedirect("passwordchange.jsp");
         }
     }
 
