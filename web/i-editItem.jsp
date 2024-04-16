@@ -17,6 +17,12 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <%
             if (session.getAttribute("itemCode") == null) {
                 response.sendRedirect("login.jsp");

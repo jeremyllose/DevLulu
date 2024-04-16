@@ -19,6 +19,12 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
