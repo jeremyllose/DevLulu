@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -59,9 +60,17 @@ public class ProductRedirect extends HttpServlet {
         {
             if (con != null) 
             {
+                HttpSession session = request.getSession();
                 Statement stmt = con.createStatement();
                 
-                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT ORDER BY PRODUCT_CODE ");
+                String sort = (String) session.getAttribute("pSort");
+                if(sort == null)
+                {
+                    sort = "";
+                    session.setAttribute("pSort", sort);
+                }
+                
+                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT " + sort);
                 
                 request.setAttribute("product", records);
                 request.getRequestDispatcher("product.jsp").forward(request,response);

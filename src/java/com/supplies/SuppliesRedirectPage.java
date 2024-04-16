@@ -69,6 +69,13 @@ public class SuppliesRedirectPage extends HttpServlet {
         
         String action = request.getParameter("button");
         
+        String sort = (String) session.getAttribute("vSort");
+                if(sort == null)
+                {
+                    sort = "ORDER BY ITEM_NUM ASC";
+                    session.setAttribute("vSort", sort);
+                }
+        
         if (action == null || action.isEmpty()) 
         {
             if (session.getAttribute("suppliesPgNum") == null) 
@@ -118,7 +125,7 @@ public class SuppliesRedirectPage extends HttpServlet {
                 "WHERE ITEM.DISABLED = FALSE AND"
                 + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
-                + "ORDER BY ITEM_NUM "
+                + sort + " "
                 + "OFFSET "+ (((int) session.getAttribute("suppliesPgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY";
         
                 ResultSet rs = stmt.executeQuery(query);

@@ -26,7 +26,7 @@
         </script>
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Sort Options</h1></div>
-            <form action="SortingItems" method="post">
+            <form action="SortingWaste" method="post">
                 <div class="content-container">
                 <table>
                     <tr>

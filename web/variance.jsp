@@ -182,5 +182,8 @@
                 </table>
             </form>
         </div>
+                    <button onclick="redirectTo('VAByItem')">Sort By Item Number</button>
+            <button onclick="redirectTo('VAByBeg')">Sort By BEG</button>
+            <button onclick="redirectTo('VAByEnd')">Sort By END</button>
     </body>
 </html>

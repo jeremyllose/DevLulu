@@ -75,7 +75,7 @@
                     </div>
                 </form>
             </div>
-            <button onclick="redirectTo('AscendDescend')">Sort</button>
+            
             <form action="ItemAction" method="post">
                 <div class="table-container">
                     <table>
@@ -238,6 +238,6 @@
             }
         }
     </script>
-
+<button onclick="redirectTo('AscendDescend')">Sort By Item Number</button>
 </body>
 </html>

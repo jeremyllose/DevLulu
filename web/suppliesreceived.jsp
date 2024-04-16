@@ -139,5 +139,8 @@
                 </table>
             </form>
         </div>
+                    <button onclick="redirectTo('VByItem')">Sort By Item Number</button>
+            <button onclick="redirectTo('VByDelivery')">Sort By Delivery</button>
+            <button onclick="redirectTo('VByAdds')">Sort By Adds</button>
     </body>
 </html>

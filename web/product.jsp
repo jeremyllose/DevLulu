@@ -135,5 +135,7 @@
         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
         </div>
+                        <button onclick="redirectTo('PByPrice')">Sort By Price</button>
+            <button onclick="redirectTo('PByQuantity')">Sort By Quantity</button>
     </body>
 </html> 

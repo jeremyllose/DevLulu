@@ -236,6 +236,66 @@
         <servlet-name>AscendDescend</servlet-name>
         <servlet-class>com.inventorylist.AscendDescend</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WByItem</servlet-name>
+        <servlet-class>com.waste.WByItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WBySold</servlet-name>
+        <servlet-class>com.waste.WBySold</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WByWaste</servlet-name>
+        <servlet-class>com.waste.WByWaste</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WByOther</servlet-name>
+        <servlet-class>com.waste.WByOther</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VByItem</servlet-name>
+        <servlet-class>com.supplies.VByItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VByDelivery</servlet-name>
+        <servlet-class>com.supplies.VByDelivery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VByAdds</servlet-name>
+        <servlet-class>com.supplies.VByAdds</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VAByItem</servlet-name>
+        <servlet-class>com.variance.VAByItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VAByBeg</servlet-name>
+        <servlet-class>com.variance.VAByBeg</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VAByEnd</servlet-name>
+        <servlet-class>com.variance.VAByEnd</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PByPrice</servlet-name>
+        <servlet-class>com.product.PByPrice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PByQuantity</servlet-name>
+        <servlet-class>com.product.PByQuantity</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SByPrice</servlet-name>
+        <servlet-class>com.sales.SByPrice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SByQuantity</servlet-name>
+        <servlet-class>com.sales.SByQuantity</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SByTotal</servlet-name>
+        <servlet-class>com.sales.SByTotal</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -423,6 +483,66 @@
     <servlet-mapping>
         <servlet-name>AscendDescend</servlet-name>
         <url-pattern>/AscendDescend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WByItem</servlet-name>
+        <url-pattern>/WByItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WBySold</servlet-name>
+        <url-pattern>/WBySold</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WByWaste</servlet-name>
+        <url-pattern>/WByWaste</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WByOther</servlet-name>
+        <url-pattern>/WByOther</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VByItem</servlet-name>
+        <url-pattern>/VByItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VByDelivery</servlet-name>
+        <url-pattern>/VByDelivery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VByAdds</servlet-name>
+        <url-pattern>/VByAdds</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VAByItem</servlet-name>
+        <url-pattern>/VAByItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VAByBeg</servlet-name>
+        <url-pattern>/VAByBeg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VAByEnd</servlet-name>
+        <url-pattern>/VAByEnd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PByPrice</servlet-name>
+        <url-pattern>/PByPrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PByQuantity</servlet-name>
+        <url-pattern>/PByQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SByPrice</servlet-name>
+        <url-pattern>/SByPrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SByQuantity</servlet-name>
+        <url-pattern>/SByQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SByTotal</servlet-name>
+        <url-pattern>/SByTotal</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
