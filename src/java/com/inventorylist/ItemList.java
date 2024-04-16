@@ -148,7 +148,7 @@ public class ItemList extends HttpServlet {
     {
         Statement stmt = con.createStatement();
         String query = "SELECT CEIL(COUNT(*) / 10) AS total_pages "
-                + "FROM ITEM WHERE ITEM.DISABLED = FALSE AND"
+                + "FROM ITEM WHERE "
                 + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) ";
         ResultSet rs = stmt.executeQuery(query);
