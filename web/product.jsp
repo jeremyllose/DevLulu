@@ -41,6 +41,10 @@
                         <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
                 </form>
                 
+                <form action="ProductSortPage" method="post">
+                    <button type="submit" class="inventory" id="add">Sort</button>
+                </form>
+                
                 <form action="ProductSearch" method="post">
                     <div class="searchContainer">
                     <input type="text" id="searchBar" name="searchBar" placeholder="Search...">

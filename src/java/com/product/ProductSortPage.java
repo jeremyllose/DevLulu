@@ -11,21 +11,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class ProductRedirect extends HttpServlet {
-
+public class ProductSortPage extends HttpServlet {
     Connection con;
     byte[] key;
     String cypher;
@@ -47,6 +44,8 @@ public class ProductRedirect extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -55,63 +54,29 @@ public class ProductRedirect extends HttpServlet {
                     + nfe.getMessage());
             }
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try 
         {
             if (con != null) 
             {
-                HttpSession session = request.getSession();
-                Statement stmt = con.createStatement();
+                Statement stmt1 = con.createStatement();
                 
-                String sort = (String) session.getAttribute("pSort");
-                if(sort == null)
-                {
-                    sort = "";
-                    session.setAttribute("pSort", sort);
-                }
+                ResultSet rs1 = stmt1.executeQuery("SELECT * FROM ITEM WHERE DISABLED = FALSE");
+                request.setAttribute("genClass", rs1);
                 
-                String genClassClause = (String) session.getAttribute("productItemSort");
-                if (genClassClause == null) 
-                {
-                    StringBuilder sb = new StringBuilder();
-                    for (String genClass : retrieveAllGenIdsAsArray())
-                    {
-                        sb.append("'").append(genClass).append("'");
-                        sb.append(",");
-                    }
-                    genClassClause = sb.toString().substring(0, sb.length() - 1);
-                }
+                request.getRequestDispatcher("p-sort.jsp").forward(request,response);
                 
-                ResultSet records = stmt.executeQuery("SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, p.PRODUCT_PRICE, p.QUANTITY, p.DISABLED\n" +
-"FROM PRODUCT p\n" +
-"INNER JOIN BILLOFMATERIALS bom ON p.PRODUCT_CODE = bom.PRODUCT_CODE\n" +
-"WHERE (bom.ITEM_CODE IN (" + genClassClause + ")) " + sort);
+                rs1.close();
                 
-                request.setAttribute("product", records);
-                request.getRequestDispatcher("product.jsp").forward(request,response);
-                
-                records.close();
-                stmt.close();
+                stmt1.close();
             }
         } 
         catch (SQLException sqle)
         {
                 response.sendRedirect("error.jsp");
-        } 
-    }
-    
-    public String[] retrieveAllGenIdsAsArray() throws SQLException 
-    {
-        ArrayList<String> genIds = new ArrayList<String>();
-        Statement stmt = con.createStatement();
-        String query = "SELECT ITEM_CODE FROM ITEM";
-        ResultSet rs = stmt.executeQuery(query);
-        while(rs.next())
-        {
-            genIds.add(rs.getString("ITEM_CODE"));
         }
-        return genIds.toArray(new String[genIds.size()]);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

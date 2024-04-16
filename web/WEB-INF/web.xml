@@ -296,6 +296,14 @@
         <servlet-name>SByTotal</servlet-name>
         <servlet-class>com.sales.SByTotal</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductSortPage</servlet-name>
+        <servlet-class>com.product.ProductSortPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortingProduct</servlet-name>
+        <servlet-class>com.product.SortingProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -543,6 +551,14 @@
     <servlet-mapping>
         <servlet-name>SByTotal</servlet-name>
         <url-pattern>/SByTotal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductSortPage</servlet-name>
+        <url-pattern>/ProductSortPage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortingProduct</servlet-name>
+        <url-pattern>/SortingProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

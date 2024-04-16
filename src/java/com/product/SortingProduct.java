@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -24,8 +26,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class ProductRedirect extends HttpServlet {
-
+public class SortingProduct extends HttpServlet {
+    
     Connection con;
     byte[] key;
     String cypher;
@@ -47,6 +49,8 @@ public class ProductRedirect extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -56,49 +60,34 @@ public class ProductRedirect extends HttpServlet {
             }
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try 
+            throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
+        String[] genClasses = request.getParameterValues("gc");
+        
+        String genClassClause = "";
+        if (genClasses != null && genClasses.length > 0) 
         {
-            if (con != null) 
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : genClasses) 
             {
-                HttpSession session = request.getSession();
-                Statement stmt = con.createStatement();
-                
-                String sort = (String) session.getAttribute("pSort");
-                if(sort == null)
-                {
-                    sort = "";
-                    session.setAttribute("pSort", sort);
-                }
-                
-                String genClassClause = (String) session.getAttribute("productItemSort");
-                if (genClassClause == null) 
-                {
-                    StringBuilder sb = new StringBuilder();
-                    for (String genClass : retrieveAllGenIdsAsArray())
-                    {
-                        sb.append("'").append(genClass).append("'");
-                        sb.append(",");
-                    }
-                    genClassClause = sb.toString().substring(0, sb.length() - 1);
-                }
-                
-                ResultSet records = stmt.executeQuery("SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, p.PRODUCT_PRICE, p.QUANTITY, p.DISABLED\n" +
-"FROM PRODUCT p\n" +
-"INNER JOIN BILLOFMATERIALS bom ON p.PRODUCT_CODE = bom.PRODUCT_CODE\n" +
-"WHERE (bom.ITEM_CODE IN (" + genClassClause + ")) " + sort);
-                
-                request.setAttribute("product", records);
-                request.getRequestDispatcher("product.jsp").forward(request,response);
-                
-                records.close();
-                stmt.close();
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
             }
-        } 
-        catch (SQLException sqle)
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        else
         {
-                response.sendRedirect("error.jsp");
-        } 
+            StringBuilder sb = new StringBuilder();
+            for (String genClass : retrieveAllGenIdsAsArray())
+            {
+                sb.append("'").append(genClass).append("'");
+                sb.append(",");
+            }
+            genClassClause = sb.toString().substring(0, sb.length() - 1);
+        }
+        session.setAttribute("productItemSort", genClassClause);
+        
+        response.sendRedirect("ProductRedirect");
     }
     
     public String[] retrieveAllGenIdsAsArray() throws SQLException 
@@ -126,7 +115,11 @@ public class ProductRedirect extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SortingProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -140,7 +133,11 @@ public class ProductRedirect extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SortingProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
