@@ -70,7 +70,11 @@ public class ItemSearch extends HttpServlet {
                         + "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID "
                         + "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID "
                         + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE DISABLED = FALSE AND ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY ITEM_NUM");
+                        + "WHERE DISABLED = FALSE AND "
+                        + "ITEM_DESCRIPTION LIKE '"+ searchBar +"%' OR "
+                                + "ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR "
+                                + "ITEM.ABBREVIATION LIKE '"+ searchBar +"%' "
+                                + "ORDER BY ITEM_NUM");
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);

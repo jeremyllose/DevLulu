@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.product;
+package com.accountlist;
 
-import com.inventorylist.ItemAction;
+import com.model.EncryptDecrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -27,9 +26,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class EditProduct extends HttpServlet {
+public class EditAccountRedirect extends HttpServlet {
 
     Connection con;
+    int i = 3;
     byte[] key;
     String cypher;
     
@@ -50,6 +50,8 @@ public class EditProduct extends HttpServlet {
                     
                     con = DriverManager.getConnection(url, username, password);
                     
+                    
+                    
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                             + sqle.getMessage());
@@ -58,100 +60,74 @@ public class EditProduct extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
-        String productCode = (String) session.getAttribute("productCode");
+        String originalUsername = request.getParameter("originalUsername");
+        String getUsername = request.getParameter("username");
+        String getOldPassword = request.getParameter("oldPassword");
+        String getPassword = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
         
-        String getProductDescription = request.getParameter("productDescription");
-        float getProductPrice = Float.parseFloat(request.getParameter("productPrice"));
+        EncryptDecrypt crypto;
         
-        updateProduct(getProductDescription, getProductPrice, productCode);
-        
-        String[] itemCodes = request.getParameterValues("itemCode");
-        String[] itemQuantities = request.getParameterValues("updateItemQuantity");
-        int start = 0;
-        
-        if (itemCodes != null && itemQuantities != null)
+        if(check(getUsername) && !getUsername.equals(originalUsername))
         {
-            for (String itemCode : itemCodes) 
-            {
-                updateBillOFMaterial(Integer.parseInt(itemQuantities[start]), productCode, itemCode);
-                start++;
-            }
+            session.setAttribute("message", "Account Username Already Exist");
+            response.sendRedirect("editAccount.jsp");
         }
-        
-        String[] itemsRemoved = request.getParameterValues("itemRemove");
-        
-        if (itemsRemoved != null)
+        else if(!checkPassword(EncryptDecrypt.encrypt(getOldPassword, key, cypher)))
         {
-            for (String itemRemove : itemsRemoved) 
-            {
-                RemoveBillOFMaterial(productCode, itemRemove);
-            }
+            session.setAttribute("message", "Old Password doesn't match");
+            response.sendRedirect("editAccount.jsp");
         }
-        
-        String[] itemAdds = request.getParameterValues("itemsAdd");
-        String[] addQuantity = request.getParameterValues("itemQuantity");
-        start = 0;
-        
-        if (itemAdds != null)
+        else if(!getPassword.equals(confirmPassword))
         {
-            for(String addItem : itemAdds)
-            {
-                addBill(productCode, addItem, Integer.parseInt(addQuantity[start]));
-                start++;
-            }
+            session.setAttribute("message", "Password & Confirm Password does not match");
+            response.sendRedirect("editAccount.jsp");
         }
-        
-        response.sendRedirect("EditProductRedirect");
+        else
+        {
+            updateUser(getUsername, EncryptDecrypt.encrypt(getPassword, key, cypher), originalUsername);
+            session.setAttribute("username", getUsername);
+            if(session.getAttribute("rememberUsername") != null)
+            {
+                session.setAttribute("rememberUsername", getUsername);
+                session.setAttribute("rememberPassword", getPassword);
+            }
+            response.sendRedirect("editAccount.jsp");
+        }
     }
     
-    public void updateProduct(String desc, float price, String productCode)throws SQLException
+    public boolean check(String pkey) throws SQLException
     {
-        String query = "UPDATE PRODUCT SET PRODUCT_DESCRIPTION = ?, PRODUCT_PRICE = ? WHERE PRODUCT_CODE = ?";
+        String query = "SELECT 1 FROM LOGIN WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
         
-        ps.setString(1, desc);
-        ps.setFloat(2, price);
-        ps.setString(3, productCode);
-        ps.executeUpdate();
-        ps.close();
+        return resultSet.next();
     }
     
-    public void updateBillOFMaterial(int quantity, String productCode, String itemCode)throws SQLException
+    public boolean checkPassword(String pkey) throws SQLException
     {
-        String query = "UPDATE BILLOFMATERIALS SET QUANTITY = ? WHERE PRODUCT_CODE = ? AND ITEM_CODE = ?";
+        String query = "SELECT 1 FROM LOGIN WHERE PASSWORD = ?";
         PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
         
-        ps.setInt(1, quantity);
-        ps.setString(2, productCode);
-        ps.setString(3, itemCode);
-        ps.executeUpdate();
-        ps.close();
+        
+        return resultSet.next();
     }
     
-    public void RemoveBillOFMaterial(String productCode, String itemCode)throws SQLException
+    public void updateUser(String getUsername, String getPassword, String originalUsername)throws SQLException
     {
-        String query = "DELETE FROM BILLOFMATERIALS WHERE PRODUCT_CODE = ? AND ITEM_CODE = ?";
+        String query = "UPDATE LOGIN SET USERNAME = ?, PASSWORD = ? WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
-        ps.setString(1, productCode);
-        ps.setString(2, itemCode);
-        ps.executeUpdate();
-        ps.close();
-    }
-    
-    public void addBill(String productCode, String itemCode, int quantity)throws SQLException
-    {
-        String query = "INSERT INTO BILLOFMATERIALS (PRODUCT_CODE, ITEM_CODE, QUANTITY) "
-                + "VALUES (?, ?, ?)";
-        PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setString(1, productCode);
-        ps.setString(2, itemCode);
-        ps.setInt(3, quantity);
+        ps.setString(1, getUsername);
+        ps.setString(2, getPassword);
+        ps.setString(3, originalUsername);
         ps.executeUpdate();
         ps.close();
     }
@@ -171,7 +147,7 @@ public class EditProduct extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(EditProduct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditAccountRedirect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -189,7 +165,7 @@ public class EditProduct extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(EditProduct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditAccountRedirect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

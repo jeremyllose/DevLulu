@@ -14,6 +14,6 @@
 <body>
     <h1>403 Forbidden</h1>
     <p>You do not have permission to access this resource.</p>
-    <a href="/">Return Home</a>
+    <a href=href="WelcomePageRedirect">Return Home</a>
 </body>
 </html>

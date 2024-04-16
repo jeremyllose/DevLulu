@@ -72,6 +72,13 @@ public class VariancePageRedirect extends HttpServlet {
                 
                 String action = request.getParameter("button");
                 
+                String sort = (String) session.getAttribute("vaSort");
+                if(sort == null)
+                {
+                    sort = "ORDER BY ITEM_NUM ASC";
+                    session.setAttribute("vaSort", sort);
+                }
+                
                 if (action == null || action.isEmpty()) 
                 {
                     if (session.getAttribute("variancePgNum") == null) 
@@ -124,7 +131,7 @@ public class VariancePageRedirect extends HttpServlet {
                         + "WHERE ITEM.DISABLED = FALSE AND "
                         + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
-                        + "ORDER BY ITEM_NUM "
+                        + sort + " "
                         + "OFFSET "+ (((int) session.getAttribute("variancePgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY";
                 ResultSet rs = stmt.executeQuery(query);
                 request.setAttribute("inventory", rs);

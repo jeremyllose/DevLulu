@@ -1,21 +1,17 @@
 <%-- 
-    Document   : editProduct
-    Created on : 02 12, 24, 8:49:05 PM
-    Author     : BioStaR
+    Document   : p-sort
+    Created on : Apr 16, 2024, 9:13:19 PM
+    Author     : Cesar
 --%>
 
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/sort.css">
-        <title>Sales Page</title>
-        <script src="script/welcome.js" defer></script>
-        <title>edit Product Page</title>
+        <title>Product Sort Page</title>
     </head>
     <body>
         <script>
@@ -26,7 +22,7 @@
         </script>
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Sort Options</h1></div>
-            <form action="SortingWaste" method="post">
+            <form action="SortingProduct" method="post">
                 <div class="content-container">
                 <table>
                     <tr>
@@ -35,27 +31,16 @@
                             <%
                                 ResultSet genClass = (ResultSet) request.getAttribute("genClass");
                                 while (genClass.next()) {%>
-                            <label><%=genClass.getString("gen_name")%> <input type="checkbox" name="gc" value="<%=genClass.getString("gen_id")%>" ></label><br>
-                                <%	}
-                                %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Sub Class:</th>
-                        <td class="box-container">
-                            <%
-                                ResultSet subClass = (ResultSet) request.getAttribute("subClass");
-                                while (subClass.next()) {%>
-                            <label><%=subClass.getString("sub_name")%> <input type="checkbox" name="sc" value="<%=subClass.getString("sub_id")%>" ></label><br>
+                            <label><%=genClass.getString("item_description")%> <input type="checkbox" name="gc" value="<%=genClass.getString("item_code")%>" ></label><br>
                                 <%	}
                                 %>
                         </td>
                     </tr>
                 </table>
-                <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
+                <button class="inventory" id="return" onclick="redirectTo('ProductRedirect')">Return</button>
                 <button id="sorted" type="submit">Sort</button>
         </div>
                         </div>
     </form>
 </body>
-</html>
+</html> 

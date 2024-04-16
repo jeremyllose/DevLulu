@@ -17,6 +17,12 @@
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
+        <script>
+            if ( window.history.replaceState ) 
+            {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <div class="content-wrapper">
             <%
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -44,7 +50,9 @@
                         </button>
                     </div>
                 </form> 
+                
             </div>
+            
             <form action="SaveWastes" method="post">
                 
                 <div class="table-container">
@@ -131,5 +139,9 @@
             </form>
             <!--            <div id="dateText">Date: July 15, 2024</div>-->
         </div>
+                    <button onclick="redirectTo('WByItem')">Sort By Item Number</button>
+            <button onclick="redirectTo('WBySold')">Sort By Sold</button>
+            <button onclick="redirectTo('WByWaste')">Sort By Waste</button>
+            <button onclick="redirectTo('WByOther')">Sort By Other Subtractions</button>
     </body>
 </html>

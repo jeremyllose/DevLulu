@@ -12,8 +12,20 @@
     <title>500 Internal Server Error</title>
 </head>
 <body>
-    <h1>Database Import error</h1>
-    <p>Duplicate entries detected</p>
-    <a href="/">Return Home</a>
+    <h1>500 Internal Server Error</h1>
+    <p>Sorry, something went wrong on our end. Please try again later.</p>
+    <%
+                if (session.getAttribute("username") == null) {
+            %>
+    <a href="login.jsp">Return to Login Page</a>
+    <%
+        }
+else
+{
+            %>
+            <a href="WelcomePageRedirect">Return to Dashboard</a>
+            <%
+                }
+            %>
 </body>
 </html>
