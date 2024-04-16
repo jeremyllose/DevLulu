@@ -83,31 +83,31 @@ public class DeliveryExcelServlet extends HttpServlet {
        
         
          try {
-             
-        // Get login name from session or request attributes
+              
+             // Get login name from session or request attributes
         String loginName = (String) request.getSession().getAttribute("username");
 
         // Get current date and time
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentTime.format(formatter);
+        
+            // Use the database connection to retrieve data
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM TRANSACTIONS");
 
-        // Use the database connection to retrieve data
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM ITEM");
+            // Create Excel workbook
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Delivery Report");
 
-        // Create Excel workbook
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Inventory Report");
-
-        // Get ResultSet metadata to obtain column names
+            // Get ResultSet metadata to obtain column names
         ResultSetMetaData metaData = rs.getMetaData();
         int columnCount = metaData.getColumnCount();
 
         // Write column names as the first row in Excel sheet
         Row headerRow = sheet.createRow(3); // Assuming you want the column names to start from row 3
 
-        String[] columnNames = {"itemCode", "Sold", "Waste", "OtherSubs"};
+        String[] columnNames = {"itemCode", "Delivery", "Other Adds"};
 
         for (int i = 0; i < columnNames.length; i++) {
         headerRow.createCell(i).setCellValue(columnNames[i]);
@@ -126,17 +126,17 @@ public class DeliveryExcelServlet extends HttpServlet {
         while (rs.next()) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(rs.getString("ITEM_CODE"));
-            row.createCell(1).setCellValue(rs.getString("SOLD"));
-            row.createCell(2).setCellValue(rs.getString("WASTE"));
-            row.createCell(3).setCellValue(rs.getString("OTHERSUBS"));
-        
-            
+            row.createCell(1).setCellValue(rs.getString("DELIVERY"));
+            row.createCell(2).setCellValue(rs.getString("OTHERADDS"));
+          
+       
+           
             // Add more columns as needed
         }
 
         // Set response headers
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=Inventory Report.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=Delivery Report.xlsx");
 
         // Write workbook to response output stream
         workbook.write(response.getOutputStream());
