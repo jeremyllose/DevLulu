@@ -26,8 +26,6 @@
             }
         %>
         <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
             if (session.getAttribute("userRole").equals("Manager") ) {
                 session.setAttribute("verification", "You have no Permission to Open the Account List");
                 response.sendRedirect("403 Forbidden Page.jsp");
@@ -66,7 +64,16 @@
                     <th><input id="addacc" type="submit" value="Add Account"/></th>
                     </tr>
                 </table>
+                        <%
+            if (session.getAttribute("message") != null) {
+        %>
+        <h4>${message}</h4>
+        <%
+            }
+        %>
+        </form>
+        
         </div>
-    </form>
+    
 </body>
 </html>

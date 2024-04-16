@@ -52,6 +52,13 @@
                  <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Account</span></button>
          </form>
             <div class="table-container">
+                <%
+            if (request.getAttribute("accountMade") != null) {
+        %>
+        <h4>${accountMade}</h4>
+        <%
+            }
+        %>
         <table>
             <thead>
                 <tr>

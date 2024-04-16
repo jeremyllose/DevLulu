@@ -5,6 +5,7 @@
 package com.imports;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,7 +17,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -68,71 +68,137 @@ public class InsertDataServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        PreparedStatement pstmt = null;
-         try {
-        
+        throws ServletException, IOException {
 
-        // Import Item sheet
-        Sheet itemSheet = (Sheet) request.getAttribute("Item");
-        pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
-        importSheetData(pstmt, itemSheet);
+    try {
+       
+        Sheet sheetItem = (Sheet) request.getAttribute("Item");
+        Sheet sheetPricing = (Sheet) request.getAttribute("Pricing");
+        Sheet sheetTransaction = (Sheet) request.getAttribute("Transaction");
+        Sheet sheetInventory = (Sheet) request.getAttribute("Inventory");
+        Sheet sheetStockHistory = (Sheet) request.getAttribute("Stockhistory");
 
-        // Import Pricing sheet
-        Sheet pricingSheet = (Sheet) request.getAttribute("pricing");
-        pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) VALUES (?,?,?,?,?)");
-        importSheetData(pstmt, pricingSheet);
+      
+        processItemSheet(sheetItem);
+        processPricingSheet(sheetPricing);
+        processTransactionSheet(sheetTransaction);
+        processInventorySheet(sheetInventory);
+        processStockHistorySheet(sheetStockHistory);
 
-        // Import Transaction sheet
-        Sheet transactionSheet = (Sheet) request.getAttribute("transactions");
-        pstmt = con.prepareStatement("INSERT INTO TRANSACTION_TABLE (ITEM_CODE, DELIVERY, OTHERSADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,...)");
-        importSheetData(pstmt, transactionSheet);
-
-        // Import Inventory sheet
-        Sheet inventorySheet = (Sheet) request.getAttribute("inventory");
-        pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) VALUES (?,?,?,?,...)");
-        importSheetData(pstmt, inventorySheet);
-
-        // Import Stock History sheet
-        Sheet stockHistorySheet = (Sheet) request.getAttribute("stock_history");
-        pstmt = con.prepareStatement("INSERT INTO STOCK_HISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
-        importSheetData(pstmt, stockHistorySheet);
-
-        // Commit the transaction
-        con.commit();
-        response.sendRedirect("ItemList");
+        response.sendRedirect("success.jsp");
     } catch (SQLException e) {
-        // Redirect to an error page
-        response.sendRedirect("error.jsp");
-    } finally {
-        // Close resources in the finally block
-        try {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        e.printStackTrace();
+        handleSQLException(e, response);
     }
+
 }
-private void importSheetData(PreparedStatement pstmt, Sheet sheet) throws SQLException {
+
+private void processItemSheet(Sheet sheet) throws SQLException {
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
+
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
-            // Set values for parameters
             pstmt.setString(1, row.getCell(0).toString());
             pstmt.setInt(2, (int) Float.parseFloat(row.getCell(1).toString()));
             pstmt.setString(3, row.getCell(2).toString());
             pstmt.setString(4, row.getCell(3).toString());
             pstmt.setString(5, row.getCell(4).toString());
-            // Set more parameters if needed
-            pstmt.executeUpdate();
+            pstmt.setString(6, row.getCell(5).toString());
+            executeInsertIgnore(pstmt);
+        }
+    }
+
+    pstmt.close();
+    con.commit();
+}
+
+private void processPricingSheet(Sheet sheet) throws SQLException {
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) VALUES (?,?,?,?,?)");
+
+    for (Row row : sheet) {
+        if (row.getRowNum() != 0) {
+            pstmt.setString(1, row.getCell(0).toString());
+            pstmt.setString(2, row.getCell(1).toString());
+            pstmt.setBigDecimal(3, new BigDecimal(row.getCell(2).toString()));
+            pstmt.setBoolean(4, Boolean.parseBoolean(row.getCell(3).toString()));
+            pstmt.setBigDecimal(5, new BigDecimal(row.getCell(4).toString()));
+             executeInsertIgnore(pstmt);
+        }
+    }
+
+    pstmt.close();
+    con.commit();
+}
+
+private void processTransactionSheet(Sheet sheet) throws SQLException {
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,?,?)");
+
+    for (Row row : sheet) {
+        if (row.getRowNum() != 0) {
+            pstmt.setString(1, row.getCell(0).toString());
+            for (int i = 1; i <= 5; i++) {
+                pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
+            }
+            executeInsertIgnore(pstmt);
+        }
+    }
+
+    pstmt.close();
+    con.commit();
+}
+
+private void processInventorySheet(Sheet sheet) throws SQLException {
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) VALUES (?,?,?,?,?)");
+
+    for (Row row : sheet) {
+        if (row.getRowNum() != 0) {
+            pstmt.setString(1, row.getCell(0).toString());
+            for (int i = 1; i <= 4; i++) {
+                pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
+            }
+            executeInsertIgnore(pstmt);
+        }
+    }
+
+    pstmt.close();
+    con.commit();
+}
+
+private void processStockHistorySheet(Sheet sheet) throws SQLException {
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO STOCKHISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
+
+    for (Row row : sheet) {
+        if (row.getRowNum() != 0) {
+            pstmt.setString(1, row.getCell(0).toString());
+            for (int i = 1; i <= 2; i++) {
+                pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
+            }
+             executeInsertIgnore(pstmt);
+        }
+    }
+
+    pstmt.close();
+    con.commit();
+}
+private void executeInsertIgnore(PreparedStatement pstmt) throws SQLException {
+    try {
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        
+        if (e.getSQLState().equals("23000")) {
+            System.out.println("Duplicate key error ignored: " + e.getMessage());
+        } else {
+            throw e; 
         }
     }
 }
+
+private void handleSQLException(SQLException e, HttpServletResponse response) throws IOException {
+    e.printStackTrace();
+
+    response.sendRedirect("error.jsp");
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

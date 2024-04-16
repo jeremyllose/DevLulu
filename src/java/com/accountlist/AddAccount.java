@@ -74,7 +74,12 @@ public class AddAccount extends HttpServlet {
         {
             Statement stm = con.createStatement();
             
-            if(getPassword.equals(confirmPassword) && getPassword != "")
+            if(checkUsername(getUsername))
+            {
+                session.setAttribute("message", "Account Already Exist");
+                response.sendRedirect("add.jsp");
+            }
+            else if(getPassword.equals(confirmPassword) && getPassword != "")
             {
                 if(getRole != null)
                 {
@@ -87,6 +92,13 @@ public class AddAccount extends HttpServlet {
                     ps.executeUpdate();
                     ps.close();
                 }
+                request.setAttribute("accountMade", "Account Created");
+                request.getRequestDispatcher("AccountList").forward(request,response);
+            }
+            else
+            {
+                session.setAttribute("message", "Password and Confirm Password are not the same");
+                response.sendRedirect("add.jsp");
             }
         }
         
@@ -94,8 +106,6 @@ public class AddAccount extends HttpServlet {
         {
             response.sendRedirect("error.jsp");
         }
-        request.getRequestDispatcher("AccountList").forward(request,response);
-        
     }
     
     public int countDB() throws SQLException
@@ -114,6 +124,16 @@ public class AddAccount extends HttpServlet {
         String query = "SELECT 1 FROM LOGIN WHERE ID = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
+    }
+    
+    public boolean checkUsername(String pkey) throws SQLException
+    {
+        String query = "SELECT 1 FROM LOGIN WHERE USERNAME = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
         ResultSet resultSet = ps.executeQuery();
         
         return resultSet.next();
