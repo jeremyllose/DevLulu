@@ -7,6 +7,14 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <error-page>
+        <error-code>
+            404
+        </error-code>
+        <location>
+            /404 Not Found Page.jsp
+        </location>
+    </error-page>
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
