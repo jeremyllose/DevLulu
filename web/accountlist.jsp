@@ -81,7 +81,16 @@
                             </button>
                                     </form> --%>
                                     <%
-                                        if (!results.getString("role").equals("Owner"))
+                                        if (results.getBoolean("disabled") == true)
+                                        {
+                                    %>
+                                    <form action="EnableUser" method="post">
+                                        <input type="hidden" name="id" value="<%= results.getString("id") %>">
+                                        <button id="button-css" type="submit" onclick="return confirm('Are you sure you want to disable this user account?')"><img class="edit-picture" src="photos/DisableFR.png" alt="Disable Button">  Enable</button>
+                                    </form>
+                                    <%
+                                        }
+                                        else if (!results.getString("role").equals("Owner"))
                                         {
                                     %>
                                     <form action="DisableUser" method="post">

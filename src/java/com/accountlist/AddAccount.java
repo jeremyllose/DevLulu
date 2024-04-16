@@ -79,6 +79,10 @@ public class AddAccount extends HttpServlet {
                 if(getRole != null)
                 {
                     int idNum = countDB();
+                    while(check(idNum) == true)
+                    {
+                        idNum++;
+                    }
                     PreparedStatement ps = con.prepareStatement("INSERT INTO LOGIN (ID, USERNAME, PASSWORD, ROLE) VALUES ("+ idNum +", '"+ getUsername +"', '"+ EncryptDecrypt.encrypt(getPassword, key, cypher) +"', '"+ getRole +"')");
                     ps.executeUpdate();
                     ps.close();
@@ -103,5 +107,15 @@ public class AddAccount extends HttpServlet {
         int count = rs.getInt(1);
         count += 1;
         return count;
+    }
+    
+    public boolean check(int pkey) throws SQLException
+    {
+        String query = "SELECT 1 FROM LOGIN WHERE ID = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
     }
 }
