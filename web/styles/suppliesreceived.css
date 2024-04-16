@@ -43,10 +43,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     display: flex;
     gap: 10px;
 }
-#searchContainer {
+.searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
-    position: relative;
-    right: -115px;
+    position: fixed;
+    right: 185px;
 }
 .Delivery-Container {
     display: inline-block;
@@ -108,13 +108,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 }
 .table-container {
     max-height: 1000px; /* Set maximum height */
-    overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
+    overflow: hidden; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
     display: flex;
     flex-direction: column; /* Stack table rows vertically */
     position: relative;
     right: -40px;
+    top: 31px;
 }
 
 .table-container table {
@@ -216,9 +217,16 @@ input[type="number"] {
     text-align: center;
 }
 #savechanges {
-    position: relative;
-    right: -480px;
-    top: -612px;
+    position: fixed;
+    right: 730px;
+    top: 60px;
+}
+.sorting {
+    background-color: #ba8461;
+    border: none;
+    cursor: pointer;
+    color: white;
+    height: 3%;
 }
 @media screen and (max-width: 1440px) {
     .inventory {
@@ -239,11 +247,10 @@ input[type="number"] {
         right: -370px;
         top: -630px;
     }
-    #searchContainer {
+    .searchContainer {
         display: inline-block; /* Ensure the container only occupies necessary space */
-        position: relative;
-        right: -60px;
-
+        position: fixed;
+        right: 185px;
     }
     .Delivery-Container {
         display: inline-block;

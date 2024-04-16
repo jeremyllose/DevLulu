@@ -81,6 +81,21 @@ iframe {
     margin-top: 20px; /* Space above headers */
     margin-bottom: 20px; /* Space below headers */
 }
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+}
+
+.box {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 20px; /* Add margin between boxes */
+}
 @media screen and (max-width: 1440px) {
     .graphBox {
         display: grid;
@@ -94,7 +109,7 @@ iframe {
         box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
         border-radius: 20px;
         width: 250px;
-        
+
     }
     .container {
         position: relative;

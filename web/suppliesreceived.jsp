@@ -38,14 +38,14 @@
                 float addCost = (Float) request.getAttribute("addsValue");
             %>
             <div class="others">
-                <form action="SuppliesExcelServlet" method="post">
+                <form action="DeliveryExcelServlet" method="post">
                     <button class="inventory" id="generate" type="submit">
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
-                <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text">Sort Options</span></button>
+                <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text">Filter Options</span></button>
                 <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery: ₱<%= addCost%></h1></div>
                 <form action="SuppliesSearch" method="post">
-                    <div id="searchContainer">
+                    <div class="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
                             <img src="photos/greensearch.png" style="width: 46.5px; height: 46.5px;" alt="Search Icon">
@@ -59,13 +59,13 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Item Code</th>
+                                <th>Item Code <button class="sorting" onclick="redirectTo('VByItem')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>Item Description</th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
                                 <th>UOM</th>
-                                <th>Deliveries</th>
-                                <th>Others</th>
+                                <th>Deliveries <button class="sorting" onclick="redirectTo('VByDelivery')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
+                                <th>Others <button class="sorting" onclick="redirectTo('VByAdds')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>End Quantity</th>
                                 <!--                            <th><button id="button-css" type="submit" name="button" value="save" style="background-color: #8f654a; color: white; border:none;">
                                                                     <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Save Changes</b></button></th>-->
@@ -139,8 +139,4 @@
                 </table>
             </form>
         </div>
-                    <button onclick="redirectTo('VByItem')">Sort By Item Number</button>
-            <button onclick="redirectTo('VByDelivery')">Sort By Delivery</button>
-            <button onclick="redirectTo('VByAdds')">Sort By Adds</button>
-    </body>
 </html>

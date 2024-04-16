@@ -85,7 +85,7 @@ public class InsertDataServlet extends HttpServlet {
         processInventorySheet(sheetInventory);
         processStockHistorySheet(sheetStockHistory);
 
-        response.sendRedirect("success.jsp");
+        
     } catch (SQLException e) {
         e.printStackTrace();
         handleSQLException(e, response);
@@ -94,8 +94,11 @@ public class InsertDataServlet extends HttpServlet {
 }
 
 private void processItemSheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
-
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) " +
+                                                     "SELECT ?, ?, ?, ?, ?, ? " +
+                                                     "FROM SYSIBM.SYSDUMMY1 " +
+                                                     "LEFT JOIN ITEM ON ITEM.ITEM_CODE = ? " +
+                                                     "WHERE ITEM.ITEM_CODE IS NULL");
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
             pstmt.setString(1, row.getCell(0).toString());
@@ -113,7 +116,11 @@ private void processItemSheet(Sheet sheet) throws SQLException {
 }
 
 private void processPricingSheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) VALUES (?,?,?,?,?)");
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) " +
+                                                     "SELECT ?, ?, ?, ?, ? " +
+                                                     "FROM SYSIBM.SYSDUMMY1 " +
+                                                     "LEFT JOIN PRICING ON PRICING.ITEM_CODE = ? " +
+                                                     "WHERE PRICING.ITEM_CODE IS NULL");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
@@ -131,7 +138,11 @@ private void processPricingSheet(Sheet sheet) throws SQLException {
 }
 
 private void processTransactionSheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,?,?)");
+     PreparedStatement pstmt = con.prepareStatement("INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) " +
+                                                     "SELECT ?, ?, ?, ?, ?, ? " +
+                                                     "FROM SYSIBM.SYSDUMMY1 " +
+                                                     "LEFT JOIN TRANSACTIONS ON TRANSACTIONS.ITEM_CODE = ? " +
+                                                     "WHERE TRANSACTIONS.ITEM_CODE IS NULL");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
@@ -148,7 +159,11 @@ private void processTransactionSheet(Sheet sheet) throws SQLException {
 }
 
 private void processInventorySheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) VALUES (?,?,?,?,?)");
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) " +
+                                                     "SELECT ?, ?, ?, ?, ? " +
+                                                     "FROM SYSIBM.SYSDUMMY1 " +
+                                                     "LEFT JOIN INVENTORY ON INVENTORY.ITEM_CODE = ? " +
+                                                     "WHERE INVENTORY.ITEM_CODE IS NULL");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
@@ -165,7 +180,11 @@ private void processInventorySheet(Sheet sheet) throws SQLException {
 }
 
 private void processStockHistorySheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT INTO STOCKHISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
+   PreparedStatement pstmt = con.prepareStatement("INSERT INTO STOCKHISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) " +
+                                                     "SELECT ?, ?, ? " +
+                                                     "FROM SYSIBM.SYSDUMMY1 " +
+                                                     "LEFT JOIN STOCKHISTORY ON STOCKHISTORY.ITEM_CODE = ? " +
+                                                     "WHERE STOCKHISTORY.ITEM_CODE IS NULL");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
@@ -196,7 +215,7 @@ private void executeInsertIgnore(PreparedStatement pstmt) throws SQLException {
 private void handleSQLException(SQLException e, HttpServletResponse response) throws IOException {
     e.printStackTrace();
 
-    response.sendRedirect("error.jsp");
+    response.sendRedirect("500 Internal Server Error Page.jsp");
 }
 
 

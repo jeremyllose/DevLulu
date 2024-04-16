@@ -49,7 +49,7 @@
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
                 <form action="ItemSort" method="post">
-                    <button class="inventory" id="sort" ><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Sort Options</span></button>
+                    <button class="inventory" id="sort" ><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Filter Options</span></button>
                 </form>
                 <form action="UploadServlet" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="fileInput" style="display: none;"/>
@@ -69,7 +69,7 @@
                     </script>
                 </form>
                 <form action="ItemSearch" method="post">
-                    <div id="searchContainer">
+                    <div class="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
                             <img src="photos/greensearch.png" style="width: 47px; height: 47px;" alt="Search Icon">
@@ -85,7 +85,7 @@
                             <tr>
                                 <th><button id="disable-css" type="submit" name="button" value="disable" >
                                         <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px;"></button></th>
-                                <th>Item Code</th>
+                                <th>Item Code <button class="sorting" onclick="redirectTo('AscendDescend')"><span id="ADIcon">&#8597;</span></button> </th>
                                 <th>Item No.</th>
                                 <th>Description</th>
                                 <th>Abbreviation</th>
@@ -240,6 +240,6 @@
             }
         }
     </script>
-<button onclick="redirectTo('AscendDescend')">Sort By Item Number</button>
+
 </body>
 </html>

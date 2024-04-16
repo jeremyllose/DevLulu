@@ -43,10 +43,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     display: flex;
     gap: 10px;
 }
-#searchContainer {
+.searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
-    position: relative;
-    right: -507px;
+    position: fixed;
+    right: 185px;
 }
 #searchBar {
     padding: 8px;
@@ -187,10 +187,42 @@ input[type="number"] {
     text-align: center;
 }
 #savechanges {
-    position: relative;
-    right: -481px;
-    top: -645px;
+    position: fixed;
+    right: 730px;
+    top: 60px;
 }
+.sorting {
+    background-color: #ba8461;
+    border: none;
+    cursor: pointer;
+    color: white;
+    height: 3%;
+}
+ .pagination {
+        margin-top: 20px;
+    }
+
+    .pagination td {
+        padding: 5px;
+    }
+
+    .pagination input[type="submit"] {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .pagination input[type="submit"]:hover {
+        background-color: #45a049;
+    }
 @media screen and (max-width: 1440px) {
     .inventory {
         font-size: 20px;
@@ -210,9 +242,9 @@ input[type="number"] {
         right: -370px;
         top: -637px;
     }
-    #searchContainer {
+    .searchContainer {
         display: inline-block; /* Ensure the container only occupies necessary space */
-        position: relative;
-        right: -390px;
+        position: fixed;
+        right: 185px;
     }
 }
