@@ -1,6 +1,6 @@
 <%-- 
-    Document   : passwordchange
-    Created on : Apr 17, 2024, 12:34:32 AM
+    Document   : passchange
+    Created on : Apr 17, 2024, 2:02:45 AM
     Author     : Cesar
 --%>
 
@@ -12,18 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%
-            if (session.getAttribute("username") != null) {
-        %>
-        <h1>USER: ${username}</h1>
-        <%
-            }
-        %>
         <form action="PasswordChange" method="post">
             <%
-            if (session.getAttribute("usernameForgot") != null) {
+            if (session.getAttribute("username") != null) {
         %>
-        <h1>USER: ${usernameForgot}</h1><input type="hidden" name="username" value="${usernameForgot}">
+        <h1>USER: ${username}</h1><input type="hidden" name="username" value="${username}">
         <%
             }
         %>

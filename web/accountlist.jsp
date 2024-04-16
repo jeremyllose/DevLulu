@@ -66,7 +66,7 @@
                  <%--   <th>Password</th> --%>
                     <th>Role</th>
                     <th>Action</th>
-                    <th>Password Forgotten</th>
+                    <th>Account Edit Request</th>
                 </tr>
             </thead>
             

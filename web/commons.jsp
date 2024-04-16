@@ -49,12 +49,20 @@
                 <form id="account-form" action="AccountList" method="post">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Account List</button>
                 </form>
-                <% 
-                    }
-                %>
                 <form id="account-form" action="editAccount.jsp">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
                 </form>
+                <% 
+                    }
+                    else
+                    {
+                %>
+                <form id="account-form" action="passchange.jsp">
+                    <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
+                </form>
+                <% 
+                    }
+                %>
                 
                 <br>
                 <form id="logout-form" action="Logout">

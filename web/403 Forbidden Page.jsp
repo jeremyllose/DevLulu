@@ -14,6 +14,18 @@
 <body>
     <h1>403 Forbidden</h1>
     <p>You do not have permission to access this resource.</p>
-    <a href=href="WelcomePageRedirect">Return Home</a>
+    <%
+                if (session.getAttribute("username") == null) {
+            %>
+    <a href="login.jsp">Return to Login Page</a>
+    <%
+        }
+else
+{
+            %>
+            <a href="WelcomePageRedirect">Return to Dashboard</a>
+            <%
+                }
+            %>
 </body>
 </html>
