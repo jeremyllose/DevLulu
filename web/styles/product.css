@@ -201,6 +201,19 @@ input[type="number"] {
     right: -240px;
     top: -412px;
 }
+.sorting {
+    background-color: #ba8461;
+    border: none;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    bottom: 1px;
+}
+#sortprice {
+    position: relative; 
+    right: 5rem;
+    top: 5rem;
+}
 @media screen and (max-width: 1440px) {
     .inventory {
         font-size: 20px;

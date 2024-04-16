@@ -183,6 +183,14 @@ label:not(.inventory) {
 label:hover:not(.inventory:hover) {
     background-color: #e0e0e0; /* Change background on hover */
 }
+.sorting {
+    background-color: #ba8461;
+    border: none;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    bottom: 1px;
+}
 @media screen and (max-width: 1440px) {
     .inventory {
         font-size: 20px;
