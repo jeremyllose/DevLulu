@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 #dashboardheader {
@@ -34,7 +34,7 @@ body {
 .th-product-label {
     text-align: left; /* Aligns the text to the right */
     width: 10rem;
-    
+
 }
 .td-product-label {
     text-align: left; /* Aligns the text to the right */
@@ -94,6 +94,8 @@ body {
     border-radius: 5px;
 }
 #return {
+    display: inline-block;
+    padding: 10px 15px;
     background-color: #900603;
     color: white;
     border: none;
@@ -101,8 +103,8 @@ body {
     padding: 10px 15px;
     cursor: pointer;
     position: relative;
-    top: 17.6rem;
-    right: -15rem;
+    right: -18rem;
+
 }
 
 .product-container:hover {

@@ -63,8 +63,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 }
 .searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
-    position: relative;
-    right: -985px;
+    position: fixed;
+    right: 185px;
 }
 #searchBar {
     padding: 8px;
@@ -120,13 +120,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 }
 .table-container {
     max-height: 1000px; /* Set maximum height */
-    overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
+    overflow: hidden; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
     display: flex;
     flex-direction: column; /* Stack table rows vertically */
     position: relative;
     right: -40px;
+    top: 131px;
 }
 
 .table-container table {
@@ -213,8 +214,9 @@ label:hover:not(.inventory:hover) {
         width: 345px;
     }
     .searchContainer {
-        position: relative;
-        right: -755px;
+        display: inline-block; /* Ensure the container only occupies necessary space */
+        position: fixed;
+        right: 185px;
     }
     #savechanges {
         position: relative;

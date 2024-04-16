@@ -41,7 +41,7 @@
                 </form>
 
                 <form action="ProductSortPage" method="post">
-                    <button type="submit" class="inventory" id="add">Sort</button>
+                    <button type="submit" class="inventory" id="add"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Filter Options</span></button>
                 </form>
 
                 <form action="ProductSearch" method="post">
@@ -62,9 +62,10 @@
                                 </th>
                                 <th>Product Code</th>
                                 <th>Product Description</th>                       
-                                <th>Product  </th>
-                                <th>Quantity</th>
+                                <th>Product Price <button  class="sorting" onclick="redirectTo('PByPrice')"><span id="productPriceIcon">&#8597;</span></button></th>
+                                <th>Quantity <button class="sorting" onclick="redirectTo('PByQuantity')"><span id="productQuantityIcon">&#8597;</span></button> </th>
                                 <th>Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -132,7 +133,6 @@
             </form>
         </div>
 
-                        <button id="sortprice" class="sorting" onclick="redirectTo('PByPrice')"><span id="priceSortIcon">&#8597;</span></button>
-                        <button id="sortquan"class="sorting" onclick="redirectTo('PByQuantity')"><span id="priceSortIcon">&#8597;</span></button> 
+
     </body>
 </html> 
