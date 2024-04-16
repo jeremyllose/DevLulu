@@ -232,6 +232,10 @@
         <servlet-name>EnableUser</servlet-name>
         <servlet-class>com.accountlist.EnableUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AscendDescend</servlet-name>
+        <servlet-class>com.inventorylist.AscendDescend</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -415,6 +419,10 @@
     <servlet-mapping>
         <servlet-name>EnableUser</servlet-name>
         <url-pattern>/EnableUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AscendDescend</servlet-name>
+        <url-pattern>/AscendDescend</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
