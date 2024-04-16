@@ -44,8 +44,8 @@
 }
 .searchContainer {
     display: inline-block; /* Ensure the container only occupies necessary space */
-    position: relative;
-    right: -745px;
+    position: fixed;
+    right: 185px;
 }
 #searchBar {
     padding: 8px;
@@ -80,14 +80,16 @@
 }
 .table-container {
     max-height: 1000px; /* Set maximum height */
-    overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
+    overflow: hidden; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
     display: flex;
     flex-direction: column; /* Stack table rows vertically */
     position: relative;
     right: -40px;
+    top: 80px;
 }
+
 
 .table-container table {
     width: 100%; /* Ensure the table takes up the full width of its container */
@@ -197,9 +199,16 @@ input[type="number"] {
     text-align: center;
 }
 #savechanges {
-    position: relative;
-    right: -240px;
-    top: -412px;
+    position: fixed;
+    right: 730px;
+    top: 60px;
+}
+.sorting {
+    background-color: #ba8461;
+    border: none;
+    cursor: pointer;
+    color: white;
+    height: 3%;
 }
 @media screen and (max-width: 1440px) {
     .inventory {
@@ -226,8 +235,9 @@ input[type="number"] {
         width: 345px;
     }
     .searchContainer {
-        position: relative;
-        right: -570px;
+        display: inline-block; /* Ensure the container only occupies necessary space */
+        position: fixed;
+        right: 185px;
     }
     #savechanges {
         position: relative;

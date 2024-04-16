@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.forgot;
+package com.accountlist;
 
+import com.model.EncryptDecrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,14 +20,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cesar
  */
-public class EnablePassword extends HttpServlet {
+public class PasswordChange extends HttpServlet {
 
     Connection con;
+    int i = 3;
     byte[] key;
     String cypher;
     
@@ -57,33 +60,63 @@ public class EnablePassword extends HttpServlet {
                     + nfe.getMessage());
             }
     }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
         String getUsername = request.getParameter("username");
-        enable(getUsername);
-        updateUser(passwordChange(getUsername), getUsername);
-        response.sendRedirect("AccountList");
+        String getPassword = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        
+        EncryptDecrypt crypto;
+        
+        if(!check(getUsername))
+        {
+            session.setAttribute("message", "Account Does Not Exist");
+            response.sendRedirect("passwordchange.jsp");
+        }
+        else if(!getPassword.equals(confirmPassword))
+        {
+            session.setAttribute("message", "Password & Confirm Password does not match");
+            response.sendRedirect("passwordchange.jsp");
+        }
+        else if(session.getAttribute("username") != null)
+        {
+            updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
+            session.setAttribute("message", "Wait till you're password has been approved by the Admin");
+            response.sendRedirect("passwordchange.jsp");
+        }
+        else
+        {
+            updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
+            session.setAttribute("message", "Wait till you're password has been approved by the Admin");
+            response.sendRedirect("login.jsp");
+        }
     }
     
-    public String passwordChange(String gc) throws SQLException
+    public boolean check(String pkey) throws SQLException
     {
-        String result = null;
-        
-        String query = "SELECT REQUESTEDCHANGE FROM LOGIN WHERE USERNAME = ?";
+        String query = "SELECT 1 FROM LOGIN WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, gc);
+        ps.setString(1, pkey);
         ResultSet resultSet = ps.executeQuery();
-        if (resultSet.next()) {
-            result = resultSet.getString("REQUESTEDCHANGE");
-        }
         
-        return result;
+        return resultSet.next();
+    }
+    
+    public boolean checkPassword(String pkey) throws SQLException
+    {
+        String query = "SELECT 1 FROM LOGIN WHERE PASSWORD = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
+        
+        
+        return resultSet.next();
     }
     
     public void updateUser(String getPassword, String originalUsername)throws SQLException
     {
-        String query = "UPDATE LOGIN SET PASSWORD = ?, REQUESTEDCHANGE = null WHERE USERNAME = ?";
+        String query = "UPDATE LOGIN SET FORGOTTEN = TRUE, REQUESTEDCHANGE = ? WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, getPassword);
@@ -91,17 +124,7 @@ public class EnablePassword extends HttpServlet {
         ps.executeUpdate();
         ps.close();
     }
-    
-    public void enable(String username)throws SQLException
-    {
-        int count = 0;
-        String query = "UPDATE LOGIN SET ENABLE = TRUE WHERE USERNAME = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        
-        ps.setString(1, username);
-        ps.executeUpdate();
-        ps.close();
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -118,7 +141,7 @@ public class EnablePassword extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(EnablePassword.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PasswordChange.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -136,7 +159,7 @@ public class EnablePassword extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(EnablePassword.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PasswordChange.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

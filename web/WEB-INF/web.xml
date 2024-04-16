@@ -308,6 +308,10 @@
         <servlet-name>EditAccountRedirect</servlet-name>
         <servlet-class>com.accountlist.EditAccountRedirect</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PasswordChange</servlet-name>
+        <servlet-class>com.accountlist.PasswordChange</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -560,6 +564,10 @@
     <servlet-mapping>
         <servlet-name>EditAccountRedirect</servlet-name>
         <url-pattern>/EditAccountRedirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PasswordChange</servlet-name>
+        <url-pattern>/PasswordChange</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

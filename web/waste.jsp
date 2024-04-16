@@ -18,14 +18,13 @@
     </head>
     <body>
         <script>
-            if ( window.history.replaceState ) 
+            if (window.history.replaceState)
             {
-                window.history.replaceState( null, null, window.location.href );
+                window.history.replaceState(null, null, window.location.href);
             }
         </script>
         <div class="content-wrapper">
-            <%
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            <%                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
                 if (session.getAttribute("username") == null) {
                     response.sendRedirect("login.jsp");
@@ -35,38 +34,38 @@
                 <h1 id="dashboardheader">Usage</h1></div>
 
             <div class="others">
-                 <form action="UsageExcelServlet" method="post">
+                <form action="UsageExcelServlet" method="post">
                     <button class="inventory" id="generate" type="submit">
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
                 <button class="inventory" id="sort" onclick="redirectTo('SortWasteRedirect')">
-                    <img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text">Sort Options</span></button>
+                    <img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text">Filter Options</span></button>
 
                 <form action="WasteSearch" method="post">
-                    <div id="searchContainer">
+                    <div class="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
                             <img src="photos/greensearch.png" style="width: 46.5px; height: 46.5px;" alt="Search Icon">
                         </button>
                     </div>
                 </form> 
-                
+
             </div>
-            
+
             <form action="SaveWastes" method="post">
-                
+
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Item Code</th>
+                                <th>Item Code <button class="sorting" onclick="redirectTo('WByItem')"><span id="itemCodeSortIcon">&#8597;</span></button></th>
                                 <th>Item Description</th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
                                 <th>UOM</th>
-                                <th>Sold</th>
-                                <th>Waste</th>
-                                <th>Other Subtractions</th>
+                                <th>Sold <button class="sorting" onclick="redirectTo('WBySold')"><span id="soldSortIcon">&#8597;</span></button></th>
+                                <th>Waste <button class="sorting" onclick="redirectTo('WByWaste')"><span id="wasteSortIcon">&#8597;</span></button></th>
+                                <th>Other Subtractions <button class="sorting" onclick="redirectTo('WByOther')"><span id="otherSubtractionsSortIcon">&#8597;</span></button></th>
                                 <th>End Quantity</th>
                             </tr>
                         </thead>
@@ -90,11 +89,11 @@
                         </tbody>
                     </table>
                 </div>
-                        <div class="others"><button id="savechanges" type="submit" class="inventory" value="Save Changes">
+                <div class="others"><button id="savechanges" type="submit" class="inventory" value="Save Changes">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
             <form action="WasteRedirect" method="post">
-                <table>
+                <table class="pagination">
                     <%
                         Integer itemPgNum = (Integer) session.getAttribute("wastePgNum");
                         Integer totalPages = (Integer) session.getAttribute("wastePages");
@@ -139,9 +138,5 @@
             </form>
             <!--            <div id="dateText">Date: July 15, 2024</div>-->
         </div>
-                    <button onclick="redirectTo('WByItem')">Sort By Item Number</button>
-            <button onclick="redirectTo('WBySold')">Sort By Sold</button>
-            <button onclick="redirectTo('WByWaste')">Sort By Waste</button>
-            <button onclick="redirectTo('WByOther')">Sort By Other Subtractions</button>
     </body>
 </html>

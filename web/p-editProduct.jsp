@@ -18,27 +18,26 @@
     </head>
     <body>
         <script>
-            if ( window.history.replaceState ) 
+            if (window.history.replaceState)
             {
-                window.history.replaceState( null, null, window.location.href );
+                window.history.replaceState(null, null, window.location.href);
             }
         </script>
-        <%
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        <%            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-                if (session.getAttribute("username") == null) {
-                    response.sendRedirect("login.jsp");
-                }
-            %>
-        <div class="dashboardbar">
-            <h1 id="dashboardheader">Edit Product </h1></div>
-        <%
-            if (session.getAttribute("productCode") != null) {
-        %>
-        ${productCode}
-        <%
+            if (session.getAttribute("username") == null) {
+                response.sendRedirect("login.jsp");
             }
         %>
+        <div class="dashboardbar">
+            <h1 id="dashboardheader">Edit Product </h1></div>
+            <%
+                if (session.getAttribute("productCode") != null) {
+            %>
+            ${productCode}
+            <%
+                }
+            %>
         <form action="EditProduct" method="post">
             <%
                 ResultSet results = (ResultSet) request.getAttribute("editProduct");
@@ -46,7 +45,7 @@
             <div class="item-container">
                 <table>
                     <tr>
-                            <th class="th-product-label">Product Code:</th>
+                        <th class="th-product-label">Product Code:</th>
                         <th class="th-product-label"><%= results.getString("product_code")%></th>
                     </tr>
                     <tr>
@@ -64,11 +63,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <hr color="black" size="1" width="100%" align="center">
-                            <th>Item</th>
-                            <th style="padding-left: 35px;">SubClass</th>
-                            <th style="padding-left: 35px;">Quantity</th>
-                        </tr>
+                    <hr color="black" size="1" width="100%" align="center">
+                    <th>Item</th>
+                    <th style="padding-left: 35px;">SubClass</th>
+                    <th style="padding-left: 35px;">Quantity</th>
+                    </tr>
                     </thead>
                     <tbody>
                         <%
@@ -111,9 +110,9 @@
                         <%	}
                         %>
                     </tbody>
-                    <button class="inventory" id="return" type="button" onclick="redirectTo('ProductRedirect')">Return</button>
-                </table>
 
+                </table>
+                <button class="inventory" id="return" type="button" onclick="redirectTo('ProductRedirect')">Return</button>
                 <input type="submit" value="Save"/>
             </div>
         </form>

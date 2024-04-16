@@ -62,7 +62,7 @@
             <div class="Delivery-Container"><h1><image src="photos/Value.png" alt="Save Button" style="width: 35px; height: 35px; position: relative; right: 3px; top: 4px;">Inventory Value: <%= inventoryCost%></h1></div>
             
                 <form action="VarianceSearch" method="post">
-                    <div id="searchContainer">
+                    <div class="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
                         <button id="search" type="submit">
                             <img src="photos/greensearch.png" style="width: 46.5px; height: 46.5px;" alt="Search Icon">
@@ -74,11 +74,11 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Item Description</th>
+                                <th>Item Description <button class="sorting" onclick="redirectTo('VAByItem')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
                                 <th>UOM</th>
-                                <th>BEG</th>
+                                <th>BEG <button id="sortBEG" class="sorting" onclick="redirectTo('VAByBeg')"><span id="BEGIcon">&#8597;</span></button></th>
                                 <th>Deliveries</th>
                                 <th>Others</th>
                                 <th>Total On Main</th>
@@ -86,7 +86,7 @@
                                 <th>Waste</th>
                                 <th>Others</th>
                                 <th>Expected End</th>
-                                <th>Actual End</th>
+                                <th>Actual End <button id="sortEND" class="sorting" onclick="redirectTo('VAByEnd')"><span id="ENDIcon">&#8597;</span></button></th>
                                 <th>Variance</th>
                             </tr>
                         </thead>
@@ -181,9 +181,9 @@
                     </tr>
                 </table>
             </form>
+
+
         </div>
-                    <button onclick="redirectTo('VAByItem')">Sort By Item Number</button>
-            <button onclick="redirectTo('VAByBeg')">Sort By BEG</button>
-            <button onclick="redirectTo('VAByEnd')">Sort By END</button>
+                 
     </body>
 </html>
