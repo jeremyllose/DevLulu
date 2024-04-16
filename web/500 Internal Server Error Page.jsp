@@ -14,6 +14,18 @@
 <body>
     <h1>500 Internal Server Error</h1>
     <p>Sorry, something went wrong on our end. Please try again later.</p>
-    <a href="/">Return Home</a>
+    <%
+                if (session.getAttribute("username") == null) {
+            %>
+    <a href="login.jsp">Return to Login Page</a>
+    <%
+        }
+else
+{
+            %>
+            <a href="WelcomePageRedirect">Return to Welcome Page</a>
+            <%
+                }
+            %>
 </body>
 </html>

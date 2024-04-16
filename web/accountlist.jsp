@@ -40,7 +40,7 @@
 
             if (session.getAttribute("userRole").equals("Manager") ) {
                 session.setAttribute("verification", "You have no Permission to Open the Account List");
-                response.sendRedirect("welcome.jsp");
+                response.sendRedirect("403 Forbidden Page.jsp");
             }
         %>
          

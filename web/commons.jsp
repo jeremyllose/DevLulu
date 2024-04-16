@@ -43,9 +43,24 @@
                 </form>
                 <br>
                 <br>
+                <%
+                    if(!session.getAttribute("userRole").equals("Manager"))
+                    { 
+                %>
                 <form id="account-form" action="AccountList" method="post">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Account List</button>
                 </form>
+                <% 
+                    }
+                    else
+                    {
+                %>
+                <form id="account-form" action="AccountList" method="post">
+                    <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
+                </form>
+                <% 
+                    }
+                %>
                 <br>
                 <br>
                 <form id="logout-form" action="Logout">
