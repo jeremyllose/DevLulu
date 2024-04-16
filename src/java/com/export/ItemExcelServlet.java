@@ -80,8 +80,9 @@ Connection con;
        
         
          try {
+             
         // Get login name from session or request attributes
-        String loginName = (String) request.getSession().getAttribute("loginName");
+        String loginName = (String) request.getSession().getAttribute("username");
 
         // Get current date and time
         LocalDateTime currentTime = LocalDateTime.now();
@@ -101,10 +102,12 @@ Connection con;
         int columnCount = metaData.getColumnCount();
 
         // Write column names as the first row in Excel sheet
-        Row headerRow = sheet.createRow(3);
-        for (int i = 1; i <= columnCount; i++) {
-            String columnName = metaData.getColumnName(i);
-            headerRow.createCell(i - 1).setCellValue(columnName);
+        Row headerRow = sheet.createRow(3); // Assuming you want the column names to start from row 3
+
+        String[] columnNames = {"itemCode", "itemNum", "itemDesc", "itemAbb", "genId", "subId"};
+
+        for (int i = 0; i < columnNames.length; i++) {
+        headerRow.createCell(i).setCellValue(columnNames[i]);
         }
 
         // Write login name and date/time of generation as header information

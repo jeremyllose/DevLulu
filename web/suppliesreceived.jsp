@@ -32,7 +32,7 @@
                 float addCost = (Float) request.getAttribute("addsValue");
             %>
             <div class="others">
-                <form action="SuppliesExcelServlet" method="post">
+                <form action="DeliveryExcelServlet" method="post">
                     <button class="inventory" id="generate" type="submit">
                         <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
                 </form>
