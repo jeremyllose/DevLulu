@@ -42,7 +42,6 @@
                     <button class="menu-item"><img src="photos/Waste.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Usage</button>
                 </form>
                 <br>
-                <br>
                 <%
                     if(!session.getAttribute("userRole").equals("Manager"))
                     { 
@@ -52,16 +51,11 @@
                 </form>
                 <% 
                     }
-                    else
-                    {
                 %>
-                <form id="account-form" action="AccountList" method="post">
+                <form id="account-form" action="editAccount.jsp">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
                 </form>
-                <% 
-                    }
-                %>
-                <br>
+                
                 <br>
                 <form id="logout-form" action="Logout">
                     <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" ><img src="photos/Logout.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Logout</button>
