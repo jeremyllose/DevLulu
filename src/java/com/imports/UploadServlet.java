@@ -24,19 +24,30 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("file");
         Workbook workbook = WorkbookFactory.create(filePart.getInputStream());
-        // Process the workbook (read data from Excel file)
-        // Example:
-        Sheet sheet = workbook.getSheetAt(0);
-        request.setAttribute("sheet", sheet);
-        for (Row row : sheet) {
-            for (Cell cell : row) {
-                // Process cell contents
-                System.out.print(cell.toString() + "\t");
-            }
-            System.out.println();
+        
+        try {
+            // Get the sheets from the workbook
+            Sheet sheetItem = workbook.getSheet("Item");
+            Sheet sheetPricing = workbook.getSheet("Pricing");
+            Sheet sheetTransaction = workbook.getSheet("Transaction");
+            Sheet sheetInventory = workbook.getSheet("Inventory");
+            Sheet sheetStockHistory = workbook.getSheet("Stockhistory_Tables");
+
+            // Set attributes for each sheet
+            request.setAttribute("Item", sheetItem);
+            request.setAttribute("Pricing", sheetPricing);
+            request.setAttribute("Transaction", sheetTransaction);
+            request.setAttribute("Inventory", sheetInventory);
+            request.setAttribute("Stockhistory_Tables", sheetStockHistory);
+
+            // Forward the request to the InsertDataServlet for database insertion
+            request.getRequestDispatcher("/InsertDataServlet").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle error appropriately
+            response.sendRedirect("error.jsp");
+        } finally {
+            workbook.close();
         }
-        workbook.close();
-        // Forward the request to another servlet for database insertion
-        request.getRequestDispatcher("/InsertDataServlet").forward(request, response);
     }
 }

@@ -50,7 +50,9 @@
                     <label for="fileInput" class="inventory" id="import" style="padding-top: 8px;">
                         <img src="photos/import.png" alt="import excel Button" style="width: 20px; height: 20px; margin-right: 5px;">
                         Import Excel</label>
-                    <input id="upload" type="submit" value="Upload" />
+                    <input id="upload" type="submit" value="Upload" 
+                         alt="import excel Button" style="width: 130px; height: 50px; margin-right: 5px;"/>
+                        
 
                     <script>
                         function showFileName() {

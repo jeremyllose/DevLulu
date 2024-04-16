@@ -84,7 +84,7 @@ Connection con;
 
             // Create Excel workbook
             Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("Data");
+            Sheet sheet = workbook.createSheet("Inventory Report");
 
             // Get ResultSet metadata to obtain column names
         ResultSetMetaData metaData = rs.getMetaData();
