@@ -31,14 +31,14 @@ public class UploadServlet extends HttpServlet {
             Sheet sheetPricing = workbook.getSheet("Pricing");
             Sheet sheetTransaction = workbook.getSheet("Transaction");
             Sheet sheetInventory = workbook.getSheet("Inventory");
-            Sheet sheetStockHistory = workbook.getSheet("Stockhistory_Tables");
+            Sheet sheetStockHistory = workbook.getSheet("Stockhistory");
 
             // Set attributes for each sheet
             request.setAttribute("Item", sheetItem);
             request.setAttribute("Pricing", sheetPricing);
             request.setAttribute("Transaction", sheetTransaction);
             request.setAttribute("Inventory", sheetInventory);
-            request.setAttribute("Stockhistory_Tables", sheetStockHistory);
+            request.setAttribute("Stockhistory", sheetStockHistory);
 
             // Forward the request to the InsertDataServlet for database insertion
             request.getRequestDispatcher("/InsertDataServlet").forward(request, response);

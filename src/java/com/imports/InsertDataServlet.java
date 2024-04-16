@@ -76,9 +76,9 @@ public class InsertDataServlet extends HttpServlet {
         Sheet sheetPricing = (Sheet) request.getAttribute("Pricing");
         Sheet sheetTransaction = (Sheet) request.getAttribute("Transaction");
         Sheet sheetInventory = (Sheet) request.getAttribute("Inventory");
-        Sheet sheetStockHistory = (Sheet) request.getAttribute("Stockhistory_Tables");
+        Sheet sheetStockHistory = (Sheet) request.getAttribute("Stockhistory");
 
-        // Process each sheet
+      
         processItemSheet(sheetItem);
         processPricingSheet(sheetPricing);
         processTransactionSheet(sheetTransaction);
@@ -88,8 +88,7 @@ public class InsertDataServlet extends HttpServlet {
         response.sendRedirect("success.jsp");
     } catch (SQLException e) {
         e.printStackTrace();
-        // Redirect to an error page
-        response.sendRedirect("error.jsp");
+        handleSQLException(e, response);
     }
 
 }
@@ -105,7 +104,7 @@ private void processItemSheet(Sheet sheet) throws SQLException {
             pstmt.setString(4, row.getCell(3).toString());
             pstmt.setString(5, row.getCell(4).toString());
             pstmt.setString(6, row.getCell(5).toString());
-            pstmt.executeUpdate();
+            executeInsertIgnore(pstmt);
         }
     }
 
@@ -123,7 +122,7 @@ private void processPricingSheet(Sheet sheet) throws SQLException {
             pstmt.setBigDecimal(3, new BigDecimal(row.getCell(2).toString()));
             pstmt.setBoolean(4, Boolean.parseBoolean(row.getCell(3).toString()));
             pstmt.setBigDecimal(5, new BigDecimal(row.getCell(4).toString()));
-            pstmt.executeUpdate();
+             executeInsertIgnore(pstmt);
         }
     }
 
@@ -132,7 +131,7 @@ private void processPricingSheet(Sheet sheet) throws SQLException {
 }
 
 private void processTransactionSheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT INTO TRANSACTION (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,?,?)");
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,?,?)");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
@@ -140,7 +139,7 @@ private void processTransactionSheet(Sheet sheet) throws SQLException {
             for (int i = 1; i <= 5; i++) {
                 pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
             }
-            pstmt.executeUpdate();
+            executeInsertIgnore(pstmt);
         }
     }
 
@@ -157,7 +156,7 @@ private void processInventorySheet(Sheet sheet) throws SQLException {
             for (int i = 1; i <= 4; i++) {
                 pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
             }
-            pstmt.executeUpdate();
+            executeInsertIgnore(pstmt);
         }
     }
 
@@ -166,7 +165,7 @@ private void processInventorySheet(Sheet sheet) throws SQLException {
 }
 
 private void processStockHistorySheet(Sheet sheet) throws SQLException {
-    PreparedStatement pstmt = con.prepareStatement("INSERT NTO STOCK_HISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
+    PreparedStatement pstmt = con.prepareStatement("INSERT INTO STOCKHISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {
@@ -174,12 +173,30 @@ private void processStockHistorySheet(Sheet sheet) throws SQLException {
             for (int i = 1; i <= 2; i++) {
                 pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
             }
-            pstmt.executeUpdate();
+             executeInsertIgnore(pstmt);
         }
     }
 
     pstmt.close();
     con.commit();
+}
+private void executeInsertIgnore(PreparedStatement pstmt) throws SQLException {
+    try {
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        
+        if (e.getSQLState().equals("23000")) {
+            System.out.println("Duplicate key error ignored: " + e.getMessage());
+        } else {
+            throw e; 
+        }
+    }
+}
+
+private void handleSQLException(SQLException e, HttpServletResponse response) throws IOException {
+    e.printStackTrace();
+
+    response.sendRedirect("error.jsp");
 }
 
 
