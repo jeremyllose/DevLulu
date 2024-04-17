@@ -59,13 +59,13 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Item Code <button class="sorting" onclick="redirectTo('VByItem')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
+                                <th>Item Code <button class="sorting" type="submit" name="button" value="VByItem"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>Item Description</th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
                                 <th>UOM</th>
-                                <th>Deliveries <button class="sorting" onclick="redirectTo('VByDelivery')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
-                                <th>Others <button class="sorting" onclick="redirectTo('VByAdds')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
+                                <th>Deliveries <button class="sorting" type="submit" name="button" value="VByDelivery"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
+                                <th>Others <button class="sorting" type="submit" name="button" value="VByAdds"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>End Quantity</th>
                                 <!--                            <th><button id="button-css" type="submit" name="button" value="save" style="background-color: #8f654a; color: white; border:none;">
                                                                     <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Save Changes</b></button></th>-->
@@ -91,7 +91,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="others"><button id="savechanges" type="submit" class="inventory">
+                <div class="others"><button id="savechanges" type="submit" class="inventory" name="button" value="save">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
                         <%

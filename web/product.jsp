@@ -62,10 +62,9 @@
                                 </th>
                                 <th>Product Code</th>
                                 <th>Product Description</th>                       
-                                <th>Product Price <button  class="sorting" onclick="redirectTo('PByPrice')"><span id="productPriceIcon">&#8597;</span></button></th>
-                                <th>Quantity <button class="sorting" onclick="redirectTo('PByQuantity')"><span id="productQuantityIcon">&#8597;</span></button> </th>
+                                <th>Product Price <button  class="sorting" type="submit" name="button" value="PByPrice"><span id="productPriceIcon">&#8597;</span></button></th>
+                                <th>Quantity <button class="sorting" type="submit" name="button" value="PByQuantity"><span id="productQuantityIcon">&#8597;</span></button> </th>
                                 <th>Action</th>
-
                             </tr>
                         </thead>
                         <tbody>

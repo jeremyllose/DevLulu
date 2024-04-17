@@ -74,11 +74,11 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Item Description <button class="sorting" onclick="redirectTo('VAByItem')"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
+                                <th>Item Description <button type="submit" class="sorting" name="button" value="VAByItem"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
                                 <th>UOM</th>
-                                <th>BEG <button id="sortBEG" class="sorting" onclick="redirectTo('VAByBeg')"><span id="BEGIcon">&#8597;</span></button></th>
+                                <th>BEG <button id="sortBEG" type="submit" class="sorting" name="button" value="VAByBeg"><span id="BEGIcon">&#8597;</span></button></th>
                                 <th>Deliveries</th>
                                 <th>Others</th>
                                 <th>Total On Main</th>
@@ -86,7 +86,7 @@
                                 <th>Waste</th>
                                 <th>Others</th>
                                 <th>Expected End</th>
-                                <th>Actual End <button id="sortEND" class="sorting" onclick="redirectTo('VAByEnd')"><span id="ENDIcon">&#8597;</span></button></th>
+                                <th>Actual End <button id="sortEND" type="submit" class="sorting" name="button" value="VAByEnd"><span id="ENDIcon">&#8597;</span></button></th>
                                 <th>Variance</th>
                             </tr>
                         </thead>
@@ -134,7 +134,7 @@
                         </tbody>
                     </table>
                 </div>
-                             <div class="others"><button id="savechanges" type="submit" value="Save Changes" class="inventory">
+                             <div class="others"><button id="savechanges" name="button" type="submit" value="Save Changes" class="inventory">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
                         <%

@@ -77,6 +77,14 @@ public class ProductAction extends HttpServlet {
             session.setAttribute("productMessage", "Items Successfully Disabled");
             response.sendRedirect("ProductRedirect");
         }
+        else if (action.equals("PByPrice")) 
+        {
+            response.sendRedirect("PByPrice");
+        }
+        else if (action.equals("PByQuantity")) 
+        {
+            response.sendRedirect("PByQuantity");
+        }
         else if (action.equals("Enable")) 
         {
             String product = request.getParameter("enable");

@@ -85,6 +85,10 @@ public class ItemAction extends HttpServlet {
             session.setAttribute("itemMessage", "Items Disabled");
             response.sendRedirect("ItemList");
         }
+        else if(action.equals("sorting"))
+        {
+            response.sendRedirect("AscendDescend");
+        }
         else if(action.substring(0, action.indexOf(" ")).equals("enable"))
         {
             String arr[] = action.split(" ", 2);
