@@ -257,7 +257,6 @@ label:hover:not(.inventory:hover) {
     font-weight: lighter;
     z-index: 2;
     position: relative;
-
 }
 .message {
     background-color: #2e8b57; /* Green background */

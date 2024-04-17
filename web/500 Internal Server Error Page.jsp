@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="styles/errorpage.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="photos/cafeicon.png">
-        <title>403 Forbidden</title>
+        <title>500 Internal Server</title>
     </head>
     <body>
         <div class="logo">

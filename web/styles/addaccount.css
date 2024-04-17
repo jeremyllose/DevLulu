@@ -57,8 +57,8 @@ body {
     padding: 10px 15px;
     cursor: pointer;
     position: relative;
-    top: 2rem;
-    right: -3rem;
+    top: -70px;
+    right: -120px;
 }
 #addacc {
     display: inline-block;
@@ -70,8 +70,13 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative;
-    right: -6rem;
-    top: 2rem;
+    top: 28px;
+    right: -200px;
+}
+h4 {
+    position: relative;
+    right: -130px;
+    top: 15px;
 }
 @keyframes scaleUp {
     from {

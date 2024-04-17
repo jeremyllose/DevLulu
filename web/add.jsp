@@ -60,7 +60,6 @@
                         <th><label for="manager">Manager</label> <input type="radio" id="manager" name="role" value="Manager"></th>
                     </tr>
                     <tr>
-                        <th><button class="inventory" id="return" onclick="redirectTo('AccountList')">Return</button></th>
                     <th><input id="addacc" type="submit" value="Add Account"/></th>
                     </tr>
                 </table>
@@ -72,7 +71,7 @@
             }
         %>
         </form>
-        
+        <th><button class="inventory" id="return" onclick="redirectTo('AccountList')">Return</button></th>
         </div>
     
 </body>
