@@ -64,19 +64,13 @@ public class EditAccountRedirect extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         String originalUsername = request.getParameter("originalUsername");
-        String getUsername = request.getParameter("username");
         String getOldPassword = request.getParameter("oldPassword");
         String getPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         
         EncryptDecrypt crypto;
         
-        if(check(getUsername) && !getUsername.equals(originalUsername))
-        {
-            session.setAttribute("message", "Account Username Already Exist");
-            response.sendRedirect("editAccount.jsp");
-        }
-        else if(!checkPassword(EncryptDecrypt.encrypt(getOldPassword, key, cypher)))
+        if(!checkPassword(EncryptDecrypt.encrypt(getOldPassword, key, cypher)))
         {
             session.setAttribute("message", "Old Password doesn't match");
             response.sendRedirect("editAccount.jsp");
@@ -88,13 +82,14 @@ public class EditAccountRedirect extends HttpServlet {
         }
         else
         {
-            updateUser(getUsername, EncryptDecrypt.encrypt(getPassword, key, cypher), originalUsername);
-            session.setAttribute("username", getUsername);
+            updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), originalUsername);
+            session.setAttribute("username", originalUsername);
             if(session.getAttribute("rememberUsername") != null)
             {
-                session.setAttribute("rememberUsername", getUsername);
+                session.setAttribute("rememberUsername", originalUsername);
                 session.setAttribute("rememberPassword", getPassword);
             }
+            session.setAttribute("message", "Account Editted");
             response.sendRedirect("editAccount.jsp");
         }
     }
@@ -120,9 +115,9 @@ public class EditAccountRedirect extends HttpServlet {
         return resultSet.next();
     }
     
-    public void updateUser(String getUsername, String getPassword, String originalUsername)throws SQLException
+    public void updateUser(String getPassword, String originalUsername)throws SQLException
     {
-        String query = "UPDATE LOGIN SET USERNAME = ?, PASSWORD = ? WHERE USERNAME = ?";
+        String query = "UPDATE LOGIN SET PASSWORD = ? WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, getUsername);

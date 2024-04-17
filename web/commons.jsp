@@ -29,9 +29,16 @@
                 <form id="product-form" action="ProductRedirect" method="post">
                     <button class="menu-item"><img src="photos/Product.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Recipe</button>
                 </form>
+                <%
+                            if (session.getAttribute("userRole").equals("Owner") ) 
+                            {
+                        %>
                 <form id="variance-form" action="VariancePageRedirect" method="post">
                     <button class="menu-item"><img src="photos/Variance.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Variance</button>
                 </form>
+                <%
+                    }
+                        %>
                 <form id="item-form" action="ItemList" method="post">
                     <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Inventory</button>
                 </form>

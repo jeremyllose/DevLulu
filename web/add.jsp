@@ -55,8 +55,6 @@
                         <%
                             }
                         %>
-                        <th><label for="assistantManager">Assistant Manager</label> <input type="radio" id="assistantManager" name="role" value="Assistant Manager"></th>
-
                         <th><label for="manager">Manager</label> <input type="radio" id="manager" name="role" value="Manager"></th>
                     </tr>
                     <tr>

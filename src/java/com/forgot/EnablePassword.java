@@ -95,7 +95,7 @@ public class EnablePassword extends HttpServlet {
     public void enable(String username)throws SQLException
     {
         int count = 0;
-        String query = "UPDATE LOGIN SET ENABLE = TRUE WHERE USERNAME = ?";
+        String query = "UPDATE LOGIN SET ENABLE = TRUE, FORGOTTEN = FALSE WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, username);

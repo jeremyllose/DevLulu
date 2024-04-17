@@ -23,9 +23,6 @@
             <input type="hidden" name="originalUsername" value="<%= session.getAttribute("username") %>"/>
         <table>
             <tr>
-                <th>Username: </th><th><input type="text" name="username" value="<%= session.getAttribute("username") %>" required/></th>
-            </tr>
-            <tr>
                 <th>Old Password: </th><th><input type="password" name="oldPassword" required/></th>
             </tr>
             <tr>
