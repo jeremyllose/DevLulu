@@ -60,7 +60,7 @@
                         label: 'Sold',
                         data: [<%=top5Prices[0]%>, <%=top5Prices[1]%>, <%=top5Prices[2]%>, <%=top5Prices[3]%>, <%=top5Prices[4]%>],
                         fill: false,
-                        borderColor: 'rgb(32, 18, 8)',
+                        borderColor: 'rgb(55, 160, 58)',
                         tension: 0.1
                     }
                 ]
@@ -74,7 +74,7 @@
                         legend: {
                             display: true,
                             labels: {
-                                color: 'rgb(255, 99, 132)'
+                                color: 'rgb(82,46,20)'
                             }
                         }
                     }

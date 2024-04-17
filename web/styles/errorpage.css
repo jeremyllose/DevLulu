@@ -1,0 +1,297 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jan 26, 2024, 3:21:59 PM
+    Author     : jeremy
+*/
+* {
+    box-sizing: border-box;
+}
+body {
+    background: linear-gradient(to bottom right, #f4eebe 50%, #fff 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    margin: 0; /* Remove negative margin */
+    overflow: hidden;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 72px;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
+}
+
+a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.Error-Form {
+    position: absolute;
+    top: 280px;
+    right: 350px;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+#cup {
+    position: fixed;
+    top: 450px;
+}
+a {
+    color: #007bff; /* Change link color */
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+    border-bottom: 2px solid #007bff; /* Add underline */
+    padding-bottom: 2px; /* Adjust padding to create space between text and underline */
+}
+.title-image {
+    position: absolute;
+    top: 65px;
+    right: 625px;
+    max-width: 100%;
+}
+.title-logo {
+    max-width: 100%;
+    position: absolute;
+    top: 25px;
+    right: 420px;
+    width: 250px;
+}
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    z-index: 1;
+    position: absolute;
+    top: 50;
+}
+#forgot-password {
+    position: relative;
+    margin-left: 170px;
+    margin-bottom: 5px;
+    color: #00af50;
+}
+label[for="rememberme"] {
+    margin-right: 150px;
+    margin-top: -38px;
+    font-size: 14px;
+}
+
+input[type="checkbox"] {
+    position: absolute;
+    bottom: 60px;
+    right: 135px;
+}
+.bottom-leaves {
+    position: relative;
+    top: 420px;
+    left: 650px;
+    width: 40%;
+    z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+}
+.top-beans {
+    position: relative;
+    bottom: 650px;
+    right: 800px;
+    width: 25%;
+    z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+}
+body {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#login-form { /* Optional styling for your login form */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal {
+    display: none; /* Initially hidden */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Transparent background */
+    padding-top: 50px;
+}
+#forgot-password-form {
+    margin: auto;
+    background-color: #FFFFFF;
+    width: 25%;
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+    margin-top: 16rem;
+    border-radius: 10px;
+}
+@font-face {
+    font-family: 'Karma';
+    src: url('path/to/karma-font.woff2') format('woff2'), /* Modern Browsers */
+        url('path/to/karma-font.woff') format('woff'); /* Legacy Browsers */
+    font-family: 'Lohit Bengali';
+    src: url('path/to/lohit-bengali.woff2') format('woff2'), /* Modern Browsers */
+        url('path/to/lohit-bengali.woff') format('woff'); /* Legacy Browsers */
+}
+.close-forgot-form {
+    position: absolute;
+    top: 20rem;
+    right: 610px;
+    background-color: transparent;
+    border: none;
+    color: #ccc;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-forgot-form:hover {
+    color: #333;
+}
+#FPsubmit {
+    position: relative;
+    top: -1.5rem;
+    background-color: #00af50;
+    cursor: pointer;
+    border:none;
+    animation: FPAnimation 0.5s ease-in-out;
+}
+#FPsubmit:hover {
+    background-color: #542b0b;
+    animation: FPHoverAnimation 0.5s ease-in-out;
+}
+@keyframes FPAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes FPHoverAnimation {
+    0% {
+        background-color: #00af50;
+    }
+    50% {
+        background-color: #542b0b;
+    }
+    100% {
+        background-color: #542b0b;
+    }
+}
+@media screen and (max-width: 1440px) {
+    .container {
+        position: absolute;
+        right: 24rem;
+    }
+    .title-image {
+        position: absolute;
+        top: 65px;
+        right: 525px;
+        max-width: 100%;
+    }
+    .title-logo {
+        max-width: 100%;
+        position: absolute;
+        top: 25px;
+        right: 320px;
+        width: 250px;
+    }
+    .bottom-leaves {
+        position: relative;
+        top: 380px;
+        left: 470px;
+        width: 60%;
+        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+    }
+    .top-beans {
+        position: relative;
+        bottom: 850px;
+        right: 700px;
+        width: 30%;
+        z-index: 0; /* Set a lower z-index for the leaves, making sure it's behind the form */
+    }
+    #forgot-password-form {
+        position: relative;
+        right: 100px;
+    }
+    .close-forgot-form {
+        position: absolute;
+        top: 0.5rem;
+        right: -18px;
+        background-color: transparent;
+        border: none;
+        color: #ccc;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+}
