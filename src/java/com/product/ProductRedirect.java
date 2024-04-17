@@ -83,9 +83,9 @@ public class ProductRedirect extends HttpServlet {
                     genClassClause = sb.toString().substring(0, sb.length() - 1);
                 }
                 
-                ResultSet records = stmt.executeQuery("SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, p.PRODUCT_PRICE, p.QUANTITY, p.DISABLED\n" +
+                ResultSet records = stmt.executeQuery("SELECT DISTINCT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, p.PRODUCT_PRICE, p.QUANTITY, p.DISABLED\n" +
 "FROM PRODUCT p\n" +
-"INNER JOIN BILLOFMATERIALS bom ON p.PRODUCT_CODE = bom.PRODUCT_CODE\n" +
+"LEFT JOIN BILLOFMATERIALS bom ON p.PRODUCT_CODE = bom.PRODUCT_CODE\n" +
 "WHERE (bom.ITEM_CODE IN (" + genClassClause + ")) " + sort);
                 
                 request.setAttribute("product", records);

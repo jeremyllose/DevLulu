@@ -11,7 +11,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,17 +84,6 @@ public class EditProduct extends HttpServlet {
             }
         }
         
-        String[] itemsRemoved = request.getParameterValues("itemRemove");
-        
-        if (itemsRemoved != null)
-        {
-            for (String itemRemove : itemsRemoved) 
-            {
-                RemoveBillOFMaterial(productCode, itemRemove);
-            }
-            
-        }
-        
         String[] itemAdds = request.getParameterValues("itemsAdd");
         String[] addQuantity = request.getParameterValues("itemQuantity");
         start = 0;
@@ -106,8 +97,40 @@ public class EditProduct extends HttpServlet {
             }
         }
         
-        session.setAttribute("productMessage", "Item Successfully Edited");
+        String[] itemsRemoved = request.getParameterValues("itemRemove");
+        
+        if (itemsRemoved != null)
+        {
+            if(itemsRemoved.length == countDB(productCode))
+            {
+                session.setAttribute("productMessage", "Item Must at Least have 1 item");
+            }
+            else
+            {
+                for (String itemRemove : itemsRemoved) 
+                {
+                    RemoveBillOFMaterial(productCode, itemRemove);
+                }
+                session.setAttribute("productMessage", "Item Successfully Edited");
+            }
+        }
+        else
+        {
+            session.setAttribute("productMessage", "Item Successfully Edited");
+        }
+        
+        
         response.sendRedirect("EditProductRedirect");
+    }
+    
+    public int countDB(String productCode) throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "select count(*) from BILLOFMATERIALS WHERE PRODUCT_CODE = '"+ productCode +"'";
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int count = rs.getInt(1);
+        return count;
     }
     
     public void updateProduct(String desc, float price, String productCode)throws SQLException
