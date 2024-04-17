@@ -73,7 +73,8 @@ public class EditItem extends HttpServlet {
             updateItem(getItemDescription, getGC, getSC, getItemCode);
             updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
             
-            response.sendRedirect("ItemList");
+            request.setAttribute("itemMessage", "Item "+ getItemDescription +" Was Edited");
+            request.getRequestDispatcher("ItemList").forward(request,response);
         } catch (SQLException ex) {
             Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
         }

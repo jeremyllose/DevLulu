@@ -62,10 +62,9 @@
                                 </th>
                                 <th>Product Code</th>
                                 <th>Product Description</th>                       
-                                <th>Product Price <button  class="sorting" onclick="redirectTo('PByPrice')"><span id="productPriceIcon">&#8597;</span></button></th>
-                                <th>Quantity <button class="sorting" onclick="redirectTo('PByQuantity')"><span id="productQuantityIcon">&#8597;</span></button> </th>
+                                <th>Product Price <button  class="sorting" type="submit" name="button" value="PByPrice"><span id="productPriceIcon">&#8597;</span></button></th>
+                                <th>Quantity <button class="sorting" type="submit" name="button" value="PByQuantity"><span id="productQuantityIcon">&#8597;</span></button> </th>
                                 <th>Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -131,6 +130,25 @@
                 <div class="others"><button id="savechanges" type="submit" class="inventory" name="button" value="save">
                         <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <span style=" padding-left: 5px;">Save Changes</span></div>
             </form>
+                        <%
+                // Check if the session attribute for addItemMessage exists and display it
+                String addItemMessage = (String) request.getAttribute("productMessage");
+                String itemMessage = (String) session.getAttribute("productMessage");
+                if (addItemMessage != null) {
+            %>
+            <div class="message">
+                <%= addItemMessage%>
+            </div>
+            <%
+                }else if (itemMessage!= null){
+            %>
+            <div class="message">
+                <%= itemMessage%>
+            </div>
+            <%
+                session.removeAttribute("productMessage");
+                }
+            %>
         </div>
 
 

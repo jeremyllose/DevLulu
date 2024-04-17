@@ -77,7 +77,6 @@
                     </div>
                 </form>
             </div>
-            
             <form action="ItemAction" method="post">
                 <div class="table-container">
                     <table>
@@ -85,7 +84,7 @@
                             <tr>
                                 <th><button id="disable-css" type="submit" name="button" value="disable" >
                                         <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px;"></button></th>
-                                <th>Item Code <button class="sorting" onclick="redirectTo('AscendDescend')"><span id="ADIcon">&#8597;</span></button> </th>
+                                <th>Item Code <button type="submit" class="sorting" name="button" value="sorting"><span id="ADIcon">&#8597;</span></button> </th>
                                 <th>Item No.</th>
                                 <th>Description</th>
                                 <th>Abbreviation</th>
@@ -149,15 +148,21 @@
             </form> 
             <%
                 // Check if the session attribute for addItemMessage exists and display it
-                String addItemMessage = (String) session.getAttribute("addItemMessage");
+                String addItemMessage = (String) request.getAttribute("itemMessage");
+                String itemMessage = (String) session.getAttribute("itemMessage");
                 if (addItemMessage != null) {
             %>
             <div class="message">
                 <%= addItemMessage%>
             </div>
             <%
-                    // Remove the session attribute after displaying the message
-                    session.removeAttribute("addItemMessage");
+                }else if (itemMessage!= null){
+            %>
+            <div class="message">
+                <%= itemMessage%>
+            </div>
+            <%
+                session.removeAttribute("itemMessage");
                 }
             %>
             <%

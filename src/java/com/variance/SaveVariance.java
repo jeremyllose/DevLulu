@@ -21,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -63,6 +64,21 @@ public class SaveVariance extends HttpServlet {
         {
             if (con != null) 
             {
+                String action = request.getParameter("button");
+                if (action.equals("VAByItem"))
+                {
+                    response.sendRedirect("VAByItem");
+                }
+                else if(action.equals("VAByBeg"))
+                {
+                    response.sendRedirect("VAByBeg");
+                }
+                else if(action.equals("VAByEnd"))
+                {
+                    response.sendRedirect("VAByEnd");
+                }
+                else if(action.equals("Save Changes"))
+                {
                 String[] begginingValues = request.getParameterValues("beg");
                 String[] endValues = request.getParameterValues("end");
                 String[] itemCodes = request.getParameterValues("code");
@@ -74,8 +90,10 @@ public class SaveVariance extends HttpServlet {
                     editEndItem(Integer.parseInt(endValues[start]), itemCode);
                     start++;
                 }
+                HttpSession session = request.getSession();
+                session.setAttribute("varianceMessage", "BEG/END has been saved");
                 response.sendRedirect("VariancePageRedirect");
-                
+                }
             }
         } 
         catch (SQLException sqle)

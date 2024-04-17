@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -61,6 +62,26 @@ public class SaveWastes extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        String action = request.getParameter("button");
+                if (action.equals("WByItem"))
+                {
+                    response.sendRedirect("WByItem");
+                }
+                else if (action.equals("WBySold"))
+                {
+                    response.sendRedirect("WBySold");
+                }
+                else if (action.equals("WByWaste"))
+                {
+                    response.sendRedirect("WByWaste");
+                }
+                else if (action.equals("WByOther"))
+                {
+                    response.sendRedirect("WByOther");
+                }
+                else if(action.equals("save"))
+                {
+        HttpSession session = request.getSession();
         String[] solds = request.getParameterValues("sold");
         String[] wastes = request.getParameterValues("waste");
         String[] othersubs = request.getParameterValues("othersubs");
@@ -89,9 +110,9 @@ public class SaveWastes extends HttpServlet {
             
             start++;
         }
-        
+        session.setAttribute("wasteMessage", "Waste has been saved");
         response.sendRedirect("WasteRedirect");
-        
+                }
 //        rs.close();
 //        stmt.close();
     }

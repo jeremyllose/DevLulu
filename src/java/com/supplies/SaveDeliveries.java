@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -60,6 +61,22 @@ public class SaveDeliveries extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        String action = request.getParameter("button");
+                if (action.equals("VByItem"))
+                {
+                    response.sendRedirect("VByItem");
+                }
+                else if (action.equals("VByDelivery"))
+                {
+                    response.sendRedirect("VByDelivery");
+                }
+                else if (action.equals("VByAdds"))
+                {
+                    response.sendRedirect("VByAdds");
+                }
+                else if(action.equals("save"))
+                {
+        HttpSession session = request.getSession();
         String[] deliveries = request.getParameterValues("delivery");
         String[] otheradds = request.getParameterValues("others");
         String[] items = request.getParameterValues("items");
@@ -87,9 +104,9 @@ public class SaveDeliveries extends HttpServlet {
             
             start++;
         }
-        
+        session.setAttribute("suppliesMessage", "Deliveries has been saved");
         response.sendRedirect("SuppliesRedirectPage");
-        
+                }
 //        rs.close();
 //        stmt.close();
     }

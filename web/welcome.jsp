@@ -36,15 +36,15 @@
 
                 </div>
                 <!-- Add your main content here -->
-                <img id="leafBG" src="photos/CB.png" alt="add item Button" style="width: 350px; height: 350px; position: fixed; right: 80rem; top: -5rem;">
+                <img id="leafBG" src="photos/CBFR.png" alt="add item Button" style="width: 250px; height: 250px; position: fixed; right: 80rem; top: -2rem;">
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
                 <body>
 
 
                     <div class="box">
                         <h1 id="OSC">Overall Sales Line Chart</h1>   
-                        <div class="chart-container">
-                            <canvas id="sales"></canvas>
+                        <div style="background-color: #522e14"  class="chart-container">
+                            <canvas style="background-color: #f4eebe;" id="sales"></canvas>
                                 <%
                                     String[] top5 = (String[]) request.getAttribute("topFiveDescriptions");
                                     double[] top5Prices = (double[]) request.getAttribute("topFiveTotal");
@@ -60,7 +60,7 @@
                         label: 'Sold',
                         data: [<%=top5Prices[0]%>, <%=top5Prices[1]%>, <%=top5Prices[2]%>, <%=top5Prices[3]%>, <%=top5Prices[4]%>],
                         fill: false,
-                        borderColor: 'rgb(75, 255, 255)',
+                        borderColor: 'rgb(55, 160, 58)',
                         tension: 0.1
                     }
                 ]
@@ -74,7 +74,7 @@
                         legend: {
                             display: true,
                             labels: {
-                                color: 'rgb(255, 99, 132)'
+                                color: 'rgb(82,46,20)'
                             }
                         }
                     }
@@ -83,8 +83,8 @@
                             </script>
                         </div>
                         <div class="graphBox">
-                            <div class="box">
-                                <canvas id="myChart"></canvas>     
+                            <div style="background-color: #522e14;" class="box">
+                                <canvas style="background-color: #f4eebe;"id="myChart"></canvas>     
                                 <script>
                                     const ctx = document.getElementById('myChart');
 
@@ -107,11 +107,26 @@
                                 <div class="info">        
                                     <h2 style="color: #333; font-size: 24px; text-align: center; position: relative; right: -1.5rem;">Best Sellers</h2>
                                     <ol style="text-align: center;">
-                                        <li style="color: #333;"><%=top5[0]%><span style="background-color: red"></span></li>
-                                        <li style="color: #333;"><%=top5[1]%><span style="background-color: yellow"></span></li>
-                                        <li style="color: #333;"><%=top5[2]%><span style="background-color: green"></span></li>
-                                        <li style="color: #333;"><%=top5[3]%><span style="background-color: blue"></span></li>
-                                        <li style="color: #333;"><%=top5[4]%><span style="background-color: purple"></span></li>
+                                        <li style="color: #333;">
+                                            <%= top5[0]%>
+                                            <span style="margin-left: 5px;">🔴</span>
+                                        </li>
+                                        <li style="color: #333;">
+                                            <%= top5[1]%>
+                                            <span style="margin-left: 5px;">🟡</span>
+                                        </li>
+                                        <li style="color: #333;">
+                                            <%= top5[2]%>
+                                            <span style="margin-left: 5px;">🟢</span>
+                                        </li>
+                                        <li style="color: #333;">
+                                            <%= top5[3]%>
+                                            <span style="margin-left: 5px;">🔵</span>
+                                        </li>
+                                        <li style="color: #333;">
+                                            <%= top5[4]%>
+                                            <span style="margin-left: 5px;">🟣</span>
+                                        </li>
                                     </ol>
                                 </div>
                             </div>
