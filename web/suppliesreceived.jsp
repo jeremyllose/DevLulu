@@ -114,7 +114,7 @@
                 }
             %>
             <form action="SuppliesRedirectPage" method="post">
-                <table>
+                <table class="pagination">
                     <%
                         Integer itemPgNum = (Integer) session.getAttribute("suppliesPgNum");
                         Integer totalPages = (Integer) session.getAttribute("suppliesPages");

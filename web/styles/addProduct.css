@@ -11,7 +11,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    overflow-y: auto;
+    overflow: hidden;
+    max-height: calc(100vh - 8rem);
 }
 
 #dashboardheader {
@@ -49,7 +50,7 @@ body {
     width: 7rem;
 }
 .product-container {
-    width: 101%;
+    width: 100%; /* Adjusted to 100% */
     margin: 20px auto;
     padding: 20px;
     border: 2px solid black;
@@ -59,7 +60,10 @@ body {
     font-family: "Open Sans", sans-serif;
     position: relative;
     right: -30rem;
-    top: 6rem;
+    top: 5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 10rem); /* Adjusted to fit within viewport minus header height */
 }
 
 .product-container h3 {
