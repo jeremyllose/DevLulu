@@ -120,9 +120,8 @@ public class EditAccountRedirect extends HttpServlet {
         String query = "UPDATE LOGIN SET PASSWORD = ? WHERE USERNAME = ?";
         PreparedStatement ps = con.prepareStatement(query);
         
-        ps.setString(1, getUsername);
-        ps.setString(2, getPassword);
-        ps.setString(3, originalUsername);
+        ps.setString(1, getPassword);
+        ps.setString(2, originalUsername);
         ps.executeUpdate();
         ps.close();
     }
