@@ -149,15 +149,21 @@
             </form> 
             <%
                 // Check if the session attribute for addItemMessage exists and display it
-                String addItemMessage = (String) session.getAttribute("addItemMessage");
+                String addItemMessage = (String) request.getAttribute("itemMessage");
+                String itemMessage = (String) session.getAttribute("itemMessage");
                 if (addItemMessage != null) {
             %>
             <div class="message">
                 <%= addItemMessage%>
             </div>
             <%
-                    // Remove the session attribute after displaying the message
-                    session.removeAttribute("addItemMessage");
+                }else if (itemMessage!= null){
+            %>
+            <div class="message">
+                <%= itemMessage%>
+            </div>
+            <%
+                session.removeAttribute("itemMessage");
                 }
             %>
             <%

@@ -82,6 +82,7 @@ public class ItemAction extends HttpServlet {
                     }
                 }
             }
+            session.setAttribute("itemMessage", "Items Disabled");
             response.sendRedirect("ItemList");
         }
         else if(action.substring(0, action.indexOf(" ")).equals("enable"))
@@ -96,6 +97,7 @@ public class ItemAction extends HttpServlet {
             {
                 Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }
+            session.setAttribute("itemMessage", "Item "+ theRest+ " is Enabled");
             response.sendRedirect("ItemList");
         }
         else if(action.substring(0, action.indexOf(" ")).equals("edit"))

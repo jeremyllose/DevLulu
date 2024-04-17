@@ -43,6 +43,25 @@
                 ResultSet results = (ResultSet) request.getAttribute("editProduct");
                 while (results.next()) {%>
             <div class="item-container">
+                <%
+                // Check if the session attribute for addItemMessage exists and display it
+                String addItemMessage = (String) request.getAttribute("productMessage");
+                String itemMessage = (String) session.getAttribute("productMessage");
+                if (addItemMessage != null) {
+            %>
+            <div class="message">
+                <%= addItemMessage%>
+            </div>
+            <%
+                }else if (itemMessage!= null){
+            %>
+            <div class="message">
+                <%= itemMessage%>
+            </div>
+            <%
+                session.removeAttribute("productMessage");
+                }
+            %>
                 <table>
                     <tr>
                         <th class="th-product-label">Product Code:</th>
@@ -116,5 +135,6 @@
                 <input type="submit" value="Save"/>
             </div>
         </form>
+                    
     </body>
 </html>

@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,12 @@ public class AddProduct extends HttpServlet {
         String[] itemIds = request.getParameterValues("items");
         String[] itemQuantity = request.getParameterValues("itemQuantity");
         int start = 0;
-        
+        if(check(getProductCode, getProductDescription))
+        {
+            session.setAttribute("productMessage", "Product Already Exist");
+            response.sendRedirect("AddProductRedirect");
+        }
+        else{
         addProduct(getProductCode, getProductDescription, getProductPrice);
         
         for (String itemId : itemIds) 
@@ -85,8 +91,9 @@ public class AddProduct extends HttpServlet {
                 Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        session.setAttribute("productMessage", "Product Successfully Added");
         response.sendRedirect("ProductRedirect");
+        }
     }
     
     public void addProduct(String productCode, String productDescription, float productPrice)throws SQLException
@@ -113,6 +120,17 @@ public class AddProduct extends HttpServlet {
         ps.setInt(3, itemQuantity);
         ps.executeUpdate();
         ps.close();
+    }
+    
+    public boolean check(String pkey, String desc) throws SQLException
+    {
+        String query = "SELECT 1 FROM PRODUCT WHERE PRODUCT_CODE = ? OR PRODUCT_DESCRIPTION = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
+        ps.setString(2, desc);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

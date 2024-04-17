@@ -74,6 +74,7 @@ public class ProductAction extends HttpServlet {
                     disableUser(itemId);
                 }
             }
+            session.setAttribute("productMessage", "Items Successfully Disabled");
             response.sendRedirect("ProductRedirect");
         }
         else if (action.equals("Enable")) 
@@ -82,6 +83,7 @@ public class ProductAction extends HttpServlet {
             
             enableUser(product);
             
+            session.setAttribute("productMessage", "Item Successfully Enabled");
             response.sendRedirect("ProductRedirect");
         }
         else if (action.equals("save")) 
@@ -96,6 +98,7 @@ public class ProductAction extends HttpServlet {
                 start++;
             }
             
+            session.setAttribute("productMessage", "Item Quantities Saved");
             response.sendRedirect("ProductRedirect");
         }
         else if(action.substring(0, action.indexOf(" ")).equals("edit"))

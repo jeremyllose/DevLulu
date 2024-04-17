@@ -90,6 +90,7 @@ public class EditProduct extends HttpServlet {
             {
                 RemoveBillOFMaterial(productCode, itemRemove);
             }
+            
         }
         
         String[] itemAdds = request.getParameterValues("itemsAdd");
@@ -105,6 +106,7 @@ public class EditProduct extends HttpServlet {
             }
         }
         
+        session.setAttribute("productMessage", "Item Successfully Edited");
         response.sendRedirect("EditProductRedirect");
     }
     

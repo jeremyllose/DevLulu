@@ -39,6 +39,25 @@
         <br>
         <form action="AddProduct" method="post">
             <div class="product-container">
+                <%
+                // Check if the session attribute for addItemMessage exists and display it
+                String addItemMessage = (String) request.getAttribute("productMessage");
+                String itemMessage = (String) session.getAttribute("productMessage");
+                if (addItemMessage != null) {
+            %>
+            <div class="message">
+                <%= addItemMessage%>
+            </div>
+            <%
+                }else if (itemMessage!= null){
+            %>
+            <div class="message">
+                <%= itemMessage%>
+            </div>
+            <%
+                session.removeAttribute("productMessage");
+                }
+            %>
                 <table>
 
                     <tr class="prod-position">

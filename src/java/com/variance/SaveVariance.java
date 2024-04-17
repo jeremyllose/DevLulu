@@ -21,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -74,6 +75,8 @@ public class SaveVariance extends HttpServlet {
                     editEndItem(Integer.parseInt(endValues[start]), itemCode);
                     start++;
                 }
+                HttpSession session = request.getSession();
+                session.setAttribute("varianceMessage", "BEG/END has been saved");
                 response.sendRedirect("VariancePageRedirect");
                 
             }
