@@ -66,6 +66,7 @@ iframe {
 }
 .box {
     width: 93%;
+
 }
 .graphBox .box {
     background-color: #fff;
@@ -75,16 +76,19 @@ iframe {
     overflow: hidden;
 }
 #OSC {
-    font-size: 18px;
+    font-size: 24px;
     color: #333; /* Dark text color for readability */
     text-align: center; /* Center-align headers */
     margin-top: 20px; /* Space above headers */
     margin-bottom: 20px; /* Space below headers */
 }
 .chart-container {
-    display: flex;
-    justify-content: space-between;
+    flex: 1;
     background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 20px; /* Add margin between boxes */
     padding: 20px;
 }
 
