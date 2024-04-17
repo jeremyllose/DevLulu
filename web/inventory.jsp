@@ -20,13 +20,12 @@
     </head>
     <body>
         <script>
-            if ( window.history.replaceState ) 
+            if (window.history.replaceState)
             {
-                window.history.replaceState( null, null, window.location.href );
+                window.history.replaceState(null, null, window.location.href);
             }
         </script>
-        <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        <%            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
             if (session.getAttribute("username") == null) {
                 response.sendRedirect("login.jsp");
@@ -57,8 +56,8 @@
                         <img src="photos/import.png" alt="import excel Button" style="width: 20px; height: 20px; margin-right: 5px;">
                         Import Excel</label>
                     <input id="upload" type="submit" value="Upload" 
-                         alt="import excel Button" style="width: 130px; height: 50px; margin-right: 5px;"/>
-                        
+                           alt="import excel Button" style="width: 130px; height: 50px; margin-right: 5px;"/>
+
 
                     <script>
                         function showFileName() {
@@ -156,13 +155,14 @@
                 <%= addItemMessage%>
             </div>
             <%
-                }else if (itemMessage!= null){
+            } else if (itemMessage != null) {
             %>
             <div class="message">
                 <%= itemMessage%>
             </div>
+             </div>
             <%
-                session.removeAttribute("itemMessage");
+                    session.removeAttribute("itemMessage");
                 }
             %>
             <%
@@ -173,19 +173,19 @@
                 int totalPg = totalPages != null ? totalPages : 1;
             %>
             <form action="ItemList" method="post">
-                <table>
+                <table class="pagination">
                     <tr>
                         <%
                             if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
                         %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%=currentPage - 2%>"></td>
+                        <td><input type="submit" name="button" value="<%=currentPage - 2%>"></td>
                             <%
                                 }
                             %>
                             <%
                                 if ((currentPage - 1) != 0) {
                             %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%=currentPage - 1%>"></td>
+                        <td><input type="submit" name="button" value="<%=currentPage - 1%>"></td>
                             <%
                                 }
                             %>
@@ -195,21 +195,21 @@
                         <%
                             if ((currentPage + 1) <= totalPg) {
                         %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%= currentPage + 1%>"></td>
+                        <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
                             <%
                                 }
                             %>
                             <%
                                 if ((currentPage + 2) <= totalPg) {
                             %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%= currentPage + 2%>"></td>
+                        <td><input type="submit"name="button" value="<%= currentPage + 2%>"></td>
                             <%
                                 }
                             %>
                     </tr>
                 </table>
             </form>
-        </div>
+       
     </form>
     <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
     <!--            <div id="dateText">Date: July 15, 2024</div>-->

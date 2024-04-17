@@ -3,11 +3,6 @@
     Created on : 04 16, 24, 6:10:10 AM
     Author     : BioStaR
 --%>
-<%-- 
-    Document   : 404 Not Found Page
-    Created on : 04 16, 24, 6:10:27 AM
-    Author     : BioStaR
---%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +22,7 @@
 
         <div class="Error-Form">
             <h1>403 Forbidden</h1>
-            <img id="cup" src="photos/errorcup.png" alt="Image" >   
+            <img id="cup" src="photos/403error.png" alt="Image" >   
             <p>You do not have permission to access this resource.</p>
 
             <%
@@ -41,5 +36,6 @@
             <%
                 }
             %>
+            </div>  
     </body>
 </html>

@@ -157,7 +157,7 @@
                 }
             %>
             <form action="VariancePageRedirect" method="post">
-                <table>
+                <table class="pagination">
                     <%
                         Integer itemPgNum = (Integer) session.getAttribute("variancePgNum");
                         Integer totalPages = (Integer) session.getAttribute("variancePages");

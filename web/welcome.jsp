@@ -95,7 +95,7 @@
                                             datasets: [{
                                                     label: 'Best Sellers',
                                                     data: [<%=quantites[0]%>, <%=quantites[1]%>, <%=quantites[2]%>, <%=quantites[3]%>, <%=quantites[4]%>],
-                                                    backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(0, 128, 0)', 'rgb(128, 0, 128)'],
+                                                    backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(127,203,42)', 'rgb(128, 0, 128)'],
                                                     hoverOffset: 4
                                                 }]
                                         }
