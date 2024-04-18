@@ -66,24 +66,25 @@ public class PasswordChange extends HttpServlet {
         String getUsername = request.getParameter("username");
         String getPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+        String page = request.getParameter("page");
         
         EncryptDecrypt crypto;
         
         if(!check(getUsername))
         {
             session.setAttribute("message", "Account Does Not Exist");
-            response.sendRedirect("passwordchange.jsp");
+            response.sendRedirect(page);
         }
         else if(!getPassword.equals(confirmPassword))
         {
             session.setAttribute("message", "Password & Confirm Password does not match");
-            response.sendRedirect("passwordchange.jsp");
+            response.sendRedirect(page);
         }
         else if(session.getAttribute("username") != null)
         {
             updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
             session.setAttribute("message", "Wait till you're password has been approved by the Admin");
-            response.sendRedirect("passwordchange.jsp");
+            response.sendRedirect(page);
         }
         else
         {

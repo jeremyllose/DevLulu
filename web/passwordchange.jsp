@@ -40,6 +40,7 @@
             </tr>
         </table>
             <button type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
+            <input type="hidden" name="page" value="passwordchange.jsp">
             </form>
             <%
             if (session.getAttribute("message") != null) {
