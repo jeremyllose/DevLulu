@@ -30,7 +30,12 @@
                 if (session.getAttribute("username") == null) {
                     response.sendRedirect("login.jsp");
                 }
+                else if (!session.getAttribute("userRole").equals("Owner")) {
+                session.setAttribute("verification", "You have no Permission to Open the Account List");
+                response.sendRedirect("403 Forbidden Page.jsp");
+            }
             %>
+           
         <div class="content-wrapper">
             <%
                 // Get current date
@@ -38,14 +43,6 @@
 
                 // Check if today is within the first 5 days of the month
                 boolean withinFirstFiveDays = today.getDayOfMonth() <= 5;
-            %>
-            <%
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
-                if (session.getAttribute("userRole").equals("Manager")) {
-                    session.setAttribute("verification", "You have no Permission to Open the Account List");
-                    response.sendRedirect("welcome.jsp");
-                }
             %>
             <div class="dashboardbar">
                 <h1 id="dashboardheader">Variance</h1>
@@ -157,7 +154,7 @@
                 }
             %>
             <form action="VariancePageRedirect" method="post">
-                <table>
+                <table class="pagination">
                     <%
                         Integer itemPgNum = (Integer) session.getAttribute("variancePgNum");
                         Integer totalPages = (Integer) session.getAttribute("variancePages");

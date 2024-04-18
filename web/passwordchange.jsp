@@ -25,6 +25,10 @@
         %>
         <h1>USER: ${usernameForgot}</h1><input type="hidden" name="username" value="${usernameForgot}">
         <%
+            session.removeAttribute("usernameForgot");
+            }else{
+                session.setAttribute("verification", "You have no Permission to Open the Password Change page without a valid username");
+                response.sendRedirect("403 Forbidden Page.jsp");
             }
         %>
         <table>

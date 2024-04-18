@@ -32,7 +32,7 @@
                 }
             %>
             <div class="dashboardbar">
-                <h1 id="dashboardheader">Sort Options</h1></div>
+                <h1 id="dashboardheader">Filter Options</h1></div>
             <form action="SortingItems" method="post">
                 <div class="content-container">
                 <table>

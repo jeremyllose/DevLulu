@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="styles/errorpage.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="photos/cafeicon.png">
-        <title>403 Forbidden</title>
+        <title>500 Internal Server</title>
     </head>
     <body>
         <div class="logo">
@@ -20,10 +20,10 @@
         <img src="photos/greenleaves.png" alt="Image" class="bottom-leaves">   
         <img src="photos/coffeebeans.png" alt="Image" class="top-beans"> 
 
-        <div class="Error-Form">
-            <h1>500 Internal Server Error</h1>
+        <div style="position: fixed; right: 27rem;"class="Error-Form">
+            <h1>500 Internal Server</h1>
             <img id="cup" src="photos/errorcup.png" alt="Image" >   
-            <p>Sorry, something went wrong on our end. Please try again later.</p>
+            <p>Sorry, something went wrong on our end. Please try again later.</p>      
 
             <%
                 if (session.getAttribute("username") == null) {
@@ -36,4 +36,5 @@
             <%
                 }
             %>
+            </div>
     </body>

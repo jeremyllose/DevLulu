@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="styles/errorpage.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="photos/cafeicon.png">
-        <title>Login Page</title>
+        <title>404 Not Found</title>
     </head>
     <body>
         <div class="logo">
@@ -22,7 +22,7 @@
 
         <div class="Error-Form">
             <h1>404 Not Found</h1>
-            <img id="cup" src="photos/errorcup.png" alt="Image" >   
+            <img id="cup" src="photos/404error.png" alt="Image">   
             <p>The page you are looking for does not exist.</p>
 
             <%
@@ -36,5 +36,6 @@
             <%
                 }
             %>
+        </div>
     </body>
 </html>

@@ -20,13 +20,12 @@
     </head>
     <body>
         <script>
-            if ( window.history.replaceState ) 
+            if (window.history.replaceState)
             {
-                window.history.replaceState( null, null, window.location.href );
+                window.history.replaceState(null, null, window.location.href);
             }
         </script>
-        <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        <%            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
             if (session.getAttribute("username") == null) {
                 response.sendRedirect("login.jsp");
@@ -57,15 +56,39 @@
                         <img src="photos/import.png" alt="import excel Button" style="width: 20px; height: 20px; margin-right: 5px;">
                         Import Excel</label>
                     <input id="upload" type="submit" value="Upload" 
-                         alt="import excel Button" style="width: 130px; height: 50px; margin-right: 5px;"/>
-                        
+                           alt="import excel Button" style="width: 80px; height: 25px; margin-right: 5px; border-radius: 8px;"/>
+                    <span style="position: relative; right: 17rem; top: 3rem;" id="selectedFileName"></span>
 
                     <script>
-                        function showFileName() {
-                            var input = document.getElementById('fileInput');
-                            var fileNameDisplay = document.getElementById('selectedFileName');
-                            fileNameDisplay.textContent = input.files[0].name;
-                        }
+                        // Get the file input element
+                        var fileInput = document.getElementById('fileInput');
+                        // Get the upload button element
+                        var uploadButton = document.getElementById('uploadButton');
+                        // Get the element to display the selected file name
+                        var fileNameDisplay = document.getElementById('selectedFileName');
+
+                        // Add event listener for file input change
+                        fileInput.addEventListener('change', function () {
+                            // Check if the selected file has the correct file extension
+                            var allowedExtensions = ['.xlsx', '.xls'];
+                            var fileName = this.files[0].name;
+                            var fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+
+                            if (allowedExtensions.indexOf(fileExtension) === -1) {
+                                // Display error message if the file extension is not allowed
+                                fileNameDisplay.textContent = 'Error: Invalid file format';
+                                // Reset the file input to clear the selection
+                                this.value = '';
+                            } else {
+                                // Update the display with the selected file name
+                                fileNameDisplay.textContent = fileName;
+                            }
+                        });
+
+                        // Add event listener to clear error message when upload button is clicked
+                        uploadButton.addEventListener('click', function () {
+                            fileNameDisplay.textContent = '';
+                        });
                     </script>
                 </form>
                 <form action="ItemSearch" method="post">
@@ -156,60 +179,61 @@
                 <%= addItemMessage%>
             </div>
             <%
-                }else if (itemMessage!= null){
+            } else if (itemMessage != null) {
             %>
             <div class="message">
                 <%= itemMessage%>
             </div>
-            <%
-                session.removeAttribute("itemMessage");
-                }
-            %>
-            <%
-                Integer itemPgNum = (Integer) session.getAttribute("itemPgNum");
-                Integer totalPages = (Integer) session.getAttribute("itemPages");
-
-                int currentPage = itemPgNum != null ? itemPgNum : 1;
-                int totalPg = totalPages != null ? totalPages : 1;
-            %>
-            <form action="ItemList" method="post">
-                <table>
-                    <tr>
-                        <%
-                            if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
-                        %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%=currentPage - 2%>"></td>
-                            <%
-                                }
-                            %>
-                            <%
-                                if ((currentPage - 1) != 0) {
-                            %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%=currentPage - 1%>"></td>
-                            <%
-                                }
-                            %>
-
-                        <td><%= currentPage%></td>
-
-                        <%
-                            if ((currentPage + 1) <= totalPg) {
-                        %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%= currentPage + 1%>"></td>
-                            <%
-                                }
-                            %>
-                            <%
-                                if ((currentPage + 2) <= totalPg) {
-                            %>
-                        <td><input type="submit" class="pagination-button" name="button" value="<%= currentPage + 2%>"></td>
-                            <%
-                                }
-                            %>
-                    </tr>
-                </table>
-            </form>
         </div>
+        <%
+                session.removeAttribute("itemMessage");
+            }
+        %>
+        <%
+            Integer itemPgNum = (Integer) session.getAttribute("itemPgNum");
+            Integer totalPages = (Integer) session.getAttribute("itemPages");
+
+            int currentPage = itemPgNum != null ? itemPgNum : 1;
+            int totalPg = totalPages != null ? totalPages : 1;
+        %>
+        <form action="ItemList" method="post">
+            <table class="pagination">
+                <tr>
+                    <%
+                        if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
+                    %>
+                    <td><input type="submit" name="button" value="<%=currentPage - 2%>"></td>
+                        <%
+                            }
+                        %>
+                        <%
+                            if ((currentPage - 1) != 0) {
+                        %>
+                    <td><input type="submit" name="button" value="<%=currentPage - 1%>"></td>
+                        <%
+                            }
+                        %>
+
+                    <td><%= currentPage%></td>
+
+                    <%
+                        if ((currentPage + 1) <= totalPg) {
+                    %>
+                    <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                        <%
+                            }
+                        %>
+                        <%
+                            if ((currentPage + 2) <= totalPg) {
+                        %>
+                    <td><input type="submit"name="button" value="<%= currentPage + 2%>"></td>
+                        <%
+                            }
+                        %>
+                </tr>
+            </table>
+        </form>
+
     </form>
     <input type="hidden" name="selectedOptions" id="selectedOptions" value="">
     <!--            <div id="dateText">Date: July 15, 2024</div>-->

@@ -19,6 +19,10 @@
         <h1>USER: ${username}</h1><input type="hidden" name="username" value="${username}">
         <%
             }
+            else{
+                session.setAttribute("verification", "You have no Permission to Open the Password Change page without a valid session");
+                response.sendRedirect("403 Forbidden Page.jsp");
+            }
         %>
         <table>
             <tr>

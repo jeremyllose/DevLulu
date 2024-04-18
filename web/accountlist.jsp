@@ -38,7 +38,7 @@
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-            if (session.getAttribute("userRole").equals("Manager") ) {
+            if (session.getAttribute("userRole").equals("Manager")) {
                 session.setAttribute("verification", "You have no Permission to Open the Account List");
                 response.sendRedirect("403 Forbidden Page.jsp");
             }

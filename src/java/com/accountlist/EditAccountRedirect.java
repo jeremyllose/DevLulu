@@ -67,6 +67,7 @@ public class EditAccountRedirect extends HttpServlet {
         String getOldPassword = request.getParameter("oldPassword");
         String getPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+        session.removeAttribute("message");
         
         EncryptDecrypt crypto;
         

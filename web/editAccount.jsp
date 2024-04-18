@@ -4,14 +4,22 @@
     Author     : Cesar
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="styles/addaccount.css">
+        <script src="script/welcome.js" defer></script>
     </head>
     <body>
+          <div class="dashboardbar">
+            <h1 id="dashboardheader">Add Account</h1> 
+        </div>
+        <div style="height: 32%" class="content-container">
         <%
             if (session.getAttribute("username") != null) {
         %>
@@ -41,5 +49,7 @@
         <%
             }
         %>
+        <th><button style="position: relative; top: -10px;"class="inventory" id="return" onclick="redirectTo('AccountList')">Return</button></th>
+        </div>
     </body>
 </html>

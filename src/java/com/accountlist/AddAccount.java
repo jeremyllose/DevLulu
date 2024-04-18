@@ -69,7 +69,7 @@ public class AddAccount extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
         String getRole = request.getParameter("role");
         HttpSession session = request.getSession();
-        
+        session.removeAttribute("message");
         try 
         {
             Statement stm = con.createStatement();
@@ -91,9 +91,15 @@ public class AddAccount extends HttpServlet {
                     PreparedStatement ps = con.prepareStatement("INSERT INTO LOGIN (ID, USERNAME, PASSWORD, ROLE) VALUES ("+ idNum +", '"+ getUsername +"', '"+ EncryptDecrypt.encrypt(getPassword, key, cypher) +"', '"+ getRole +"')");
                     ps.executeUpdate();
                     ps.close();
+                    request.setAttribute("accountMade", "Account Created");
+                    request.getRequestDispatcher("AccountList").forward(request,response);
                 }
-                request.setAttribute("accountMade", "Account Created");
-                request.getRequestDispatcher("AccountList").forward(request,response);
+                else
+                {
+                    session.setAttribute("message", "Role must be Selected");
+                    response.sendRedirect("add.jsp");
+                }
+                
             }
             else
             {

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : commons
-    Created on : 02 12, 24, 2:25:49 AM
-    Author     : jeremy
+Document   : commons
+Created on : 02 12, 24, 2:25:49 AM
+Author     : jeremy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,8 +50,7 @@
                 </form>
                 <br>
                 <%
-                    if(!session.getAttribute("userRole").equals("Manager"))
-                    { 
+                    if (!session.getAttribute("userRole").equals("Manager")) {
                 %>
                 <form id="account-form" action="AccountList" method="post">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Account List</button>
@@ -59,18 +58,16 @@
                 <form id="account-form" action="editAccount.jsp">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
                 </form>
-                <% 
-                    }
-                    else
-                    {
+                <%
+                } else {
                 %>
                 <form id="account-form" action="passchange.jsp">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
                 </form>
-                <% 
+                <%
                     }
                 %>
-                
+
                 <br>
                 <form id="logout-form" action="Logout">
                     <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" ><img src="photos/Logout.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Logout</button>

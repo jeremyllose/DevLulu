@@ -76,6 +76,7 @@ public class Login extends HttpServlet {
         EncryptDecrypt crypto;
         
         HttpSession session = request.getSession();
+        session.removeAttribute("message");
         
         if (i <= 0 || (session.getAttribute("attempts") == null)) {
             i = 3;
@@ -118,7 +119,13 @@ public class Login extends HttpServlet {
             }
             else if(rs.getBoolean("DISABLED"))
             {
-                session.setAttribute("message", "This account has been Disabled by the Owner or Assistant Manager");
+                session.setAttribute("message", "This account has been Disabled by the Owner");
+                response.sendRedirect("login.jsp");
+            }
+            else if(rs.getBoolean("ENABLE"))
+            {
+                session.setAttribute("message", "Password Change has Approved");
+                passwordReceived(uname);
                 response.sendRedirect("login.jsp");
             }
             else
@@ -154,6 +161,16 @@ public class Login extends HttpServlet {
         ResultSet resultSet = ps.executeQuery();
         
         return resultSet.next();
+    }
+    
+    public void passwordReceived(String username) throws SQLException {
+        int count = 0;
+        String query = "UPDATE LOGIN SET FORGOTTEN = FALSE, ENABLE = FALSE WHERE USERNAME = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, username);
+        ps.executeUpdate();
+        ps.close();
     }
 
 }

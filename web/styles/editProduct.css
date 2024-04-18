@@ -11,6 +11,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    overflow: hidden;
     background-color: #f4f4f4;
 }
 
@@ -52,7 +53,10 @@ body {
     font-family: "Open Sans", sans-serif;
     position: relative;
     right: -27rem;
-    top: 7.5rem;
+    top: 5.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(100vh - 10rem);
 }
 
 .item-container h3 {

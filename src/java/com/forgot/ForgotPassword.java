@@ -61,16 +61,15 @@ public class ForgotPassword extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
+        session.removeAttribute("message");
         String getUsername = request.getParameter("forgot-email");
 
 
         if (getUsername == null || getUsername.isEmpty()) {
- 
+            session.setAttribute("message", "Username Required");
             response.sendRedirect("login.jsp");
-            return; 
         }
-        
-        if (usernameExist(getUsername) == 0) {
+        else if (usernameExist(getUsername) == 0) {
             session.setAttribute("message", "User DOES NOT Exist");
             response.sendRedirect("login.jsp");
         }
@@ -78,10 +77,23 @@ public class ForgotPassword extends HttpServlet {
             session.setAttribute("message", "Password has been Successfully Changed");
             passwordReceived(getUsername);
             response.sendRedirect("login.jsp");
-        } else {
+        } else if (check(getUsername) == true) {
+            session.setAttribute("message", "Password Request has been sent");
+            response.sendRedirect("login.jsp");
+        }else {
             session.setAttribute("usernameForgot", getUsername);
             response.sendRedirect("passwordchange.jsp");
         }
+    }
+    
+    public boolean check(String username) throws SQLException
+    {
+        String query = "SELECT 1 FROM LOGIN WHERE USERNAME = ? AND FORGOTTEN = TRUE";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
     }
 
     public String getUserPassword(String username) throws SQLException {
