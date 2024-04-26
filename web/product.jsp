@@ -40,10 +40,6 @@
                         <img src="photos/plus.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span style="margin-right: 5px;">Add Product</span></button>
                 </form>
 
-                <form action="ProductSortPage" method="post">
-                    <button type="submit" class="inventory" id="add"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Filter Options</span></button>
-                </form>
-
                 <form action="ProductSearch" method="post">
                     <div class="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
@@ -80,7 +76,7 @@
                                     } else {
                                     %>
                                 <td>
-                                    <input type="submit" name="button" value="Enable">
+                                    <input id="button-css" type="submit" name="button" value="Enable">
                                     <input type="hidden" name="enable" value="<%= results.getString("product_code")%>">
                                 </td>
                                 <%

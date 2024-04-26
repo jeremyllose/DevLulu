@@ -182,7 +182,7 @@ label:hover:not(.inventory:hover) {
 #dashboardheader {
     position:relative;
     top: 10px;
-    right: -35rem;
+    right: -42.3rem;
     color: #fff;
     margin: 0;
     font-weight: lighter;
@@ -294,5 +294,41 @@ input[type="number"] {
         right: -210px;
         width: 300px;
         height: 100px;
+    }
+}
+@media screen and (min-width: 1920px) {
+    .searchContainer{
+        position: fixed;
+        right: 195px;
+    }
+    #dashboardheader {
+        position:relative;
+        top: 10px;
+        right: -50rem;
+        color: #fff;
+        margin: 0;
+        font-weight: lighter;
+    }
+    .dashboardbar {
+        background-color: #8f654a;
+        padding: 10px;
+        position:fixed;
+        top: -10px;
+        right: -220px;
+        width: 100%;
+        z-index: 1;
+        justify-content: center;
+        align-items: center;
+    }
+    #savechanges {
+        position: fixed;
+        right: 969px;
+        top: 60px;
+    }
+    .pagination {
+        position: relative;
+        right: -800px;
+        top: 30px;
+
     }
 }

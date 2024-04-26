@@ -159,12 +159,71 @@ body {
     position: fixed;
     right: -7rem;
     top: 30rem;
+    width: 500px;
+    height: 500px;
+    margin-right: 5px;
+    z-index: 0;
+}
+/* Define fade-in and fade-out animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Apply fade-in and fade-out animations to main content */
+.main-content {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0; /* Initially hide the main content */
+}
+
+/* Apply fade-out animation when navigating away */
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
 }
 @media screen and (max-width: 1440px) {
     #leafBG {
         position: fixed;
         right: -7rem;
         top: 40rem;
+    }
+}
+@media screen and (min-width: 1920px) {
+    #leafBG {
+        position: fixed;
+        right: -7rem;
+        top: 35rem;
+        width: 600px;
+        height: 600px;
+        margin-right: 5px;
+        z-index: 0;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color:  #8f654a; /* Adjust background color as needed */
+        padding: 1px;
+        text-align: center;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        z-index: 50;
     }
 }
 

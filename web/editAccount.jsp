@@ -12,14 +12,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="styles/addaccount.css">
+        <link rel="stylesheet" href="styles/editaccount.css">
         <script src="script/welcome.js" defer></script>
     </head>
     <body>
           <div class="dashboardbar">
             <h1 id="dashboardheader">Add Account</h1> 
         </div>
-        <div style="height: 32%" class="content-container">
+        <div class="content-container">
         <%
             if (session.getAttribute("username") != null) {
         %>
@@ -31,16 +31,16 @@
             <input type="hidden" name="originalUsername" value="<%= session.getAttribute("username") %>"/>
         <table>
             <tr>
-                <th>Old Password: </th><th><input type="password" name="oldPassword" required/></th>
+                <th>Old Password: </th><th><input type="password" name="oldPassword" placeholder="Password" required/></th>
             </tr>
             <tr>
-                <th>Password: </th><th><input type="password" name="password" required/></th>
+                <th>New Password: </th><th><input type="password" name="password" placeholder="Password" required/></th>
             </tr>
             <tr>
-                <th>Confirm Password: </th><th><input type="password" name="confirmPassword" required/></th>
+                <th>Confirm Password: </th><th><input type="password" name="confirmPassword" placeholder="Confirm Password" required/></th>
             </tr>
         </table>
-            <button type="submit" onclick="return confirm('Are you sure you want to edit this account?')">Save</button>
+            <button id="save" type="submit" onclick="return confirm('Are you sure you want to edit this account?')">Save</button>
             </form>
             <%
             if (session.getAttribute("message") != null) {
@@ -49,7 +49,7 @@
         <%
             }
         %>
-        <th><button style="position: relative; top: -10px;"class="inventory" id="return" onclick="redirectTo('AccountList')">Return</button></th>
+        <th><button class="inventory" id="return" onclick="redirectTo('AccountList')">Return</button></th>
         </div>
     </body>
 </html>

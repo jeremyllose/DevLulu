@@ -1,11 +1,12 @@
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : Jan 28, 2024, 11:30:32 PM
-    Author     : jeremy
+    Created on : 04 26, 24, 9:27:12 PM
+    Author     : BioStaR
 */
+
 #dashboardheader {
     position:relative;
     top: 10px;
@@ -44,10 +45,10 @@ body {
     padding: 10px 15px;
     cursor: pointer;
     position: relative;
-    top: -70px;
-    right: -120px;
+    top: 6px;
+    right: -70px;
 }
-#addacc {
+#save {
     display: inline-block;
     padding: 10px 15px;
     background-color: #8f654a;
@@ -57,8 +58,9 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative;
-    top: 75px;
-    right: -170px;
+    /* Adjust these values to position the submit button as desired */
+    top: 40px;  /* Move down 30px from the bottom of the container */
+    right: -200px;
 }
 h4 {
     position: relative;
@@ -77,11 +79,6 @@ h4 {
     animation: scaleUp 0.3s ease;
     background-color: #e7a74f ;
 }
-#return {
-    position: relative;
-    top: 40px;
-    right: -65px;
-}
 @keyframes scaleUp {
     from {
         transform: scale(1);
@@ -96,7 +93,7 @@ h4 {
 }
 h1 {
     position: relative;
-    right: -80px;
+    right: -50px;
     padding: 2px;
     box-sizing: border-box;
 }
@@ -157,26 +154,33 @@ td label {
         align-items: center;
     }
     #return {
+        background-color: #900603;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
         position: relative;
-        top: 40px;
-        right: -65px;
+        top: 6px;
+        right: -70px;
     }
-    #addacc {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #8f654a;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    position: relative;
-    top: 75px;
-    right: -150px;
-}
+    #save {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #8f654a;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: relative;
+        /* Adjust these values to position the submit button as desired */
+        top: 40px;  /* Move down 30px from the bottom of the container */
+        right: -200px;
+    }
     h1 {
         position: relative;
-        right: -70px;
+        right: -50px;
         padding: 2px;
         box-sizing: border-box;
     }
@@ -192,3 +196,5 @@ td label {
         right: -5px;
     }
 }
+
+
