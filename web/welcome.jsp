@@ -36,7 +36,7 @@
 
                 </div>
                 <!-- Add your main content here -->
-                <img id="leafBG" src="photos/CBFR.png" alt="add item Button" style="width: 250px; height: 250px; position: fixed; right: 80rem; top: -2rem;">
+                <img id="Coffee" src="photos/CBFR.png" alt="add item Button">
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
                 <body>
 

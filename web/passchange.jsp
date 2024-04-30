@@ -4,14 +4,23 @@
     Author     : Cesar
 --%>
 
+
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="styles/passchange.css">
+        <script src="script/welcome.js" defer></script>
     </head>
     <body>
+          <div class="dashboardbar">
+            <h1 id="dashboardheader">Edit Account</h1> 
+        </div>
+        <div class="content-container">
         <form action="PasswordChange" method="post">
             <%
             if (session.getAttribute("username") != null) {
@@ -26,14 +35,14 @@
         %>
         <table>
             <tr>
-                <th>Password: </th><th><input type="password" name="password" required/></th>
+                <th>Password: </th><th><input type="password" name="password" placeholder="Password" required/></th>
             </tr>
             <tr>
-                <th>Confirm Password: </th><th><input type="password" name="confirmPassword" required/></th>
+                <th>Confirm Password: </th><th><input type="password" name="confirmPassword" placeholder="Confirm Password" required/></th>
             </tr>
         </table>
         <input type="hidden" name="page" value="passchange.jsp">
-            <button type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
+            <button id="save" type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
             </form>
             <%
             if (session.getAttribute("message") != null) {
@@ -42,5 +51,7 @@
         <%
             }
         %>
+        <th><button class="inventory" id="return" onclick="redirectTo('WelcomePageRedirect')">Return</button></th>
+        </div>
     </body>
 </html>

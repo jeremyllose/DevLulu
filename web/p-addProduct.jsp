@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : addProduct
     Created on : 02 11, 24, 2:39:14 PM
     Author     : jeremy
@@ -30,7 +30,7 @@
             }
         %>
         <div class="dashboardbar">
-            <h1 id="dashboardheader">Add Product Page</h1>
+            <h1 id="dashboardheader">Add Product</h1>
         </div>
         <br>
         <br>

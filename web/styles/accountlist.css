@@ -111,7 +111,7 @@ label:hover:not(.inventory:hover) {
 #dashboardheader {
     position:relative;
     top: 10px;
-    right: -35rem;
+    right: -40rem;
     color: #fff;
     margin: 0;
     font-weight: lighter;
@@ -142,5 +142,67 @@ label:hover:not(.inventory:hover) {
     height: 20px;
     text-align: center;
 }
-
+#button-css {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%;
+    position: relative;
+    right: -120px;
+}
+#showpass {
+    width: 40%;
+    position: relative;
+    right: -100px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+@media screen and (min-width: 1920px) {
+    #dashboardheader {
+        position:relative;
+        top: 10px;
+        right: -50rem;
+        color: #fff;
+        margin: 0;
+        font-weight: lighter;
+    }
+    .dashboardbar {
+        background-color: #8f654a;
+        padding: 10px;
+        position:fixed;
+        top: -10px;
+        right: -220px;
+        width: 100%;
+        z-index: 1;
+        justify-content: center;
+        align-items: center;
+    }
+    #button-css {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 22%;
+        position: relative;
+        right: -145px;
+    }
+    #showpass {
+        width: 35%;
+        position: relative;
+        right: -130px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+    }
+}
 

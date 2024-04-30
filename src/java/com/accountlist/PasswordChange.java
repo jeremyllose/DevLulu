@@ -83,13 +83,13 @@ public class PasswordChange extends HttpServlet {
         else if(session.getAttribute("username") != null)
         {
             updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
-            session.setAttribute("message", "Wait till you're password has been approved by the Admin");
+            session.setAttribute("message", "Please wait until your password has been approved by the Admin");
             response.sendRedirect(page);
         }
         else
         {
             updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
-            session.setAttribute("message", "Wait till you're password has been approved by the Admin");
+            session.setAttribute("message", "Please wait until your password has been approved by the Admin");
             response.sendRedirect("login.jsp");
         }
     }

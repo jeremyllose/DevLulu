@@ -21,7 +21,7 @@ Author     : jeremy
 
         <div class="container">
             <div class="sidebar">
-                <button style="position: relative; top: -13rem; right: -0rem;" id="homebutton" onclick="redirectTo('WelcomePageRedirect')"><img src=".\photos\homeicon.png" alt="Home"></button>
+                <button  style="position: relative; top: -13rem; right: -0rem;" id="homebutton" onclick="redirectTo('WelcomePageRedirect')"><img src=".\photos\homeicon.png" alt="Home"></button>
                 <form id="sales-form" action="SalesRedirect" method="post">
                     <button class="menu-item">
                         <img src="photos/Sales.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Sales</button>
@@ -30,15 +30,14 @@ Author     : jeremy
                     <button class="menu-item"><img src="photos/Product.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Recipe</button>
                 </form>
                 <%
-                            if (session.getAttribute("userRole").equals("Owner") ) 
-                            {
-                        %>
+                    if (session.getAttribute("userRole").equals("Owner")) {
+                %>
                 <form id="variance-form" action="VariancePageRedirect" method="post">
                     <button class="menu-item"><img src="photos/Variance.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Variance</button>
                 </form>
                 <%
                     }
-                        %>
+                %>
                 <form id="item-form" action="ItemList" method="post">
                     <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Inventory</button>
                 </form>
@@ -55,8 +54,8 @@ Author     : jeremy
                 <form id="account-form" action="AccountList" method="post">
                     <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Account List</button>
                 </form>
-                <form id="account-form" action="editAccount.jsp">
-                    <button class="menu-item" id="accountlist"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
+                <form id="editaccount-form" action="editAccount.jsp">
+                    <button class="menu-item" id="editaccount"><img src="photos/AccountList.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Edit Account</button>
                 </form>
                 <%
                 } else {
@@ -74,7 +73,7 @@ Author     : jeremy
                 </form>
             </div>
             <div class="main-content" id="mainContent">
-                <img id="leafBG" src="photos/leavebro.png" alt="add item Button" style="width: 500px; height: 500px; margin-right: 5px;">
+                <img id="leafBG" src="photos/leavebro.png" alt="add item Button">
             </div>
             <footer class="footer">
                 <nav>
@@ -95,10 +94,9 @@ Author     : jeremy
                     const suppliesButton = document.getElementById('supplies-form');
                     const wasteButton = document.getElementById('waste-form');
                     const accountButton = document.getElementById('account-form');
+                    const editButton = document.getElementById('editaccount-form');
                     const logoutButton = document.getElementById('logout-form');
-
-
-                    salesButton.addEventListener('click', function (event) {
+                     salesButton.addEventListener('click', function (event) {
                         event.preventDefault();
                         document.body.style.opacity = 0;
                         setTimeout(function () {
@@ -169,6 +167,15 @@ Author     : jeremy
                             document.getElementById('account-form').submit();
                         }, 200);
                     });
+                    
+                    editButton.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        document.body.style.opacity = 0;
+                        setTimeout(function () {
+                            document.body.style.opacity = 1;
+                            document.getElementById('editaccount-form').submit();
+                        }, 200);
+                    });
 
                     logoutButton.addEventListener('click', function (event) {
                         event.preventDefault();
@@ -180,7 +187,5 @@ Author     : jeremy
                     });
                 });
             </script>
-        </script>
-
-</body>
+    </body>
 </html>

@@ -4,50 +4,58 @@
     Author     : Cesar
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="styles/passwordchange.css">
+        <script src="script/welcome.js" defer></script>
+
     </head>
     <body>
-        <%
-            if (session.getAttribute("username") != null) {
-        %>
-        <h1>USER: ${username}</h1>
-        <%
-            }
-        %>
-        <form action="PasswordChange" method="post">
+        <div class="dashboardbar">
+            <h1 id="dashboardheader">Change Password</h1> 
+        </div>
+        <div class="content-container">
+            <%            if (session.getAttribute("username") != null) {
+            %>
+            <h1>USER: ${username}</h1>
             <%
-            if (session.getAttribute("usernameForgot") != null) {
-        %>
-        <h1>USER: ${usernameForgot}</h1><input type="hidden" name="username" value="${usernameForgot}">
-        <%
-            session.removeAttribute("usernameForgot");
-            }else{
-                session.setAttribute("verification", "You have no Permission to Open the Password Change page without a valid username");
-                response.sendRedirect("403 Forbidden Page.jsp");
-            }
-        %>
-        <table>
-            <tr>
-                <th>Password: </th><th><input type="password" name="password" required/></th>
-            </tr>
-            <tr>
-                <th>Confirm Password: </th><th><input type="password" name="confirmPassword" required/></th>
-            </tr>
-        </table>
-            <button type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
-            <input type="hidden" name="page" value="passwordchange.jsp">
+                }
+            %>
+            <form action="PasswordChange" method="post">
+                <%
+                    if (session.getAttribute("usernameForgot") != null) {
+                %>
+                <h1>USER: ${usernameForgot}</h1><input type="hidden" name="username" value="${usernameForgot}">
+                <%
+                        session.removeAttribute("usernameForgot");
+                    } else {
+                        session.setAttribute("verification", "You have no Permission to Open the Password Change page without a valid username");
+                        response.sendRedirect("403 Forbidden Page.jsp");
+                    }
+                %>
+                <table>
+                    <tr>
+                        <th>Password: </th><th><input type="password" name="password" placeholder="Password" required/></th>
+                    </tr>
+                    <tr>
+                        <th>Confirm Password: </th><th><input type="password" name="confirmPassword" placeholder="Confirm Password" required/></th>
+                    </tr>
+                </table>
+                <button type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
             </form>
             <%
-            if (session.getAttribute("message") != null) {
-        %>
-        <h4>${message}</h4>
-        <%
-            }
-        %>
-    </body>
+                if (session.getAttribute("message") != null) {
+            %>
+            <h4>${message}</h4>
+            <%
+                }
+            %>
+         <th><button class="inventory" id="return" onclick="redirectTo('login.jsp')">Return</button></th>
+        </div></body>
 </html>

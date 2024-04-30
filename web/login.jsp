@@ -88,7 +88,7 @@
                 <form id="forgot-password-form" action="ForgotPassword">
                     <h2 style="font-size: 36px; font-family: Karma;  position: relative; left: 0rem; top: -1rem; ">Forgot Password</h2>       
                     <h3 style="font-size: 20px; font-family: Lohit Bengali; color: #696969; font-weight:lighter; position: relative; left: 0rem; top: -3rem;">Please provide your username to request a password reset.</h2>
-                        <label style="font-size: 18px; font-family: Lohit Bengali; font-weight:bold; position: relative; left: -5.9rem; top: -2.5rem;" for="forgot-email">Username:</label>
+                        <label style="font-size: 18px; font-weight:bold; position: relative; left: -5.9rem; top: -2.5rem;" for="forgot-email">Username:</label>
                         <input style=" width: 18rem;border-radius: 10px; position: relative; left: 0rem; top: -2.2rem;" type="text" id="forgot-email" name="forgot-email" placeholder="Enter username" required>
                         <br>    
                         <button id="FPsubmit" type="submit">Submit</button>

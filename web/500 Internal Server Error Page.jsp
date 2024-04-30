@@ -1,5 +1,5 @@
 <%-- 
-    Document   : 500 Internal Server Error Page
+        Document   : 500 Internal Server Error Page
     Created on : 04 16, 24, 6:10:19 AM
     Author     : BioStaR
 --%>
@@ -20,7 +20,7 @@
         <img src="photos/greenleaves.png" alt="Image" class="bottom-leaves">   
         <img src="photos/coffeebeans.png" alt="Image" class="top-beans"> 
 
-        <div style="position: fixed; right: 27rem;"class="Error-Form">
+        <div class="Error-Form">
             <h1>500 Internal Server</h1>
             <img id="cup" src="photos/errorcup.png" alt="Image" >   
             <p>Sorry, something went wrong on our end. Please try again later.</p>      
