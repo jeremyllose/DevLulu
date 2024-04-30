@@ -101,11 +101,22 @@ public class AddItem extends HttpServlet {
             }
             else
             {
-                addItem(getItemCode, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
-                addPricing(getItemCode, getUOM, getTransferCost, isChecked);
-                addTransaction(getItemCode, getQty);
-                addInventory(getItemCode, getQty, getMax, getReorder);
-                addStockHistory(getItemCode, getQty);
+                String baseName = "ITEM";
+                int start = 1;
+                String formattedLength = String.format("%04d", start);
+                String name = baseName + formattedLength;
+                while (check(name))
+                {
+                    start++;
+                    formattedLength = String.format("%04d", start);
+                    name = baseName + formattedLength;
+                }
+                
+                addItem(name, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
+                addPricing(name, getUOM, getTransferCost, isChecked);
+                addTransaction(name, getQty);
+                addInventory(name, getQty, getMax, getReorder);
+                addStockHistory(name, getQty);
             }
         } 
         catch (SQLException ex) 
