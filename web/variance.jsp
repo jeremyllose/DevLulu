@@ -140,13 +140,13 @@
                 String itemMessage = (String) session.getAttribute("varianceMessage");
                 if (addItemMessage != null) {
             %>
-            <div class="message">
+            <div class="success">
                 <%= addItemMessage%>
             </div>
             <%
                 }else if (itemMessage!= null){
             %>
-            <div class="message">
+            <div class="success">
                 <%= itemMessage%>
             </div>
             <%

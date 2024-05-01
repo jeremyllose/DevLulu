@@ -25,7 +25,7 @@
             <%
             if (session.getAttribute("username") != null) {
         %>
-        <h1>USER: ${username}</h1><input type="hidden" name="username" value="${username}">
+        <h1 id="user">USER: ${username}</h1><input type="hidden" name="username" value="${username}">
         <%
             }
             else{
@@ -35,7 +35,7 @@
         %>
         <table>
             <tr>
-                <th>Password: </th><th><input type="password" name="password" placeholder="Password" required/></th>
+                <th>Enter Password: </th><th><input type="password" name="password" placeholder="Password" required/></th>
             </tr>
             <tr>
                 <th>Confirm Password: </th><th><input type="password" name="confirmPassword" placeholder="Confirm Password" required/></th>
@@ -47,7 +47,7 @@
             <%
             if (session.getAttribute("message") != null) {
         %>
-        <h4>${message}</h4>
+        <h4 class="error">${message}</h4>
         <%
             }
         %>

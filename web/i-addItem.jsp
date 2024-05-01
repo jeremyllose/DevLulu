@@ -124,7 +124,7 @@
         </script>
         <div>   
             <% if (session.getAttribute("existing") != null) { %>
-            <div class="error-message">
+            <div class="error">
                 <span class="error-symbol">&#9888;</span> Error! ${existing}
             </div>
             <% }%>
