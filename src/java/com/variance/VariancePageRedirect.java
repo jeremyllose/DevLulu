@@ -191,7 +191,7 @@ public class VariancePageRedirect extends HttpServlet {
     public int countPages(String genClassClause, String subClassClause) throws SQLException
     {
         Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 10) AS total_pages "
+        String query = "SELECT CEIL(COUNT(*) / 10.0) AS total_pages "
                 + "FROM ITEM WHERE ITEM.DISABLED = FALSE AND"
                 + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) ";

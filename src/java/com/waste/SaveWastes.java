@@ -7,11 +7,13 @@ package com.waste;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -99,8 +101,23 @@ public class SaveWastes extends HttpServlet {
         for(String item : items)
         {
             int sold = Integer.parseInt(solds[start]) - previousSold(item);
+            if(sold != 0)
+            {
+                systemLogSold((String) session.getAttribute("username"), item, sold, itemDescription(item));
+                updateItem(item);
+            }
             int waste = Integer.parseInt(wastes[start]) - previousWaste(item);
+            if(waste != 0)
+            {
+                systemLogWaste((String) session.getAttribute("username"), item, waste, itemDescription(item));
+                updateItem(item);
+            }
             int subs = Integer.parseInt(othersubs[start]) - previousSubs(item);
+            if(subs != 0)
+            {
+                systemLogOthers((String) session.getAttribute("username"), item, subs, itemDescription(item));
+                updateItem(item);
+            }
             
             int endQuantity = endQuantity(item) - (sold + waste + subs);
             
@@ -115,6 +132,78 @@ public class SaveWastes extends HttpServlet {
                 }
 //        rs.close();
 //        stmt.close();
+    }
+    
+    public void updateItem(String itemCode)throws SQLException
+    {
+        String query = "UPDATE ITEM SET "
+                + "UPDATED= ? "
+                + "WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = format.format(new Date(System.currentTimeMillis()));
+        ps.setString(1, formattedDate);
+        
+        ps.setString(2, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLogSold(String user, String itemCode, int count, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", \"COUNT\", ITEM_DESCRIPTION) "
+                + "VALUES (?, ?, 'STOCK DECREASE', 'USAGE/Sold Column', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setInt(3, count);
+        ps.setString(4, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLogWaste(String user, String itemCode, int count, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", \"COUNT\", ITEM_DESCRIPTION) "
+                + "VALUES (?, ?, 'STOCK DECREASE', 'USAGE/Waste Column', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setInt(3, count);
+        ps.setString(4, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLogOthers(String user, String itemCode, int count, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", \"COUNT\", ITEM_DESCRIPTION) "
+                + "VALUES (?, ?, 'STOCK DECREASE', 'USAGE/Other Subtraction Column', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setInt(3, count);
+        ps.setString(4, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public String itemDescription(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT ITEM_DESCRIPTION FROM ITEM WHERE ITEM_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("item_description");
+        }
+        
+        return result;
     }
     
     public int previousSold(String itemCode) throws SQLException

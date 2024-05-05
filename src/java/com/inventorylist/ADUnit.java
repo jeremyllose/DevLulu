@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class AscendDescend extends HttpServlet {
+public class ADUnit extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +33,15 @@ public class AscendDescend extends HttpServlet {
         String sort = (String) session.getAttribute("itemNum");
         if (sort == null) 
         {
-            session.setAttribute("itemNum", "ITEM_NUM ASC");
+            session.setAttribute("itemNum", "UNIT_PRICE ASC");
         }
-        else if(sort.equals("ITEM_NUM ASC"))
+        else if(sort.equals("UNIT_PRICE ASC"))
         {
-            session.setAttribute("itemNum", "ITEM_NUM DESC");
+            session.setAttribute("itemNum", "UNIT_PRICE DESC");
         }
         else
         {
-            session.setAttribute("itemNum", "ITEM_NUM ASC");
+            session.setAttribute("itemNum", "UNIT_PRICE ASC");
         }
         response.sendRedirect("ItemList");
     }

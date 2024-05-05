@@ -76,7 +76,7 @@ public class ItemList extends HttpServlet {
                 String sort = (String) session.getAttribute("itemNum");
                 if(sort == null)
                 {
-                    sort = "ASC";
+                    sort = "ITEM_NUM ASC";
                     session.setAttribute("itemNum", sort);
                 }
                 
@@ -126,7 +126,7 @@ public class ItemList extends HttpServlet {
                         + "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
                         + "WHERE (ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) "
-                                + "ORDER BY ITEM_NUM " + sort
+                                + "ORDER BY " + sort
                         + " OFFSET "+ (((int) session.getAttribute("itemPgNum") - 1) * 10) +" ROWS FETCH NEXT 10 ROWS ONLY");
                 
                 //gives all the records to the Accountlist
@@ -147,7 +147,7 @@ public class ItemList extends HttpServlet {
     public int countPages(String genClassClause, String subClassClause) throws SQLException
     {
         Statement stmt = con.createStatement();
-        String query = "SELECT CEIL(COUNT(*) / 10) AS total_pages "
+        String query = "SELECT CEIL(COUNT(*) / 10.0) AS total_pages "
                 + "FROM ITEM WHERE "
                 + "(ITEM.GEN_ID IN ("+ genClassClause +") OR ITEM.GEN_ID IS NULL) AND "
                                 + "(ITEM.SUB_ID IN ("+ subClassClause +") OR ITEM.SUB_ID IS NULL) ";

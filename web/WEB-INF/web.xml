@@ -312,6 +312,18 @@
         <servlet-name>PasswordChange</servlet-name>
         <servlet-class>com.accountlist.PasswordChange</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ADTransfer</servlet-name>
+        <servlet-class>com.inventorylist.ADTransfer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ADUnit</servlet-name>
+        <servlet-class>com.inventorylist.ADUnit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActivtyLog</servlet-name>
+        <servlet-class>com.inventorylist.ActivtyLog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -436,7 +448,6 @@
         <servlet-name>WasteSearch</servlet-name>
         <url-pattern>/WasteSearch</url-pattern>
     </servlet-mapping>
-   
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/EditUser</url-pattern>
@@ -568,6 +579,18 @@
     <servlet-mapping>
         <servlet-name>PasswordChange</servlet-name>
         <url-pattern>/PasswordChange</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ADTransfer</servlet-name>
+        <url-pattern>/ADTransfer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ADUnit</servlet-name>
+        <url-pattern>/ADUnit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActivtyLog</servlet-name>
+        <url-pattern>/ActivtyLog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

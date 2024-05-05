@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -61,6 +62,7 @@ public class EditItem extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
             String getItemCode = request.getParameter("itemCode");
             String getItemDescription = request.getParameter("itemDescription");
             float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
@@ -72,12 +74,26 @@ public class EditItem extends HttpServlet {
             
             updateItem(getItemDescription, getGC, getSC, getItemCode);
             updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
+            systemLog((String) session.getAttribute("username"), getItemCode, getItemDescription);
             
             request.setAttribute("itemMessage", "Item "+ getItemDescription +" Was Edited");
             request.getRequestDispatcher("ItemList").forward(request,response);
         } catch (SQLException ex) {
             Logger.getLogger(EditItem.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void systemLog(String user, String itemCode, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'EDITED', 'INVENTORY', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public void updateItem(String desc, String genId, String subId, String itemCode)throws SQLException
@@ -106,7 +122,7 @@ public class EditItem extends HttpServlet {
     public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId)throws SQLException
     {
         float percent = transferCost * (0.01f * 10.7f);
-        float unit = transferCost - percent;
+        float unit = transferCost + percent;
         
         String query = "UPDATE PRICING SET  "
                 + "UNIT_PRICE = ?, "
@@ -118,14 +134,14 @@ public class EditItem extends HttpServlet {
         
         if(vat == true)
         {
-            ps.setFloat(1, unit);
+            ps.setFloat(1, (float) (Math.ceil(unit * Math.pow(10, 2)) / Math.pow(10, 2)));
         }
         else
         {
-            ps.setFloat(1, transferCost);
+            ps.setFloat(1, (float) (Math.ceil(transferCost * Math.pow(10, 2)) / Math.pow(10, 2)));
         }
         
-        ps.setFloat(2, transferCost);
+        ps.setFloat(2, (float) (Math.ceil(transferCost * Math.pow(10, 2)) / Math.pow(10, 2)));
         ps.setString(3, unitId);
         ps.setBoolean(4, vat);
         ps.setString(5, itemCode);

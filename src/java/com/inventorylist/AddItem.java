@@ -101,7 +101,7 @@ public class AddItem extends HttpServlet {
             }
             else
             {
-                String baseName = "ITEM";
+                String baseName = genCode(getGC) + "-" + subCode(getSC) + "-";
                 int start = 1;
                 String formattedLength = String.format("%04d", start);
                 String name = baseName + formattedLength;
@@ -117,6 +117,7 @@ public class AddItem extends HttpServlet {
                 addTransaction(name, getQty);
                 addInventory(name, getQty, getMax, getReorder);
                 addStockHistory(name, getQty);
+                systemLog((String) session.getAttribute("username"), name, getItemDescription);
             }
         } 
         catch (SQLException ex) 
@@ -125,6 +126,19 @@ public class AddItem extends HttpServlet {
         }
         request.setAttribute("itemMessage", "Item Added");
         request.getRequestDispatcher("ItemList").forward(request,response);
+    }
+    
+    public void systemLog(String user, String itemCode, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ADDED', 'INVENTORY', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public void addItem(String itemCode, int itemNum, String itemDesc, String itemAbb, String genId, String subId)throws SQLException
@@ -229,6 +243,21 @@ public class AddItem extends HttpServlet {
         return result;
     }
     
+    public String genCode(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT CODE FROM GEN_CLASS WHERE GEN_ID= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("code");
+        }
+        
+        return result;
+    }
+    
     public String subName(String gc) throws SQLException
     {
         String result = null;
@@ -245,6 +274,21 @@ public class AddItem extends HttpServlet {
         }
         
         return firstWord;
+    }
+    
+    public String subCode(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT CODE FROM SUB_CLASS WHERE SUB_ID= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("code");
+        }
+        
+        return result;
     }
     
     public static boolean characters(String str) 
