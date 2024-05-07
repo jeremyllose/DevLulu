@@ -9,9 +9,9 @@ package com.model;
  */
 public class UnitCost 
 {
-    public static float getUnitCost(boolean vat, float transferCost)
+    public static float getUnitCost(boolean vat, float transferCost, int markup)
     {
-        float percent = transferCost * (0.01f * 10.7f);
+        float percent = transferCost * (0.01f * (float) markup);
         float unit = transferCost + percent;
         
         if(vat == true)

@@ -33,15 +33,15 @@ public class SByQuantity extends HttpServlet {
         String sort = (String) session.getAttribute("sSort");
         if (sort == null) 
         {
-            session.setAttribute("sSort", "ORDER BY QUANTITY ASC");
+            session.setAttribute("sSort", "ORDER BY ITEM_NUM ASC");
         }
-        else if(sort.equals("ORDER BY QUANTITY ASC"))
+        else if(sort.equals("ORDER BY ITEM_NUM ASC"))
         {
-            session.setAttribute("sSort", "ORDER BY QUANTITY DESC");
+            session.setAttribute("sSort", "ORDER BY ITEM_NUM DESC");
         }
         else
         {
-            session.setAttribute("sSort", "ORDER BY QUANTITY ASC");
+            session.setAttribute("sSort", "ORDER BY ITEM_NUM ASC");
         }
         response.sendRedirect("SalesRedirect");
     }

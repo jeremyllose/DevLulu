@@ -65,7 +65,7 @@ public class AddItem extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        String getItemCode = request.getParameter("itemCode");
+        int getItemMarkup = Integer.parseInt(request.getParameter("itemMarkup"));
         String getItemDescription = request.getParameter("itemDescription");
         String getUOM = request.getParameter("uom");
         float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
@@ -79,17 +79,7 @@ public class AddItem extends HttpServlet {
         
         try
         {
-            if(check(getItemCode))
-            {
-                session.setAttribute("existing", "Item Code is Already existing");
-                request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
-            }
-            else if(characters(getItemCode))
-            {
-                session.setAttribute("existing", "Item Code must start with a letter");
-                request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
-            }
-            else if(genName(getGC).equals("Food Item") && !subName(getSC).equals("Rawmats"))
+            if(genName(getGC).equals("Food Item") && !subName(getSC).equals("Rawmats"))
             {
                 session.setAttribute("existing", "Food Item Should be paired with Rawmats");
                 request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
@@ -111,9 +101,14 @@ public class AddItem extends HttpServlet {
                     formattedLength = String.format("%04d", start);
                     name = baseName + formattedLength;
                 }
+                int markup = 0;
+                if(isChecked)
+                {
+                    markup = getItemMarkup;
+                }
                 
-                addItem(name, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
-                addPricing(name, getUOM, getTransferCost, isChecked);
+                addItem(name, countDB(), getItemDescription, abbriviation(name), getGC, getSC, markup);
+                addPricing(name, getUOM, getTransferCost, isChecked, getItemMarkup);
                 addTransaction(name, getQty);
                 addInventory(name, getQty, getMax, getReorder);
                 addStockHistory(name, getQty);
@@ -141,10 +136,10 @@ public class AddItem extends HttpServlet {
         ps.close();
     }
     
-    public void addItem(String itemCode, int itemNum, String itemDesc, String itemAbb, String genId, String subId)throws SQLException
+    public void addItem(String itemCode, int itemNum, String itemDesc, String itemAbb, String genId, String subId, int markup)throws SQLException
     {
-        String query = "INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID)"
-                + " VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID, MARKUP_COST)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, itemCode);
@@ -153,11 +148,12 @@ public class AddItem extends HttpServlet {
         ps.setString(4, itemAbb);
         ps.setString(5, genId);
         ps.setString(6, subId);
+        ps.setInt(7, markup);
         ps.executeUpdate();
         ps.close();
     }
     
-    public void addPricing(String itemCode, String unitId, float transferCost, boolean vat)throws SQLException
+    public void addPricing(String itemCode, String unitId, float transferCost, boolean vat, int markup)throws SQLException
     {
         String query = "INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) "
                 + "VALUES (?, ?, ?, ?, ?)";
@@ -167,7 +163,7 @@ public class AddItem extends HttpServlet {
         ps.setString(2, unitId);
         ps.setFloat(3, transferCost);
         ps.setBoolean(4, vat);
-        ps.setFloat(5, getUnitCost(vat, transferCost));
+        ps.setFloat(5, getUnitCost(vat, transferCost, markup));
         ps.executeUpdate();
         ps.close();
     }
@@ -213,9 +209,8 @@ public class AddItem extends HttpServlet {
     
     public String abbriviation(String pkey)
     {
-        char firstLetter = Character.toUpperCase(pkey.charAt(0));
-        String firstTwoLetters = pkey.substring(1, 3).toUpperCase();
-        return firstLetter + firstTwoLetters;
+        String firstThreeLetters = pkey.substring(0, 2) + pkey.charAt(3);
+        return firstThreeLetters;
     }
     
     public boolean check(String pkey) throws SQLException

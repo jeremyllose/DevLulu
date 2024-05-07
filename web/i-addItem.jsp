@@ -43,8 +43,8 @@
             <div class="item-container">
                 <table>
                     <tr>
-                        <th>Item Code:</th>
-                        <td><input type="text" name="itemCode" minlength="8" pattern="[A-Za-z0-9]+" required></td>
+                        <th>Markup %:</th>
+                        <td><input type="number" min="0" name="itemMarkup" value="0" required></td>
                     </tr>
                     <tr>
                         <th>Item Description:</th>

@@ -33,15 +33,15 @@ public class SByTotal extends HttpServlet {
         String sort = (String) session.getAttribute("sSort");
         if (sort == null) 
         {
-            session.setAttribute("sSort", "ORDER BY TOTAL_PRICE ASC");
+            session.setAttribute("sSort", "ORDER BY TOTAL ASC");
         }
-        else if(sort.equals("ORDER BY QUANTITY ASC"))
+        else if(sort.equals("ORDER BY TOTAL ASC"))
         {
-            session.setAttribute("sSort", "ORDER BY TOTAL_PRICE DESC");
+            session.setAttribute("sSort", "ORDER BY TOTAL DESC");
         }
         else
         {
-            session.setAttribute("sSort", "ORDER BY TOTAL_PRICE ASC");
+            session.setAttribute("sSort", "ORDER BY TOTAL ASC");
         }
         response.sendRedirect("SalesRedirect");
     }

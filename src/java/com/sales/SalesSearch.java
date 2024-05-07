@@ -65,9 +65,15 @@ public class SalesSearch extends HttpServlet {
                 String searchBar = request.getParameter("searchBar");
                 Statement stmt = con.createStatement();
                 
-                ResultSet records = stmt.executeQuery("SELECT PRODUCT_CODE, PRODUCT_DESCRIPTION, PRODUCT_PRICE, QUANTITY, "
-                        + "PRODUCT_PRICE * QUANTITY AS TOTAL_PRICE "
-                        + "FROM PRODUCT WHERE PRODUCT_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY TOTAL_PRICE DESC");
+                ResultSet records = stmt.executeQuery("SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.OTHERADDS, (TRANSFER_COST * DELIVERY) + ((TRANSFER_COST * OTHERADDS)) AS TOTAL FROM ITEM "
+                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+"INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+"INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+"INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+"INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
+"INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
+"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
+                        + "WHERE ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR ITEM.ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY TOTAL DESC");
                 
                 request.setAttribute("sales", records);
                 request.getRequestDispatcher("sales.jsp").forward(request,response);

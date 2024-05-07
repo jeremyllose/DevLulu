@@ -63,6 +63,7 @@ public class EditItem extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
+            int getItemMarkup = Integer.parseInt(request.getParameter("markup"));
             String getItemCode = request.getParameter("itemCode");
             String getItemDescription = request.getParameter("itemDescription");
             float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
@@ -72,8 +73,8 @@ public class EditItem extends HttpServlet {
             String getVat = request.getParameter("vat");
             boolean isChecked = getVat != null && getVat.equals("on");
             
-            updateItem(getItemDescription, getGC, getSC, getItemCode);
-            updatePrice(isChecked, getItemCode, getTransferCost, getUOM);
+            updateItem(getItemDescription, getGC, getSC, getItemCode, getItemMarkup);
+            updatePrice(isChecked, getItemCode, getTransferCost, getUOM, getItemMarkup);
             systemLog((String) session.getAttribute("username"), getItemCode, getItemDescription);
             
             request.setAttribute("itemMessage", "Item "+ getItemDescription +" Was Edited");
@@ -96,10 +97,11 @@ public class EditItem extends HttpServlet {
         ps.close();
     }
     
-    public void updateItem(String desc, String genId, String subId, String itemCode)throws SQLException
+    public void updateItem(String desc, String genId, String subId, String itemCode, int markup)throws SQLException
     {
         String query = "UPDATE ITEM SET "
                 + "ITEM_DESCRIPTION = ?, "
+                + "MARKUP_COST = ?, "
                 + "GEN_ID= ?, "
                 + "SUB_ID= ?, "
                 + "UPDATED= ? "
@@ -107,21 +109,22 @@ public class EditItem extends HttpServlet {
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, desc);
-        ps.setString(2, genId);
-        ps.setString(3, subId);
+         ps.setInt(2, markup);
+        ps.setString(3, genId);
+        ps.setString(4, subId);
         
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = format.format(new Date(System.currentTimeMillis()));
-        ps.setString(4, formattedDate);
+        ps.setString(5, formattedDate);
         
-        ps.setString(5, itemCode);
+        ps.setString(6, itemCode);
         ps.executeUpdate();
         ps.close();
     }
     
-    public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId)throws SQLException
+    public void updatePrice(boolean vat, String itemCode, float transferCost, String unitId, int markup)throws SQLException
     {
-        float percent = transferCost * (0.01f * 10.7f);
+        float percent = transferCost * (0.01f * (float) markup);
         float unit = transferCost + percent;
         
         String query = "UPDATE PRICING SET  "
