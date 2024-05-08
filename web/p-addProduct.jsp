@@ -60,13 +60,20 @@
             %>
                 <table>
 
-                    <tr class="prod-position">
-                        <th class="th-product-label">Product Code:</th>
-                        <td class="td-product-label"><input type="text" name="productCode" minlength="8" pattern="[A-Za-z0-9]+" required></td>
-                    </tr>
+                    
                     <tr class="prod-position">
                         <th class="th-product-label">Product Description:</th>
                         <td class="td-product-label"><input type="text" name="productDescription" required></td>
+                    </tr>
+                    <tr>
+                        <th>Product Type:</th>
+                        <td class="class-options">
+                            <label><input type="radio" name="productType" value="ML" required> Meal</label><br>
+                            <label><input type="radio" name="productType" value="DS" required> Dessert</label><br>
+                            <label><input type="radio" name="productType" value="SL" required> Beverage Slight</label><br>
+                            <label><input type="radio" name="productType" value="MD" required> Beverage Moderate</label><br>
+                            <label><input type="radio" name="productType" value="LX" required> Beverage Luxury</label><br>
+                        </td>
                     </tr>
                     <tr class="prod-position">
                         <th class="th-product-label">Product Price:</th>

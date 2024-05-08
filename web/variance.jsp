@@ -81,6 +81,7 @@
                                 <th>Expected End</th>
                                 <th>Actual End <button id="sortEND" type="submit" class="sorting" name="button" value="VAByEnd"><span id="ENDIcon">&#8597;</span></button></th>
                                 <th>Variance</th>
+                                <th>Re-order Quantity</th>
                                 <th>Recently Updated</th>
                             </tr>
                         </thead>
@@ -122,6 +123,7 @@
                                         int variance = results.getInt("end_quantity") - totalOutput;
                                     %>
                                 <td><%=variance%></td>
+                                <td><%=results.getString("reorder_quantity")%></td>
                                 <td><%=results.getString("updated")%></td>
                             </tr>	
                             <%	}

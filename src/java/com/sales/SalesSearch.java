@@ -65,17 +65,18 @@ public class SalesSearch extends HttpServlet {
                 String searchBar = request.getParameter("searchBar");
                 Statement stmt = con.createStatement();
                 
-                ResultSet records = stmt.executeQuery("SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.OTHERADDS, (TRANSFER_COST * DELIVERY) + ((TRANSFER_COST * OTHERADDS)) AS TOTAL FROM ITEM "
-                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+                ResultSet records = stmt.executeQuery("SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.OTHERADDS, (TRANSFER_COST * DELIVERY) + ((TRANSFER_COST * OTHERADDS)) AS TOTAL FROM ITEM\n" +
+"INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
 "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
 "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
 "INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
 "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
 "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
-"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR ITEM.ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY TOTAL DESC");
+"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
+"WHERE ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR ITEM.ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY TOTAL DESC");
                 
                 request.setAttribute("sales", records);
+                request.setAttribute("addsValue", deliveryValue() + otheAddsValue());
                 request.getRequestDispatcher("sales.jsp").forward(request,response);
                 
                 records.close();
@@ -86,6 +87,56 @@ public class SalesSearch extends HttpServlet {
         {
                 response.sendRedirect("error.jsp");
         } 
+    }
+    
+    public float deliveryValue() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM ITEM\n" +
+                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+                "WHERE ITEM.DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
+        
+        float inventoryValue = 0;
+        
+        while(rs.next())
+        {
+            int quantity = rs.getInt("delivery");
+            float unitPrice = rs.getFloat("unit_price");
+            inventoryValue += quantity * unitPrice;
+        }
+        
+        rs.close();
+        stmt.close();
+        
+        return inventoryValue;
+    }
+    
+    public float otheAddsValue() throws SQLException
+    {
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM ITEM\n" +
+                "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+                "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+                "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+                "WHERE ITEM.DISABLED = FALSE";
+        ResultSet rs = stmt.executeQuery(query);
+        
+        float inventoryValue = 0;
+        
+        while(rs.next())
+        {
+            int quantity = rs.getInt("otheradds");
+            float unitPrice = rs.getFloat("unit_price");
+            inventoryValue += quantity * unitPrice;
+        }
+        
+        rs.close();
+        stmt.close();
+        
+        return inventoryValue;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -37,7 +37,7 @@
                                 <td><%=results.getString("action")%></td>
                                 <td><%=results.getString("source")%></td>
                                 <td><%=results.getString("count")%></td>
-                                <td><%=results.getString("date_column")%></td>
+                                <td><%=results.getString("time_capture")%></td>
                             </tr>        
                             <%	}
                             %>
