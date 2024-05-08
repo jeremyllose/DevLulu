@@ -20,7 +20,7 @@
         <img src="photos/greenleaves.png" alt="Image" class="bottom-leaves">   
         <img src="photos/coffeebeans.png" alt="Image" class="top-beans"> 
 
-        <div class="Error-Form">
+        <div style="position: fixed; right: 35rem;" class="Error-Form">
             <h1>Session Expired</h1>
             <img id="cup" src="photos/404error.png" alt="Image">   
             <p>Your session has expired due to inactivity.</p>

@@ -20,7 +20,7 @@
         <img src="photos/greenleaves.png" alt="Image" class="bottom-leaves">   
         <img src="photos/coffeebeans.png" alt="Image" class="top-beans"> 
 
-        <div class="Error-Form">
+        <div style="position: fixed; right: 34rem;" class="Error-Form">
             <h1>403 Forbidden</h1>
             <img id="cup" src="photos/403error.png" alt="Image" >   
             <p>You do not have permission to access this resource.</p>

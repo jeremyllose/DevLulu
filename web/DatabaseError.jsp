@@ -20,7 +20,7 @@
         <img src="photos/greenleaves.png" alt="Image" class="bottom-leaves">   
         <img src="photos/coffeebeans.png" alt="Image" class="top-beans"> 
 
-        <div class="Error-Form">
+        <div style="position: fixed; right: 35rem;" class="Error-Form">
             <h1>Database Error</h1>
             <img id="cup" src="photos/errorcup.png" alt="Database Error Image">   
             <p style="font-size: 16px;">We're having trouble connecting to the database. Please try again later or contact support.</p>

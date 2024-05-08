@@ -124,7 +124,7 @@ public class Login extends HttpServlet {
             }
             else if(rs.getBoolean("ENABLE"))
             {
-                session.setAttribute("message", "Password Change has Approved");
+                session.setAttribute("message", "Password Change has been Approved");
                 passwordReceived(uname);
                 response.sendRedirect("login.jsp");
             }
