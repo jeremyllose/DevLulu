@@ -144,11 +144,11 @@
                                 <td><%=results.getString("item_description")%></td>
                                 <td><%=results.getString("abbreviation")%></td>
                                 <td><%=results.getString("unit_name")%></td>
-                                <td><%=results.getString("transfer_cost")%></td>
+                                <td>₱<%=results.getString("transfer_cost")%></td>
                                 <td><%=results.getString("gen_name")%></td>
                                 <td><%=results.getString("sub_name")%></td>
                                 <td><%=results.getString("vat")%></td>
-                                <td><%=results.getString("unit_price")%></td>
+                                <td>₱<%=results.getString("unit_price")%></td>
                                 <td><%=results.getString("updated")%></td>
                                 <td>
                                     <%

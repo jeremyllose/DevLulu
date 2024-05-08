@@ -68,10 +68,10 @@
                             <td><%=results.getString("item_code")%></td>
                             <td><%=results.getString("item_num")%></td>
                                 <td><%=results.getString("item_description")%></td>
-                                <td><%=results.getString("transfer_cost")%></td>
+                                <td>₱<%=results.getString("transfer_cost")%></td>
                                 <td><%=results.getString("delivery")%></td>
                                 <td><%=results.getString("otheradds")%></td>
-                                <td><%=results.getString("total")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
+                                <td>₱<%=results.getString("total")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                         </tr>
                         <%
                             }
