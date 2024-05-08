@@ -33,15 +33,15 @@ public class AscendDescend extends HttpServlet {
         String sort = (String) session.getAttribute("itemNum");
         if (sort == null) 
         {
-            session.setAttribute("itemNum", "ASC");
+            session.setAttribute("itemNum", "ITEM_NUM ASC");
         }
-        else if(sort.equals("ASC"))
+        else if(sort.equals("ITEM_NUM ASC"))
         {
-            session.setAttribute("itemNum", "DESC");
+            session.setAttribute("itemNum", "ITEM_NUM DESC");
         }
         else
         {
-            session.setAttribute("itemNum", "ASC");
+            session.setAttribute("itemNum", "ITEM_NUM ASC");
         }
         response.sendRedirect("ItemList");
     }

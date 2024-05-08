@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.sales;
+package com.inventorylist;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cesar
  */
-public class SByPrice extends HttpServlet {
+public class ADUnit extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,20 +30,20 @@ public class SByPrice extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String sort = (String) session.getAttribute("sSort");
+        String sort = (String) session.getAttribute("itemNum");
         if (sort == null) 
         {
-            session.setAttribute("sSort", "ORDER BY TRANSFER_COST ASC");
+            session.setAttribute("itemNum", "UNIT_PRICE ASC");
         }
-        else if(sort.equals("ORDER BY TRANSFER_COST ASC"))
+        else if(sort.equals("UNIT_PRICE ASC"))
         {
-            session.setAttribute("sSort", "ORDER BY TRANSFER_COST DESC");
+            session.setAttribute("itemNum", "UNIT_PRICE DESC");
         }
         else
         {
-            session.setAttribute("sSort", "ORDER BY TRANSFER_COST ASC");
+            session.setAttribute("itemNum", "UNIT_PRICE ASC");
         }
-        response.sendRedirect("SalesRedirect");
+        response.sendRedirect("ItemList");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

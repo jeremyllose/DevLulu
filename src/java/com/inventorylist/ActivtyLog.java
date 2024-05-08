@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.sales;
+package com.inventorylist;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Cesar
  */
-public class SalesSearch extends HttpServlet {
+public class ActivtyLog extends HttpServlet {
 
     Connection con;
     byte[] key;
@@ -57,35 +59,17 @@ public class SalesSearch extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try 
-        {
-            if (con != null) 
-            {
-                String searchBar = request.getParameter("searchBar");
-                Statement stmt = con.createStatement();
+            throws ServletException, IOException, SQLException {
+        Statement stmt = con.createStatement();
+                //Only gets the Accounts where DISABLED IS FALSE
+                ResultSet records = stmt.executeQuery("SELECT * FROM SYSTEMLOG ORDER BY DATE_COLUMN");
                 
-                ResultSet records = stmt.executeQuery("SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.OTHERADDS, (TRANSFER_COST * DELIVERY) + ((TRANSFER_COST * OTHERADDS)) AS TOTAL FROM ITEM "
-                        + "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
-"INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
-"INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
-"INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
-"INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
-"INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
-"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR ITEM.ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY TOTAL DESC");
-                
-                request.setAttribute("sales", records);
-                request.getRequestDispatcher("sales.jsp").forward(request,response);
+                //gives all the records to the Accountlist
+                request.setAttribute("itemRecords", records);
+                request.getRequestDispatcher("activtylog.jsp").forward(request,response);
                 
                 records.close();
                 stmt.close();
-            }
-        } 
-        catch (SQLException sqle)
-        {
-                response.sendRedirect("error.jsp");
-        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,7 +84,11 @@ public class SalesSearch extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActivtyLog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -114,7 +102,11 @@ public class SalesSearch extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActivtyLog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

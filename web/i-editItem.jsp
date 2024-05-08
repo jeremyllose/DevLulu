@@ -69,6 +69,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Markup:</th>
+                        <td><input type="number" min="0" name="markup" value="<%= results.getInt("markup_cost")%>" required/></td>
+                    </tr>
+                    <tr>
                         <th>Transfer Cost:</th>
                         <td><input type="number" min="0" step="any" name="transferCost" value="<%= results.getFloat("transfer_cost")%>" required/></td>
                     </tr>

@@ -8,11 +8,13 @@ import com.inventorylist.ItemAction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -79,6 +81,7 @@ public class SaveVariance extends HttpServlet {
                 }
                 else if(action.equals("Save Changes"))
                 {
+                HttpSession session = request.getSession();
                 String[] begginingValues = request.getParameterValues("beg");
                 String[] endValues = request.getParameterValues("end");
                 String[] itemCodes = request.getParameterValues("code");
@@ -86,11 +89,22 @@ public class SaveVariance extends HttpServlet {
                 
                 for(String itemCode : itemCodes)
                 {
+                    if((Integer.parseInt(begginingValues[start]) - itemBeg(itemCode)) != 0)
+                    {
+                        systemLogBeg((String) session.getAttribute("username"), itemCode, Integer.parseInt(begginingValues[start]), itemDescription(itemCode));
+                        updateItem(itemCode);
+                    }
                     editBegItem(Integer.parseInt(begginingValues[start]), itemCode);
+                    
+                    if((Integer.parseInt(endValues[start]) - itemEnd(itemCode)) != 0)
+                    {
+                        systemLogEnd((String) session.getAttribute("username"), itemCode, Integer.parseInt(endValues[start]), itemDescription(itemCode));
+                        updateItem(itemCode);
+                    }
                     editEndItem(Integer.parseInt(endValues[start]), itemCode);
+                    
                     start++;
                 }
-                HttpSession session = request.getSession();
                 session.setAttribute("varianceMessage", "BEG/END has been saved");
                 response.sendRedirect("VariancePageRedirect");
                 }
@@ -100,6 +114,94 @@ public class SaveVariance extends HttpServlet {
         {
                 response.sendRedirect("error.jsp");
         }
+    }
+    
+    public void updateItem(String itemCode)throws SQLException
+    {
+        String query = "UPDATE ITEM SET "
+                + "UPDATED= ? "
+                + "WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = format.format(new Date(System.currentTimeMillis()));
+        ps.setString(1, formattedDate);
+        
+        ps.setString(2, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLogBeg(String user, String itemCode, int count, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", \"COUNT\", ITEM_DESCRIPTION) "
+                + "VALUES (?, ?, 'BEGGINING QUANTITY CHANGE', 'VARIANCE', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setInt(3, count);
+        ps.setString(4, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLogEnd(String user, String itemCode, int count, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", \"COUNT\", ITEM_DESCRIPTION) "
+                + "VALUES (?, ?, 'END QUANTITY CHANGE', 'VARIANCE', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setInt(3, count);
+        ps.setString(4, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public String itemDescription(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT ITEM_DESCRIPTION FROM ITEM WHERE ITEM_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("item_description");
+        }
+        
+        return result;
+    }
+    
+    public int itemBeg(String gc) throws SQLException
+    {
+        int result = 0;
+        
+        String query = "SELECT BEGINNING_QUANTITY FROM STOCKHISTORY WHERE ITEM_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getInt("beginning_quantity");
+        }
+        
+        return result;
+    }
+    
+    public int itemEnd(String gc) throws SQLException
+    {
+        int result = 0;
+        
+        String query = "SELECT END_QUANTITY FROM STOCKHISTORY WHERE ITEM_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getInt("end_quantity");
+        }
+        
+        return result;
     }
     
     public void editBegItem(int beg, String itemCode)throws SQLException

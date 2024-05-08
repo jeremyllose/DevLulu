@@ -65,7 +65,7 @@ public class AddItem extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        String getItemCode = request.getParameter("itemCode");
+        int getItemMarkup = Integer.parseInt(request.getParameter("itemMarkup"));
         String getItemDescription = request.getParameter("itemDescription");
         String getUOM = request.getParameter("uom");
         float getTransferCost = Float.parseFloat(request.getParameter("transferCost"));
@@ -79,17 +79,7 @@ public class AddItem extends HttpServlet {
         
         try
         {
-            if(check(getItemCode))
-            {
-                session.setAttribute("existing", "Item Code is Already existing");
-                request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
-            }
-            else if(characters(getItemCode))
-            {
-                session.setAttribute("existing", "Item Code must start with a letter");
-                request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
-            }
-            else if(genName(getGC).equals("Food Item") && !subName(getSC).equals("Rawmats"))
+            if(genName(getGC).equals("Food Item") && !subName(getSC).equals("Rawmats"))
             {
                 session.setAttribute("existing", "Food Item Should be paired with Rawmats");
                 request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
@@ -101,11 +91,28 @@ public class AddItem extends HttpServlet {
             }
             else
             {
-                addItem(getItemCode, countDB(), getItemDescription, abbriviation(getItemCode), getGC, getSC);
-                addPricing(getItemCode, getUOM, getTransferCost, isChecked);
-                addTransaction(getItemCode, getQty);
-                addInventory(getItemCode, getQty, getMax, getReorder);
-                addStockHistory(getItemCode, getQty);
+                String baseName = genCode(getGC) + "-" + subCode(getSC) + "-";
+                int start = 1;
+                String formattedLength = String.format("%04d", start);
+                String name = baseName + formattedLength;
+                while (check(name))
+                {
+                    start++;
+                    formattedLength = String.format("%04d", start);
+                    name = baseName + formattedLength;
+                }
+                int markup = 0;
+                if(isChecked)
+                {
+                    markup = getItemMarkup;
+                }
+                
+                addItem(name, countDB(), getItemDescription, abbriviation(name), getGC, getSC, markup);
+                addPricing(name, getUOM, getTransferCost, isChecked, getItemMarkup);
+                addTransaction(name, getQty);
+                addInventory(name, getQty, getMax, getReorder);
+                addStockHistory(name, getQty);
+                systemLog((String) session.getAttribute("username"), name, getItemDescription);
             }
         } 
         catch (SQLException ex) 
@@ -116,10 +123,23 @@ public class AddItem extends HttpServlet {
         request.getRequestDispatcher("ItemList").forward(request,response);
     }
     
-    public void addItem(String itemCode, int itemNum, String itemDesc, String itemAbb, String genId, String subId)throws SQLException
+    public void systemLog(String user, String itemCode, String itemDescription)throws SQLException
     {
-        String query = "INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID)"
-                + " VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ADDED', 'INVENTORY', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void addItem(String itemCode, int itemNum, String itemDesc, String itemAbb, String genId, String subId, int markup)throws SQLException
+    {
+        String query = "INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID, MARKUP_COST)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
         
         ps.setString(1, itemCode);
@@ -128,11 +148,12 @@ public class AddItem extends HttpServlet {
         ps.setString(4, itemAbb);
         ps.setString(5, genId);
         ps.setString(6, subId);
+        ps.setInt(7, markup);
         ps.executeUpdate();
         ps.close();
     }
     
-    public void addPricing(String itemCode, String unitId, float transferCost, boolean vat)throws SQLException
+    public void addPricing(String itemCode, String unitId, float transferCost, boolean vat, int markup)throws SQLException
     {
         String query = "INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) "
                 + "VALUES (?, ?, ?, ?, ?)";
@@ -142,7 +163,7 @@ public class AddItem extends HttpServlet {
         ps.setString(2, unitId);
         ps.setFloat(3, transferCost);
         ps.setBoolean(4, vat);
-        ps.setFloat(5, getUnitCost(vat, transferCost));
+        ps.setFloat(5, getUnitCost(vat, transferCost, markup));
         ps.executeUpdate();
         ps.close();
     }
@@ -188,9 +209,8 @@ public class AddItem extends HttpServlet {
     
     public String abbriviation(String pkey)
     {
-        char firstLetter = Character.toUpperCase(pkey.charAt(0));
-        String firstTwoLetters = pkey.substring(1, 3).toUpperCase();
-        return firstLetter + firstTwoLetters;
+        String firstThreeLetters = pkey.substring(0, 2) + pkey.charAt(3);
+        return firstThreeLetters;
     }
     
     public boolean check(String pkey) throws SQLException
@@ -218,6 +238,21 @@ public class AddItem extends HttpServlet {
         return result;
     }
     
+    public String genCode(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT CODE FROM GEN_CLASS WHERE GEN_ID= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("code");
+        }
+        
+        return result;
+    }
+    
     public String subName(String gc) throws SQLException
     {
         String result = null;
@@ -234,6 +269,21 @@ public class AddItem extends HttpServlet {
         }
         
         return firstWord;
+    }
+    
+    public String subCode(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT CODE FROM SUB_CLASS WHERE SUB_ID= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("code");
+        }
+        
+        return result;
     }
     
     public static boolean characters(String str) 

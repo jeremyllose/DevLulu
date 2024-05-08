@@ -50,11 +50,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Product Description</th>
-                            <th>Product Price   <button class="sorting" onclick="redirectTo('SByPrice')"><span id="priceSortIcon">&#8597;</span></button> </th>
-                            <th>Quantity  <button class="sorting" onclick="redirectTo('SByQuantity')"><span id="quantitySortIcon">&#8597;</span></button></th>
-                            <th>Total  <button class="sorting" onclick="redirectTo('SByTotal')"><span id="totalSortIcon">&#8597;</span> </button></th>
-
+                            <th>Item Code </th>
+                            <th>Item Number <button class="sorting" onclick="redirectTo('SByQuantity')"><span id="priceSortIcon">&#8597;</span></button></th>    
+                            <th>Item Description</th>
+                                <th>Transfer Cost <button class="sorting" onclick="redirectTo('SByPrice')"><span id="priceSortIcon">&#8597;</span></button></th>
+                                <th>Delivery</th>
+                                <th>Other Adds </th>
+                                <th>Total <button class="sorting" onclick="redirectTo('SByTotal')"><span id="priceSortIcon">&#8597;</span></button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,22 +65,71 @@
                             ResultSet results = (ResultSet) request.getAttribute("sales");
                             while (results.next()) {%>
                         <tr>
-                            <td><%=results.getString("product_description")%></td>
-                            <td><%=results.getString("product_price")%></td>
-                            <td><%=results.getString("quantity")%></td>
-                            <td><%=results.getString("TOTAL_PRICE")%></td>
+                            <td><%=results.getString("item_code")%></td>
+                            <td><%=results.getString("item_num")%></td>
+                                <td><%=results.getString("item_description")%></td>
+                                <td><%=results.getString("transfer_cost")%></td>
+                                <td><%=results.getString("delivery")%></td>
+                                <td><%=results.getString("otheradds")%></td>
+                                <td><%=results.getString("total")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                         </tr>
                         <%
-                                total += results.getFloat("TOTAL_PRICE");
                             }
                         %>
                 </table>        
             
             <br>
             <br>
+            <%
+                float addCost = (Float) request.getAttribute("addsValue");
+            %>
             <div id="costs">Total:</div>
-            <input id="costtotal" type="text" id="inventoryprice" name="myText" placeholder="<%=total%>" readonly style="color: black;">
+            <input id="costtotal" type="text" id="inventoryprice" name="myText" placeholder="<%=addCost%>" readonly style="color: black;">
             </div>
+            <%
+            Integer itemPgNum = (Integer) session.getAttribute("salesPgNum");
+            Integer totalPages = (Integer) session.getAttribute("salesPages");
+
+            int currentPage = itemPgNum != null ? itemPgNum : 1;
+            int totalPg = totalPages != null ? totalPages : 1;
+        %>
+        <form action="SalesRedirect" method="post">
+            <table class="pagination">
+                <tr>
+                    <%
+                        if ((currentPage - 2) >= 0 && (currentPage - 2) != 0) {
+                    %>
+                    <td><input type="submit" name="button" value="<%=currentPage - 2%>"></td>
+                        <%
+                            }
+                        %>
+                        <%
+                            if ((currentPage - 1) != 0) {
+                        %>
+                    <td><input type="submit" name="button" value="<%=currentPage - 1%>"></td>
+                        <%
+                            }
+                        %>
+
+                    <td><%= currentPage%></td>
+
+                    <%
+                        if ((currentPage + 1) <= totalPg) {
+                    %>
+                    <td><input type="submit" name="button" value="<%= currentPage + 1%>"></td>
+                        <%
+                            }
+                        %>
+                        <%
+                            if ((currentPage + 2) <= totalPg) {
+                        %>
+                    <td><input type="submit"name="button" value="<%= currentPage + 2%>"></td>
+                        <%
+                            }
+                        %>
+                </tr>
+            </table>
+        </form>
         </div>
         <!--        <button onclick="redirectTo('SByPrice')">Sort By Price</button>
                     <button onclick="redirectTo('SByQuantity')">Sort By Quantity</button>
