@@ -61,7 +61,7 @@ public class ProductSearch extends HttpServlet {
                 String searchBar = request.getParameter("searchBar");
                 Statement stmt = con.createStatement();
                 
-                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT WHERE DISABLED = FALSE AND PRODUCT_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY PRODUCT_CODE ");
+                ResultSet records = stmt.executeQuery("SELECT * FROM PRODUCT WHERE DISABLED = FALSE AND LOWER(PRODUCT_DESCRIPTION) LIKE LOWER('"+ searchBar +"%') ORDER BY PRODUCT_CODE ");
                 
                 request.setAttribute("product", records);
                 request.getRequestDispatcher("product.jsp").forward(request,response);

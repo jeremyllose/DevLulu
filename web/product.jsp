@@ -84,7 +84,7 @@
                                 %>
                                 <td><%=results.getString("product_code")%></td>
                                 <td><%=results.getString("product_description")%></td>
-                                <td><%=results.getString("product_price")%></td>
+                                <td>₱<%=results.getString("product_price")%></td>
                                 <%
                                     if (results.getBoolean("disabled") == false) {
                                 %>

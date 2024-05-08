@@ -79,7 +79,12 @@ public class AddItem extends HttpServlet {
         
         try
         {
-            if(genName(getGC).equals("Food Item") && !subName(getSC).equals("Rawmats"))
+            if(checkDescription(getItemDescription))
+            {
+                session.setAttribute("existing", "Item Description already exist");
+                request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
+            }
+            else if(genName(getGC).equals("Food Item") && !subName(getSC).equals("Rawmats"))
             {
                 session.setAttribute("existing", "Food Item Should be paired with Rawmats");
                 request.getRequestDispatcher("AddItemPageRedirect").forward(request,response);
@@ -216,6 +221,16 @@ public class AddItem extends HttpServlet {
     public boolean check(String pkey) throws SQLException
     {
         String query = "SELECT 1 FROM ITEM WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pkey);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
+    }
+    
+    public boolean checkDescription(String pkey) throws SQLException
+    {
+        String query = "SELECT 1 FROM ITEM WHERE LOWER(ITEM_DESCRIPTION) = LOWER(?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, pkey);
         ResultSet resultSet = ps.executeQuery();

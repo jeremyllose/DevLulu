@@ -81,6 +81,7 @@
                 %>
                 <table>
                     <thead>
+                        Select Items to remove from the Product:
                         <tr>
                     <hr color="black" size="1" width="100%" align="center">
                     <th>Item</th>
@@ -107,6 +108,7 @@
                 </table>
                 <table>
                     <thead>
+                        Select Items to add to the Product:
                         <tr>
                     <hr color="black" size="1" width="100%" align="center">
                     <th>Selector</th>
