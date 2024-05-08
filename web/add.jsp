@@ -49,11 +49,11 @@
                         <%
                             if (session.getAttribute("userRole").equals("Owner")) {
                         %>
-                    <th style="position: relative; right: -9.5rem;"><label style="position: relative; right: 10px;"  for="owner">Owner</label> <input style="float: left;" type="radio" id="owner" name="role" value="Owner"> <br></th>
+                        <th style="position: relative; right: -9.5rem;"><label style="position: relative; right: 10px;"  for="owner">Owner</label> <input style="float: left;" type="radio" id="owner" name="role" value="Owner"> <br></th>
                             <%
                                 }
                             %>
-                    <th style="position: relative; bottom: -2rem;"><label style="position: relative; right: 20px;" for="manager">Manager</label> <input id="man" style="float: left;" type="radio" id="manager" name="role" value="Manager"></th>
+                        <th style="position: relative; bottom: -2rem;"><label style="position: relative; right: 20px;" for="manager">Manager</label> <input id="man" style="float: left;" type="radio" id="manager" name="role" value="Manager"></th>
                     </tr>
                     <tr>
                         <th><input id="addacc" type="submit" value="Add Account"/></th>
@@ -62,7 +62,7 @@
                 <%
                     if (session.getAttribute("message") != null) {
                 %>
-                <h4>${message}</h4>
+                <h4 class="success">${message}</h4>
                 <%
                     }
                 %>

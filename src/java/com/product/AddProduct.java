@@ -96,7 +96,7 @@ public class AddProduct extends HttpServlet {
         
         if(check(getProductDescription))
         {
-            session.setAttribute("productMessage", "Product Already Exist");
+            session.setAttribute("productMessage", "Product Already Exists");
             response.sendRedirect("AddProductRedirect");
         }
         else if(itemIds == null)

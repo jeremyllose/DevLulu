@@ -99,7 +99,7 @@
         <%
             if (session.getAttribute("message") != null) {
         %>
-        <h4>${message}</h4>
+        <h4 class="error">${message}</h4>
         <%
             }
         %>

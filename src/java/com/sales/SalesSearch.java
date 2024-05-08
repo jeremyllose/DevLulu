@@ -73,7 +73,7 @@ public class SalesSearch extends HttpServlet {
 "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
 "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
 "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
-"WHERE ITEM.ITEM_CODE LIKE '"+ searchBar +"%' OR ITEM.ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY TOTAL DESC");
+"WHERE LOWER(ITEM.ITEM_CODE) LIKE LOWER('"+ searchBar +"%') OR LOWER(ITEM.ITEM_DESCRIPTION) LIKE LOWER('"+ searchBar +"%') ORDER BY TOTAL DESC");
                 
                 request.setAttribute("sales", records);
                 request.setAttribute("addsValue", deliveryValue() + otheAddsValue());

@@ -45,7 +45,7 @@ body {
     padding: 10px 15px;
     cursor: pointer;
     position: relative;
-    top: -53px;
+    top: 5.5px;
     right: -70px;
 }
 #save {
@@ -161,7 +161,7 @@ td label {
         padding: 10px 15px;
         cursor: pointer;
         position: relative;
-        top: -53px;
+        top: 5px;
         right: -70px;
     }
     #save {
