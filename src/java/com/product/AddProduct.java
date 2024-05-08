@@ -153,7 +153,7 @@ public class AddProduct extends HttpServlet {
     
     public boolean check(String desc) throws SQLException
     {
-        String query = "SELECT 1 FROM PRODUCT WHERE PRODUCT_DESCRIPTION = ?";
+        String query = "SELECT 1 FROM PRODUCT WHERE LOWER(PRODUCT_DESCRIPTION) = LOWER(?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, desc);
         ResultSet resultSet = ps.executeQuery();
