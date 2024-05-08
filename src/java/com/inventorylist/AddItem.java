@@ -230,7 +230,7 @@ public class AddItem extends HttpServlet {
     
     public boolean checkDescription(String pkey) throws SQLException
     {
-        String query = "SELECT 1 FROM ITEM WHERE ITEM_DESCRIPTION = ?";
+        String query = "SELECT 1 FROM ITEM WHERE LOWER(ITEM_DESCRIPTION) = LOWER(?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, pkey);
         ResultSet resultSet = ps.executeQuery();
