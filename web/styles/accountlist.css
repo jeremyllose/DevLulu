@@ -19,9 +19,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     font-size: 24px;
     border-radius: 10px;
     padding: 5px;
-    position: relative;
-    right: -40px;
-    top: 8px;
+    position: fixed;
+    left: 240px;
+    top: 60px;
     cursor: pointer;
     border: none;
 }
@@ -44,14 +44,18 @@ body {
     padding: 0;
 }
 .table-container {
-    max-height: 500px; /* Set maximum height */
+    max-height: 800px; /* Set maximum height */
     overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
     /* Add more styling as needed */
     max-width: 95%;
     display: flex;
+    align-items: stretch;
     flex-direction: column; /* Stack table rows vertically */
     position: relative;
     right: -40px;
+    top: 100px;
+    z-index: 1;
+    
 }
 
 .table-container table {
@@ -67,7 +71,6 @@ body {
 table {
     max-width: 100%;
     border-collapse: collapse;
-    margin-top: 75px;
     border: none;
     table-layout: fixed;
 }
@@ -83,26 +86,46 @@ th {
     text-align: center;
     border: 1px solid #fff;
 }
-
+.table-container th {
+    position: sticky;
+    top: 0;
+    border: 1px solid black;
+    
+}
 /* Style table cells */
 td {
     padding: 15px; /* Increase padding for better visual appearance */
     border: 1px solid #ddd; /* Add border to separate cells */
     text-align: center;
 }
+.table-container::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Light grey track */
+}
 
+/* Styles for the scrollbar handle */
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2; /* Darker grey handle */
+    border-radius: 10px; /* Rounded corners on the handle */
+    border: 3px solid #f0f0f0; /* Light grey border around the handle */
+}
+
+/* Styles for the scrollbar itself (width and height) */
+.table-container::-webkit-scrollbar {
+    width: 12px; /* Width of the vertical scrollbar */
+    height: 12px; /* Height of the horizontal scrollbar (if applicable) */
+}
 /* Style alternating rows for better readability */
 tr:nth-child(even) {
     background-color: #fff; /* Change color for alternating rows */
 }
 label:not(.inventory) {
-    display: inline-block; /* Display label inline-block */
-    padding: 10px 20px; /* Adjust padding for desired button size */
-    margin-right: 5px; /* Add margin for spacing */
-    cursor: pointer; /* Set cursor to pointer on hover */
-    border: 1px solid #ccc; /* Add border for button look */
-    border-radius: 5px; /* Add rounded corners for button style */
-    background-color: #f2f2f2; /* Set background color */
+    display: inline-block; 
+    padding: 10px 20px; 
+    margin-right: 5px; 
+    cursor: pointer; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f2f2f2; 
 }
 
 label:hover:not(.inventory:hover) {

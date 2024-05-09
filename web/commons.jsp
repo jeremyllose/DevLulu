@@ -22,18 +22,11 @@ Author     : jeremy
         <div class="container">
             <div class="sidebar">
                 <button  style="position: relative; top: -13rem; right: -0rem;" id="homebutton" onclick="redirectTo('WelcomePageRedirect')"><img src=".\photos\homeicon.png" alt="Home"></button>
-                <form id="sales-form" action="SalesRedirect" method="post">
-                    <button class="menu-item">
-                        <img src="photos/Sales.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Sales</button>
+                <form id="item-form" action="ItemList" method="post">
+                    <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Inventory</button>
                 </form>
                 <form id="product-form" action="ProductRedirect" method="post">
                     <button class="menu-item"><img src="photos/Product.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Recipe</button>
-                </form>
-                <form id="variance-form" action="VariancePageRedirect" method="post">
-                    <button class="menu-item"><img src="photos/Variance.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Variance</button>
-                </form>
-                <form id="item-form" action="ItemList" method="post">
-                    <button class="menu-item"><img src="photos/Inventory.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Inventory</button>
                 </form>
                 <form id="supplies-form" action="SuppliesRedirectPage" method="post">
                     <button class="menu-item"><img src="photos/SuppliesReceived.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Deliveries</button>
@@ -41,6 +34,16 @@ Author     : jeremy
                 <form id="waste-form" action="WasteRedirect" method="post">
                     <button class="menu-item"><img src="photos/Waste.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Usage</button>
                 </form>
+                <form id="sales-form" action="SalesRedirect" method="post">
+                    <button class="menu-item">
+                        <img src="photos/Sales.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Sales</button>
+                </form>
+
+                <form id="variance-form" action="VariancePageRedirect" method="post">
+                    <button class="menu-item"><img src="photos/Variance.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Variance</button>
+                </form>
+
+
                 <br>
                 <%
                     if (!session.getAttribute("userRole").equals("Manager")) {
@@ -66,7 +69,7 @@ Author     : jeremy
 
                 <br>
                 <form id="logout-form" action="Logout">
-                    <button class="menu-item" id="logout"  type="submit" onclick="return confirm('Are you sure you want to logout?')" ><img src="photos/Logout.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Logout</button>
+                    <button class="menu-item" id="logout-button" type="submit" onclick="return confirm('Are you sure you want to logout?')" ><img src="photos/Logout.png" alt="add item Button" style="width: 20px; height: 20px; margin-right: 5px;">Logout</button>
                 </form>
             </div>
             <div class="main-content" id="mainContent">
@@ -75,9 +78,9 @@ Author     : jeremy
             <footer class="footer">
                 <nav>
                     <ul>
-                        <li><a href="training.html">Training & Development</a></li>
-                        <li><a href="feedback.html">Feedback & Suggestions</a></li>
-                        <li><a href="support.html">Support & Assistance</a></li>
+                        <li><a href="https://drive.google.com/file/d/1YT25OU0M9b1-x-KUXAZgoQGU8DuF4yNy/view?usp=sharing" target="_blank">Training & Development</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScKhqB2z_si3ItCGP-Y77b811sneRnjtJFE5ffr3gEzdlV6HA/viewform?usp=sf_link" target="_blank">Feedback & Suggestions</a></li>
+                        <li><a href="https://drive.google.com/file/d/1Lsvbtm3pEIYD4iQWqgN-kdsCgjM-5Mep/view?usp=sharing" target="_blank">Support & Assistance</a></li>
                     </ul>
                 </nav>
                 <p>&copy; 2024 NextGen Cafe</p>
@@ -93,7 +96,7 @@ Author     : jeremy
                     const accountButton = document.getElementById('account-form');
                     const editButton = document.getElementById('editaccount-form');
                     const logoutButton = document.getElementById('logout-form');
-                     salesButton.addEventListener('click', function (event) {
+                    salesButton.addEventListener('click', function (event) {
                         event.preventDefault();
                         document.body.style.opacity = 0;
                         setTimeout(function () {
@@ -164,7 +167,7 @@ Author     : jeremy
                             document.getElementById('account-form').submit();
                         }, 200);
                     });
-                    
+
                     editButton.addEventListener('click', function (event) {
                         event.preventDefault();
                         document.body.style.opacity = 0;
