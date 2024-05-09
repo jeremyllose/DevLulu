@@ -189,7 +189,7 @@ input[type="number"] {
 }
 #savechanges {
     position: fixed;
-    right: 730px;
+    right: 970px;
     top: 60px;
 }
 .sorting {
@@ -207,14 +207,15 @@ input[type="number"] {
     max-width: 95%;
     display: flex;
     flex-direction: column; /* Stack table rows vertically */
-    position: relative;
-    right: -650px;
-    top: 80px;
-
+    position: fixed;
+    right: 38.5rem;
+    bottom: 5rem;
 }
-
 .pagination td {
     padding: 10px 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
 .pagination input[type="submit"] {
@@ -320,13 +321,12 @@ input[type="number"] {
     }
     #savechanges {
         position: fixed;
-        right: 969px;
+         right: 1210px;
         top: 60px;
     }
     .pagination {
-        position: relative;
-        right: -800px;
-        top: 80px;
-
+        position: fixed;
+        right: 48.5rem;
+        bottom: 5rem;
     }
 }

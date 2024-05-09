@@ -7,7 +7,12 @@
     overflow-y: auto;
     background-color: #e8e8e8;
 }
-
+#disablebutton {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: -25px;
+}
 .inventory {
     background-color: #2E8B57;
     color: white;
@@ -323,4 +328,10 @@ input[type="number"] {
         position: relative;
         right: -90px;
     }
+    #disablebutton {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: -30px;
+}
 }

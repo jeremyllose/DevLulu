@@ -66,7 +66,7 @@ public class ActivtyLog extends HttpServlet {
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);
-                request.getRequestDispatcher("activtylog.jsp").forward(request,response);
+                request.getRequestDispatcher("activitylog.jsp").forward(request,response);
                 
                 records.close();
                 stmt.close();

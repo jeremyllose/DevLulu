@@ -41,7 +41,7 @@ body {
 
 .item-container {
     width: 25%;
-    height: 51%;
+    height: 55%;
     margin: 20px auto;
     padding: 20px;
     border: 2px solid black;
@@ -186,7 +186,7 @@ item-container input[type="submit"]:hover {
     }
     .item-container {
         width: 25%;
-        height: 45%;
+        height: 60%;
         margin: 20px auto;
         padding: 20px;
         border: 2px solid black;

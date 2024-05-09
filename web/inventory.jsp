@@ -43,10 +43,13 @@
                     </button>
                 </form>
 
-                <form action="ItemExcelServlet" method="post">
+                <form action="ItemExcelServlet" method="post" onsubmit="return confirmGenerateReport()">
                     <button class="inventory" id="generate" type="submit">
-                        <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
+                        <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> 
+                        <span class="inventory-text" style="margin-right: 5px">Gen Report</span>
+                    </button>
                 </form>
+
                 <form action="ItemSort" method="post">
                     <button class="inventory" id="sort" ><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px;">Filter Options</span></button>
                 </form>
@@ -111,7 +114,7 @@
                                 <th>Item No.</th>
                                 <th>Description</th>
                                 <th>Abbreviation</th>
-                                <th>Unit of Measurement</th>
+                                <th>Unit of Measure</th>
                                 <th>Transfer Cost <button type="submit" class="sorting" name="button" value="sortingT"><span id="ADIcon">&#8597;</span></button></th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
@@ -177,13 +180,13 @@
                 String itemMessage = (String) session.getAttribute("itemMessage");
                 if (addItemMessage != null) {
             %>
-            <div class="message">
+            <div class="success">
                 <%= addItemMessage%>
             </div>
             <%
             } else if (itemMessage != null) {
             %>
-            <div class="message">
+            <div class="success">
                 <%= itemMessage%>
             </div>
         </div>
@@ -271,6 +274,14 @@
             }
         }
     </script>
-
+    <script>
+    function confirmGenerateReport() {
+        // Display confirmation dialog
+        var confirmed = confirm('Are you sure you want to generate a report?');
+        // Return true to submit the form if confirmed, false otherwise
+        return confirmed;
+    }
+</script>
+</div>
 </body>
 </html>

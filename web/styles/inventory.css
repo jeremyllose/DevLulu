@@ -283,11 +283,10 @@ label:hover:not(.inventory:hover) {
     max-width: 95%;
     display: flex;
     flex-direction: column; /* Stack table rows vertically */
-    position: relative;
-    right: -650px;
-
+    position: fixed;
+    right: -49rem;
+    bottom: 5rem;
 }
-
 .pagination td {
     padding: 10px 20px;
     padding: 15px;
@@ -329,8 +328,6 @@ label:hover:not(.inventory:hover) {
     color: #4F8A10;
     background-color: #DFF2BF;
     background-image: url('https://i.imgur.com/Q9BGTuy.png');
-    position: relative;
-    bottom: -80px;
 }
 .warning {
     color: #9F6000;
@@ -401,9 +398,9 @@ label:hover:not(.inventory:hover) {
         top: 60px;
     }
     .pagination {
-        position: relative;
-        right: -770px;
-        top: 1px;
+        position: fixed;
+        right: -56.5rem;
+        bottom: 5rem;
     }
     #disable-css {
         position: relative;
