@@ -152,7 +152,7 @@ private void processTransactionSheet(Sheet sheet) throws SQLException {
 }
 
 private void processInventorySheet(Sheet sheet) throws SQLException {
-       PreparedStatement pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) VALUES (?,?,?,?,?)");
+       PreparedStatement pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, REORDER_QUANTITY) VALUES (?,?,?,?)");
 
     for (Row row : sheet) {
         if (row.getRowNum()  > 1) {
