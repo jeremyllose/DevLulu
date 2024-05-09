@@ -31,7 +31,7 @@ public class UploadServlet extends HttpServlet {
             Sheet sheetPricing = workbook.getSheet("Pricing");
             Sheet sheetTransaction = workbook.getSheet("Transaction");
             Sheet sheetInventory = workbook.getSheet("Inventory");
-            Sheet sheetStockHistory = workbook.getSheet("Stockhistory");
+            Sheet sheetStockHistory = workbook.getSheet("Stock History");
 
             // Set attributes for each sheet
             request.setAttribute("Item", sheetItem);
