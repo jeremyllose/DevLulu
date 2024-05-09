@@ -16,10 +16,10 @@
 
     </head>
     <body>
-        <div class="dashboardbar">
-            <h1 id="dashboardheader">Change Password</h1> 
+        <div style="width: 150%" class="dashboardbar">
+            <h1 style="right: -87rem;" id="dashboardheader">Change Password</h1> 
         </div>
-        <div class="content-container">
+        <div style="right: -2.5rem;" class="content-container">
             <form action="PasswordChange" method="post">
                 <%
                     if (session.getAttribute("usernameForgot") != null) 
@@ -41,7 +41,7 @@
                         <th>Confirm Password: </th><th><input type="password" name="confirmPassword" placeholder="Confirm Password" required/></th>
                     </tr>
                 </table>
-                <button type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
+                <button id="save" type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
             </form>
             <%
                 if (session.getAttribute("message") != null) {
