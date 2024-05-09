@@ -73,17 +73,17 @@ public class InsertDataServlet extends HttpServlet {
     try {
        
         Sheet sheetItem = (Sheet) request.getAttribute("Item");
-        Sheet sheetPricing = (Sheet) request.getAttribute("Pricing");
         Sheet sheetTransaction = (Sheet) request.getAttribute("Transaction");
+        Sheet sheetPricing = (Sheet) request.getAttribute("Pricing");
+        Sheet sheetStockHistory = (Sheet) request.getAttribute("Stock History");
         Sheet sheetInventory = (Sheet) request.getAttribute("Inventory");
-        Sheet sheetStockHistory = (Sheet) request.getAttribute("Stockhistory");
-
       
         processItemSheet(sheetItem);
-        processPricingSheet(sheetPricing);
         processTransactionSheet(sheetTransaction);
-        processInventorySheet(sheetInventory);
+        processPricingSheet(sheetPricing);
         processStockHistorySheet(sheetStockHistory);
+        processInventorySheet(sheetInventory);
+        
         
         response.sendRedirect("ItemList");
 
@@ -101,7 +101,7 @@ private void processItemSheet(Sheet sheet) throws SQLException {
 
 
     for (Row row : sheet) {
-        if (row.getRowNum() != 0) {
+        if (row.getRowNum()  > 1) {
             pstmt.setString(1, row.getCell(0).toString());
             pstmt.setInt(2, (int) Float.parseFloat(row.getCell(1).toString()));
             pstmt.setString(3, row.getCell(2).toString());
@@ -120,7 +120,7 @@ private void processPricingSheet(Sheet sheet) throws SQLException {
       PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT) VALUES (?,?,?,?)");
 
     for (Row row : sheet) {
-        if (row.getRowNum() != 0) {
+        if (row.getRowNum()  > 1) {
             pstmt.setString(1, row.getCell(0).toString());
             pstmt.setString(2, row.getCell(1).toString());
             pstmt.setBigDecimal(3, new BigDecimal(row.getCell(2).toString()));
@@ -138,7 +138,7 @@ private void processTransactionSheet(Sheet sheet) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO TRANSACTIONS (ITEM_CODE, DELIVERY, OTHERADDS, SOLD, WASTE, OTHERSUBS) VALUES (?,?,?,?,?,?)");
 
     for (Row row : sheet) {
-        if (row.getRowNum() != 0) {
+        if (row.getRowNum()  > 1) {
             pstmt.setString(1, row.getCell(0).toString());
             for (int i = 1; i <= 5; i++) {
                 pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
@@ -155,7 +155,7 @@ private void processInventorySheet(Sheet sheet) throws SQLException {
        PreparedStatement pstmt = con.prepareStatement("INSERT INTO INVENTORY (ITEM_CODE, QUANTITY, MAX_QUANTITY, SUGGESTED_FORECAST, REORDER_QUANTITY) VALUES (?,?,?,?,?)");
 
     for (Row row : sheet) {
-        if (row.getRowNum() != 0) {
+        if (row.getRowNum()  > 1) {
             pstmt.setString(1, row.getCell(0).toString());
             for (int i = 1; i <= 4; i++) {
                 pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
@@ -172,7 +172,7 @@ private void processStockHistorySheet(Sheet sheet) throws SQLException {
      PreparedStatement pstmt = con.prepareStatement("INSERT INTO STOCKHISTORY (ITEM_CODE, BEGINNING_QUANTITY, END_QUANTITY) VALUES (?,?,?)");
 
     for (Row row : sheet) {
-        if (row.getRowNum() != 0) {
+        if (row.getRowNum()  > 1) {
             pstmt.setString(1, row.getCell(0).toString());
             for (int i = 1; i <= 2; i++) {
                 pstmt.setInt(i + 1, (int) Float.parseFloat(row.getCell(i).toString()));
