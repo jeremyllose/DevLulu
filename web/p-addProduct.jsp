@@ -45,13 +45,13 @@
                 String itemMessage = (String) session.getAttribute("productMessage");
                 if (addItemMessage != null) {
             %>
-            <div class="message">
+            <div class="success">
                 <%= addItemMessage%>
             </div>
             <%
                 }else if (itemMessage!= null){
             %>
-            <div class="message">
+            <div class="error">
                 <%= itemMessage%>
             </div>
             <%

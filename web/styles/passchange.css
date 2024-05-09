@@ -44,9 +44,9 @@ body {
     border-radius: 5px;
     padding: 10px 15px;
     cursor: pointer;
-    position: relative;
-    top: 6px;
-    right: -70px;
+    position: fixed;
+    top: 493px;
+    right: 780px;
 }
 #save {
     display: inline-block;
@@ -62,10 +62,10 @@ body {
     top: 40px;  /* Move down 30px from the bottom of the container */
     right: -200px;
 }
-h4 {
+#user {
     position: relative;
-    right: -130px;
-    top: 15px;
+    right: -90px;
+    top: 0px;
 }
 @keyframes scaleUp {
     from {
@@ -132,7 +132,43 @@ td {
 td label {
     margin-right: 10px; /* Add margin between label and input */
 }
-
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    font-size: 16px;
+}
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('https://i.imgur.com/ilgqWuX.png');
+}
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image: url('https://i.imgur.com/Q9BGTuy.png');
+    position: relative;
+    bottom: -80px;
+}
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('https://i.imgur.com/Z8q7ww7.png');
+}
+.error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('https://i.imgur.com/GnyDvKN.png');
+    position: relative;
+    bottom: -120px;
+}
+.validation{
+    color: #D63301;
+    background-color: #FFCCBA;
+    background-image: url('https://i.imgur.com/GnyDvKN.png');
+}
 @media screen and (min-width: 1920px) {
     #dashboardheader {
         position:relative;
@@ -160,9 +196,9 @@ td label {
         border-radius: 5px;
         padding: 10px 15px;
         cursor: pointer;
-        position: relative;
-        top: 6px;
-        right: -70px;
+        position: fixed;
+        top: 412px;
+        right: 830px;
     }
     #save {
         display: inline-block;

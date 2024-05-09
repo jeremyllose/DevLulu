@@ -108,7 +108,7 @@
             <%
                 }else if (itemMessage!= null){
             %>
-            <div class="message">
+            <div class="success">
                 <%= itemMessage%>
             </div>
             <%

@@ -93,7 +93,7 @@ public class Login extends HttpServlet {
             
             if(!check(uname))
             {
-                session.setAttribute("message", "Account is NON Existent");
+                session.setAttribute("message", "Sorry, the username or password you entered is incorrect.");
                 response.sendRedirect("login.jsp");
             }
             else if(rs.next() && pass.equals(EncryptDecrypt.decrypt(rs.getString("password"), key, cypher)) && !rs.getBoolean("DISABLED"))
