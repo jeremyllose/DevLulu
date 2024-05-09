@@ -110,7 +110,7 @@
                             <td>
                                 <form action="EnablePassword" method="post">
                                     <input type="hidden" name="username" value="<%= results.getString("username")%>">
-                                    <button id="showpass" type="submit" onclick="return confirm('Are you sure you want to enable this users password?')"><img class="edit-picture" src="photos/Show.png" alt="Disable Button">Show password</button>
+                                    <button id="showpass" type="submit" onclick="return confirm('Are you sure you want to enable this users password?')"><img class="edit-picture" src="photos/Show.png" alt="Disable Button">Approve password</button>
                                 </form>
                             </td>
                             <%
