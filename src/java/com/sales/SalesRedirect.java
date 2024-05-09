@@ -65,7 +65,7 @@ public class SalesRedirect extends HttpServlet {
             {
                 HttpSession session = request.getSession();
                 String action = request.getParameter("button");
-                request.setAttribute("addsValue", deliveryValue() + otheAddsValue());
+                request.setAttribute("addsValue", deliveryValue());
                 Statement stmt = con.createStatement();
                 
                 String sort = (String) session.getAttribute("sSort");
@@ -88,7 +88,7 @@ public class SalesRedirect extends HttpServlet {
                     session.setAttribute("salesPgNum", pageNumber);
                 }
                 
-                ResultSet records = stmt.executeQuery("SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.OTHERADDS, (UNIT_PRICE * DELIVERY) + ((UNIT_PRICE * OTHERADDS)) AS TOTAL FROM ITEM \n" +
+                ResultSet records = stmt.executeQuery("SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.SOLD, TRANSACTIONS.OTHERADDS, (UNIT_PRICE * SOLD) AS TOTAL FROM ITEM \n" +
 "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
 "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
 "INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
@@ -138,7 +138,7 @@ public class SalesRedirect extends HttpServlet {
         
         while(rs.next())
         {
-            int quantity = rs.getInt("delivery");
+            int quantity = rs.getInt("sold");
             float unitPrice = rs.getFloat("unit_price");
             inventoryValue += quantity * unitPrice;
         }

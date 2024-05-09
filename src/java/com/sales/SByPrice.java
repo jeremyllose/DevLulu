@@ -33,15 +33,15 @@ public class SByPrice extends HttpServlet {
         String sort = (String) session.getAttribute("sSort");
         if (sort == null) 
         {
-            session.setAttribute("sSort", "ORDER BY TRANSFER_COST ASC");
+            session.setAttribute("sSort", "ORDER BY UNIT_PRICE ASC");
         }
-        else if(sort.equals("ORDER BY TRANSFER_COST ASC"))
+        else if(sort.equals("ORDER BY UNIT_PRICE ASC"))
         {
-            session.setAttribute("sSort", "ORDER BY TRANSFER_COST DESC");
+            session.setAttribute("sSort", "ORDER BY UNIT_PRICE DESC");
         }
         else
         {
-            session.setAttribute("sSort", "ORDER BY TRANSFER_COST ASC");
+            session.setAttribute("sSort", "ORDER BY UNIT_PRICE ASC");
         }
         response.sendRedirect("SalesRedirect");
     }

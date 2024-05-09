@@ -49,16 +49,18 @@
                                     String[] top5 = (String[]) request.getAttribute("topFiveDescriptions");
                                     double[] top5Prices = (double[]) request.getAttribute("topFiveTotal");
                                     int[] quantites = (int[]) request.getAttribute("quantites");
+                                    int[] solds = (int[]) request.getAttribute("solds");
+                                    String[] dates = (String[]) request.getAttribute("dates");
                                 %>
                             <script>
             const sales = document.getElementById('sales');
-            const labels = ['<%=top5[0]%>', '<%=top5[1]%>', '<%=top5[2]%>', '<%=top5[3]%>', '<%=top5[4]%>'];
+            const labels = ['<%=dates[0]%>', '<%=dates[1]%>', '<%=dates[2]%>', '<%=dates[3]%>', '<%=dates[4]%>'];
             const data = {
                 labels: labels,
                 datasets: [
                     {
                         label: 'Sold',
-                        data: [<%=top5Prices[0]%>, <%=top5Prices[1]%>, <%=top5Prices[2]%>, <%=top5Prices[3]%>, <%=top5Prices[4]%>],
+                        data: [<%=solds[0]%>, <%=solds[1]%>, <%=solds[2]%>, <%=solds[3]%>, <%=solds[4]%>],
                         fill: false,
                         borderColor: 'rgb(55, 160, 58)',
                         tension: 0.1

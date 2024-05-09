@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -61,16 +63,31 @@ public class WelcomePageRedirect extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         
-        String sql = "SELECT p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION,  SUM(p.QUANTITY * p.PRODUCT_PRICE) AS TOTAL_VALUE, p.QUANTITY\n" +
-"FROM PRODUCT p\n" +
-"GROUP BY p.PRODUCT_CODE, p.PRODUCT_DESCRIPTION, p.QUANTITY\n" +
-"ORDER BY TOTAL_VALUE DESC\n" +
+        String sql = "SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.SOLD, TRANSACTIONS.OTHERADDS, (UNIT_PRICE * SOLD) AS TOTAL FROM ITEM\n" +
+"INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+"INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+"INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+"INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+"INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
+"INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
+"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
+"WHERE ITEM.DISABLED = FALSE\n" +
+"ORDER BY TOTAL DESC\n" +
 "FETCH NEXT 5 ROWS ONLY";
         
+        LocalDate today = LocalDate.now();
+        LocalDate fiveDaysBefore = today.minusDays(5);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = fiveDaysBefore.format(formatter);
+        
+        String sql2 = "SELECT MAX(DATE_COLUMN) AS latest_update, SUM(COUNT) AS total_sum FROM SYSTEMLOG WHERE DATE_COLUMN BETWEEN '"+formattedDate+"' AND CURRENT_DATE AND SOURCE = 'USAGE/Sold Column' GROUP BY DATE_COLUMN";
+        
         Statement statement = con.createStatement();
+        Statement statement2 = con.createStatement();
 
         
         ResultSet resultSet = statement.executeQuery(sql);
+        ResultSet resultSet2 = statement2.executeQuery(sql2);
         
         String[] productDescriptions = new String[5];
         double[] totalValues = new double[5];
@@ -81,15 +98,29 @@ public class WelcomePageRedirect extends HttpServlet {
 
         // Loop through the results set
         while (resultSet.next() && index < 5) {
-            productDescriptions[index] = resultSet.getString(2);
-            totalValues[index] = resultSet.getDouble(3);
-            quantites[index] = resultSet.getInt(4);
+            productDescriptions[index] = resultSet.getString(3);
+            totalValues[index] = resultSet.getDouble(5);
+            quantites[index] = resultSet.getInt(7);
             index++;
+        }
+        
+        int index2 = 0;
+        
+        String[] dates = new String[5];
+        int[] solds = new int[5];
+
+        // Loop through the results set
+        while (resultSet2.next() && index2 < 5) {
+            dates[index2] = resultSet2.getString(1);
+            solds[index2] = resultSet2.getInt(2);
+            index2++;
         }
 
         // Close the connection and statement
         resultSet.close();
+        resultSet2.close();
         statement.close();
+        statement2.close();
 
         // Fill remaining slots with "NONE" and 0 if less than 5 results
         for (int i = index; i < 5; i++) {
@@ -97,7 +128,15 @@ public class WelcomePageRedirect extends HttpServlet {
             totalValues[i] = 0.0;
             quantites[i] = 0;
         }
+        int day = 1;
+        for (int i = index2; i < 5; i++) {
+            dates[i] = today.plusDays(day).format(formatter);
+            solds[i] = 0;
+            day++;
+        }
         
+        request.setAttribute("dates", dates);
+        request.setAttribute("solds", solds);
         request.setAttribute("topFiveTotal", totalValues);
         request.setAttribute("topFiveDescriptions", productDescriptions);
         request.setAttribute("quantites", quantites);

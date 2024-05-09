@@ -54,8 +54,7 @@
                             <th>Item Number <button class="sorting" onclick="redirectTo('SByQuantity')"><span id="priceSortIcon">&#8597;</span></button></th>    
                             <th>Item Description</th>
                                 <th>Transfer Cost <button class="sorting" onclick="redirectTo('SByPrice')"><span id="priceSortIcon">&#8597;</span></button></th>
-                                <th>Delivery</th>
-                                <th>Other Adds </th>
+                                <th>Sold</th>
                                 <th>Total <button class="sorting" onclick="redirectTo('SByTotal')"><span id="priceSortIcon">&#8597;</span></button></th>
                         </tr>
                     </thead>
@@ -69,8 +68,7 @@
                             <td><%=results.getString("item_num")%></td>
                                 <td><%=results.getString("item_description")%></td>
                                 <td>₱<%=results.getString("unit_price")%></td>
-                                <td><%=results.getString("delivery")%></td>
-                                <td><%=results.getString("otheradds")%></td>
+                                <td><%=results.getString("sold")%></td>
                                 <td>₱<%=results.getString("total")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                         </tr>
                         <%
