@@ -118,7 +118,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         inventorySheet.autoSizeColumn(i);
         }
         // Write data to Excel sheet for inventory report
-        int rowNum = 1; // Start writing data from row 1
+        int rowNum = 2; // Start writing data from row 1
         while (rs.next()) {
             Row row = inventorySheet.createRow(rowNum++);
             row.createCell(0).setCellValue(rs.getString("ITEM_CODE"));
@@ -166,7 +166,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         }
 
         // Write data to Excel sheet for delivery report
-        int rowNumTxn = 1; // Start writing data from row 1
+        int rowNumTxn = 2; // Start writing data from row 1
         while (rsTxn.next()) {
             Row row = deliverySheet.createRow(rowNumTxn++);
             row.createCell(0).setCellValue(rsTxn.getString("ITEM_CODE"));
@@ -214,7 +214,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         }
 
         // Write data to Excel sheet for Pricing report
-        int rowNumPrc = 1; // Start writing data from row 1
+        int rowNumPrc = 2; // Start writing data from row 1
         while (rsPrc.next()) {
             Row row = PricingSheet.createRow(rowNumPrc++);
             row.createCell(0).setCellValue(rsPrc.getString("ITEM_CODE"));
@@ -263,7 +263,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         }
 
         // Write data to Excel sheet for Pricing report
-        int rowNumStk = 1; // Start writing data from row 1
+        int rowNumStk = 2; // Start writing data from row 1
         while (rsStk.next()) {
             Row row = StockSheet.createRow(rowNumStk++);
             row.createCell(0).setCellValue(rsStk.getString("ITEM_CODE"));
@@ -310,7 +310,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         }
 
         // Write data to Excel sheet for Pricing report
-        int rowNumInt = 1; // Start writing data from row 1
+        int rowNumInt = 2; // Start writing data from row 1
         while (rsInt.next()) {
             Row row = InventorySheet.createRow(rowNumInt++);
             row.createCell(0).setCellValue(rsInt.getString("ITEM_CODE"));
