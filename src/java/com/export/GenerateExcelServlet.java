@@ -236,7 +236,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         ResultSet rsStk = stmtStk.executeQuery("SELECT * FROM STOCKHISTORY");
 
         // Create sheet for delivery report
-        Sheet StockSheet = workbook.createSheet("Stock History");
+        Sheet StockSheet = workbook.createSheet("StockHistory");
 
         // Get ResultSet metadata to obtain column names for Pricing report
         ResultSetMetaData metaDataStk = rsStk.getMetaData();
