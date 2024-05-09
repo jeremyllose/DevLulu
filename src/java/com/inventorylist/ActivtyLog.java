@@ -62,11 +62,11 @@ public class ActivtyLog extends HttpServlet {
             throws ServletException, IOException, SQLException {
         Statement stmt = con.createStatement();
                 //Only gets the Accounts where DISABLED IS FALSE
-                ResultSet records = stmt.executeQuery("SELECT * FROM SYSTEMLOG ORDER BY DATE_COLUMN");
+                ResultSet records = stmt.executeQuery("SELECT * FROM SYSTEMLOG ORDER BY DATE_COLUMN DESC");
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("itemRecords", records);
-                request.getRequestDispatcher("activtylog.jsp").forward(request,response);
+                request.getRequestDispatcher("activitylog.jsp").forward(request,response);
                 
                 records.close();
                 stmt.close();

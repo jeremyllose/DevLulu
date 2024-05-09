@@ -232,14 +232,16 @@ input[type="number"] {
     max-width: 95%;
     display: flex;
     flex-direction: column; /* Stack table rows vertically */
-    position: relative;
-    right: -650px;
-    top: 80px;
+      position: fixed;
+    right: 38.5rem;
+    bottom: 5rem;
 
 }
-
 .pagination td {
     padding: 10px 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
 .pagination input[type="submit"] {
@@ -255,6 +257,7 @@ input[type="number"] {
     border-radius: 5px;
     transition: background-color 0.3s;
 }
+
 
 .pagination input[type="submit"]:hover {
     background-color: #45a049;
@@ -354,13 +357,12 @@ input[type="number"] {
     }
     #savechanges {
         position: fixed;
-        right: 1449px;
+        right: 1500px;
         top: 60px;
     }
-    .pagination {
-        position: relative;
-        right: -800px;
-        top: 80px;
-
+  .pagination {
+        position: fixed;
+        right: 48.5rem;
+        bottom: 5rem;
     }
 }

@@ -54,7 +54,7 @@
                 <%
                     if (request.getAttribute("accountMade") != null) {
                 %>
-                <h4 class="success">${accountMade}</h4>
+                <h4 class="info">${accountMade}</h4>
                 <%
                     }
                 %>

@@ -73,7 +73,7 @@ public class VarianceSearch extends HttpServlet {
 "INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
 "INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
 "INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID "
-                        + "WHERE DISABLED = FALSE AND ITEM_DESCRIPTION LIKE '"+ searchBar +"%' ORDER BY ITEM_NUM");
+                        + "WHERE DISABLED = FALSE AND LOWER(ITEM_DESCRIPTION) LIKE LOWER('"+ searchBar +"%') ORDER BY ITEM_NUM");
                 
                 //gives all the records to the Accountlist
                 request.setAttribute("inventory", records);

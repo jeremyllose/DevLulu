@@ -38,10 +38,6 @@
                 float addCost = (Float) request.getAttribute("addsValue");
             %>
             <div class="others">
-                <form action="DeliveryExcelServlet" method="post">
-                    <button class="inventory" id="generate" type="submit">
-                        <img src="photos/export.png" alt="generate report Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text" style="margin-right: 5px">Gen Report</span></button>
-                </form>
                 <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text">Filter Options</span></button>
                 <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery: ₱<%= addCost%></h1></div>
                 <form action="SuppliesSearch" method="post">

@@ -54,7 +54,7 @@
                         <thead>
                             <tr>
                                 <th><button id="disable-css" type="submit" name="button" value="disable">
-                                        <image src="photos/DisableFR.png" alt="Disable Button" style="width: 20px; height: 20px; position: relative; right: -25px;"></button>
+                                        <image id="disablebutton" src="photos/DisableFR.png" alt="Disable Button"></button>
                                 </th>
                                 <th>Product Code</th>
                                 <th>Product Description</th>                       
@@ -84,7 +84,7 @@
                                 %>
                                 <td><%=results.getString("product_code")%></td>
                                 <td><%=results.getString("product_description")%></td>
-                                <td><%=results.getString("product_price")%></td>
+                                <td>₱<%=results.getString("product_price")%></td>
                                 <%
                                     if (results.getBoolean("disabled") == false) {
                                 %>

@@ -64,14 +64,37 @@ public class AddProduct extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         
-        String getProductCode = request.getParameter("productCode");
+        
+        String getProductType = request.getParameter("productType");
         String getProductDescription = request.getParameter("productDescription");
         float getProductPrice = Float.parseFloat(request.getParameter("productPrice"));
         
         String[] itemIds = request.getParameterValues("items");
         String[] itemQuantity = request.getParameterValues("itemQuantity");
-        int start = 0;
-        if(check(getProductCode, getProductDescription))
+        
+        String beginning = "";
+        if(getProductType.equals("ML") || getProductType.equals("DS"))
+        {
+            beginning = "PD";
+        }
+        else
+        {
+            beginning = "BV";
+        }
+        
+        String baseName = beginning + "-" + getProductType + "-";
+        int start = 1;
+        String formattedLength = String.format("%04d", start);
+        String name = baseName + formattedLength;
+        
+        while (checkCode(name))
+        {
+                    start++;
+                    formattedLength = String.format("%04d", start);
+                    name = baseName + formattedLength;
+        }
+        
+        if(check(getProductDescription))
         {
             session.setAttribute("productMessage", "Product Already Exists");
             response.sendRedirect("AddProductRedirect");
@@ -83,13 +106,13 @@ public class AddProduct extends HttpServlet {
         }
         else
         {
-        addProduct(getProductCode, getProductDescription, getProductPrice);
+        addProduct(name, getProductDescription, getProductPrice);
         
         for (String itemId : itemIds) 
         {
             try 
             {
-                addBill(getProductCode, itemId, Integer.parseInt(itemQuantity[start]));
+                addBill(name, itemId, Integer.parseInt(itemQuantity[start]));
                 start++;
             }
             catch (SQLException ex) 
@@ -128,12 +151,21 @@ public class AddProduct extends HttpServlet {
         ps.close();
     }
     
-    public boolean check(String pkey, String desc) throws SQLException
+    public boolean check(String desc) throws SQLException
     {
-        String query = "SELECT 1 FROM PRODUCT WHERE PRODUCT_CODE = ? OR PRODUCT_DESCRIPTION = ?";
+        String query = "SELECT 1 FROM PRODUCT WHERE LOWER(PRODUCT_DESCRIPTION) = LOWER(?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, desc);
+        ResultSet resultSet = ps.executeQuery();
+        
+        return resultSet.next();
+    }
+    
+    public boolean checkCode(String pkey) throws SQLException
+    {
+        String query = "SELECT 1 FROM PRODUCT WHERE PRODUCT_CODE = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, pkey);
-        ps.setString(2, desc);
         ResultSet resultSet = ps.executeQuery();
         
         return resultSet.next();
