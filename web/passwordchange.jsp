@@ -6,7 +6,6 @@
 
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="commons.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,15 +20,10 @@
             <h1 id="dashboardheader">Change Password</h1> 
         </div>
         <div class="content-container">
-            <%            if (session.getAttribute("username") != null) {
-            %>
-            <h1>USER: ${username}</h1>
-            <%
-                }
-            %>
             <form action="PasswordChange" method="post">
                 <%
-                    if (session.getAttribute("usernameForgot") != null) {
+                    if (session.getAttribute("usernameForgot") != null) 
+                    {
                 %>
                 <h1>USER: ${usernameForgot}</h1><input type="hidden" name="username" value="${usernameForgot}">
                 <%

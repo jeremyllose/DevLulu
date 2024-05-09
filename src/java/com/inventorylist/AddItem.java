@@ -207,7 +207,7 @@ public class AddItem extends HttpServlet {
         
         ps.setString(1, itemCode);
         ps.setInt(2, quantity);
-        ps.setInt(3, quantity);
+        ps.setInt(3, 0);
         ps.executeUpdate();
         ps.close();
     }

@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -60,10 +61,25 @@ public class EnablePassword extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
         String getUsername = request.getParameter("username");
         enable(getUsername);
         updateUser(passwordChange(getUsername), getUsername);
+        systemLog((String) session.getAttribute("username"), getUsername);
         response.sendRedirect("AccountList");
+    }
+    
+    public void systemLog(String user, String employee)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ENABLED PASSWORD "+employee+"', 'ACCOUNTLIST', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, null);
+        ps.setString(3, null);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public String passwordChange(String gc) throws SQLException

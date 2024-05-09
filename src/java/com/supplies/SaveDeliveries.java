@@ -111,8 +111,6 @@ public class SaveDeliveries extends HttpServlet {
             
             int endQuantity = endQuantity(item) + delivery + adds;
             
-            updateEndItem(endQuantity, item);
-            updateQuantity(endQuantity, item);
             updateDelivery(Integer.parseInt(deliveries[start]), Integer.parseInt(otheradds[start]), item);
             
             start++;

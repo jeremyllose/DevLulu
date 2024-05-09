@@ -119,8 +119,21 @@ public class EditProduct extends HttpServlet {
             session.setAttribute("productMessage", "Item Successfully Edited");
         }
         
-        
+        systemLog((String) session.getAttribute("username"), productCode, getProductDescription);
         response.sendRedirect("EditProductRedirect");
+    }
+    
+    public void systemLog(String user, String itemCode, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'EDITED', 'RECIPE', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public int countDB(String productCode) throws SQLException

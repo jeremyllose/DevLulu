@@ -72,6 +72,7 @@ public class ProductAction extends HttpServlet {
                 for (String itemId : itemIds) 
                 {
                     disableUser(itemId);
+                    systemLog((String) session.getAttribute("username"), itemId, itemDescription(itemId));
                 }
             }
             session.setAttribute("productMessage", "Items Successfully Disabled");
@@ -92,6 +93,7 @@ public class ProductAction extends HttpServlet {
             enableUser(product);
             
             session.setAttribute("productMessage", "Item Successfully Enabled");
+            systemLogEnable((String) session.getAttribute("username"), product, itemDescription(product));
             response.sendRedirect("ProductRedirect");
         }
         else if (action.equals("save")) 
@@ -116,6 +118,47 @@ public class ProductAction extends HttpServlet {
             session.setAttribute("productCode", theRest);
             response.sendRedirect("EditProductRedirect");
         }
+    }
+    
+    public String itemDescription(String gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT PRODUCT_DESCRIPTION FROM PRODUCT WHERE PRODUCT_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("PRODUCT_DESCRIPTION");
+        }
+        
+        return result;
+    }
+    
+    public void systemLog(String user, String itemCode, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'DISABLED', 'RECIPE', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLogEnable(String user, String itemCode, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ENABLED', 'RECIPE', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public void disableUser(String product)throws SQLException

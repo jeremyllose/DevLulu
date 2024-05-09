@@ -83,15 +83,43 @@ public class PasswordChange extends HttpServlet {
         else if(session.getAttribute("username") != null)
         {
             updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
+            systemLog(getUsername);
             session.setAttribute("message", "Please wait until your password has been approved by the Admin");
             response.sendRedirect(page);
         }
         else
         {
             updateUser(EncryptDecrypt.encrypt(getPassword, key, cypher), getUsername);
+            systemLog2(getUsername);
             session.setAttribute("message", "Please wait until your password has been approved by the Admin");
             response.sendRedirect("login.jsp");
         }
+    }
+    
+    public void systemLog(String user)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'PASSWORD REQUEST', 'EDIT ACCOUNT', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, null);
+        ps.setString(3, null);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void systemLog2(String user)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'PASSWORD REQUEST', 'FORGOT PASSWORD', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, null);
+        ps.setString(3, null);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public boolean check(String pkey) throws SQLException

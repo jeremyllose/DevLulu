@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -59,6 +61,7 @@ public class EnableUser extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         int userId = Integer.parseInt(request.getParameter("id"));
         String query = "UPDATE LOGIN SET DISABLED = FALSE WHERE ID = ?";
         
@@ -66,6 +69,7 @@ public class EnableUser extends HttpServlet {
         {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, userId);
+            systemLog((String) session.getAttribute("username"), itemDescription(userId));
             ps.executeUpdate();
         } 
         catch (SQLException ex) 
@@ -74,6 +78,34 @@ public class EnableUser extends HttpServlet {
         }
         
         request.getRequestDispatcher("AccountList").forward(request,response);
+    }
+    
+    public void systemLog(String user, String employee)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ENABLED USER "+employee+"', 'ACCOUNTLIST', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, null);
+        ps.setString(3, null);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public String itemDescription(int gc) throws SQLException
+    {
+        String result = null;
+        
+        String query = "SELECT USERNAME FROM LOGIN WHERE ID= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getString("USERNAME");
+        }
+        
+        return result;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

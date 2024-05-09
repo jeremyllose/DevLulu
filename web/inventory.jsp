@@ -115,11 +115,11 @@
                                 <th>Description</th>
                                 <th>Abbreviation</th>
                                 <th>Unit of Measure</th>
-                                <th>Transfer Cost <button type="submit" class="sorting" name="button" value="sortingT"><span id="ADIcon">&#8597;</span></button></th>
+                                <th>Unit Price <button type="submit" class="sorting" name="button" value="sortingU"><span id="ADIcon">&#8597;</span></button></th>
                                 <th>General Class</th>
                                 <th>Sub Class</th>
                                 <th>VAT</th>
-                                <th>Unit Price <button type="submit" class="sorting" name="button" value="sortingU"><span id="ADIcon">&#8597;</span></button></th>
+                                <th>Transfer Cost <button type="submit" class="sorting" name="button" value="sortingT"><span id="ADIcon">&#8597;</span></button></th>
                                 <th>Recently Updated</th>
                                 <th>Action</th>
                             </tr>

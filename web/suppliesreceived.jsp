@@ -62,7 +62,6 @@
                                 <th>UOM</th>
                                 <th>Deliveries <button class="sorting" type="submit" name="button" value="VByDelivery"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
                                 <th>Others <button class="sorting" type="submit" name="button" value="VByAdds"><span id="ItemDesciptionIcon">&#8597;</span></button></th>
-                                <th>End Quantity</th>
                                 <th>Recently Updated</th>
                                 <!--                            <th><button id="button-css" type="submit" name="button" value="save" style="background-color: #8f654a; color: white; border:none;">
                                                                     <image src="photos/save.png" alt="Save Button" style="width: 20px; height: 20px;"> <b style="font-size: 16px; padding-left: 5px;">Save Changes</b></button></th>-->
@@ -80,8 +79,7 @@
                                 <td><%=results.getString("unit_name")%></td>
                                 <td><input type="number" min="0" name="delivery" value="<%=results.getString("delivery")%>" required/></td>
                                 <td><input type="number" min="0" name="others" value="<%=results.getString("otheradds")%>" required/></td>
-                                <td><%=results.getString("end_quantity")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
-                                <td><%=results.getString("updated")%></td>
+                                <td><%=results.getString("updated")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
     <!--                             // <td><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>-->
                             </tr>        
                             <%	}

@@ -121,8 +121,6 @@ public class SaveWastes extends HttpServlet {
             
             int endQuantity = endQuantity(item) - (sold + waste + subs);
             
-            updateEndItem(endQuantity, item);
-            updateQuantity(endQuantity, item);
             updateWastes(Integer.parseInt(solds[start]), Integer.parseInt(wastes[start]), Integer.parseInt(othersubs[start]), item);
             
             start++;

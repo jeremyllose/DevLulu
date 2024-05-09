@@ -92,6 +92,7 @@ public class AddAccount extends HttpServlet {
                     ps.executeUpdate();
                     ps.close();
                     request.setAttribute("accountMade", "Account Created");
+                    systemLog((String) session.getAttribute("username"), getUsername, getRole);
                     request.getRequestDispatcher("AccountList").forward(request,response);
                 }
                 else
@@ -112,6 +113,19 @@ public class AddAccount extends HttpServlet {
         {
             response.sendRedirect("error.jsp");
         }
+    }
+    
+    public void systemLog(String user, String employee, String role)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ADDED ACCOUNT "+employee+" ("+role+")', 'ACCOUNTLIST', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, null);
+        ps.setString(3, null);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public int countDB() throws SQLException

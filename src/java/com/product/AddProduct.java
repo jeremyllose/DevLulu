@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -71,6 +72,9 @@ public class AddProduct extends HttpServlet {
         
         String[] itemIds = request.getParameterValues("items");
         String[] itemQuantity = request.getParameterValues("itemQuantity");
+        String[] newArray = Arrays.stream(itemQuantity)
+                           .filter(element -> !element.equals("0"))
+                           .toArray(String[]::new);
         
         String beginning = "";
         if(getProductType.equals("ML") || getProductType.equals("DS"))
@@ -108,21 +112,37 @@ public class AddProduct extends HttpServlet {
         {
         addProduct(name, getProductDescription, getProductPrice);
         
+        int startArray = 0;
+        
         for (String itemId : itemIds) 
         {
             try 
             {
-                addBill(name, itemId, Integer.parseInt(itemQuantity[start]));
-                start++;
+                addBill(name, itemId, Integer.parseInt(newArray[startArray]));
+                startArray++;
             }
             catch (SQLException ex) 
             {
                 Logger.getLogger(ItemAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        systemLog((String) session.getAttribute("username"), name, getProductDescription);
         session.setAttribute("productMessage", "Product Successfully Added");
         response.sendRedirect("ProductRedirect");
         }
+    }
+    
+    public void systemLog(String user, String itemCode, String itemDescription)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION)"
+                + " VALUES (?, ?, 'ADDED', 'RECIPE', ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public void addProduct(String productCode, String productDescription, float productPrice)throws SQLException

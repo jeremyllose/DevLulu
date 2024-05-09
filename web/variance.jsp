@@ -4,6 +4,7 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.time.LocalTime"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,6 +38,12 @@
                 // Get current date
                 LocalDate today = LocalDate.now();
 
+                 LocalTime currentTime = LocalTime.now();
+
+        // Define start and end of desired time range (00:00 and 08:00)
+        LocalTime startTime = LocalTime.of(0, 0);
+        LocalTime endTime = LocalTime.of(8, 0);
+                
                 // Check if today is within the first 5 days of the month
                 boolean withinFirstFiveDays = today.getDayOfMonth() <= 5;
             %>
@@ -95,7 +102,7 @@
                                 <td><%=results.getString("sub_name")%></td>
                                 <td><%=results.getString("unit_name")%></td>
                                 <%
-                                    if (withinFirstFiveDays) {
+                                    if (withinFirstFiveDays || session.getAttribute("userRole").equals("Owner")) {
                                 %>
                                 <td><input type="number" min="0" name="beg" value="<%=results.getString("beginning_quantity")%>" required/></td>
                                     <% } else {
@@ -116,9 +123,19 @@
                                 <%
                                     int totalOutput = totalOnMain - results.getInt("sold") - results.getInt("waste") - results.getInt("othersubs");
                                 %>
+                                
                                 <td><%=totalOutput%></td>
-                                <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required/></td>
-                                    
+                                
+                                <%
+                                    if (startTime.compareTo(currentTime) <= 0 && currentTime.compareTo(endTime) < 0 && !session.getAttribute("userRole").equals("Owner")) {
+                                %>
+                                <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required readonly/></td>
+                                    <% } else {
+                                    %>
+                                <td><input type="number" min="0" name="end" value="<%=results.getString("end_quantity")%>" required /></td>
+                                    <% }
+                                    %>
+                                
                                     <%
                                         int variance = results.getInt("end_quantity") - totalOutput;
                                     %>

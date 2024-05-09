@@ -28,8 +28,8 @@
                 <thead>
                     <tr>
                         <th>USER</th>
-                        <th>Item Code</th>
-                        <th>Item Description</th>
+                        <th>Item/Product Code</th>
+                        <th>Item/Product Description</th>
                         <th>Action</th>
                         <th>Source</th>
                         <th>Count</th>

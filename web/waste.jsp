@@ -62,7 +62,6 @@
                                 <th>Sold <button class="sorting" type="submit" name="button" value="WBySold"><span id="soldSortIcon">&#8597;</span></button></th>
                                 <th>Waste <button class="sorting" type="submit" name="button" value="WByWaste"><span id="wasteSortIcon">&#8597;</span></button></th>
                                 <th>Other Subtractions <button class="sorting" type="submit" name="button" value="WByOther"><span id="otherSubtractionsSortIcon">&#8597;</span></button></th>
-                                <th>End Quantity</th>
                                 <th>Recently Updated</th>
                             </tr>
                         </thead>
@@ -79,8 +78,7 @@
                                 <td><input type="number" min="0" name="sold" value="<%=results.getString("sold")%>" required/></td>
                                 <td><input type="number" min="0" name="waste" value="<%=results.getString("waste")%>" required/></td>
                                 <td><input type="number" min="0" name="othersubs" value="<%=results.getString("othersubs")%>" required/></td>
-                                <td><%=results.getString("end_quantity")%> <input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
-                                <td><%=results.getString("updated")%></td>
+                                <td><%=results.getString("updated")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                             </tr>        
                             <%	}
                             %>
