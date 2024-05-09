@@ -186,7 +186,7 @@ item-container input[type="submit"]:hover {
     }
     .item-container {
         width: 25%;
-        height: 50%;
+        height: 60%;
         margin: 20px auto;
         padding: 20px;
         border: 2px solid black;
