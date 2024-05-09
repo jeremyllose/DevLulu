@@ -97,7 +97,7 @@ public class InsertDataServlet extends HttpServlet {
 }
 
 private void processItemSheet(Sheet sheet) throws SQLException {
-        PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_NUM, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID) VALUES (?,?,?,?,?,?)");
+        PreparedStatement pstmt = con.prepareStatement("INSERT INTO ITEM (ITEM_CODE, ITEM_DESCRIPTION, ABBREVIATION, GEN_ID, SUB_ID, MARKUP_COST) VALUES (?,?,?,?,?,?)");
 
 
     for (Row row : sheet) {
@@ -117,7 +117,7 @@ private void processItemSheet(Sheet sheet) throws SQLException {
 }
 
 private void processPricingSheet(Sheet sheet) throws SQLException {
-      PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) VALUES (?,?,?,?,?)");
+      PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT) VALUES (?,?,?,?)");
 
     for (Row row : sheet) {
         if (row.getRowNum() != 0) {

@@ -321,7 +321,7 @@ input[type="number"] {
     }
     #savechanges {
         position: fixed;
-        right: 1260px;
+         right: 1210px;
         top: 60px;
     }
     .pagination {
