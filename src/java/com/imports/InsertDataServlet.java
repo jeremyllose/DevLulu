@@ -4,6 +4,7 @@
  */
 package com.imports;
 
+import static com.model.UnitCost.getUnitCost;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -133,14 +134,15 @@ System.out.println("Sheet object: " + sheet);
 }
 
 private void processPricingSheet(Sheet sheet) throws SQLException {
-      PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT) VALUES (?,?,?,?)");
+      PreparedStatement pstmt = con.prepareStatement("INSERT INTO PRICING (ITEM_CODE, UNIT_ID, TRANSFER_COST, VAT, UNIT_PRICE) VALUES (?,?,?,?,?)");
 System.out.println("Sheet object: " + sheet);
     for (Row row : sheet) {
         if (row.getRowNum()  > 2) {
             pstmt.setString(1, row.getCell(0).toString());
             pstmt.setString(2, row.getCell(1).toString());
             pstmt.setBigDecimal(3, new BigDecimal(row.getCell(2).toString()));
-            pstmt.setBoolean(4, Boolean.parseBoolean(row.getCell(3).toString()));
+            pstmt.setBoolean(4, false);
+            pstmt.setFloat(5,  getUnitCost(false, (float) new Float(row.getCell(2).toString()), 0));
             executeInsertIgnore(pstmt);
         }
     }
