@@ -76,6 +76,8 @@ Author     : jeremy
                 <img id="leafBG" src="photos/leavebro.png" alt="add item Button">
             </div>
             <footer class="footer">
+                   <p>&copy; 2024 NextGen Cafe</p>
+                <h1 id="current-user">User: ${username}</h1>
                 <nav>
                     <ul>
                         <li><a href="https://drive.google.com/file/d/1YT25OU0M9b1-x-KUXAZgoQGU8DuF4yNy/view?usp=sharing" target="_blank">Training & Development</a></li>
@@ -83,7 +85,6 @@ Author     : jeremy
                         <li><a href="https://drive.google.com/file/d/1Lsvbtm3pEIYD4iQWqgN-kdsCgjM-5Mep/view?usp=sharing" target="_blank">Support & Assistance</a></li>
                     </ul>
                 </nav>
-                <p>&copy; 2024 NextGen Cafe</p>
             </footer>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
