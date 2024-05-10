@@ -82,7 +82,7 @@ Author     : jeremy
                     <ul>
                         <li><a href="https://drive.google.com/file/d/1IpGNAikf34PlStI6kmmg2LIsWCSvFfLe/view?usp=sharing" target="_blank">Training & Development</a></li>
                         <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScKhqB2z_si3ItCGP-Y77b811sneRnjtJFE5ffr3gEzdlV6HA/viewform?usp=sf_link" target="_blank">Feedback & Suggestions</a></li>
-                        <li><a href="https://drive.google.com/file/d/1Lsvbtm3pEIYD4iQWqgN-kdsCgjM-5Mep/view?usp=sharing" target="_blank">Support & Assistance</a></li>
+                        <li><a href="https://drive.google.com/file/d/1vcxd0AHDTqf7VsnO4Vudbrl8Wk8gMdjV/view?usp=sharing" target="_blank">Support & Assistance</a></li>
                     </ul>
                 </nav>
             </footer>
