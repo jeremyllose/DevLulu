@@ -133,7 +133,7 @@ body {
     display: inline;
     margin-right: 5px; /* Adjust spacing between menu items */
     position: relative;
-    left: 5px;
+    right: 5px;
 }
 .footer nav ul li a {
     color: white; /* Set link color to white */
@@ -154,7 +154,7 @@ body {
 }
 .footer p {
     position: relative;
-    right: 5px; /* Move the paragraph to the left */
+   left: 5px; /* Move the paragraph to the left */
 }
 #leafBG {
     position: fixed;
@@ -194,6 +194,9 @@ body {
 .fade-out {
     animation: fadeOut 0.5s ease forwards;
 }
+#current-user {
+    font-size: 12px;
+}
 @media screen and (max-width: 1440px) {
     #leafBG {
         position: fixed;
@@ -226,5 +229,6 @@ body {
         font-size: 12px;
         z-index: 50;
     }
+    
 }
 
