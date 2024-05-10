@@ -7,6 +7,7 @@ package com.welcome;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,6 +64,18 @@ public class WelcomePageRedirect extends HttpServlet {
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         
+//        String sql = "SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.SOLD, TRANSACTIONS.OTHERADDS, (UNIT_PRICE * SOLD) AS TOTAL FROM ITEM\n" +
+//"INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+//"INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+//"INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+//"INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+//"INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
+//"INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
+//"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
+//"WHERE ITEM.DISABLED = FALSE\n" +
+//"ORDER BY TOTAL DESC\n" +
+//"FETCH NEXT 5 ROWS ONLY";
+        
         String sql = "SELECT ITEM.ITEM_CODE, ITEM.ITEM_NUM, ITEM.ITEM_DESCRIPTION, PRICING.TRANSFER_COST, PRICING.UNIT_PRICE, TRANSACTIONS.DELIVERY, TRANSACTIONS.SOLD, TRANSACTIONS.OTHERADDS, (UNIT_PRICE * SOLD) AS TOTAL FROM ITEM\n" +
 "INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
 "INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
@@ -76,11 +89,21 @@ public class WelcomePageRedirect extends HttpServlet {
 "FETCH NEXT 5 ROWS ONLY";
         
         LocalDate today = LocalDate.now();
-        LocalDate fiveDaysBefore = today.minusDays(5);
+        LocalDate fiveDaysBefore = today.minusDays(4);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = fiveDaysBefore.format(formatter);
         
-        String sql2 = "SELECT MAX(DATE_COLUMN) AS latest_update, SUM(COUNT) AS total_sum FROM SYSTEMLOG WHERE DATE_COLUMN BETWEEN '"+formattedDate+"' AND CURRENT_DATE AND SOURCE = 'USAGE/Sold Column' GROUP BY DATE_COLUMN";
+        String sql2 = "SELECT MAX(ITEM.UPDATED) AS latest_update, SUM(UNIT_PRICE * SOLD) AS TOTAL FROM ITEM\n" +
+"INNER JOIN INVENTORY ON ITEM.ITEM_CODE = INVENTORY.ITEM_CODE\n" +
+"INNER JOIN TRANSACTIONS ON ITEM.ITEM_CODE = TRANSACTIONS.ITEM_CODE\n" +
+"INNER JOIN PRICING ON ITEM.ITEM_CODE = PRICING.ITEM_CODE\n" +
+"INNER JOIN STOCKHISTORY ON ITEM.ITEM_CODE = STOCKHISTORY.ITEM_CODE\n" +
+"INNER JOIN GEN_CLASS ON ITEM.GEN_ID = GEN_CLASS.GEN_ID\n" +
+"INNER JOIN SUB_CLASS ON ITEM.SUB_ID = SUB_CLASS.SUB_ID\n" +
+"INNER JOIN UNIT_CLASS ON PRICING.UNIT_ID = UNIT_CLASS.UNIT_ID\n" +
+"WHERE ITEM.DISABLED = FALSE AND ITEM.UPDATED BETWEEN '"+formattedDate+"' AND CURRENT_DATE\n" +
+"GROUP BY ITEM.UPDATED\n" +
+"FETCH NEXT 5 ROWS ONLY";
         
         Statement statement = con.createStatement();
         Statement statement2 = con.createStatement();
@@ -107,12 +130,12 @@ public class WelcomePageRedirect extends HttpServlet {
         int index2 = 0;
         
         String[] dates = new String[5];
-        int[] solds = new int[5];
+        double[] solds = new double[5];
 
         // Loop through the results set
         while (resultSet2.next() && index2 < 5) {
             dates[index2] = resultSet2.getString(1);
-            solds[index2] = resultSet2.getInt(2);
+            solds[index2] = resultSet2.getDouble(2);
             index2++;
         }
 
@@ -129,8 +152,11 @@ public class WelcomePageRedirect extends HttpServlet {
             quantites[i] = 0;
         }
         int day = 1;
+        Date today2 = new Date();
+    long millisecondsInADay = 1000 * 60 * 60 * 24;
+    Date tomorrow = new Date(today2.getTime() + millisecondsInADay);
         for (int i = index2; i < 5; i++) {
-            dates[i] = today.plusDays(day).format(formatter);
+            dates[i] = today.minusDays(day).format(formatter);
             solds[i] = 0;
             day++;
         }
