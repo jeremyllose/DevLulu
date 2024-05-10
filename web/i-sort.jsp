@@ -60,7 +60,7 @@
                     </tr>
                 </table>
                 <button class="inventory" id="return" onclick="redirectTo('ItemList')">Return</button>
-                <button id="sorted" type="submit">Sort</button>
+                <button id="sorted" type="submit">Filter</button>
         </div>
                         </div>
     </form>
