@@ -4,6 +4,8 @@
     Author     : Cesar
 --%>
 
+<%@page import="java.text.ParseException"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
@@ -52,6 +54,38 @@
                                     int[] quantites = (int[]) request.getAttribute("quantites");
                                     double[] solds = (double[]) request.getAttribute("solds");
                                     String[] dates = (String[]) request.getAttribute("dates");
+                                    
+// Check if dates and solds arrays are null or have mismatched lengths
+  if (dates == null || solds == null || dates.length != solds.length) {
+    // Handle the case where arrays are missing or have different sizes
+    out.println("Error: Dates and solds arrays are inconsistent.");
+    return;
+  }
+
+  // Define a SimpleDateFormat object for parsing dates
+  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+  try {
+    // Parse the dates
+    Date date0 = sdf.parse(dates[0]);
+    Date date4 = sdf.parse(dates[4]);
+
+    // Compare the dates
+    if (date0.compareTo(date4) > 0) {
+      // Swap the dates and solds if date0 is later than date4
+      String tempDate = dates[0];
+      dates[0] = dates[4];
+      dates[4] = tempDate;
+
+      double tempSold = solds[0];
+      solds[0] = solds[4];
+      solds[4] = tempSold;
+    }
+  } catch (ParseException e) {
+    // Handle the case where date format is invalid
+    out.println("Error: Invalid date format.");
+    return;
+  }
                                 %>
                             <script>
             const sales = document.getElementById('sales');

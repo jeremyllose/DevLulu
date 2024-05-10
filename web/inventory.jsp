@@ -4,7 +4,9 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!DOCTYPE html>
@@ -127,6 +129,7 @@
                         <tbody>
 
                             <%
+                                DecimalFormat formatter = new DecimalFormat("#,##0.00");
                                 ResultSet results = (ResultSet) request.getAttribute("itemRecords");
                                 while (results.next()) {%>
 
@@ -147,11 +150,17 @@
                                 <td><%=results.getString("item_description")%></td>
                                 <td><%=results.getString("abbreviation")%></td>
                                 <td><%=results.getString("unit_name")%></td>
-                                <td>₱<%=results.getString("transfer_cost")%></td>
+                                <td>₱<% 
+                                    String formattedValue = formatter.format(results.getDouble("transfer_cost"));
+                                    out.print(formattedValue);%>
+                                </td>
                                 <td><%=results.getString("gen_name")%></td>
                                 <td><%=results.getString("sub_name")%></td>
                                 <td><%=results.getString("vat")%></td>
-                                <td>₱<%=results.getString("unit_price")%></td>
+                                <td>₱<% 
+                                    String formattedValue2 = formatter.format(results.getDouble("unit_price"));
+                                    out.print(formattedValue);%>
+                                </td>
                                 <td><%=results.getString("updated")%></td>
                                 <td>
                                     <%

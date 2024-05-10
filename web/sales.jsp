@@ -4,6 +4,7 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
@@ -61,15 +62,20 @@
                     <tbody>
                         <%
                             float total = 0;
+                            DecimalFormat formatter = new DecimalFormat("#,##0.00");
                             ResultSet results = (ResultSet) request.getAttribute("sales");
                             while (results.next()) {%>
                         <tr>
                             <td><%=results.getString("item_code")%></td>
                             <td><%=results.getString("item_num")%></td>
                                 <td><%=results.getString("item_description")%></td>
-                                <td>₱<%=results.getString("unit_price")%></td>
+                                <td>₱<% 
+                                    String formattedValue = formatter.format(results.getDouble("unit_price"));
+                                    out.print(formattedValue);%></td>
                                 <td><%=results.getString("sold")%></td>
-                                <td>₱<%=results.getString("total")%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
+                                <td>₱<% 
+                                    String formattedValue2 = formatter.format(results.getDouble("total"));
+                                    out.print(formattedValue2);%><input type="hidden" name="items" value="<%=results.getString("item_code")%>"/></td>
                         </tr>
                         <%
                             }
@@ -79,10 +85,12 @@
             <br>
             <br>
             <%
+                DecimalFormat formatter2 = new DecimalFormat("#,##0.00");
                 float addCost = (Float) request.getAttribute("addsValue");
+                String formattedValue3 = formatter2.format(addCost);
             %>
             <div id="costs">Total:</div>
-            <input id="costtotal" type="text" id="inventoryprice" name="myText" placeholder="<%=addCost%>" readonly style="color: black;">
+            <input id="costtotal" type="text" id="inventoryprice" name="myText" placeholder="₱<%=formattedValue3%>" readonly style="color: black;">
             </div>
             <%
             Integer itemPgNum = (Integer) session.getAttribute("salesPgNum");

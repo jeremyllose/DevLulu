@@ -104,7 +104,25 @@ public class ProductAction extends HttpServlet {
             
             for (String product : products)
             {
+                int quantity = Integer.parseInt(quantites[start]) - previousQuantity(product);
+                
                 updateProduct(product , Integer.parseInt(quantites[start]));
+                
+                if(quantity != 0)
+                {
+                String itemCodes[] = productItems(product, countItems(product));
+                int sold[] = productQuantity(product, countItems(product));
+                
+                int startAgain = 0;
+                for (String itemCode : itemCodes)
+                {
+                    int newSold = soldQuantity(itemCode) + sold[startAgain];
+                    updateWastes(newSold, itemCode);
+                    startAgain++;
+                }
+                systemLogSave((String) session.getAttribute("username"), product, itemDescription(product), quantity);
+                }
+                
                 start++;
             }
             
@@ -120,6 +138,16 @@ public class ProductAction extends HttpServlet {
         }
     }
     
+    public void updateWastes(int sold, String itemCode)throws SQLException
+    {
+        String query = "UPDATE TRANSACTIONS SET SOLD = ? WHERE ITEM_CODE = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, sold);
+        ps.setString(2, itemCode);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
     public String itemDescription(String gc) throws SQLException
     {
         String result = null;
@@ -133,6 +161,96 @@ public class ProductAction extends HttpServlet {
         }
         
         return result;
+    }
+    
+    public String[] productItems(String gc, int count) throws SQLException
+    {
+        String result[] = new String[count];
+        
+        String query = "SELECT * FROM BILLOFMATERIALS WHERE PRODUCT_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        int i = 0;
+        while (resultSet.next()) {
+            result[i] = resultSet.getString(2);
+            i++;
+        }
+        
+        return result;
+    }
+    
+    public int[] productQuantity(String gc, int count) throws SQLException
+    {
+        int result[] = new int[count];
+        
+        String query = "SELECT * FROM BILLOFMATERIALS WHERE PRODUCT_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        int i = 0;
+        while (resultSet.next()) {
+            result[i] = resultSet.getInt("QUANTITY");
+            i++;
+        }
+        
+        return result;
+    }
+    
+    public int previousQuantity(String gc) throws SQLException
+    {
+        int result = 0;
+        
+        String query = "SELECT * FROM PRODUCT WHERE PRODUCT_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getInt("QUANTITY");
+        }
+        
+        return result;
+    }
+    
+    public int countItems(String gc) throws SQLException
+    {
+        String query = "SELECT COUNT(*) FROM BILLOFMATERIALS WHERE PRODUCT_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
+        int count = resultSet.getInt(1);
+        count += 1;
+        return count;
+    }
+    
+    public int soldQuantity(String gc) throws SQLException
+    {
+        int result = 0;
+        
+        String query = "SELECT * FROM TRANSACTIONS WHERE ITEM_CODE= ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, gc);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getInt("SOLD");
+        }
+        
+        return result;
+    }
+    
+    public void systemLogSave(String user, String itemCode, String itemDescription, int count)throws SQLException
+    {
+        String query = "INSERT INTO SYSTEMLOG (USERNAME, ITEM_CODE, \"ACTION\", \"SOURCE\", ITEM_DESCRIPTION, \"COUNT\")"
+                + " VALUES (?, ?, 'SAVED', 'RECIPE', ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setString(1, user);
+        ps.setString(2, itemCode);
+        ps.setString(3, itemDescription);
+        ps.setInt(4, count);
+        ps.executeUpdate();
+        ps.close();
     }
     
     public void systemLog(String user, String itemCode, String itemDescription)throws SQLException

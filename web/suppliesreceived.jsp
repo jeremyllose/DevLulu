@@ -4,6 +4,7 @@
     Author     : jeremy
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
@@ -36,10 +37,13 @@
             </div>
             <%
                 float addCost = (Float) request.getAttribute("addsValue");
+                DecimalFormat formatter = new DecimalFormat("#,##0.00");
             %>
             <div class="others">
                 <button class="inventory" id="sort" onclick="redirectTo('SortRedirectSupplies')"><img src="photos/sort.png" alt="plus Button" style="width: 20px; height: 20px; margin-right: 5px;"> <span class="inventory-text">Filter Options</span></button>
-                <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery: ₱<%= addCost%></h1></div>
+                <div class="Delivery-Container"><h1><img src="photos/Delivery.png" alt="plus Button" style="width: 35px; height: 35px; margin: 0px 5px -7px">Delivery: ₱<% 
+                                    String formattedValue = formatter.format(addCost);
+                                    out.print(formattedValue);%></h1></div>
                 <form action="SuppliesSearch" method="post">
                     <div class="searchContainer">
                         <input type="text" id="searchBar" name="searchBar" placeholder="Search...">
@@ -69,6 +73,7 @@
                         </thead>
                         <tbody>
                             <%
+                                
                                 ResultSet results = (ResultSet) request.getAttribute("deliveries");
                                 while (results.next()) {%>
                             <tr>
