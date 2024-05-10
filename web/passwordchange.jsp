@@ -41,6 +41,7 @@
                         <th>Confirm Password: </th><th><input type="password" name="confirmPassword" placeholder="Confirm Password" required/></th>
                     </tr>
                 </table>
+                <input type="hidden" name="page" value="passwordchange.jsp">
                 <button id="save" type="submit" onclick="return confirm('Password will be Confirmed by Admin before it can be used')">Save</button>
             </form>
             <%

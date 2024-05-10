@@ -78,6 +78,10 @@ public class PasswordChange extends HttpServlet {
         else if(!getPassword.equals(confirmPassword))
         {
             session.setAttribute("message", "Password & Confirm Password does not match");
+            if(page.equals("passwordchange.jsp"))
+            {
+                session.setAttribute("usernameForgot", getUsername);
+            }
             response.sendRedirect(page);
         }
         else if(session.getAttribute("username") != null)
