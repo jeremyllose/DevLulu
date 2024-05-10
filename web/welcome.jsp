@@ -4,6 +4,7 @@
     Author     : Cesar
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!DOCTYPE html>
@@ -42,14 +43,14 @@
 
 
                     <div class="box">
-                        <h1 id="OSC">Overall Sales Line Chart</h1>   
+                        <h1 id="OSC">Total Expenses on Supplies</h1>   
                         <div style="background-color: #522e14"  class="chart-container">
                             <canvas style="background-color: #f4eebe;" id="sales"></canvas>
                                 <%
                                     String[] top5 = (String[]) request.getAttribute("topFiveDescriptions");
                                     double[] top5Prices = (double[]) request.getAttribute("topFiveTotal");
                                     int[] quantites = (int[]) request.getAttribute("quantites");
-                                    int[] solds = (int[]) request.getAttribute("solds");
+                                    double[] solds = (double[]) request.getAttribute("solds");
                                     String[] dates = (String[]) request.getAttribute("dates");
                                 %>
                             <script>
@@ -107,27 +108,27 @@
 
                             <div class="chart-info">
                                 <div class="info">        
-                                    <h2 style="color: #333; font-size: 24px; text-align: center; position: relative; right: -1.5rem;">Best Sellers</h2>
-                                    <ol style="text-align: center;">
+                                    <h2 style="color: #333; font-size: 24px; text-align: center; position: relative; right: -1.5rem;">Frequently Sold Items</h2>
+                                    <ol style="text-align: left;">
                                         <li style="color: #333;">
                                             <%= top5[0]%>
-                                            <span style="margin-left: 5px;">🔴</span>
+                                            <span style="margin-left: 5px;"></span>
                                         </li>
                                         <li style="color: #333;">
                                             <%= top5[1]%>
-                                            <span style="margin-left: 5px;">🟡</span>
+                                            <span style="margin-left: 5px;"></span>
                                         </li>
                                         <li style="color: #333;">
                                             <%= top5[2]%>
-                                            <span style="margin-left: 5px;">🟢</span>
+                                            <span style="margin-left: 5px;"></span>
                                         </li>
                                         <li style="color: #333;">
                                             <%= top5[3]%>
-                                            <span style="margin-left: 5px;">🔵</span>
+                                            <span style="margin-left: 5px;"></span>
                                         </li>
                                         <li style="color: #333;">
                                             <%= top5[4]%>
-                                            <span style="margin-left: 5px;">🟣</span>
+                                            <span style="margin-left: 5px;"></span>
                                         </li>
                                     </ol>
                                 </div>
