@@ -4,6 +4,7 @@
     Author     : Cesar
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="commons.jsp"%>
 <!DOCTYPE html>
@@ -49,7 +50,7 @@
                                     String[] top5 = (String[]) request.getAttribute("topFiveDescriptions");
                                     double[] top5Prices = (double[]) request.getAttribute("topFiveTotal");
                                     int[] quantites = (int[]) request.getAttribute("quantites");
-                                    int[] solds = (int[]) request.getAttribute("solds");
+                                    double[] solds = (double[]) request.getAttribute("solds");
                                     String[] dates = (String[]) request.getAttribute("dates");
                                 %>
                             <script>
