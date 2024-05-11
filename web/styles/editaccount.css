@@ -44,9 +44,9 @@ body {
     border-radius: 5px;
     padding: 10px 15px;
     cursor: pointer;
-    position: relative;
-    top: 5.5px;
-    right: -70px;
+    position: fixed;
+    top: 516px;
+    right: 780px;
 }
 #save {
     display: inline-block;
@@ -64,8 +64,8 @@ body {
 }
 h4 {
     position: relative;
-    right: -130px;
-    top: 15px;
+    right: 0px;
+    top: 100px;
 }
 @keyframes scaleUp {
     from {
@@ -93,7 +93,7 @@ h4 {
 }
 h1 {
     position: relative;
-    right: -80px;
+    right: -70px;
     padding: 2px;
     box-sizing: border-box;
 }
@@ -131,6 +131,14 @@ td {
 
 td label {
     margin-right: 10px; /* Add margin between label and input */
+}
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    font-size: 16px;
 }
 .info {
     color: #00529B;
@@ -184,9 +192,9 @@ td label {
         border-radius: 5px;
         padding: 10px 15px;
         cursor: pointer;
-        position: relative;
-        top: 5px;
-        right: -70px;
+        position: fixed;
+        top: 433px;
+        right: 830px;
     }
     #save {
         display: inline-block;

@@ -90,7 +90,7 @@ public class EditAccountRedirect extends HttpServlet {
                 session.setAttribute("rememberUsername", originalUsername);
                 session.setAttribute("rememberPassword", getPassword);
             }
-            session.setAttribute("message", "Account Editted");
+            session.setAttribute("message", "Account has been edited");
             response.sendRedirect("editAccount.jsp");
         }
     }
