@@ -23,7 +23,7 @@ body {
     padding-top: 100px; /* Use padding instead of top for positioning */
     position: relative;
     right: 21rem;
-    top: -7rem;
+    top: -4rem;
 }
 #dashboardheader {
     position:relative;
@@ -65,7 +65,7 @@ iframe {
     width: 85%;
 }
 .box {
-    width: 93%;
+    width: 85%;
     position: relative;
 
 }
@@ -141,11 +141,11 @@ iframe {
     .container {
         position: relative;
         right: 22rem;
-        top: -5rem;
+        top: -3rem;
         z-index: 50;
     }
     .box {
-        width: 90%;
+        width: 85%;
 
     }
     #dashboardheader {
