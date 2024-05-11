@@ -17,7 +17,7 @@
     </head>
     <body>
           <div class="dashboardbar">
-            <h1 id="dashboardheader">Add Account</h1> 
+            <h1 id="dashboardheader">Edit Account</h1> 
         </div>
         <div class="content-container">
         <%
